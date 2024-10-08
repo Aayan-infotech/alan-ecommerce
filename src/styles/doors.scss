@@ -1,0 +1,16 @@
+.doors-container {
+  //   @media (min-width: 1200px) {
+  //     .css-5c1adp-MuiContainer-root {
+  //       max-width: 1270px !important;
+  //     }
+  //   }
+  .title-size {
+    font-size: 10px;
+  
+    &:hover {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+  
+}

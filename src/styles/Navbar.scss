@@ -1,0 +1,24 @@
+.navbar-content {
+  .discount-heading {
+    color: #fc5f03;
+    font-weight: bold;
+    // font-size: 25px;
+  }
+  .nav-title {
+    text-transform: none; 
+    background-color: transparent;  
+    box-shadow: none;
+    outline: none; 
+    color: #0068B3; 
+    font-weight: bold;
+    
+    &:hover {
+      background-color: transparent;
+      box-shadow: none;
+      outline: none;
+      text-decoration: underline; 
+      color: #004d8a; 
+    }
+  }
+  
+}
