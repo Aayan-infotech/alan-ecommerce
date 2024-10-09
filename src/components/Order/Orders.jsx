@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Button,
   Container,
@@ -8,6 +8,7 @@ import {
   Card,
   CardMedia,
   CardContent,
+  Chip,
 } from "@mui/material";
 import banner from "../../assets/doors.png";
 import card_img1 from "../../assets/window.png";
@@ -18,7 +19,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Link, useLocation } from "react-router-dom";
 
-export const HardwareProducts = () => {
+const Orders = () => {
   const location = useLocation();
 
   const formatPath = (path) => {
@@ -36,18 +37,20 @@ export const HardwareProducts = () => {
   const products = [
     {
       id: 1,
-      title: "Product",
+      title: "Window 1",
       price: 200,
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo..",
-      imageUrl: card_img4,
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+      imageUrl: card_img1,
+      isDelivered: true,
+      trackOrder: true,
     },
     {
       id: 2,
       title: "Product",
       price: 200,
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo..",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
       imageUrl: card_img2,
     },
     {
@@ -55,7 +58,7 @@ export const HardwareProducts = () => {
       title: "Product",
       price: 200,
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo..",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
       imageUrl: card_img3,
     },
     {
@@ -63,8 +66,8 @@ export const HardwareProducts = () => {
       title: "Product",
       price: 200,
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo..",
-      imageUrl: card_img1,
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+      imageUrl: card_img4,
     },
   ];
 
@@ -85,7 +88,7 @@ export const HardwareProducts = () => {
       >
         <Box>
           <Typography variant="h2" className="text-black fw-bold">
-            Hardware Products
+            Orders
           </Typography>
           <Typography variant="h6" className="text-black fw-bold">
             <span>
@@ -99,7 +102,27 @@ export const HardwareProducts = () => {
         <Grid container spacing={2}>
           {products?.map((product, index) => (
             <Grid item xs={12} sm={6} md={6} lg={6} key={index}>
-              <Card sx={{ display: "flex", maxWidth: 500, height: 200 }}>
+              <Card
+                sx={{
+                  display: "flex",
+                  maxWidth: 500,
+                  height: 200,
+                  position: "relative",
+                }}
+              >
+                {product.isDelivered && (
+                  <Chip
+                    label="Delivered"
+                    color="success"
+                    sx={{
+                      position: "absolute",
+                      top: 10,
+                      left: 10,
+                      zIndex: 1,
+                      borderRadius: 2,
+                    }}
+                  />
+                )}
                 <CardMedia
                   component="img"
                   sx={{ width: 151, height: 200 }}
@@ -132,6 +155,7 @@ export const HardwareProducts = () => {
                     <Typography variant="body2" color="primary">
                       {product.description}
                     </Typography>
+
                     <Box
                       sx={{
                         display: "flex",
@@ -140,30 +164,43 @@ export const HardwareProducts = () => {
                       }}
                       className="my-1"
                     >
-                      <Button variant="contained" size="small">
-                        Buy Now
-                      </Button>
-                      <Button variant="outlined" size="small">
-                        Add to cart
-                      </Button>
+                      {product.trackOrder ? (
+                        <Link to="/order-track">
+                          <Button variant="contained" size="small" fullWidth>
+                            Track Order
+                          </Button>
+                        </Link>
+                      ) : (
+                        <>
+                          <Button variant="contained" size="small">
+                            Rebook
+                          </Button>
+                          <Button variant="outlined" size="small">
+                            Add to cart
+                          </Button>
+                        </>
+                      )}
                     </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                      className="mt-1"
-                    >
-                      <Box sx={{ fontWeight: "bold", color: "#0068B3" }}>
-                        <FavoriteBorderIcon className="fs-6" />
-                        Like
+
+                    {!product.trackOrder && (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                        className="mt-1"
+                      >
+                        <Box sx={{ fontWeight: "bold", color: "#0068B3" }}>
+                          <FavoriteBorderIcon className="fs-6" />
+                          Like
+                        </Box>
+                        <Box sx={{ color: "#0068B3", fontWeight: "bold" }}>
+                          <ShareIcon className="fs-6" />
+                          Share
+                        </Box>
                       </Box>
-                      <Box sx={{ color: "#0068B3", fontWeight: "bold" }}>
-                        <ShareIcon className="fs-6" />
-                        Share
-                      </Box>
-                    </Box>
+                    )}
                   </CardContent>
                 </Box>
               </Card>
@@ -174,3 +211,5 @@ export const HardwareProducts = () => {
     </div>
   );
 };
+
+export default Orders;

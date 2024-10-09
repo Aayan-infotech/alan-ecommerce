@@ -225,6 +225,7 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Width";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Width</em>
@@ -248,6 +249,7 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Height";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Height</em>
@@ -273,6 +275,7 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Fraction";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Fraction</em>
@@ -293,6 +296,7 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Grid";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Grid</em>
@@ -318,6 +322,7 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Fin Type";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Fin Type</em>
@@ -340,6 +345,7 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Glass Type";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Glass Type</em>
@@ -363,6 +369,7 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Color";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Color</em>
@@ -385,6 +392,7 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Tempering Option";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Tempering Option</em>
@@ -410,6 +418,7 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Side Window Opens";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Side Window Opens</em>
@@ -445,6 +454,7 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Installation Option";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Installation Option</em>
@@ -467,6 +477,7 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Instructions";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Instructions</em>

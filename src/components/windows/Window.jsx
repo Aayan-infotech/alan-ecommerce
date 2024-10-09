@@ -37,6 +37,17 @@ export const Window = () => {
   });
   const [price, setPrice] = useState(basePrice);
   const location = useLocation();
+  const formatPath = (path) => {
+    return path
+      .split("/")
+      .filter(Boolean)
+      .map((segment) =>
+        segment
+          .replace(/-/g, " ")
+          .replace(/\b\w/g, (char) => char.toUpperCase())
+      )
+      .join(" > ");
+  };
 
   const categories = [
     "Wood Entry Door",
@@ -108,7 +119,9 @@ export const Window = () => {
             Window
           </Typography>
           <Typography variant="h6" className="text-black fw-bold">
-            <span>Home {location?.pathname}</span>
+            <span>
+              Home {">"} {formatPath(location.pathname)}
+            </span>
           </Typography>
         </Box>
       </Box>
@@ -226,6 +239,7 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Width";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Width</em>
@@ -249,6 +263,7 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Height";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Height</em>
@@ -274,6 +289,7 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Fraction";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Fraction</em>
@@ -294,6 +310,7 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Grid";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Grid</em>
@@ -319,6 +336,7 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Fin Type";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Fin Type</em>
@@ -341,6 +359,7 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Glass Type";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Glass Type</em>
@@ -364,6 +383,7 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Color";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Color</em>
@@ -386,6 +406,7 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Tempering Option";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Tempering Option</em>
@@ -411,6 +432,7 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Side Window Opens";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Side Window Opens</em>
@@ -446,6 +468,7 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Installation Option";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Installation Option</em>
@@ -468,6 +491,7 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Instructions";
                     }}
+                    sx={{ backgroundColor: "#D0E5F4" }}
                   >
                     <MenuItem value="">
                       <em>Instructions</em>

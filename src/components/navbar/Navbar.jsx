@@ -16,7 +16,7 @@ import "../../styles/Navbar.scss";
 import { Link } from "react-router-dom";
 import { BookAppointment } from "../bookAppointment/BookAppointment";
 
-export const Navbar = () => {
+const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -83,47 +83,56 @@ export const Navbar = () => {
             Hardware Products
           </Button>
         </Link>
-        <Button color="inherit" className="nav-title">
-          New Collection
-        </Button>
+        <Link to="/new-collection">
+          <Button color="inherit" className="nav-title">
+            New Collection
+          </Button>
+        </Link>
 
         {/* Right Section: Icons and Button */}
         <IconButton color="inherit">
           <SearchIcon sx={{ color: "#fc5f03" }} />
         </IconButton>
-        <IconButton color="inherit">
-          <ShoppingCartIcon sx={{ color: "#fc5f03" }} />
-        </IconButton>
+        <Link to="/cart">
+          <IconButton color="inherit">
+            <ShoppingCartIcon sx={{ color: "#fc5f03" }} />
+          </IconButton>
+        </Link>
         <IconButton color="inherit">
           <FavoriteBorderIcon sx={{ color: "#fc5f03" }} />
         </IconButton>
-        <IconButton
-          color="inherit"
-          sx={{
-            backgroundColor: "#fc5f03",
-            borderRadius: "50%",
-            padding: "5px",
-            "&:hover": {
-              backgroundColor: "darkblue",
-            },
-          }}
-          className="me-4"
-        >
-          <PhoneIcon className="fs-6" sx={{ color: "white" }} />
-        </IconButton>
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: "#fc5f03",
-            fontWeight: "bold",
-            fontSize: "10px",
-          }}
-          onClick={handleClickOpen}
-        >
-          Book a Free Consultation
-        </Button>
-        <BookAppointment open={open} handleClose={handleClose} />
+        <Link to="/contact">
+          <IconButton
+            color="inherit"
+            sx={{
+              backgroundColor: "#fc5f03",
+              borderRadius: "50%",
+              padding: "5px",
+              "&:hover": {
+                backgroundColor: "darkblue",
+              },
+            }}
+            className="me-4"
+          >
+            <PhoneIcon className="fs-6" sx={{ color: "white" }} />
+          </IconButton>
+        </Link>
+        <Link to="/appointment">
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "#fc5f03",
+              fontWeight: "bold",
+              fontSize: "10px",
+            }}
+            // onClick={handleClickOpen}
+          >
+            Book a Free Consultation
+          </Button>
+        </Link>
+        {/* <BookAppointment open={open} handleClose={handleClose} /> */}
       </Toolbar>
     </AppBar>
   );
 };
+export default Navbar

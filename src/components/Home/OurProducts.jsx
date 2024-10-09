@@ -68,10 +68,10 @@ export const OurProducts = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  <Typography gutterBottom variant="h4" component="div">
+                  <Typography gutterBottom variant="h6" component="div">
                     {item?.product_name}
                   </Typography>
-                  <Typography gutterBottom variant="h4" component="div">
+                  <Typography gutterBottom variant="h6" component="div">
                     $ {item?.product_price}
                   </Typography>
                 </Box>
