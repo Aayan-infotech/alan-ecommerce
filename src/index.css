@@ -20,3 +20,7 @@ body {
   bottom: 70px;
   background-color: #fc5f03;
 }
+.carousel-img {
+  height: 200px;
+  object-fit: cover;
+}

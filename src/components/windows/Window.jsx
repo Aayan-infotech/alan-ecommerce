@@ -239,7 +239,14 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Width";
                     }}
-                    sx={{ backgroundColor: "#D0E5F4" }}
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
+                      border: "none",
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Width</em>
@@ -263,7 +270,14 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Height";
                     }}
-                    sx={{ backgroundColor: "#D0E5F4" }}
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
+                      border: "none",
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Height</em>
@@ -289,7 +303,14 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Fraction";
                     }}
-                    sx={{ backgroundColor: "#D0E5F4" }}
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
+                      border: "none",
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Fraction</em>
@@ -310,7 +331,14 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Grid";
                     }}
-                    sx={{ backgroundColor: "#D0E5F4" }}
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
+                      border: "none",
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Grid</em>
@@ -336,7 +364,14 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Fin Type";
                     }}
-                    sx={{ backgroundColor: "#D0E5F4" }}
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
+                      border: "none",
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Fin Type</em>
@@ -359,7 +394,14 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Glass Type";
                     }}
-                    sx={{ backgroundColor: "#D0E5F4" }}
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
+                      border: "none",
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Glass Type</em>
@@ -383,7 +425,14 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Color";
                     }}
-                    sx={{ backgroundColor: "#D0E5F4" }}
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
+                      border: "none",
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Color</em>
@@ -406,7 +455,14 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Tempering Option";
                     }}
-                    sx={{ backgroundColor: "#D0E5F4" }}
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
+                      border: "none",
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Tempering Option</em>
@@ -432,7 +488,14 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Side Window Opens";
                     }}
-                    sx={{ backgroundColor: "#D0E5F4" }}
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
+                      border: "none",
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Side Window Opens</em>
@@ -468,7 +531,14 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Installation Option";
                     }}
-                    sx={{ backgroundColor: "#D0E5F4" }}
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
+                      border: "none",
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Installation Option</em>
@@ -491,7 +561,14 @@ export const Window = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Instructions";
                     }}
-                    sx={{ backgroundColor: "#D0E5F4" }}
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
+                      border: "none",
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Instructions</em>

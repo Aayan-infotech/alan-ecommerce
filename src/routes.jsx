@@ -19,6 +19,8 @@ import { TrakingOrder } from "./components/Order/TrakingOrder.jsx";
 import { Contact } from "./components/contact/Contact.jsx";
 import { BookAppointment } from "./components/bookAppointment/BookAppointment.jsx";
 import { About } from "./components/About.jsx";
+import Gallery from "./components/galley/Gallery.jsx";
+import Profile from "./components/Profile.jsx";
 
 export const AppRoutes = () => {
   return (
@@ -41,6 +43,8 @@ export const AppRoutes = () => {
         <Route path="contact" element={<Contact />} />
         <Route path="appointment" element={<BookAppointment />} />
         <Route path="about" element={<About />} />
+        <Route path="gallery" element={<Gallery />} />
+        <Route path="profile" element={<Profile />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
