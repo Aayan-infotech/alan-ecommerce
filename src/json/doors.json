@@ -1,0 +1,92 @@
+{
+  "articles": [
+    {
+      "title": "More About Doors",
+      "content": "The right door is key to the appearance and performance of your home. Look for products that reflect your style as well as your practical needs. With Discount Door and Window you can choose from many energy efficient door options, including patio doors and exterior doors like Vinyl Doors, Fiberglass Doors, and Solid Wood Doors. Discount Door and Window is the place to go for discount doors in San Diego."
+    },
+    {
+      "title": "Step Into Luxury With Doors That Add An Extra Touch Of Elegance",
+      "content": "When it comes to elevating the style and sophistication of your home, there's no better place to start than with your doors and door replacement. We specialize in providing high-quality doors that provide security and functionality and add an extra touch of elegance and luxury to your space. From stunning wooden designs to sleek and modern options, our collection of doors offers something for every taste and style."
+    },
+    {
+      "title": "Welcome Your Guests In Style With Our Inviting Doors",
+      "content": "Whether you're looking to enhance your home's curb appeal or add a touch of luxury to your interiors, our doors are the perfect choice for those who demand both beauty and functionality. Constitute scrolling the best door designs before you plan for exterior door installation."
+    },
+    {
+      "title": "Wood Entry Doors",
+      "content": "Wood entry doors are durable and strong and provide natural insulation, making them energy efficient. They also have a warm and inviting appearance and can add value to a home."
+    },
+    {
+      "title": "Fiberglass Entry Doors",
+      "content": "Fiberglass entry doors are a popular and modern option for front doors. They are made of composite materials that are durable, weather-resistant, and energy-efficient. Vinyl Sliding Patio Doors Vinyl sliding patio doors are a practical and cost-effective option for connecting indoor and outdoor living spaces. They are made of PVC (polyvinyl chloride) and are low-maintenance, weather-resistant, and energy-efficient"
+    },
+    {
+      "title": "Fiberglass French Doors",
+      "content": "If you are looking for door contractors in San Diego for a modern look, these doors are perfect for you. Fiberglass French doors are a popular and modern option for interior or exterior doors. They are made of composite materials that are durable, weather-resistant, and energy-efficient"
+    },
+    {
+      "title": "French Wood Doors",
+      "content": "French wood doors are a classic and traditional option for interior or exterior doors. They also have a warm and inviting appearance and can add value to a home."
+    },
+    {
+      "title": "Vinyl Swinging French Door",
+      "content": "These doors are easy to operate and provide excellent ventilation. Vinyl swinging French doors are ideal for creating an elegant and modern look for a home."
+    },
+    {
+      "title": "Why Get The Best Doors With Us?",
+      "content": "At Discount Door & Window, we are committed to providing our customers with high-quality doors and windows at affordable prices. We understand the importance of having durable and efficient doors and windows in your home or business, which is why we offer a wide selection of products that are made with top-of-the-line materials and advanced manufacturing techniques. Our team of experts is dedicated to helping you find and buy doors in San Diego, perfect doors and windows that meet your specific needs and preferences."
+    },
+    {
+      "title": "Transform Your Home With Our Doors!",
+      "content": "When you choose to buy doors and windows from Discount Door & Window, you can trust that you are getting the best value for your money and that your investment will provide you with years of reliable performance and aesthetic appeal. So, connect with us immediately if you are finding exterior door contractors in San Diego and want to get products at affordable prices."
+    }
+  ],
+  "tax_rebate": {
+    "title": "Get Tax Rebate!",
+    "description": "Most of Discount Door and Window products qualify for this tax rebate. There are different requirements depending on the climate zone. If you are uncertain if one of our products qualifies for the tax rebate, please contact us and we will verify it for you.",
+    "details": {
+      "tax_rebate_info": {
+        "rebate": "10% of cost of the home improvement, up to a maximum of $500. Windows are capped at $200.",
+        "expiration": "December 31, 2011",
+        "eligibility": "Must be on an existing home & your principal residence. New construction and rentals don't qualify. Must be placed in service in 2011.",
+        "limitations": "Tax credit does NOT include installation costs.",
+        "tax_form": "You need to file the 2011 IRS Form 5695 and submit it with your 2011 taxes (by April 15, 2012). On the 1040 form, the residential energy tax credit (from Form 5695) is claimed on line 52.",
+        "receipt": "Save your receipts and the Manufacturer's Certification Statement for your records.",
+        "u_factor": "Windows must have at least 0.35 U-Factor in Southern California. Other locations depend on climate zone. Door U-Factor depends on how much glass is used."
+      },
+      "source": "Energy Star",
+      "links": [
+        "http://www.energystar.gov/index.cfm?c=tax_credits.tx_index",
+        "http://www.energystar.gov/index.cfm?c=windows_doors.pr_anat_window"
+      ]
+    }
+  },
+  "diy_install_guides": {
+    "title": "DIY Install Guides",
+    "description": "Door and Window replacement is a manageable job that does not require a lot of previous knowledge or experience. There are some fundamental aspects you need to know about that we will cover in these DIY guides. Other than that as long as you feel comfortable working with your hands, and can dedicate a day to the project, then DIY is a great way to save additional money.There are some other benefits to doing a door or window replacement yourself. First of all, you learn a lot. This knowledge can help with future repairs and maintenance. Secondly, you ensure the job is done the way you want it to be done. You can make adjustments based on your preference. Last but not least, you get a rewarding feeling after completing a job successfully.Here at Discount Door and Window, we want to support you in your door and window replacement projects. This DIY section is dedicated to providing you with the information you need to get the job done. If you still have questions about replacing your door or window, you can contact us and we will try to assist you further.",
+    "benefits": [
+      "Learn the job: This knowledge can help with future repairs and maintenance.",
+      "You save money: You ensure the job is done the way you want it to be done.",
+      "Adjustments: Make adjustments based on your preference.",
+      "Rewarding: You get a rewarding feeling after completing a job successfully."
+    ],
+    "note": "Here at Discount Door and Window, we want to support you in your door and window replacement projects. This DIY section is dedicated to providing you with the information you need to get the job done. If you still have questions about replacing your door or window, you can contact us and we will try to assist you further.",
+    "related_articles": {
+      "diy_window_guides": [
+        "How to Install Vinyl Window",
+        "How to Apply Caulk to a Window",
+        "Replace a Window that is Inset, or Not Flush with the Wall",
+        "How to Install a Green House Window",
+        "How to Get Accurate Window Measurements"
+      ],
+      "diy_door_guides": [
+        "How to Remove an Exterior Door",
+        "How to Paint Smooth Skin Door",
+        "How to Paint Fiberglass Door",
+        "How to Paint Door Jambs",
+        "How to Install an Inswing Exterior Entry Door",
+        "How to Install a Dentil Shelf"
+      ]
+    }
+  }
+}

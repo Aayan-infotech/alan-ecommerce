@@ -142,13 +142,12 @@ const Navbar = () => {
             </IconButton>
             <Link to="/contact">
               <IconButton
-                color="inherit"
                 sx={{
-                  backgroundColor: "#fc5f03",
+                  backgroundColor: "#0068B3",
                   borderRadius: "50%",
                   padding: "5px",
                   "&:hover": {
-                    backgroundColor: "darkblue",
+                    backgroundColor: "#0068B3",
                   },
                 }}
                 className="me-4"
@@ -160,9 +159,9 @@ const Navbar = () => {
               <Button
                 variant="contained"
                 sx={{
-                  backgroundColor: "#fc5f03",
+                  backgroundColor: "#0068B3",
                   fontWeight: "bold",
-                  fontSize: "10px",
+                  fontSize: "12px",
                 }}
               >
                 Book a Free Consultation

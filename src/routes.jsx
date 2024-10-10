@@ -21,6 +21,8 @@ import { BookAppointment } from "./components/bookAppointment/BookAppointment.js
 import { About } from "./components/About.jsx";
 import Gallery from "./components/galley/Gallery.jsx";
 import Profile from "./components/Profile.jsx";
+import TaxRebate from "./components/content/TaxRebate.jsx";
+import DiyInstallGuides from "./components/content/DiyInstallGuides.jsx";
 
 export const AppRoutes = () => {
   return (
@@ -45,6 +47,8 @@ export const AppRoutes = () => {
         <Route path="about" element={<About />} />
         <Route path="gallery" element={<Gallery />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="tax-rebate" element={<TaxRebate />} />
+        <Route path="diyinstall-guides" element={<DiyInstallGuides />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

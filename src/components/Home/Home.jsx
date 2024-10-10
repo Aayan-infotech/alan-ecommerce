@@ -16,8 +16,10 @@ import card_img1 from "../../assets/image 1.png";
 import { OurProducts } from "./OurProducts";
 import ShareIcon from "@mui/icons-material/Share";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { CustomerFeedback } from "./CustomerFeedback";
 import { LatestBlogs } from "./LatestBlogs";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const spotlightDeals = [
@@ -39,6 +41,14 @@ export const Home = () => {
       product_price: "150",
       url: card_img1,
     },
+  ];
+
+  const buttonData = [
+    { urlPath: "/tax-rebate", label: "Get Tax Rebate" },
+    { urlPath: "", label: "Learn the advantages" },
+    { urlPath: "", label: "Measure your old" },
+    { urlPath: "", label: "Find an installer" },
+    { urlPath: "/diyinstall-guides", label: "DIY Installation Guide" },
   ];
 
   return (
@@ -79,28 +89,77 @@ export const Home = () => {
         <Box>
           <marquee>
             <div className="d-flex">
-              <Typography variant="h2" className="me-2">
+              <Typography
+                variant="h2"
+                className="me-2 fw-bold"
+                sx={{ color: "#0068B3" }}
+              >
                 WINDOW & INSTALLATION DOOR,
               </Typography>
-              <Typography variant="h2" className="me-2">
+              <Typography
+                variant="h2"
+                className="me-2 fw-bold"
+                sx={{ color: "#0068B3" }}
+              >
                 WINDOW & INSTALLATION DOOR,
               </Typography>
-              <Typography variant="h2" className="me-2">
+              <Typography
+                variant="h2"
+                className="me-2 fw-bold"
+                sx={{ color: "#0068B3" }}
+              >
                 WINDOW & INSTALLATION DOOR,
               </Typography>
-              <Typography variant="h2" className="me-2">
+              <Typography
+                variant="h2"
+                className="me-2 fw-bold"
+                sx={{ color: "#0068B3" }}
+              >
                 WINDOW & INSTALLATION DOOR,
               </Typography>
-              <Typography variant="h2" className="me-2">
+              <Typography
+                variant="h2"
+                className="me-2 fw-bold"
+                sx={{ color: "#0068B3" }}
+              >
                 WINDOW & INSTALLATION DOOR,
               </Typography>
-              <Typography variant="h2">WINDOW & INSTALLATION DOOR,</Typography>
+              <Typography
+                variant="h2"
+                className="fw-bold"
+                sx={{ color: "#0068B3" }}
+              >
+                WINDOW & INSTALLATION DOOR,
+              </Typography>
             </div>
           </marquee>
         </Box>
+        {/* ----------------all content pages--------------------- */}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexDirection: { xs: "column", md: "row" },
+          }}
+        >
+          {buttonData.map((button, index) => (
+            <Link to={button?.urlPath}>
+              <Button
+                key={index}
+                variant="contained"
+                fullWidth={{ xs: true, md: false }}
+                className="me-3"
+              >
+                {button.label} <ArrowForwardIcon className="fs-5" />
+              </Button>
+            </Link>
+          ))}
+        </Box>
+
         {/* ----------------Spotlight Deals--------------------- */}
 
-        <Box className="spotlight_deals">
+        <Box className="spotlight_deals mt-4">
           <Typography variant="h4" className="heading_1">
             Spotlight Deals
           </Typography>
@@ -130,9 +189,9 @@ export const Home = () => {
                     <Typography gutterBottom variant="h4" component="div">
                       {item?.product_name}
                     </Typography>
-                    <Typography gutterBottom variant="h4" component="div">
+                    {/* <Typography gutterBottom variant="h4" component="div">
                       $ {item?.product_price}
-                    </Typography>
+                    </Typography> */}
                   </Box>
                   <Box
                     sx={{
@@ -145,6 +204,7 @@ export const Home = () => {
                       size="small"
                       variant="contained"
                       sx={{ textTransform: "none", fontWeight: "bold" }}
+                      className="w-100 me-2"
                     >
                       Buy Now
                     </Button>
@@ -152,6 +212,7 @@ export const Home = () => {
                       size="small"
                       variant="outlined"
                       sx={{ textTransform: "none", fontWeight: "bold" }}
+                      className="w-100"
                     >
                       Add To Cart
                     </Button>

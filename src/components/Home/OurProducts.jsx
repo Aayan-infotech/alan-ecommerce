@@ -71,9 +71,9 @@ export const OurProducts = () => {
                   <Typography gutterBottom variant="h6" component="div">
                     {item?.product_name}
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div">
+                  {/* <Typography gutterBottom variant="h6" component="div">
                     $ {item?.product_price}
-                  </Typography>
+                  </Typography> */}
                 </Box>
                 <Box
                   sx={{
@@ -86,6 +86,7 @@ export const OurProducts = () => {
                     size="small"
                     variant="contained"
                     sx={{ textTransform: "none", fontWeight: "bold" }}
+                    className="w-100 me-2"
                   >
                     Buy Now
                   </Button>
@@ -93,6 +94,7 @@ export const OurProducts = () => {
                     size="small"
                     variant="outlined"
                     sx={{ textTransform: "none", fontWeight: "bold" }}
+                    className="w-100"
                   >
                     Add To Cart
                   </Button>
@@ -124,7 +126,7 @@ export const OurProducts = () => {
           variant="outlined"
           sx={{ color: "#fc5f03", borderColor: "#fc5f03" }}
         >
-          Show All
+          Show More
         </Button>
       </Box>
     </div>

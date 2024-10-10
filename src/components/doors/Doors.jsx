@@ -18,6 +18,7 @@ import card_img3 from "../../assets/blog1.png";
 import Divider from "@mui/material/Divider";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
+import content from "../../json/doors.json";
 
 const basePrice = 0;
 
@@ -225,14 +226,14 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Width";
                     }}
-                     sx={{
-                    backgroundColor: "#D0E5F4",
-                    borderRadius: "10px",
-                    border: "none",
-                    "& fieldset": {
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
                       border: "none",
-                    },
-                  }}
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Width</em>
@@ -256,14 +257,14 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Height";
                     }}
-                     sx={{
-                    backgroundColor: "#D0E5F4",
-                    borderRadius: "10px",
-                    border: "none",
-                    "& fieldset": {
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
                       border: "none",
-                    },
-                  }}
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Height</em>
@@ -289,14 +290,14 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Fraction";
                     }}
-                     sx={{
-                    backgroundColor: "#D0E5F4",
-                    borderRadius: "10px",
-                    border: "none",
-                    "& fieldset": {
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
                       border: "none",
-                    },
-                  }}
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Fraction</em>
@@ -317,14 +318,14 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Grid";
                     }}
-                     sx={{
-                    backgroundColor: "#D0E5F4",
-                    borderRadius: "10px",
-                    border: "none",
-                    "& fieldset": {
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
                       border: "none",
-                    },
-                  }}
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Grid</em>
@@ -350,14 +351,14 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Fin Type";
                     }}
-                     sx={{
-                    backgroundColor: "#D0E5F4",
-                    borderRadius: "10px",
-                    border: "none",
-                    "& fieldset": {
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
                       border: "none",
-                    },
-                  }}
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Fin Type</em>
@@ -380,14 +381,14 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Glass Type";
                     }}
-                     sx={{
-                    backgroundColor: "#D0E5F4",
-                    borderRadius: "10px",
-                    border: "none",
-                    "& fieldset": {
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
                       border: "none",
-                    },
-                  }}
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Glass Type</em>
@@ -411,14 +412,14 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Color";
                     }}
-                     sx={{
-                    backgroundColor: "#D0E5F4",
-                    borderRadius: "10px",
-                    border: "none",
-                    "& fieldset": {
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
                       border: "none",
-                    },
-                  }}
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Color</em>
@@ -441,14 +442,14 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Tempering Option";
                     }}
-                     sx={{
-                    backgroundColor: "#D0E5F4",
-                    borderRadius: "10px",
-                    border: "none",
-                    "& fieldset": {
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
                       border: "none",
-                    },
-                  }}
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Tempering Option</em>
@@ -474,14 +475,14 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Side Window Opens";
                     }}
-                     sx={{
-                    backgroundColor: "#D0E5F4",
-                    borderRadius: "10px",
-                    border: "none",
-                    "& fieldset": {
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
                       border: "none",
-                    },
-                  }}
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Side Window Opens</em>
@@ -517,14 +518,14 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Installation Option";
                     }}
-                     sx={{
-                    backgroundColor: "#D0E5F4",
-                    borderRadius: "10px",
-                    border: "none",
-                    "& fieldset": {
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
                       border: "none",
-                    },
-                  }}
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Installation Option</em>
@@ -547,14 +548,14 @@ export const Doors = () => {
                     renderValue={(selected) => {
                       return selected ? selected : "Instructions";
                     }}
-                     sx={{
-                    backgroundColor: "#D0E5F4",
-                    borderRadius: "10px",
-                    border: "none",
-                    "& fieldset": {
+                    sx={{
+                      backgroundColor: "#D0E5F4",
+                      borderRadius: "10px",
                       border: "none",
-                    },
-                  }}
+                      "& fieldset": {
+                        border: "none",
+                      },
+                    }}
                   >
                     <MenuItem value="">
                       <em>Instructions</em>
@@ -567,14 +568,25 @@ export const Doors = () => {
             </Grid>
           </Grid>
         </Grid>
+        <Box sx={{ textAlign: "center" }} className="mb-5 mt-5">
+          <Link to="/measured-doors">
+            <Button variant="contained" size="large">
+              Proceed <ArrowForwardIcon />
+            </Button>
+          </Link>
+        </Box>
+
+        {content.articles.map((article, index) => (
+          <Box className="mt-3" key={index}>
+            <Typography variant="h5" className="fw-bold">
+              {article.title}
+            </Typography>
+            <Typography variant="subtitle1">
+              {article.content}
+            </Typography>
+          </Box>
+        ))}
       </Container>
-      <Box sx={{ textAlign: "center" }} className="mb-5 mt-5">
-        <Link to="/measured-doors">
-          <Button variant="contained" size="large">
-            Proceed <ArrowForwardIcon />
-          </Button>
-        </Link>
-      </Box>
     </div>
   );
 };

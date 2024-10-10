@@ -12,6 +12,7 @@ import { Rating } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import "../../styles/Home.scss";
+import customer_img from "../../assets/feedbackimg.png";
 
 const feedbackData = [
   {
@@ -56,21 +57,24 @@ export const CustomerFeedback = () => {
           {feedbackData.map((feedback) => (
             <div className="col-12 col-md-4 mb-4" key={feedback.id}>
               <Card sx={{ p: 2 }}>
-                <Box display="flex" alignItems="center">
-                  <Avatar
-                    src={feedback.avatar}
-                    sx={{ width: 56, height: 56, marginRight: 2 }}
-                  />
-                  <Typography variant="h6">{feedback.name}</Typography>
-                </Box>
                 <CardContent>
-                  <Rating
-                    value={feedback.rating}
-                    precision={0.5}
-                    readOnly
-                    sx={{ mb: 2 }}
-                  />
-                  <Typography variant="body2" color="text.secondary">
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Avatar variant="square" src={customer_img} />
+                    <Rating
+                      value={feedback.rating}
+                      precision={0.5}
+                      readOnly
+                      sx={{ mb: 2 }}
+                    />
+                  </Box>
+                  <Typography variant="h6" className="fw-bold mt-2">{feedback.name}</Typography>
+                  <Typography variant="body2" className="mt-2" color="text.black">
                     {feedback.review}
                   </Typography>
                 </CardContent>
