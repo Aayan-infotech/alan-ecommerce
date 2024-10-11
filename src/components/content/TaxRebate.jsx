@@ -12,9 +12,8 @@ import {
 import { Link } from "react-router-dom";
 
 const TaxRebate = () => {
-  const { tax_rebate, diy_install_guides } = content;
+  const { tax_rebate } = content;
 
-  console.log(tax_rebate, "tax_rebate");
   return (
     <div>
       <Container style={{ marginTop: "20px" }}>
@@ -30,7 +29,7 @@ const TaxRebate = () => {
           </Typography>
           <Box
             component="ul"
-            sx={{ paddingLeft: "20px", listStyleType: "disc" }}
+            sx={{ paddingLeft: "20px", listStyleType: "disc", lineHeight:"10px" }}
           >
             <ListItemText
               primary={`• Tax rebate: ${tax_rebate.details.tax_rebate_info.rebate}`}
@@ -66,7 +65,7 @@ const TaxRebate = () => {
           </Typography>
           <List>
             {tax_rebate.details.links.map((link, index) => (
-              <ListItem key={index}>
+              <ListItem key={index} sx={{ lineHeight: "10px" }}>
                 <Link href={link} target="_blank" rel="noopener" className="text-decoration-none text-black">
                   {link}
                 </Link>

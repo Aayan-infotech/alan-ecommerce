@@ -140,10 +140,10 @@ export const HardwareProducts = () => {
                       }}
                       className="my-1"
                     >
-                      <Button variant="contained" size="small">
+                      <Button variant="contained" size="small" className="w-100 me-3">
                         Buy Now
                       </Button>
-                      <Button variant="outlined" size="small">
+                      <Button variant="outlined" size="small" className="w-100">
                         Add to cart
                       </Button>
                     </Box>

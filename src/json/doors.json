@@ -46,17 +46,18 @@
     "description": "Most of Discount Door and Window products qualify for this tax rebate. There are different requirements depending on the climate zone. If you are uncertain if one of our products qualifies for the tax rebate, please contact us and we will verify it for you.",
     "details": {
       "tax_rebate_info": {
-        "rebate": "10% of cost of the home improvement, up to a maximum of $500. Windows are capped at $200.",
-        "expiration": "December 31, 2011",
-        "eligibility": "Must be on an existing home & your principal residence. New construction and rentals don't qualify. Must be placed in service in 2011.",
-        "limitations": "Tax credit does NOT include installation costs.",
-        "tax_form": "You need to file the 2011 IRS Form 5695 and submit it with your 2011 taxes (by April 15, 2012). On the 1040 form, the residential energy tax credit (from Form 5695) is claimed on line 52.",
-        "receipt": "Save your receipts and the Manufacturer's Certification Statement for your records.",
-        "u_factor": "Windows must have at least 0.35 U-Factor in Southern California. Other locations depend on climate zone. Door U-Factor depends on how much glass is used."
+        "rebate": "Tax Rebate: 10% of cost of the home improvement, up to a maximum of $500. Windows are capped at $200.",
+        "expiration": "Expiration: December 31, 2011",
+        "eligibility": "Eligibility: Must be on an existing home & your principal residence. New construction and rentals don’t qualify. Must be placed in service in 2011.",
+        "limitations": "Limitations: Tax Credit does NOT include installation costs.",
+        "tax_form": "Tax Form: You need to file the 2011 IRS Form 5695 and submit it with your 2011 taxes (by April 15, 2012). On the 1040 form , the residential energy tax credit (from Form 5695) is claimed on line 52.",
+        "receipt": "Receipt: Save your receipts and the Manufacturer's Certification Statement for your records.",
+        "u_factor": "U-Factor: Windows must have at least 0.35 U-Factor in Southern California. Other locations depend on climate zone. Door U-factor depend on how much glass is used."
       },
       "source": "Energy Star",
       "links": [
         "http://www.energystar.gov/index.cfm?c=tax_credits.tx_index",
+        "U-Factor glass requirements for windows and doors:",
         "http://www.energystar.gov/index.cfm?c=windows_doors.pr_anat_window"
       ]
     }
@@ -86,6 +87,53 @@
         "How to Paint Door Jambs",
         "How to Install an Inswing Exterior Entry Door",
         "How to Install a Dentil Shelf"
+      ]
+    }
+  },
+  "whats_right_for_me": {
+    "title": "What's Right For Me",
+    "description": "Here at Discount Door and Window we offer products that are energy efficient, durable, and cost effective. If you are not sure what type of door or window is the best fit, learn more about the advantages of Vinyl, Fiberglass, or Wood.",
+    "benefits": [
+      "The best way to hire a pre-approved installer is to purchase the service through our shopping cart when you order your doors and windows. This will ensure an installer will schedule an in-home consultation with you, discuss your options, confirm your measurements, and cover everything required for the job to turn out just the way you want it to. To get started you can click here to hire an installer."
+    ],
+    "related_articles": {
+      "diy_window_guides": [
+        "Which caulk should I use?",
+        "When to use Tempered Safety Glass",
+        "Importance of Energy Efficiency",
+        "Door Jambs Explained",
+        "10 Things to Know Before You Buy Replacement Windows",
+        "What are the advantages of our Vinyl products?",
+        "Fiberglass Door Versus Wood Door?",
+        "Slab Door Vs. Pre Hung Door",
+        "Fiberglass Door Information",
+        "Why Replace Your Door or Windows?"
+      ]
+    }
+  },
+  "accurate_measurements": {
+    "title": "How to Get Accurate Measurements",
+    "description": "Getting an accurate measurement on your old door and windows is the most important step in purchasing a new product. The new door or window should be 3/8ths of an inch smaller than the rough opening it will be going into. That way there is room to make adjustment, before sealing it into place.",
+    "related_articles": {
+      "diy_window_guides": [
+        "Learn how to get accurate Window Measurements",
+        "Learn how to get accurate Door Measurements"
+      ]
+    }
+  },
+  "pre_approved_installer": {
+    "title": "Hire a Pre-Approved Installer",
+    "description": "The installers we have approved are experienced at removing existing doors and windows, and installing new ones to fit perfectly. They have worked with a wide variety of buildings and unique situations. They will ensure your new window or doors are weatherproof, level, and secure.",
+    "description1": [
+      "The best way to hire a pre-approved installer is to purchase the service through our shopping cart when you order your doors and windows. This will ensure an installer will schedule an in-home consultation with you, discuss your options, confirm your measurements, and cover everything required for the job to turn out just the way you want it to. To get started you can click here to hire an installer."
+    ],
+    "related_articles": {
+      "diy_window_guides": [
+        "Request a Pre-Approved Installer to contact you",
+        "Labor Warranty",
+        "Hire a Pre-Approved Installer for an in-home consultation",
+        "5 Questions You Should Ask an Installer",
+        "Apply to Become a Pre-Approved Installer"
       ]
     }
   }

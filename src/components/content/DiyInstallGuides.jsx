@@ -22,7 +22,7 @@ const DiyInstallGuides = () => {
       <Container style={{ marginTop: "20px" }}>
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <Box mt={4}>
+            <Box mt={2}>
               <Typography variant="h4" gutterBottom className="fw-bold">
                 {diy_install_guides.title}
               </Typography>
@@ -70,8 +70,8 @@ const DiyInstallGuides = () => {
             <Box>
               <img src={card_img1} width={400} />
             </Box>
-            <Box className="mt-4">
-              <img src={card_img2} />
+            <Box className="mt-5">
+              <img src={card_img2} height={200} />
             </Box>
           </Grid>
         </Grid>

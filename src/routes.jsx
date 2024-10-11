@@ -7,7 +7,7 @@ import { Doors } from "./components/doors/Doors.jsx";
 import { Footer } from "./components/footer/Footer.jsx";
 import { MeasuredDoors } from "./components/doors/MeasuredDoors.jsx";
 import { MeasuredWindows } from "./components/windows/MeasuredWindows.jsx";
-import { Window } from "./components/windows/Window.jsx";
+import Window from "./components/windows/Window.jsx";
 import { HardwareProducts } from "./components/hardware/HardwareProducts.jsx";
 import { NewCollection } from "./components/collection/NewCollection.jsx";
 import Cart  from "./components/cart/Cart.jsx";
@@ -23,6 +23,10 @@ import Gallery from "./components/galley/Gallery.jsx";
 import Profile from "./components/Profile.jsx";
 import TaxRebate from "./components/content/TaxRebate.jsx";
 import DiyInstallGuides from "./components/content/DiyInstallGuides.jsx";
+import RightForMe from "./components/content/RightForMe.jsx";
+import AccurateMeasurements from "./components/content/AccurateMeasurements.jsx";
+import ApprovedInstaller from "./components/content/ApprovedInstaller.jsx";
+import { Faq } from "./components/faq/Faq.jsx";
 
 export const AppRoutes = () => {
   return (
@@ -49,6 +53,10 @@ export const AppRoutes = () => {
         <Route path="profile" element={<Profile />} />
         <Route path="tax-rebate" element={<TaxRebate />} />
         <Route path="diyinstall-guides" element={<DiyInstallGuides />} />
+        <Route path="rightfor-me" element={<RightForMe />} />
+        <Route path="accurate-measurements" element={<AccurateMeasurements />} />
+        <Route path="pre-approved-installer" element={<ApprovedInstaller />} />
+        <Route path="faq" element={<Faq />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

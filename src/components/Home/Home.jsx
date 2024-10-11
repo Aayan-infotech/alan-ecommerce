@@ -45,9 +45,9 @@ export const Home = () => {
 
   const buttonData = [
     { urlPath: "/tax-rebate", label: "Get Tax Rebate" },
-    { urlPath: "", label: "Learn the advantages" },
-    { urlPath: "", label: "Measure your old" },
-    { urlPath: "", label: "Find an installer" },
+    { urlPath: "/rightfor-me", label: "Learn the advantages" },
+    { urlPath: "/accurate-measurements", label: "Measure your old" },
+    { urlPath: "/pre-approved-installer", label: "Find an installer" },
     { urlPath: "/diyinstall-guides", label: "DIY Installation Guide" },
   ];
 

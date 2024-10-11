@@ -21,7 +21,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const basePrice = 0;
 
-export const Window = () => {
+const Window = () => {
   const [selectedOptions, setSelectedOptions] = useState({
     width: "",
     height: "",
@@ -35,6 +35,7 @@ export const Window = () => {
     installationOption: "",
     instructions: "",
   });
+
   const [price, setPrice] = useState(basePrice);
   const location = useLocation();
   const formatPath = (path) => {
@@ -98,6 +99,17 @@ export const Window = () => {
   useEffect(() => {
     calculatePrice();
   }, [selectedOptions]);
+  const images = [
+    card_img1,
+    card_img2,
+    card_img3,
+    card_img1,
+    card_img2,
+    card_img3,
+    card_img2,
+  ];
+  const maxVisibleImages = 5;
+  const remainingImages = images.length - maxVisibleImages;
 
   return (
     <div className="doors-container px-3">
@@ -166,26 +178,54 @@ export const Window = () => {
                 }}
               />
               <Grid container spacing={2} sx={{ marginTop: "15px" }}>
-                {[
-                  card_img1,
-                  card_img2,
-                  card_img3,
-                  card_img1,
-                  card_img2,
-                  card_img3,
-                ].map((imageSrc, index) => (
+                {images.slice(0, maxVisibleImages).map((imageSrc, index) => (
                   <Grid item xs={4} key={index}>
                     <img
                       src={imageSrc}
-                      alt={`Door preview ${index + 1}`}
+                      alt={`Image ${index + 1}`}
                       style={{
                         width: "100%",
                         height: "100px",
                         borderRadius: "5px",
+                        objectFit: "cover",
                       }}
                     />
                   </Grid>
                 ))}
+                {remainingImages > 0 && (
+                  <Grid
+                    item
+                    xs={4}
+                    className="d-flex justify-content-center align-items-center"
+                  >
+                    <Box
+                      sx={{
+                        position: "relative",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          width: "60px",
+                          height: "60px",
+                          borderRadius: "50%",
+                          backgroundColor: "#1976d2",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          color: "white",
+                          fontSize: "18px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        +{remainingImages}
+                      </Box>
+                    </Box>
+                  </Grid>
+                )}
               </Grid>
               <Typography variant="h5" className="fw-bold mt-3">
                 Wood Entry Doors
@@ -592,4 +632,4 @@ export const Window = () => {
     </div>
   );
 };
-// export default Window;
+export default Window;
