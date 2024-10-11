@@ -27,6 +27,7 @@ import RightForMe from "./components/content/RightForMe.jsx";
 import AccurateMeasurements from "./components/content/AccurateMeasurements.jsx";
 import ApprovedInstaller from "./components/content/ApprovedInstaller.jsx";
 import { Faq } from "./components/faq/Faq.jsx";
+import { RequestEstimation } from "./components/bookAppointment/RequestEstimation.jsx";
 
 export const AppRoutes = () => {
   return (
@@ -57,6 +58,7 @@ export const AppRoutes = () => {
         <Route path="accurate-measurements" element={<AccurateMeasurements />} />
         <Route path="pre-approved-installer" element={<ApprovedInstaller />} />
         <Route path="faq" element={<Faq />} />
+        <Route path="get-estimation" element={<RequestEstimation />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

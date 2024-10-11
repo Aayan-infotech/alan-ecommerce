@@ -10,6 +10,7 @@ import {
   MenuItem,
   useMediaQuery,
   useTheme,
+  Badge,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -23,7 +24,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Detect mobile view
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -48,7 +49,11 @@ const Navbar = () => {
       <Toolbar>
         {/* Heading Section */}
         <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-          <Typography variant="h4" component="div" className="discount-heading mb-0">
+          <Typography
+            variant="h4"
+            component="div"
+            className="discount-heading mb-0"
+          >
             Discount
           </Typography>
           <Typography
@@ -129,15 +134,38 @@ const Navbar = () => {
         {/* Right Section: Icons and Button */}
         {!isMobile && (
           <>
-            <IconButton color="inherit">
+            <IconButton
+              color="inherit"
+              sx={{
+                "&:hover": {
+                  backgroundColor: "transparent",
+                },
+              }}
+            >
               <SearchIcon sx={{ color: "#fc5f03" }} />
             </IconButton>
             <Link to="/cart">
-              <IconButton color="inherit">
-                <ShoppingCartIcon sx={{ color: "#fc5f03" }} />
+              <IconButton
+                color="inherit"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                  },
+                }}
+              >
+                <Badge badgeContent={4} color="primary">
+                  <ShoppingCartIcon sx={{ color: "#fc5f03" }} />
+                </Badge>
               </IconButton>
             </Link>
-            <IconButton color="inherit">
+            <IconButton
+              color="inherit"
+              sx={{
+                "&:hover": {
+                  backgroundColor: "transparent",
+                },
+              }}
+            >
               <FavoriteBorderIcon sx={{ color: "#fc5f03" }} />
             </IconButton>
             <Link to="/contact">

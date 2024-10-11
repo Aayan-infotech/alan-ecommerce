@@ -5,8 +5,35 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import { Box, Typography, IconButton, Divider } from "@mui/material";
 import "../../styles/Footer.scss";
 import logo from "../../assets/logo.png";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
+  const linkGroup = {
+    links: [
+      { name: "Home", path: "/" },
+      { name: "Gallery", path: "/gallery" },
+      { name: "About Us", path: "/about" },
+    ],
+    customer_services: [
+      { name: "Contact Us", path: "/contact" },
+      { name: "FAQs", path: "/faq" },
+      { name: "Testimonials/Reviews", path: "/testimonials" },
+      { name: "Pickup in Sandalga", path: "/pickup" },
+      { name: "Privacy Policy", path: "/privacy-policy" },
+      { name: "Terms & Conditions", path: "/terms" },
+    ],
+    more_options: [
+      { name: "Orders", path: "/orders" },
+      { name: "Login/Register", path: "/login" },
+      { name: "Track Order", path: "/order-track" },
+      { name: "Shopping Cart", path: "/cart" },
+    ],
+    help: [
+      { name: "Payment Options", path: "/payment-options" },
+      { name: "Returns", path: "/returns" },
+      { name: "Privacy Policies", path: "/privacy-policies" },
+    ],
+  };
   return (
     <div>
       <footer className="footer">
@@ -31,9 +58,16 @@ export const Footer = () => {
                 Links
               </Typography>
               <Box>
-                <Typography>Home</Typography>
-                <Typography>Gallery</Typography>
-                <Typography>About Us</Typography>
+                {linkGroup?.links?.map((linkItem, idx) => (
+                  <Typography key={idx}>
+                    <Link
+                      to={linkItem.path}
+                      className="text-decoration-none text-black"
+                    >
+                      {linkItem.name}
+                    </Link>
+                  </Typography>
+                ))}
               </Box>
             </div>
             <div className="col-12 col-sm-6 col-md-4 col-lg-3 text-start">
@@ -41,31 +75,51 @@ export const Footer = () => {
                 Customer Services
               </Typography>
               <Box>
-                <Typography>Contact Us</Typography>
-                <Typography>FAQs</Typography>
-                <Typography>Testimonials/Reviews</Typography>
-                <Typography>Pickup in Sandalga</Typography>
-                <Typography>Privacy Policy</Typography>
-                <Typography>Terms & Conditions</Typography>
+                {linkGroup?.customer_services?.map((linkItem, idx) => (
+                  <Typography key={idx}>
+                    <Link
+                      to={linkItem.path}
+                      className="text-decoration-none text-black"
+                    >
+                      {linkItem.name}
+                    </Link>
+                  </Typography>
+                ))}
               </Box>
             </div>
             <div className="col-12 col-sm-6 col-md-4 col-lg-2 text-start">
               <Typography className="fw-bold text-black" variant="h6">
                 More Options
               </Typography>
-              <Typography>Orders</Typography>
-              <Typography>Login/Register</Typography>
-              <Typography>Track Order</Typography>
-              <Typography>Shopping Cart</Typography>
+              <Box>
+                {linkGroup?.more_options?.map((linkItem, idx) => (
+                  <Typography key={idx}>
+                    <Link
+                      to={linkItem.path}
+                      className="text-decoration-none text-black"
+                    >
+                      {linkItem.name}
+                    </Link>
+                  </Typography>
+                ))}
+              </Box>
             </div>
             <div className="col-12 col-sm-6 col-md-4 col-lg-2 text-start">
               <Typography className="fw-bold text-black" variant="h6">
                 Help
               </Typography>
-              <Typography>Payment Options</Typography>
-              <Typography>Returns</Typography>
-              <Typography>Privacy Policies</Typography>
-              {/* </div> */}
+              <Box>
+                {linkGroup?.help?.map((linkItem, idx) => (
+                  <Typography key={idx}>
+                    <Link
+                      to={linkItem.path}
+                      className="text-decoration-none text-black"
+                    >
+                      {linkItem.name}
+                    </Link>
+                  </Typography>
+                ))}
+              </Box>
             </div>
             <div className="col-12 col-sm-6 col-md-4 col-lg-2 text-start">
               <Typography className="fw-bold text-black" variant="h6">

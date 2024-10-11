@@ -68,13 +68,15 @@ export const Home = () => {
               The Right <span>Windows, Doors,</span>{" "}
               <span style={{ fontWeight: "bold" }}>And More—Affordably.</span>
             </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              className="estimate-button"
-            >
-              Get Estimates
-            </Button>
+            <Link to="/get-estimation">
+              <Button
+                variant="contained"
+                color="primary"
+                className="estimate-button"
+              >
+                Get Estimates
+              </Button>
+            </Link>
           </Grid>
 
           {/* Right Section: Image */}
