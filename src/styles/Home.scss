@@ -10,6 +10,18 @@
   // height: 100vh;
   // margin-top: 5rem;
 }
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.marquee-content {
+  display: flex;
+  will-change: transform;
+  white-space: nowrap;
+}
+
 
 .text-section {
   padding: 20px;
