@@ -53,11 +53,17 @@ export const OurProducts = () => {
         {spotlightDeals?.map((item, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Card sx={{ maxWidth: 300, mx: "auto" }}>
-              <CardMedia
+              {/* <CardMedia
                 sx={{ height: 200 }}
                 image={item?.url}
                 title="green iguana"
-              />
+              /> */}
+              <CardMedia
+                    component="img"
+                    height="300"
+                    image={item?.url}
+                    alt="green iguana"
+                  />
               <CardContent sx={{ backgroundColor: "#0068B333" }}>
                 <Box
                   sx={{
@@ -71,9 +77,9 @@ export const OurProducts = () => {
                   <Typography gutterBottom variant="h6" component="div">
                     {item?.product_name}
                   </Typography>
-                  {/* <Typography gutterBottom variant="h6" component="div">
+                  <Typography gutterBottom variant="h6" component="div">
                     $ {item?.product_price}
-                  </Typography> */}
+                  </Typography>
                 </Box>
                 <Box
                   sx={{

@@ -23,6 +23,12 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/slices/spotlightSlice";
+import sliding_image from "../../assets/sliding.png";
+import entrydoors_image from "../../assets/entrydoors.png";
+import window_image from "../../assets/window.png";
+import bifold_image from "../../assets/card_img4.png";
+import interriordoors_image from "../../assets/interriordoors.png";
+import harware_image from "../../assets/harware.png";
 
 export const Home = () => {
   const [spotLightProduct, setSpotLightProduct] = useState([]);
@@ -49,11 +55,19 @@ export const Home = () => {
   }, []);
 
   const buttonData = [
-    { urlPath: "/tax-rebate", label: "Get Tax Rebate" },
-    { urlPath: "/rightfor-me", label: "Learn the advantages" },
-    { urlPath: "/accurate-measurements", label: "Measure your old" },
-    { urlPath: "/pre-approved-installer", label: "Find an installer" },
+    { urlPath: "/order-track", label: "Track Your Order" },
+    { urlPath: "/rightfor-me", label: "Energy Saving" },
+    { urlPath: "/accurate-measurements", label: "Measure Your Old" },
+    { urlPath: "/pre-approved-installer", label: "Find an Installer" },
     { urlPath: "/diyinstall-guides", label: "DIY Installation Guide" },
+  ];
+  const expore_products = [
+    { id: 1, product_name: "Windows", image: window_image },
+    { id: 2, product_name: "Sliding Door", image: sliding_image },
+    { id: 3, product_name: "System", image: entrydoors_image },
+    { id: 1, product_name: "Bi-Fold and French Doors", image: bifold_image },
+    { id: 2, product_name: "Interior Doors", image: interriordoors_image },
+    { id: 3, product_name: "Hardware", image: harware_image },
   ];
 
   const handleAddToCart = (productId, quantity) => {
@@ -65,12 +79,12 @@ export const Home = () => {
   useEffect(() => {
     const marquee = marqueeRef.current;
     let scrollAmount = 0;
-    const scrollSpeed = 2; 
+    const scrollSpeed = 2;
 
     function scrollMarquee() {
       scrollAmount -= scrollSpeed;
       if (marquee.scrollWidth + scrollAmount <= 0) {
-        scrollAmount = 0; 
+        scrollAmount = 0;
       }
       marquee.style.transform = `translateX(${scrollAmount}px)`;
       requestAnimationFrame(scrollMarquee);
@@ -125,35 +139,35 @@ export const Home = () => {
               className="me-2 fw-bold"
               sx={{ color: "#0068B3" }}
             >
-              WINDOW & INSTALLATION DOOR,
+              SELECT PRODUCTS BELOW AND GET PRICING NOW,
             </Typography>
             <Typography
               variant="h2"
               className="me-2 fw-bold"
               sx={{ color: "#0068B3" }}
             >
-              WINDOW & INSTALLATION DOOR,
+              SELECT PRODUCTS BELOW AND GET PRICING NOW,
             </Typography>
             <Typography
               variant="h2"
               className="me-2 fw-bold"
               sx={{ color: "#0068B3" }}
             >
-              WINDOW & INSTALLATION DOOR,
+              SELECT PRODUCTS BELOW AND GET PRICING NOW,
             </Typography>
             <Typography
               variant="h2"
               className="me-2 fw-bold"
               sx={{ color: "#0068B3" }}
             >
-              WINDOW & INSTALLATION DOOR,
+              SELECT PRODUCTS BELOW AND GET PRICING NOW,
             </Typography>
             <Typography
               variant="h2"
               className="me-2 fw-bold"
               sx={{ color: "#0068B3" }}
             >
-              WINDOW & INSTALLATION DOOR,
+              SELECT PRODUCTS BELOW AND GET PRICING NOW,
             </Typography>
           </div>
           <div className="d-flex">
@@ -162,35 +176,35 @@ export const Home = () => {
               className="me-2 fw-bold"
               sx={{ color: "#0068B3" }}
             >
-              WINDOW & INSTALLATION DOOR,
+              SELECT PRODUCTS BELOW AND GET PRICING NOW,
             </Typography>
             <Typography
               variant="h2"
               className="me-2 fw-bold"
               sx={{ color: "#0068B3" }}
             >
-              WINDOW & INSTALLATION DOOR,
+              SELECT PRODUCTS BELOW AND GET PRICING NOW,
             </Typography>
             <Typography
               variant="h2"
               className="me-2 fw-bold"
               sx={{ color: "#0068B3" }}
             >
-              WINDOW & INSTALLATION DOOR,
+              SELECT PRODUCTS BELOW AND GET PRICING NOW,
             </Typography>
             <Typography
               variant="h2"
               className="me-2 fw-bold"
               sx={{ color: "#0068B3" }}
             >
-              WINDOW & INSTALLATION DOOR,
+              SELECT PRODUCTS BELOW AND GET PRICING NOW,
             </Typography>
             <Typography
               variant="h2"
               className="me-2 fw-bold"
               sx={{ color: "#0068B3" }}
             >
-              WINDOW & INSTALLATION DOOR,
+              SELECT PRODUCTS BELOW AND GET PRICING NOW,
             </Typography>
           </div>
         </div>
@@ -209,8 +223,8 @@ export const Home = () => {
             <Link to={button?.urlPath} key={index}>
               <Button
                 variant="contained"
-                // fullWidth={{ xs: true, md: false }}
                 className="me-3"
+                sx={{ textTransform: "none" }}
               >
                 {button.label} <ArrowForwardIcon className="fs-5" />
               </Button>
@@ -220,55 +234,66 @@ export const Home = () => {
 
         {/* ----------------Spotlight Deals--------------------- */}
 
-        <Box className="spotlight_deals mt-4">
+        <Box className="spotlight_deals mt-4 mb-4">
           <Typography variant="h4" className="heading_1">
-            Spotlight Deals
+            Explore
           </Typography>
-          <Typography variant="h6" className="title">
+          {/* <Typography variant="h6" className="title">
             Explore Details
-          </Typography>
+          </Typography> */}
         </Box>
 
         <Grid container spacing={2} justifyContent="center" alignItems="center">
-          {spotLightProduct.length > 0 ? (
-            spotLightProduct.map((item, index) => (
+          {expore_products.length > 0 ? (
+            expore_products.map((item, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <Card sx={{ maxWidth: 300, mx: "auto" }}>
-                  <CardMedia
-                    sx={{ height: 200 }}
+                  {/* <CardMedia
+                    sx={{ height: 250, backgroundSize: "contain" }}
                     image={item?.image || No_Image_Available}
                     title="Product Image"
+                  /> */}
+                  <CardMedia
+                    component="img"
+                    height="300"
+                    image={item?.image || No_Image_Available}
+                    alt="green iguana"
                   />
                   <CardContent sx={{ backgroundColor: "#0068B333" }}>
                     <Box
                       sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
+                        // display: "flex",
+                        // justifyContent: "space-between",
+                        // alignItems: "center",
                         color: "#0068B3",
                         fontWeight: "bold",
                       }}
+                      className="text-center"
                     >
-                      <Typography gutterBottom variant="h4" component="div">
+                      <Typography
+                        className="fw-bold"
+                        variant="h5"
+                        component="div"
+                      >
                         {item?.product_name}
                       </Typography>
                     </Box>
                     <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
+                      // sx={{
+                      //   display: "flex",
+                      //   justifyContent: "space-between",
+                      // }}
                       className="mt-2"
                     >
                       <Button
-                        size="small"
+                        size="large"
                         variant="contained"
                         sx={{ textTransform: "none", fontWeight: "bold" }}
-                        className="w-100 me-2"
+                        className="w-100 fw-bold"
                       >
                         Buy Now
                       </Button>
-                      <Button
+                      {/* <Button
                         size="small"
                         variant="outlined"
                         sx={{ textTransform: "none", fontWeight: "bold" }}
@@ -276,9 +301,9 @@ export const Home = () => {
                         onClick={() => handleAddToCart(item._id, 1)}
                       >
                         Add To Cart
-                      </Button>
+                      </Button> */}
                     </Box>
-                    <Box
+                    {/* <Box
                       sx={{
                         display: "flex",
                         justifyContent: "space-between",
@@ -294,7 +319,7 @@ export const Home = () => {
                         <ShareIcon className="fs-6" />
                         Share
                       </Box>
-                    </Box>
+                    </Box> */}
                   </CardContent>
                 </Card>
               </Grid>

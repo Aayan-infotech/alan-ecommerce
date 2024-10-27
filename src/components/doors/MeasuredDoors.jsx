@@ -142,13 +142,13 @@ export const MeasuredDoors = () => {
                 $ 849
               </Button>
               <Button
-                variant="outlined"
-                color="primary"
-                sx={{ width: "150px" }}
+                variant="contained"
+                className="fw-bold"
+                sx={{ width: "150px", backgroundColor:"#FC5F03" }}
               >
                 Add to cart
               </Button>
-              <Button variant="contained" sx={{ width: "150px" }}>
+              <Button variant="contained" className="fw-bold" sx={{ width: "150px" }}>
                 Next <ArrowForwardIcon />
               </Button>
             </Grid>

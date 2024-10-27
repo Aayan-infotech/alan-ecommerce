@@ -28,6 +28,7 @@ import AccurateMeasurements from "./components/content/AccurateMeasurements.jsx"
 import ApprovedInstaller from "./components/content/ApprovedInstaller.jsx";
 import { Faq } from "./components/faq/Faq.jsx";
 import { RequestEstimation } from "./components/bookAppointment/RequestEstimation.jsx";
+import { Login } from "./components/login/Login.jsx";
 
 export const AppRoutes = () => {
   return (
@@ -35,6 +36,7 @@ export const AppRoutes = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
         <Route path="doors" element={<Doors />} />
         <Route path="measured-doors" element={<MeasuredDoors />} />
         <Route path="windows" element={<Window />} />

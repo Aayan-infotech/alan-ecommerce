@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const OrderTrack = () => {
+export const Login = () => {
   return (
     <div>
       <Container
@@ -23,18 +23,19 @@ export const OrderTrack = () => {
         }}
       >
         <Box>
-        <Typography variant="h4" align="center" className="fw-bold text-black">
-          Track Your Order
-        </Typography>
-        <Typography variant="body4" align="center" className="text-black mt-2">
-          for tracking the order you need to enter Order ID
-        </Typography>
+          <Typography
+            variant="h4"
+            align="center"
+            className="fw-bold text-black"
+          >
+            Login
+          </Typography>
           <Box className="mt-4">
-            <InputLabel className="text-black fw-bold">Order Id</InputLabel>
+            <InputLabel className="text-black fw-bold">Email</InputLabel>
             <TextField
               id="outlined-basic"
               variant="outlined"
-              placeholder="Enter Order Id"
+              placeholder="Enter Email"
               sx={{
                 mt: 1,
                 width: "300px",
@@ -42,6 +43,24 @@ export const OrderTrack = () => {
                 borderRadius: "10px",
                 width: "400px",
                 border: "none",
+                "& fieldset": {
+                  border: "none",
+                },
+              }}
+            />
+          </Box>
+          <Box className="mt-4">
+            <InputLabel className="text-black fw-bold">Password</InputLabel>
+            <TextField
+              id="outlined-basic"
+              type="password"
+              variant="outlined"
+              placeholder="Enter Password"
+              sx={{
+                mt: 1,
+                width: "400px",
+                backgroundColor: "#D0E5F4",
+                borderRadius: "10px",
                 "& fieldset": {
                   border: "none",
                 },

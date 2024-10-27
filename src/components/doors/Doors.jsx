@@ -150,7 +150,7 @@ export const Doors = () => {
           </Typography>
         ))}
       </Box>
-      <Container>
+      <Container className="mb-4">
         {/* ------------------------------------------- */}
         <Grid container spacing={4} className="mt-4">
           <Grid item xs={12} md={5}>
