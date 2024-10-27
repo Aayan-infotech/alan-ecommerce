@@ -36,10 +36,10 @@ export const CheckoutPayment = () => {
   return (
     <div>
       <Container sx={{ mt: 5 }}>
-        <Typography variant="h4" align="center" className="fw-bold text-black">
+        <Typography variant="h3" align="center" className="fw-bold text-black">
           Checkout
         </Typography>
-        <Grid container spacing={3} justifyContent="center">
+        <Grid container spacing={3} mt={3} justifyContent="center">
           <Grid item xs={12} sm={6} className="text-center">
             <img src={debit_card} height={300} />
           </Grid>

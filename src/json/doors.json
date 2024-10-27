@@ -64,7 +64,8 @@
   },
   "diy_install_guides": {
     "title": "DIY Install Guides",
-    "description": "Door and Window replacement is a manageable job that does not require a lot of previous knowledge or experience. There are some fundamental aspects you need to know about that we will cover in these DIY guides. Other than that as long as you feel comfortable working with your hands, and can dedicate a day to the project, then DIY is a great way to save additional money.There are some other benefits to doing a door or window replacement yourself. First of all, you learn a lot. This knowledge can help with future repairs and maintenance. Secondly, you ensure the job is done the way you want it to be done. You can make adjustments based on your preference. Last but not least, you get a rewarding feeling after completing a job successfully.Here at Discount Door and Window, we want to support you in your door and window replacement projects. This DIY section is dedicated to providing you with the information you need to get the job done. If you still have questions about replacing your door or window, you can contact us and we will try to assist you further.",
+    "description_guide": "Door and Window replacement is a manageable job that does not require a lot of previous knowledge or experience. There are some fundamental aspects you need to know about that we will cover in these DIY guides. Other than that as long as you feel comfortable working with your hands, and can dedicate a day to the project, then DIY is a great way to save additional money.",
+    "description_guide1": "There are some other benefits to doing a door or window replacement yourself. First of all, you learn a lot. This knowledge can help with future repairs and maintenance. Secondly, you ensure the job is done the way you want it to be done. You can make adjustments based on your preference. Last but not least, you get a rewarding feeling after completing a job successfully. Here at Discount Door and Window, we want to support you in your door and window replacement projects. This DIY section is dedicated to providing you with the information you need to get the job done. If you still have questions about replacing your door or window, you can contact us and we will try to assist you further.",
     "benefits": [
       "Learn the job: This knowledge can help with future repairs and maintenance.",
       "You save money: You ensure the job is done the way you want it to be done.",
@@ -134,6 +135,16 @@
         "Hire a Pre-Approved Installer for an in-home consultation",
         "5 Questions You Should Ask an Installer",
         "Apply to Become a Pre-Approved Installer"
+      ]
+    }
+  },
+  "accurate_window_measurements": {
+    "title": "How to Get Accurate Window Measurements",
+    "description": "To find out what size window you should order from our site, you must make an accurate measurement. Your new window will go over the existing frame, so you will be measuring the distance between the inner most parts of the frame. For detailed instructions follow these steps, or watch the tutorial video below.",
+    "related_articles": {
+      "window_measurements": [
+        "Learn how to get accurate Window Measurements",
+        "Learn how to get accurate Door Measurements"
       ]
     }
   }

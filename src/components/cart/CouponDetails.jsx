@@ -16,7 +16,7 @@ export const CouponDetails = () => {
     <Box mt={2}>
       <Card sx={{ boxShadow: 3 }}>
         <CardContent>
-          <Grid container alignItems="center">
+          <Grid container alignItems="center" justifyContent="center">
             <Grid item xs={5} sx={{ pr: 3 }}>
               <Typography
                 variant="subtitle1"

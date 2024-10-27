@@ -124,7 +124,7 @@ const Navbar = () => {
                 Installation Guide
               </Button>
             </Link>
-            <Link className="text-decoration-none" to="/hardware-products">
+            <Link className="text-decoration-none" to="/diyinstall-guides">
               <Button color="inherit" className="nav-title">
                 DIY Guide
               </Button>

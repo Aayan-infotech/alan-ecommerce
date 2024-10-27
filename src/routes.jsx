@@ -29,6 +29,7 @@ import ApprovedInstaller from "./components/content/ApprovedInstaller.jsx";
 import { Faq } from "./components/faq/Faq.jsx";
 import { RequestEstimation } from "./components/bookAppointment/RequestEstimation.jsx";
 import { Login } from "./components/login/Login.jsx";
+import AccurateWindowMeasurements from "./components/content/AccurateWindowMeasurements.jsx";
 
 export const AppRoutes = () => {
   return (
@@ -58,6 +59,7 @@ export const AppRoutes = () => {
         <Route path="diyinstall-guides" element={<DiyInstallGuides />} />
         <Route path="rightfor-me" element={<RightForMe />} />
         <Route path="accurate-measurements" element={<AccurateMeasurements />} />
+        <Route path="accurate-window-measurements" element={<AccurateWindowMeasurements />} />
         <Route path="pre-approved-installer" element={<ApprovedInstaller />} />
         <Route path="faq" element={<Faq />} />
         <Route path="get-estimation" element={<RequestEstimation />} />
