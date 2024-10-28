@@ -79,6 +79,7 @@ const ApprovedInstallerDoorWindow = () => {
                             sx={{
                                 listStyleType: "disc",
                                 width: "100%",
+                                p:3
                             }}
                         >
                             {approvedInstallerDoorWindow.related_articles.diy_window_guides.map(

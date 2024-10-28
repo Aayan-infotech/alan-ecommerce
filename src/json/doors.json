@@ -200,5 +200,91 @@
         }
       ]
     }
+  },
+  "vinyl_window": {
+    "title": "Vinyl Window Installation",
+    "description_guide": "First measure your old window. If you need help on making proper measurements, please click here. Next, follow the instructions and video tutorials below to learn how to install your new window.",
+    "related_articles": {
+      "diy_window_guides": [
+        "Polyurethane caulking for exterior",
+        "Silicon acrylic caulking for interior",
+        "Minimal expansion foam for insulation",
+        "Trim strip to cover up the gap in the interior",
+        "Caulking gun to dispense the sealant",
+        "Four 2 1/2\" or 3\" screws.",
+        "Drill to make holes for the screws",
+        "Rag to clean of the excess caulking",
+        "Gloves to protect from caulking",
+        "Shims to adjust the window placement"
+      ],
+      "diy_door_guides": [
+        "Step ladder",
+        "Spirit level",
+        "Glass cleaner"
+      ]
+    },
+    "installation_steps": [
+      {
+        "step": 1,
+        "title": "Remove old aluminum window panes and vertical meeting rail",
+        "details": [
+          "To remove the sliding pane, open it all the way, then shift it upwards and rotate the bottom towards you.",
+          "Remove any screws that may be holding it in place.",
+          "Most of the time, the center vertical meeting rail and fixed panel come out easily after removing the screws. You may need to pry it out with a mallet and screwdriver. If that does not work, you can use a hacksaw to cut through the meeting rail. You should not need to break the glass.",
+          "The aluminum outer frame can remain in place."
+        ]
+      },
+      {
+        "step": 2,
+        "title": "Place the new vinyl window into the frame to make sure it fits correctly. Then remove it from the frame."
+      },
+      {
+        "step": 3,
+        "title": "Put a bead of polyurethane caulk around the old aluminum window frame.",
+        "details": [
+          "Leave two or three 3\" gaps at the bottom to allow moisture to leak out."
+        ]
+      },
+      {
+        "step": 4,
+        "title": "Place the vinyl window into the frame so that it pushes up against the caulk and creates a seal."
+      },
+      {
+        "step": 5,
+        "title": "Adjust the window so that it is level, and the sliding panel operates smoothly.",
+        "details": [
+          "Use a spirit level to determine if the window is level.",
+          "You may need to place shims to make adjustments."
+        ]
+      },
+      {
+        "step": 6,
+        "title": "Drill 4 screws through the right and left side of the vinyl frame into the the wall to hold it in place.",
+        "details": [
+          "Drill holes with a drill, then screw in the 3 screws with a screw driver.",
+          "Make sure the screws do not hinder the opening or closing of the sliding window.",
+          "Do not tighten the screws too tight or it may bend the vinyl frame. The screw may stick out a bit."
+        ]
+      },
+      {
+        "step": 7,
+        "title": "Spray expanding foam into the interior gap around the frame for insulation."
+      },
+      {
+        "step": 8,
+        "title": "Place trim around the outside of the interior of the frame to cover up the gap between the vinyl frame and the wall."
+      },
+      {
+        "step": 9,
+        "title": "Put siliconized acrylic sealant in the gap between the trim and the wall to create a smooth seal.",
+        "details": [
+          "Wipe off any excess sealant with a rag."
+        ]
+      },
+      {
+        "step": 10,
+        "title": "Put siliconized acrylic sealant in the gap between the trim and the wall to create a smooth seal."
+      }
+    ]
   }
 }
