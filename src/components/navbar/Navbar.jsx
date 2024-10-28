@@ -37,17 +37,17 @@ const Navbar = () => {
 
   return (
     <AppBar
-      position="static"
+      position="sticky"
       color="default"
       className="navbar-content"
       sx={{
         maxWidth: "1200px",
         margin: "20px auto 0",
         padding: "6px",
-        width: "100%",
+        width: "100%", top: "0", zIndex: "999"
       }}
     >
-      <Toolbar>
+      <Toolbar sx={{ position: "sticky", top: "0", zIndex: "999" }}>
         {/* Heading Section */}
         <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
           {/* <Typography

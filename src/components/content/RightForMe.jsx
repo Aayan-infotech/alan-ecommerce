@@ -19,42 +19,91 @@ const RightForMe = () => {
 
   return (
     <div>
-      <Container style={{ marginTop: "20px" }}>
+      <Container sx={{ mt: { xs: 2, md: 4 } }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          className="fw-bold"
+          sx={{
+            fontSize: { xs: "1.8rem", md: "2.125rem" },
+            textAlign: { xs: "center", md: "left" },
+          }}
+        >
+          {whats_right_for_me.title}
+        </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Box mt={4}>
-              <Typography variant="h4" gutterBottom className="fw-bold">
-                {whats_right_for_me.title}
-              </Typography>
-              <Box>
-                <img src={card_img1} width={400} />
-              </Box>
-              <Typography variant="body1" paragraph>
-                {whats_right_for_me.description}
-              </Typography>
-              <List sx={{ listStyleType: "disc", paddingLeft: "20px" }}>
-                {whats_right_for_me.related_articles.diy_window_guides.map(
-                  (guide, index) => (
-                    <ListItem
-                      key={index}
-                      sx={{
-                        display: "list-item",
-                        listStyleType: "disc",
-                        lineHeight: "10px",
-                      }}
-                    >
-                      <Link
-                        href="#"
-                        underline="hover"
-                        className="text-decoration-underline text-black"
-                      >
-                        {guide}
-                      </Link>
-                    </ListItem>
-                  )
-                )}
-              </List>
+          <Grid item xs={12} md={6}>
+            <Box
+              display="flex"
+              justifyContent={{ xs: "center", md: "flex-start" }}
+            >
+              <img
+                src={card_img1}
+                alt="Guide 1"
+                className="w-100"
+              />
             </Box>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            md={6}
+            sx={{
+              display: "flex",
+              textAlign: { xs: "center", md: "left" },
+              paddingX: { xs: 2, md: 0 },
+            }}
+          >
+            <Typography variant="body1" paragraph>
+              {whats_right_for_me.description}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Box >
+              {whats_right_for_me.description1}
+            </Box>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: { xs: "center", md: "flex-start" },
+              paddingX: { xs: 2, md: 0 },
+            }}
+          >
+            <List
+              sx={{
+                listStyleType: "disc",
+                paddingLeft: { xs: 2, md: "20px" },
+                maxWidth: "500px",
+                width: "100%",
+              }}
+            >
+              {whats_right_for_me.related_articles.diy_window_guides.map(
+                (guide, index) => (
+                  <ListItem
+                    key={index}
+                    sx={{
+                      display: "list-item",
+                      listStyleType: "disc",
+                      lineHeight: { xs: "1.5rem", md: "1.8rem" }
+                    }}
+                  >
+                    <Link
+                      to="#"
+                      underline="hover"
+                      className="text-decoration-none text-black"
+                    >
+                      {guide}
+                    </Link>
+                  </ListItem>
+                )
+              )}
+            </List>
           </Grid>
         </Grid>
       </Container>

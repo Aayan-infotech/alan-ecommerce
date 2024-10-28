@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { Home } from "./components/Home/Home";
 import { PageNotFound } from "./components/pagenotfound/PageNotFound";
 import Navbar from "./components/navbar/Navbar.jsx";
@@ -10,7 +10,7 @@ import { MeasuredWindows } from "./components/windows/MeasuredWindows.jsx";
 import Window from "./components/windows/Window.jsx";
 import { HardwareProducts } from "./components/hardware/HardwareProducts.jsx";
 import { NewCollection } from "./components/collection/NewCollection.jsx";
-import Cart  from "./components/cart/Cart.jsx";
+import Cart from "./components/cart/Cart.jsx";
 import { CheckoutPayment } from "./components/checkout/CheckoutPayment.jsx";
 import { Successfully } from "./components/checkout/Successfully.jsx";
 import Orders from "./components/Order/Orders.jsx";
@@ -30,14 +30,32 @@ import { Faq } from "./components/faq/Faq.jsx";
 import { RequestEstimation } from "./components/bookAppointment/RequestEstimation.jsx";
 import { Login } from "./components/login/Login.jsx";
 import AccurateWindowMeasurements from "./components/content/AccurateWindowMeasurements.jsx";
+import Caulk from './components/content/Caulk.jsx';
+import ApprovedInstallerDoorWindow from './components/content/ApprovedInstallerDoorWindow.jsx';
+// import Loader from './Loader.jsx';
+
 
 export const AppRoutes = () => {
+  // const [loading, setLoading] = useState(false);
+  // const location = useLocation();
+
+  // useEffect(() => {
+  //   const handleStart = () => setLoading(true);
+  //   const handleComplete = () => setLoading(false);
+
+  //   handleStart();
+  //   setTimeout(handleComplete, 10000);
+
+  //   return () => handleComplete();
+  // }, [location]);
+
   return (
-    <Router>
+    <>
+      {/* {loading && <Loader />} */}
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="doors" element={<Doors />} />
         <Route path="measured-doors" element={<MeasuredDoors />} />
         <Route path="windows" element={<Window />} />
@@ -63,10 +81,12 @@ export const AppRoutes = () => {
         <Route path="pre-approved-installer" element={<ApprovedInstaller />} />
         <Route path="faq" element={<Faq />} />
         <Route path="get-estimation" element={<RequestEstimation />} />
+        <Route path="caulk" element={<Caulk />} />
+        <Route path="approvedInstallerDoorWindow" element={<ApprovedInstallerDoorWindow />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
-    </Router>
+    </>
   );
 };
 

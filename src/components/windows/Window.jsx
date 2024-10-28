@@ -146,8 +146,9 @@ const Window = () => {
           justifyContent: "center",
           alignItems: "center",
           flexWrap: "wrap",
+          height: "50px"
         }}
-        className="text-white p-2 rounded-3 doors-title-list"
+        className="text-white p-1 rounded-3 doors-title-list"
       >
         <Typography className="title-size" sx={{ fontSize: "15px" }}>
           Select Category <ArrowForwardIosIcon className="fs-6" />

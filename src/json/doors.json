@@ -124,9 +124,9 @@
   },
   "pre_approved_installer": {
     "title": "Hire a Pre-Approved Installer",
-    "description": "The installers we have approved are experienced at removing existing doors and windows, and installing new ones to fit perfectly. They have worked with a wide variety of buildings and unique situations. They will ensure your new window or doors are weatherproof, level, and secure.",
+    "description": "The installers we have approved are experienced at removing existing doors and windows, and installing new ones to fit perfectly. They have worked with a wide variety of buildings and unique situations. They will ensure your new window or doors are weatherproof, level, and secure. The best way to hire a pre-approved installer is to purchase the service through our shopping cart when you order your doors and windows.",
     "description1": [
-      "The best way to hire a pre-approved installer is to purchase the service through our shopping cart when you order your doors and windows. This will ensure an installer will schedule an in-home consultation with you, discuss your options, confirm your measurements, and cover everything required for the job to turn out just the way you want it to. To get started you can click here to hire an installer."
+      "This will ensure an installer will schedule an in-home consultation with you, discuss your options, confirm your measurements, and cover everything required for the job to turn out just the way you want it to. To get started you can click here to hire an installer."
     ],
     "related_articles": {
       "diy_window_guides": [
@@ -145,6 +145,59 @@
       "window_measurements": [
         "Learn how to get accurate Window Measurements",
         "Learn how to get accurate Door Measurements"
+      ]
+    }
+  },
+  "caulk_guides": {
+    "title": "Which caulk should I use?",
+    "introduction": "We offer 2 different types of caulk that are the best for sealing windows and doors: Siliconized Acrylic Sealant, and Polyurethane Sealant. Both are durable and energy efficient and can be used exclusively, but Siliconized Acrylic is recommended for interior caulking, and Polyurethane is recommended for exterior caulking. This is mainly because Polyurethane is toxic.",
+    "recommendation": "If you are doing a window installation, we recommend you purchase 1 tube of Polyurethane Caulk, and 1 tube of Siliconized Acrylic Caulk. Use the Polyurethane on the outside of the window, and the Siliconized Acrylic on the inside of the window. You may also need some Expanding Foam Sealant, and Vinyl Trim Strips to fill in and cover up any gaps. This is explained in the Do-It-Yourself article about how to apply caulk.",
+    "sealant_types": [
+      {
+        "type": "Siliconized Acrylic Sealant",
+        "description": [
+          "Siliconized acrylic caulk is a little less durable than polyurethane, but it is easier to work with since it cleans up with water, and better tolerated by those with chemical sensitivities. Siliconized acrylic caulk can be painted over after is applied. The added silicone makes it more water resistant and flexible. It is the best choice for interior caulking, but can also be used on exterior caulking.",
+          "The Siliconized acrylic caulk we recommend is called RCS20, made by GE: Product page for Siliconized Acrylic Sealant RCS20."
+        ],
+        "image": "src/assets/whatsrightforme2.png"
+      },
+      {
+        "type": "Polyurethane Sealant",
+        "description": [
+          "Polyurethane caulks are paintable, flexible, and weather resistant. They have superior bonding ability, to the extent that they can be used as an adhesive in certain applications. Because of this, polyurethane caulk works well in joints between dissimilar materials.",
+          "The downside to this type of caulk is that it is somewhat messy to work with, as it is stringy and sticks to your hands and clothes. It must be cleaned up with mineral spirits, as it is not water soluble. It can also be somewhat toxic, so it should not be applied around intake ducts or ventilation grilles, where siliconized acrylic latex caulk should be used.",
+          "The Polyurethane Sealant we recommend is SM7108 Permathane made by Schnee-Morehead."
+        ],
+        "image": "src/assets/whatsrightforme1.png"
+      }
+    ]
+  },
+  "approvedInstallerDoorWindow": {
+    "title": "Hire a Pre-Approved Installer - Discount Door & Window",
+    "description": "All of our pre-approved installers are licensed and experienced contractors. The installer will match the manufacturer's warranty on the products installed. This means that if a door has a lifetime warranty, then the labor for installing the door will also have a lifetime warranty. That way if there is an issue with the door that was caused by the installer, it will be repaired by the installer. If there is an issue with the door caused by a defect in the door, then the manufacturer will repair or replace the door.",
+    "description1": "All Doors and Windows we sell come with their full-factory manufacturer warranty. Please read the manufacturer warranty thoroughly and follow all requirements. Failing to follow manufacturer's requirements and instruction will void your warranty.",
+    "related_articles": {
+      "diy_window_guides": [
+        {
+          "prefix": "Vinyl Windows and Patio Doors have a",
+          "underlinedText": "Limited Lifetime Warranty.",
+          "url": "/https://discountdw.com/p-6058-warranty-on-windows-and-vinyl-doors.html"
+        },
+        {
+          "prefix": "Wood Doors have a",
+          "underlinedText": "1 Year Warranty.",
+          "url": "/https://discountdw.com/files/documents/aaw-warranty.pdf"
+        },
+        {
+          "prefix": "Wood grain Fiberglass Doors have a",
+          "underlinedText": "Limited Lifetime Warranty.",
+          "url": "/https://discountdw.com/p-6058-warranty-on-windows-and-vinyl-doors.html"
+        },
+        {
+          "prefix": "Smooth skin fiberglass doors have a",
+          "underlinedText": "25 year warranty.",
+          "url": "/https://discountdw.com/files/documents/plastpro_smoothskin_warranty_0824.pdf"
+        }
       ]
     }
   }

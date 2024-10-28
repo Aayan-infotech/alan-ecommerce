@@ -3,15 +3,12 @@ import content from "../../json/doors.json";
 import {
   Box,
   Container,
-  Divider,
   Grid,
   List,
   ListItem,
-  ListItemText,
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import card_img1 from "../../assets/whatsrightforme 1.png";
 import card_img2 from "../../assets/tape_measure200 2.png";
 
 const AccurateMeasurements = () => {
@@ -19,42 +16,93 @@ const AccurateMeasurements = () => {
 
   return (
     <div>
-      <Container style={{ marginTop: "20px" }}>
+      <Container sx={{ mt: { xs: 2, md: 4 } }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          className="fw-bold"
+          sx={{
+            fontSize: { xs: "1.8rem", md: "2.125rem" },
+            textAlign: { xs: "center", md: "left" },
+          }}
+        >
+          {accurate_measurements.title}
+        </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Box mt={4}>
-              <Typography variant="h4" gutterBottom className="fw-bold">
-                {accurate_measurements.title}
-              </Typography>
-              <Box>
-                <img src={card_img2} width={400} />
-              </Box>
-              <Typography variant="body1" paragraph>
-                {accurate_measurements.description}
-              </Typography>
-              <List sx={{ listStyleType: "disc", paddingLeft: "20px" }}>
-                {accurate_measurements.related_articles.diy_window_guides.map(
-                  (guide, index) => (
-                    <ListItem
-                      key={index}
-                      sx={{
-                        display: "list-item",
-                        listStyleType: "disc",
-                        lineHeight: "10px",
-                      }}
-                    >
-                      <Link
-                        href="#"
-                        underline="hover"
-                        className="text-decoration-underline text-black"
-                      >
-                        {guide}
-                      </Link>
-                    </ListItem>
-                  )
-                )}
-              </List>
+          <Grid item xs={12} md={6}>
+            <Box
+              mt={2}
+              display="flex"
+              justifyContent={{ xs: "center", md: "flex-start" }}
+            >
+              <img
+                src={card_img2}
+                alt="Guide 1"
+                style={{
+                  width: "100%",
+                  maxWidth: "400px",
+                  height: "auto",
+                }}
+              />
             </Box>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            md={6}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              textAlign: { xs: "center", md: "left" },
+              paddingX: { xs: 2, md: 0 },
+            }}
+          >
+            <Typography variant="body1" paragraph>
+              {accurate_measurements.description}
+            </Typography>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: { xs: "center", md: "flex-start" },
+              paddingX: { xs: 2, md: 0 },
+            }}
+          >
+            <List
+              sx={{
+                listStyleType: "disc",
+                paddingLeft: { xs: 2, md: "20px" },
+                maxWidth: "500px",
+                width: "100%",
+              }}
+            >
+              {accurate_measurements.related_articles.diy_window_guides.map(
+                (guide, index) => (
+                  <ListItem
+                    key={index}
+                    sx={{
+                      display: "list-item",
+                      listStyleType: "disc",
+                      lineHeight: { xs: "1.5rem", md: "1.8rem" },
+                      fontWeight:"bold"
+                    }}
+                  >
+                    <Link
+                      to="#"
+                      underline="hover"
+                      className="text-decoration-none text-black"
+                    >
+                      {guide}
+                    </Link>
+                  </ListItem>
+                )
+              )}
+            </List>
           </Grid>
         </Grid>
       </Container>
