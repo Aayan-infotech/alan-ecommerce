@@ -5,6 +5,7 @@ import {
     Button,
     Container,
     Divider,
+    FormControl,
     Grid,
     InputLabel,
     List,
@@ -110,6 +111,140 @@ const LabourEstimate = () => {
                         <Typography variant="body1" paragraph>
                             {labour_estimate.note}
                         </Typography>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Grid container spacing={2} alignItems="center">
+                            <Grid item xs={3}>
+                                <Box mt={2}>
+                                    <InputLabel sx={{ color: 'black', fontWeight: 'bold' }}>Preferred Date for Appointment</InputLabel>
+                                    <TextField
+                                        variant="outlined"
+                                        placeholder="Select Date"
+                                        sx={{
+                                            mt: 1,
+                                            width: "100%",
+                                            // maxWidth: "300px",
+                                            backgroundColor: "#D0E5F4",
+                                            borderRadius: "10px",
+                                            "& fieldset": { border: "none" },
+                                        }}
+                                    />
+                                </Box>
+                            </Grid>
+
+                            {/* Preferred Date Time for Appointment */}
+                            <Grid item xs={3}>
+                                <Box mt={2}>
+                                    <InputLabel sx={{ color: 'black', fontWeight: 'bold' }}>Preferred Date Time for Appointment</InputLabel>
+                                    <TextField
+                                        variant="outlined"
+                                        placeholder="Select Time"
+                                        sx={{
+                                            mt: 1,
+                                            width: "100%",
+                                            // maxWidth: "300px",
+                                            backgroundColor: "#D0E5F4",
+                                            borderRadius: "10px",
+                                            "& fieldset": { border: "none" },
+                                        }}
+                                    />
+                                </Box>
+                            </Grid>
+
+                            {/* Quantity Selector */}
+                            <Grid item xs={1}>
+                                <Box mt={2}>
+                                    <InputLabel sx={{ color: 'black', fontWeight: 'bold' }}>Qty</InputLabel>
+                                    <FormControl fullWidth>
+                                        <Select
+                                            displayEmpty
+                                            defaultValue=""
+                                            sx={{
+                                                mt: 1,
+                                                backgroundColor: "#D0E5F4",
+                                                borderRadius: "10px",
+                                                maxWidth: "100px",
+                                                "& fieldset": { border: "none" },
+                                            }}
+                                        >
+                                            <MenuItem value={1}>1</MenuItem>
+                                            <MenuItem value={2}>2</MenuItem>
+                                            <MenuItem value={3}>3</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Box>
+                            </Grid>
+
+                            {/* Add to Cart Button */}
+                            <Grid item xs={3}>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        bgcolor: '#1E73BE',
+                                        color: 'white',
+                                        borderRadius: 1,
+                                        mt: 2,
+                                        width: '100%',
+                                        maxWidth: "150px",
+                                        '&:hover': { bgcolor: '#155a8a' },
+                                    }}
+                                >
+                                    Add to Cart
+                                </Button>
+                            </Grid>
+                        </Grid>
+
+                        {/* Additional Buttons */}
+                        <Grid container spacing={2} mt={2}>
+                            <Grid item>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        backgroundColor: '#333333',
+                                        color: 'white',
+                                        borderRadius: 1,
+                                        textTransform: "none",
+                                        px: 2,
+                                    }}
+                                    startIcon={<i className="fa-solid fa-plus"></i>}
+                                >
+                                    Add to Wishlist
+                                </Button>
+                            </Grid>
+
+                            <Grid item>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        backgroundColor: '#333333',
+                                        color: 'white',
+                                        borderRadius: 1,
+                                        textTransform: "none",
+                                        px: 2,
+                                        '&:hover': { backgroundColor: '#333333' },
+                                    }}
+                                >
+                                    Item Inquiry
+                                </Button>
+                            </Grid>
+
+                            <Grid item>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        backgroundColor: '#333333',
+                                        color: 'white',
+                                        borderRadius: 1,
+                                        textTransform: "none",
+                                        px: 2,
+                                    }}
+                                    startIcon={<i className="fa-solid fa-envelope"></i>}
+                                >
+                                    Tell a Friend
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </Grid>
 
                     {/* What to Expect Section */}
