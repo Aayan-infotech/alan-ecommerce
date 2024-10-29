@@ -33,6 +33,7 @@ import AccurateWindowMeasurements from "./components/content/AccurateWindowMeasu
 import Caulk from './components/content/Caulk.jsx';
 import ApprovedInstallerDoorWindow from './components/content/ApprovedInstallerDoorWindow.jsx';
 import VinylWindow from './components/content/VinylWindow.jsx';
+import LabourEstimate from './components/content/LabourEstimate.jsx';
 // import Loader from './Loader.jsx';
 
 
@@ -85,6 +86,7 @@ export const AppRoutes = () => {
         <Route path="caulk" element={<Caulk />} />
         <Route path="approvedInstallerDoorWindow" element={<ApprovedInstallerDoorWindow />} />
         <Route path="vinyl-window" element={<VinylWindow />} />
+        <Route path="labour-estimate" element={<LabourEstimate />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

@@ -286,5 +286,34 @@
         "title": "Put siliconized acrylic sealant in the gap between the trim and the wall to create a smooth seal."
       }
     ]
+  },
+  "labour_estimate": {
+    "title": "Hire an Installer for in-home estimate",
+    "SKU": "6679813",
+    "description": "This service is for an installer to meet you at your location, discuss options, do measurements, and make a work order for your unique situation.",
+    "note": "There is no charge for estimates. All appointments must be verified by phone before we will dispatch a consultant. Free Estimates are available only in San Diego and surrounding county.",
+    "image": "URL_to_image",
+    "what_to_expect": {
+      "title": "What to Expect:",
+      "description": "When you order this service, an installer will contact you to schedule a time to meet at your location to verify measurements and discuss options with you. This will ensure the final result will be exactly how you want it. Here are estimates that the installer will probably quote on standard door and window installations. Keep in mind that the $75 you pay here is deducted from the final installation prices below.",
+      "pricing_estimates": [
+        "Each window usually costs $200 to install.",
+        "Each patio door usually costs $400 to install.",
+        "Each front door usually costs $600 to install."
+      ],
+      "included_services": [
+        "Materials such as: Caulking Sealant & Trim.",
+        "Adding Trim or Transition strips where needed.",
+        "Interior molding.",
+        "Transporting Door and Window to your location if in Southern California.",
+        "Old Door and Window removal and disposal."
+      ]
+    },
+    "labor_warranty_information": {
+      "title": "Labor Warranty Information:",
+      "description": "All pre-approved installers are licensed and experienced contractors. The labor warranty will match the duration of the manufacturer’s warranty on the products installed. This means that if a door has a lifetime warranty, then the labor to install the door will also have a lifetime warranty. That way if there is an issue with the door that was caused by the installer, it will be covered by the installer. If there is an issue with the door caused by a defect in the door, then the manufacturer will repair or replace the door.",
+      "link_text": "Read more about labor warranty here",
+      "link_url": "URL_to_labor_warranty_information"
+    }
   }
 }
