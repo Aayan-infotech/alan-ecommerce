@@ -217,11 +217,7 @@
         "Gloves to protect from caulking",
         "Shims to adjust the window placement"
       ],
-      "diy_door_guides": [
-        "Step ladder",
-        "Spirit level",
-        "Glass cleaner"
-      ]
+      "diy_door_guides": ["Step ladder", "Spirit level", "Glass cleaner"]
     },
     "installation_steps": [
       {
@@ -277,9 +273,7 @@
       {
         "step": 9,
         "title": "Put siliconized acrylic sealant in the gap between the trim and the wall to create a smooth seal.",
-        "details": [
-          "Wipe off any excess sealant with a rag."
-        ]
+        "details": ["Wipe off any excess sealant with a rag."]
       },
       {
         "step": 10,
@@ -315,5 +309,138 @@
       "link_text": "Read more about labor warranty here",
       "link_url": "URL_to_labor_warranty_information"
     }
-  }
+  },
+  "tempered_safety_glass": {
+    "title": "When to use Tempered Safety Glass",
+    "introduction": {
+      "text": "When you are doing a window replacement job, you should be aware that there are Universal Building Codes that you need to abide by. The main one you need to understand is when it is required to use Tempered safety glass.",
+      "definition": "Tempered glass is glass that has an extra procedure done to it to make it 4 to 5 times stronger. The procedure involves heating the glass up, and then cooling it down rapidly. This process makes the glass stronger, and also changes the way the glass breaks. The glass shatters into small blocks that are much less likely to cause injury. That is why Tempered glass is also called Safety glass."
+    },
+    "hazardous_areas": {
+      "introduction": "The areas considered to be hazardous safety glazing areas requiring tempered glass are:",
+      "list": [
+        "Glass in any door.",
+        "Glass in any kind of shower, bathtub area, hot tub, steam room, sauna or whirlpool area where the bottom edge of the glass is less than 60 inches above a standing surface and drain outlet.",
+        "Glass in fixed or operable panels adjacent to a door where the nearest exposed edge of the glazing is within a 24” arc of either vertical edge of the door in a closed position and where the bottom edge of the glazing is less than 60” above a walking surface.",
+        {
+          "conditions": [
+            "18” above the floor in addition to 24” from a door.",
+            "If a glass is 72” above the deck of a tub it has to be tempered.",
+            "If glass is 42” from the floor in a stairwell it has to be tempered."
+          ],
+          "text": "Glass in fixed or operable panels that meets all of the following conditions."
+        },
+        {
+          "conditions": [
+            "The bottom edge of the glazing is less than 60” above a pool side of the glazing.",
+            "The glazing is within 5 feet of a swimming pool or spa deck area."
+          ],
+          "text": "Glass in walls used as a barrier for indoor or outdoor swimming pools or spas when both of the following exist."
+        },
+        "Glass in walls enclosing stairway landings or within 5 feet of the bottom and top of stairways where the bottom edge of the glass is less than 60” above a walking surface."
+      ]
+    },
+    "recommendation": "You can select tempered glass on any of the windows you order from Discount Door and Window. Select 'Glass Strength' option, and choose tempered glass.",
+    "references": {
+      "title": "For more information about the universal building code on Safety glass check our references:",
+      "links": [
+        "Consumer Product Safety Commission",
+        "California Building Standards Commission",
+        "The Safety Glazing Certification Council (SGCC)"
+      ]
+    },
+    "images": [
+      {
+        "title": "When to use Tempered Safety Glass",
+        "description": "Illustrative image of tempered glass"
+      },
+      {
+        "title": "When Safety Glass is Required",
+        "sub_images": [
+          {
+            "label": "GLASS IN SIDELITES - ELEVATION",
+            "description": "Diagram showing required safety glazing locations"
+          },
+          {
+            "label": "PLAN VIEW",
+            "description": "Diagram showing plan view of safety glazing areas"
+          },
+          {
+            "label": "GLASS WITHIN SHOWER WALLS",
+            "description": "Diagram showing where safety glazing is required within shower walls"
+          }
+        ]
+      }
+    ]
+  },
+  "energy_efficiency": {
+    "title": "Energy Efficiency",
+    "introduction": {
+      "text": "An average home may lose up to 30% of its heat or air-conditioning energy through in-efficient doors and windows. This can be due to a lot of reasons, but mostly because of out-dated technology, poorly sealed doors, and single pane windows. Most homeowners are well aware of this after walking into a room with old windows, and feeling the unsettling winter chill. Over the years there have been monumental improvements in door and window energy efficiency technology."
+    },
+    "doors_and_windows": {
+      "text": "Here at Discount Door and Window, we have selected products that we have found to be very energy efficient, durable and low cost. All of our windows qualify for a Tax Rebate if you use them to replace old aluminum or wood windows. This is because the amount of energy you save is large enough that the government wants to encourage homeowners to make the upgrade. With this tax rebate, and monthly savings on the energy bill, our retrofit vinyl windows will pay for themselves within a few years."
+    },
+    "energy_efficient_technology": {
+      "text": "There are a lot of qualities that attribute to how efficient our doors and windows are, but the most distinguishing features are the double pane with argon gas and Low-E technology. Low-E is short for 'low-emissivity.' It is a high-tech coating on the glass that is designed to block much of the heat and ultra-violet light from the sun, while permitting a large percentage of visible light. Argon-filled double pane glass provides excellent insulation. These technology help keep the warmth in during the winter, and the heat out the summer."
+    },
+    "measuring_efficiency": {
+      "text": "When purchasing new windows or doors, there are two key measure of efficiency that should be considered. The U-value of a window or door is a measure of heat loss. And the “Solar Heat Gain Coefficient” (SHGC) which measures how well a product blocks heat from the sun. For both of these measurements: the lower the number the higher the efficiency. These numbers are calculated by the National Fenestration Rating Council (NFRC). Our windows at Discount Door and Window have a U-Value of atleast 0.3"
+    },
+    "conclusion": {
+      "text": "If you have old doors and windows in your home, you have a lot to gain by replacing them with higher efficiency products. It will increase the comfort and style in your home, and save you money on your energy bill. Here at Discount Door and Window our goal is to provide you with replacement doors and windows that are affordable, durable, and energy efficient. We also empower you to make informed decisions by providing information, and video tutorials on how to get stuff done in a cost effective way."
+    }
+  },
+  "questions_installer": {
+    "title": "5 Questions You Should Ask an Installer",
+    "questions": [
+      {
+        "question": "How long will the project take?",
+        "answer": "It usually takes between 2 to 4 weeks for the doors and windows to be ready for installation. The installation itself should take 1 or 2 days, depending on how many doors and windows to install."
+      },
+      {
+        "question": "What does the overall process involve?",
+        "answer": "Make sure the Installer knows all the details of your situation, and that you know what will happen next."
+      },
+      {
+        "question": "Are you a licensed contractor?",
+        "answer": "Our installers are licensed contractors."
+      },
+      {
+        "question": "What if something goes wrong?",
+        "answer": "Make sure you have their direct contact information, so you can contact them if something doesn't go as expected, or there is a change in plan."
+      },
+      {
+        "question": "What warranties will I receive?",
+        "answer": "Most of our doors and windows have a limited lifetime warranty from the manufacturer. The labor warranty duration will match the manufacturer's warranty. Check to make sure you know what warranty your products have. Read more about our warranties."
+      }
+    ]
+  },
+  "green_house_content": [
+    {
+      "step": "Step 1",
+      "description": "Frame rough opening equal to window call out size. Rough opening should be plumb, square, and sill should be level. For stucco applications furring strips of at least 3/8' thick, should be used around entire perimeter to allow for proper clearance or optional stucco mold can be purchased, see number 5 below. For special size Tru-Frame® Greenhouse Windows the suggested rough opening size is:Width 5 1/2' Less Fin to Fin DimensionHeight 3 3/8' Less Fin to Fin Dimension",
+      "image": "greenhousewindowfig1.png"
+    },
+    {
+      "step": "Step 2",
+      "description": "Apply the flashing paper in the normal manner. First the sill strip, then the jamb strips. The top flashing goes on after the window is installed and overlaps the top window fin. (See Figure 2)",
+      "image": "vinylwindow.png"
+    },
+    {
+      "step": "Step 3",
+      "description": "Center the Tru-Frame® Greenhouse Window in rough opening allowing equal clearance on both sides and top. Bottom pan should line up with the finished sill height, allowing for any inside additional materials such as tile (see figure 3). Attach window to jambs, sill, and header with screws long enough to penetrate through any furring strips and deep into framing. A ribbon of caulking between the frame and flashing is a must.",
+      "image": "greenhousewindowfig1.png"
+    },
+    {
+      "step": "Step 4",
+      "description": "For window sizes 5' and larger, support bracing is highly recommended on each end of the window (Warranty could be void without proper support). These supports can be constructed as part of the wall framing or metal support brackets may be fabricated to adequately support the window. Support brackets can be purchased separately from your Tru-Frame® Dealer. Fasteners to be supplied by installer (1/4' X 3' Lag screws are suggested for wall mounting). Brackets must attach to the vertical studs below the window. For 8' windows a third support should also be used in the center. (see figure 3)",
+      "image": "greenhousewindowfig1.png"
+    },
+    {
+      "step": "Step 5",
+      "description": "Optional extruded aluminum stucco molding is cut square to fit around the perimeter of the window. Jamb moldings fit between header and sill moldings. Stucco moldings can be purchased separately from your Tru-Frame® Dealer. (See Figure 4a, 4b, and 4c)",
+      "image": "greenhousewindowfig1.png"
+    }
+  ]
 }

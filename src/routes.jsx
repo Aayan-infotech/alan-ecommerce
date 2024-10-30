@@ -34,6 +34,12 @@ import Caulk from './components/content/Caulk.jsx';
 import ApprovedInstallerDoorWindow from './components/content/ApprovedInstallerDoorWindow.jsx';
 import VinylWindow from './components/content/VinylWindow.jsx';
 import LabourEstimate from './components/content/LabourEstimate.jsx';
+import TemperedSafetyGlass from './components/content/TemperedSafetyGlass.jsx';
+import EnergyEfficiency from './components/content/EnergyEfficiency.jsx';
+import QuestionInstaller from './components/content/QuestionInstaller.jsx';
+import ApplyInstaller from './components/content/ApplyInstaller.jsx';
+import JambsExplained from './components/content/JambsExplained.jsx';
+import GreenHouse from './components/content/GreenHouse.jsx';
 // import Loader from './Loader.jsx';
 
 
@@ -87,6 +93,12 @@ export const AppRoutes = () => {
         <Route path="approvedInstallerDoorWindow" element={<ApprovedInstallerDoorWindow />} />
         <Route path="vinyl-window" element={<VinylWindow />} />
         <Route path="labour-estimate" element={<LabourEstimate />} />
+        <Route path="temperedSafetyGlass" element={<TemperedSafetyGlass />} />
+        <Route path="energy-efficiency" element={<EnergyEfficiency />} />
+        <Route path="question-installer" element={<QuestionInstaller />} />
+        <Route path="apply-installer" element={<ApplyInstaller />} />
+        <Route path="jambsExplained" element={<JambsExplained />} />
+        <Route path="green-house" element={<GreenHouse />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
