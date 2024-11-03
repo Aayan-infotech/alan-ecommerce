@@ -11,8 +11,8 @@ export const Footer = () => {
   const linkGroup = {
     links: [
       { name: "Home", path: "/" },
-      { name: "Gallery", path: "/gallery" },
       { name: "About Us", path: "/about" },
+      ,
     ],
     customer_services: [
       { name: "Contact Us", path: "/contact" },
@@ -27,6 +27,11 @@ export const Footer = () => {
       { name: "Login/Register", path: "/login" },
       { name: "Track Order", path: "/order-track" },
       { name: "Shopping Cart", path: "/cart" },
+      { name: "Door Hardware", path: "/hardware-products" },
+      { name: "Caulk Foam and Trim", path: "/caulk" },
+      { name: "Get Tax Rebate!", path: "/tax-rebate" },
+      { name: "Gallery", path: "/gallery" },
+      { name: "Replacement Windows", path: "/replacement-windows" },
     ],
     help: [
       { name: "Payment Options", path: "/payment-options" },
@@ -129,15 +134,33 @@ export const Footer = () => {
                 Share your thoughts about us... <span>Send</span>
               </p>
               <div className="social-icons">
-                <IconButton>
-                  <FacebookIcon />
-                </IconButton>
-                <IconButton>
+                <a
+                  href="https://www.facebook.com/discountDoor/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <IconButton sx={{border:"1px solid #fc5f03"}} size="small" className="me-2">
+                    <FacebookIcon />
+                  </IconButton>
+                </a>
+                <a
+                  href="https://x.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                <IconButton sx={{border:"1px solid #fc5f03"}} size="small" className="me-2">
                   <LinkedInIcon />
                 </IconButton>
-                <IconButton>
+                </a>
+                <a
+                  href="https://www.youtube.com/user/DiscountDW"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                <IconButton sx={{border:"1px solid #fc5f03"}} size="small">
                   <TwitterIcon />
                 </IconButton>
+                </a>
               </div>
             </div>
           </div>

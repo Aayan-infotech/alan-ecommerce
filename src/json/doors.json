@@ -442,5 +442,124 @@
       "description": "Optional extruded aluminum stucco molding is cut square to fit around the perimeter of the window. Jamb moldings fit between header and sill moldings. Stucco moldings can be purchased separately from your Tru-Frame® Dealer. (See Figure 4a, 4b, and 4c)",
       "image": "greenhousewindowfig1.png"
     }
-  ]
+  ],
+  "replacement_window": {
+    "title": "10 Things to Know Before You Buy Replacement Windows",
+    "introduction": "Buying replacement windows is a great way to improve the beauty, value and comfort of your home and it is a great investment. Remodeling Magazine’s annual Cost v. Value Report for 2007 says that homeowners in San Diego can expect to recoup up to 98.5% of their cost for installing vinyl replacement windows. But before you make any significant investment, you want to be sure you have done your homework and are ready to make a well-informed decision. Here are some things to consider before you sign on the dotted line.",
+    "topics": [
+      {
+        "topic_number": 1,
+        "title": "The difference between “replacement” windows and “retro-fit” windows. A replacement window is simply any window that replaces an existing window. This can be done using a “new construction” window or a “retro-fit” window. But the terms “replacement” and “retro-fit” are often used interchangeably, even by window professionals, so don’t let that confuse you. What installation method is best for your home?",
+        "description": "Replacement windows replace existing windows using 'new construction' or 'retro-fit' methods. The best method depends on your home’s needs.",
+        "methods": [
+          {
+            "name": "New Construction",
+            "description": "If you are planning to re-stucco or replace your siding at some point in the near future, then using new construction windows may be the best choice. This involves cutting back the stucco or siding four to eight inches from the edge of your window, removing the flashing paper and then removing the old window. Next your contractor will install the new window, apply new flashing paper, and then replace the stucco, usually a three-step process. The advantage to using new construction windows is that your new windows will be the same size as your old windows. The disadvantage is that if you are not planning to re-stucco your house, you will eventually be able to tell that the stucco was patched. The old stucco and the new stucco will not expand and contract at the same rate and over time cracks will appear between the old and new stucco. This installation method also costs considerably more than using the “retro-fit” installation method."
+          },
+          {
+            "name": "Retro-Fit",
+            "description": "If you are not planning to re-stucco your house any time soon or if you are concerned about your budget, a retro-fit window is probably your best choice. Installing retro-fit windows does not require any stucco damage because the perimeter frame of the old window will not be removed. The new retro-fit window is designed to fit inside your old window. Your contractor will use a different installation method, and a different type of retro-fit window, depending on whether your old windows are metal or wood. Because your new window is fitting inside the frame of your old window, it will need to be slightly smaller than the old window was. In most cases this is barely noticeable, but if the old window was small in the first place, such as a bathroom window, it may seem obvious. Also, some window companies have a very wide exterior flange that some homeowners find unattractive."
+          }
+        ]
+      },
+      {
+        "topic_number": 2,
+        "title": "What type of windows do you have now? Metal or Wood? If you are using retro-fit windows, the type of windows you have now will make a difference in how your new windows will be installed.",
+        "options": [
+          {
+            "type": "Metal Windows",
+            "description": "Typically, metal windows are replaced using a retro-fit window that has an exterior flange that will conceal your old window frame from the outside. The contractor will remove the glass and any bars that divide the window to create one large opening. The new window will come with a flange that extends about two inches all around the perimeter of the frame. The new window will fit inside the opening of your old window and the flange will conceal the perimeter frame of your old window. Your contractor will use trim to conceal your old window frame from the inside. Different contractors offer different interior trim options."
+          },
+          {
+            "type": "Wood Windows",
+            "description": "Typically, wood windows will be replaced using a retro-fit window that has a sill (bottom) that is designed to accommodate the slope of the old wood window sill. The contractor will remove either the interior or the exterior stops of the old windows, remove the sash (moving parts that hold the glass) and leave the perimeter frame in place. The new window will fit into the old perimeter frame. Some companies offer an aluminum wrap for the old wood window sill, but be sure to ask to see some jobs where this has been done. It is difficult to do well, and the wrap often has gaps where the edges do not line up well. In most cases, a good paint job will finish off the old window sill nicely and painting will help keep the charm of the old wood windows.(See How We Install from the main Menu of our web site) www.LaMesaDoorWindow.com."
+          }
+        ]
+      },
+      {
+        "topic_number": 3,
+        "title": "Know what type of frame material you want for your windows. There are advantages and disadvantages to all the frame materials available, so it is a good idea to consider them in advance.",
+        "materials": [
+          {
+            "name": "Vinyl",
+            "description": "Vinyl windows are far and away the most popular choice for window replacement, and for good reason. They are maintenance free, insulate well, make a smooth operating window and are relatively inexpensive. The downside is that they are usually only available in white and tan and vinyl cannot be painted. Some companies offer dark colored vinyl windows, but other companies have withdrawn them from the market due to failures associated with the dark material absorbing too much heat. Always check the warranty carefully."
+          },
+          {
+            "name": "Aluminum",
+            "description": "Aluminum windows have poor insulation qualities, but changing your windows from old aluminum windows that are single glazed to new aluminum windows that are dual glazed and have high performing low-e glass will provide a noticeable improvement in insulation. If you already have aluminum windows and you do not plan to replace them all, this may be a good choice so that your new windows more closely match your existing windows. Also, aluminum is available with dark bronze anodized frames which may be a good choice if you want the look of a dark frame, or clear anodized if you want to keep a mid-century contemporary style."
+          },
+          {
+            "name": "Fiberglass",
+            "description": "Fiberglass windows insulate well, are maintenance free and are available in dark colors. They are also easily painted if you want to change your color scheme at some point in the future. Unfortunately, fiberglass windows are usually quite expensive, often in the same price range as high-end wood windows."
+          },
+          {
+            "name": "Wood",
+            "description": " Wood windows are available with or without a low-maintenance exterior cladding. If you are restoring an old home and want to stay as true as possible to the original windows, then you may want to choose windows without exterior cladding. Unfortunately, they will require regular painting, and if you want dual-glazed windows with low-e glass, they will be nearly as expensive as clad wood windows. Exterior cladding is usually aluminum or vinyl and is available in a variety of colors. If you are planning to retro-fit your existing windows, you will almost certainly need special sizes, and many wood window companies either charge extra for special sizes or do not offer special sizes at all."
+          }
+        ]
+      },
+      {
+        "topic_number": 4,
+        "title": "Understand the glass options available to you.",
+        "options": [
+          {
+            "type": "Single glazed vs. Dual glazed",
+            "description": "A single-glazed window has just one layer of glass. A dual-glazed (or dual-pane) window has two layers of glass with a hermetically sealed air space between them. With single-glazed windows, there is very little that can go wrong with the glass unless it breaks, but single glazed windows do almost nothing to insulate your home. The advantage to dual-glazed windows is that the air trapped between the panes of glass insulates the way air trapped between feathers in a down comforter insulates. The disadvantage to dual-glazed windows is that the hermetic seal will fail eventually, most experts say in 15 to 20 years, so it is important to choose a window manufacturer who offers a warranty on the dual-glazed units, and who is likely to still be in business 15 to 20 years from now. If not covered by warranty, replacing the dual-glazed units will probably cost as much as your replacement windows did in the first place"
+          },
+          {
+            "type": "Low-E Glass",
+            "description": "Low-E is short for “low-emissivity.” It is a high-tech coating on the glass that is designed to block much of the heat and ultra-violet light from the sun, while permitting a large percentage of visible light, so it will reduce solar heat gain and fading without making your home uncomfortably dark. Almost all window manufacturers now consider low-e glass to be standard for new windows, but upgrading from standard Low-E to new high-performing Low-E will provide even greater energy efficiency."
+          },
+          {
+            "type": "Low-Maintenance Coatings",
+            "description": "Some window manufacturers are now offering a low maintenance glass coating, sometimes referred to as “self-cleaning” glass. Calling it self-cleaning may be overstating the facts, but the low-maintenance coatings do help your windows stay cleaner and make them easier to clean. Cardinal Glass Industries makes a low-maintenance coating called “Neat.” Cardinal says that Neat-coated glass “harnesses the sun's UV rays to loosen dirt so water can rinse it away, leaving windows virtually spotless. Your windows will stay cleaner longer and will clean easier.”"
+          },
+          {
+            "type": "Argon Gas",
+            "description": "Argon gas is a colorless, odorless, inert gas that is denser than air and can be used between panes to provide a small improvement in thermal performance and energy savings."
+          }
+        ]
+      },
+      {
+        "topic_number": 5,
+        "title": "Do you want the look of divided lites? The look of divided lites can be created by using true-divided lights, simulated divided lites, or internal grids.",
+        "options": [
+          {
+            "type": "True Divided Lites",
+            "description": "true divided lites are usually seen in wood windows. Wood (or other window-frame material) is used to actually separate the glass into small rectangles, and each piece of glass, or dual-glazed unit, is glazed into the window separately. This is usually expensive, but has the authentic look of an old wood window."
+          },
+          {
+            "type": "Simulated Divided Lites",
+            "description": "Simulated Divided Lites – Simulated divided lites use one larger piece of glass, and frame material is applied to the glass on the exterior and/or interior of the window to create the look of true divided lites. If the window is dual glazed, a “shadow bar” is often put between the two panes of glass to make the effect more realistic."
+          },
+          {
+            "type": "Internal Grids",
+            "description": "Internal grids are placed between the two panes of glass to give the impression of divided lites. This is a low-maintenance option, because when cleaning the windows, you are cleaning one large piece of glass rather than several smaller pieces of glass. Grid material is usually available in a flat or sculptured profile, and is considerably less expensive than either simulated or true divided lites."
+          }
+        ]
+      },
+      {
+        "topic_number": 6,
+        "title": "Know what the manufacturer’s warranty is. Many window manufacturers offer a “lifetime” warranty but the definition of “lifetime” varies widely. Some companies will provide you with replacement parts, but no labor to install the part. Other companies consider “lifetime” to be ten or twenty years. Be especially careful regarding the warranty of the dual-glazed units. Dual-glazed units are likely to last fifteen to twenty years, but when they fail, the cost of replacing them will probably be more than the cost of the replacement windows in the first place, as field labor is usually quite expensive. Some companies will even cover accidental breakage of the glass or the screen. Of course, the warranty is only as good as the company behind it. A company that has been in business for a long time will likely be there if you have a problem many years from now."      },
+      {
+        "topic_number": 7,
+        "title": "Know what your rights are",
+        "description": "The Contractors State License Board has helpful information about what you should expect from your contractor. You can get more information at:",
+        "link": "http://www.cslb.ca.gov/GeneralInformation/Library/GuidesAndPamphlets.asp"
+      },
+      {
+        "topic_number": 8,
+        "title": "Don’t get pressured into making a decision right away. Many companies spend a lot of money on the marketing needed to get a sales appointment in the first place, and they need to recover those marketing expenses somehow, usually by charging more. They know that if you have time to get competitive bids you are less likely to go with their company, so they sometimes offer big “discounts” if you sign right away. Don’t be fooled. If it is a good deal today, it will be a good deal next week."
+      },
+      {
+        "topic_number": 9,
+        "title": "Check referrals. Ask to see a list of customers and ask if you can contact past customers. If they can only offer you a couple of names, be careful. Any company that has been in business for very long should have a long list of satisfied customers."
+      },
+      {
+        "topic_number": 10,
+        "title": ". Trust your instincts. If it seems too good to be true, it probably is. Choose the company that you have the most confidence in. Allow them to make a fair profit and you will pay a fair price. Remember “if the deal isn’t good for everybody, then it’s no good at all.”For more general information about windows, a helpful website is:",
+        "link": "https://www.efficientwindows.org/or learn more at our Learning Center"
+      }
+    ]
+  }
 }

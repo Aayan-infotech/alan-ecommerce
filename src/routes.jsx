@@ -40,6 +40,7 @@ import QuestionInstaller from './components/content/QuestionInstaller.jsx';
 import ApplyInstaller from './components/content/ApplyInstaller.jsx';
 import JambsExplained from './components/content/JambsExplained.jsx';
 import GreenHouse from './components/content/GreenHouse.jsx';
+import ReplacementWindows from './components/content/ReplacementWindows.jsx';
 // import Loader from './Loader.jsx';
 
 
@@ -99,6 +100,7 @@ export const AppRoutes = () => {
         <Route path="apply-installer" element={<ApplyInstaller />} />
         <Route path="jambsExplained" element={<JambsExplained />} />
         <Route path="green-house" element={<GreenHouse />} />
+        <Route path="replacement-windows" element={<ReplacementWindows />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
