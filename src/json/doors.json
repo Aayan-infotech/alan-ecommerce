@@ -540,7 +540,8 @@
       },
       {
         "topic_number": 6,
-        "title": "Know what the manufacturer’s warranty is. Many window manufacturers offer a “lifetime” warranty but the definition of “lifetime” varies widely. Some companies will provide you with replacement parts, but no labor to install the part. Other companies consider “lifetime” to be ten or twenty years. Be especially careful regarding the warranty of the dual-glazed units. Dual-glazed units are likely to last fifteen to twenty years, but when they fail, the cost of replacing them will probably be more than the cost of the replacement windows in the first place, as field labor is usually quite expensive. Some companies will even cover accidental breakage of the glass or the screen. Of course, the warranty is only as good as the company behind it. A company that has been in business for a long time will likely be there if you have a problem many years from now."      },
+        "title": "Know what the manufacturer’s warranty is. Many window manufacturers offer a “lifetime” warranty but the definition of “lifetime” varies widely. Some companies will provide you with replacement parts, but no labor to install the part. Other companies consider “lifetime” to be ten or twenty years. Be especially careful regarding the warranty of the dual-glazed units. Dual-glazed units are likely to last fifteen to twenty years, but when they fail, the cost of replacing them will probably be more than the cost of the replacement windows in the first place, as field labor is usually quite expensive. Some companies will even cover accidental breakage of the glass or the screen. Of course, the warranty is only as good as the company behind it. A company that has been in business for a long time will likely be there if you have a problem many years from now."
+      },
       {
         "topic_number": 7,
         "title": "Know what your rights are",
@@ -559,6 +560,60 @@
         "topic_number": 10,
         "title": ". Trust your instincts. If it seems too good to be true, it probably is. Choose the company that you have the most confidence in. Allow them to make a fair profit and you will pay a fair price. Remember “if the deal isn’t good for everybody, then it’s no good at all.”For more general information about windows, a helpful website is:",
         "link": "https://www.efficientwindows.org/or learn more at our Learning Center"
+      }
+    ]
+  },
+  "our_vinyl_products": {
+    "title": "What are the advantages of our Vinyl products",
+    "introduction": {
+      "text": "An average home may lose 30% of its heat or air-conditioning energy through old aluminum windows. By replacing old windows with new Low-E, double pane, retrofit vinyl windows, you can make a noticeable difference in how well a room keeps it’s temperature, and reduce the heating and cooling bill. Our retrofit vinyl windows combine technology that allows for a low cost energy efficient window replacement that will eventually pay for itself in energy efficiency savings.",
+      "definition": "Vinyl windows are durable, low-maintenance, and stylish. They never require painting and are not effected by moisture. Our vinyl windows and sliding doors have these features:"
+    },
+    "ourvinylproducts": [
+      {
+        "step": "New Generation Vinyl",
+        "description": "New Generation Vinyl withstands harsh weather and wear-and-tear better. This rugged, maintenance-free, New Generation uiPV offers low conductivity and high energy-efficiency properties for your home and you'll never need to paint or stain these windows.",
+        "image": "src/assets/dp25certified 1.png"
+      },
+      {
+        "step": "New Generation Vinyl",
+        "description": "New Generation Vinyl withstands harsh weather and wear-and-tear better. This rugged, maintenance-free, New Generation uiPV offers low conductivity and high energy-efficiency properties for your home and you'll never need to paint or stain these windows.",
+        "image": "src/assets/limitedlifetimewarranty1.png"
+      },
+      {
+        "step": "HP SC Glass",
+        "description": "Combines solar cooling optimized Low-E with argon gas fill for high performance that is optimized for warmer climates.",
+        "image": "src/assets/lowe1.png"
+      },
+      {
+        "step": "Pinch Fusion Welding",
+        "description": "Our Replacement Series windows are entirely fusion welded – sashes and mainframes – to create a solid, one-piece unit that maintains its strength over the years. Our state-of-the-art fusion process ensures frame and sash corners won't have the excess variance found with other welding techniques.",
+        "image": "src/assets/pinchfusionweld1.png"
+      },
+      {
+        "step": "Warm Edge Technology",
+        "description": "The Warm Edge glass spacer system reduces thermal transfer around the glass perimeter by utilizing a unique U-shaped channel to separate glass panes and interrupt the natural flow of heat to cold. Warm Edge is one continuous piece creating a stronger, more energy-efficient insulated glass unit.",
+        "image": "src/assets/warmedgetech1.png"
+      },
+      {
+        "step": "Custom Sizing",
+        "description": "Our windows can be ordered in 1/8 inch increments to accommodate any replacement application providing a perfect fit and minimizing installation time and special trimming requirements",
+        "image": "src/assets/soundreduction1.png"
+      },
+      {
+        "step": "Sound Reduction",
+        "description": "Optional laminated glass can improve sound control by reducing exterior noise.",
+        "image": "src/assets/soundreduction1.png"
+      },
+      {
+        "step": "Limited Lifetime Warranty",
+        "description": "We are committed to providing industry-leading warranties for all of its products.",
+        "image": "src/assets/soundreduction1.png"
+      },
+      {
+        "step": "DP 25 Certified",
+        "description": "Our Windows are tested to meet the air, water and structure requirements of AAMA/WDMA 101/I.S.2. DP is the design pressure rating that the window receives from this outside testing.",
+        "image": "src/assets/soundreduction1.png"
       }
     ]
   }

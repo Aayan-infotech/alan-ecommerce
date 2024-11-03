@@ -41,6 +41,7 @@ import ApplyInstaller from './components/content/ApplyInstaller.jsx';
 import JambsExplained from './components/content/JambsExplained.jsx';
 import GreenHouse from './components/content/GreenHouse.jsx';
 import ReplacementWindows from './components/content/ReplacementWindows.jsx';
+import OurVinylProducts from './components/content/OurVinylProducts.jsx';
 // import Loader from './Loader.jsx';
 
 
@@ -101,6 +102,7 @@ export const AppRoutes = () => {
         <Route path="jambsExplained" element={<JambsExplained />} />
         <Route path="green-house" element={<GreenHouse />} />
         <Route path="replacement-windows" element={<ReplacementWindows />} />
+        <Route path="ourvinylproducts" element={<OurVinylProducts />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

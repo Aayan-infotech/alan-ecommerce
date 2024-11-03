@@ -32,6 +32,7 @@ export const Footer = () => {
       { name: "Get Tax Rebate!", path: "/tax-rebate" },
       { name: "Gallery", path: "/gallery" },
       { name: "Replacement Windows", path: "/replacement-windows" },
+      { name: "Our Vinyl Products", path: "/ourvinylproducts" },
     ],
     help: [
       { name: "Payment Options", path: "/payment-options" },
