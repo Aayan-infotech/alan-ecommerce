@@ -616,5 +616,79 @@
         "image": "src/assets/soundreduction1.png"
       }
     ]
+  },
+  "discount_door_window": {
+    "title": "Request an In-Home Estimate - Discount Door & Window",
+    "door_image": "/path/to/doorInformation.png",
+    "info_banner": "Fiberglass Door Information",
+    "points": [
+      "No unsightly screw plugs around glass on either side: Our exclusive SmartFrame™ Snap-On Frame creates a completely unblemished surface.",
+      "Stainable and paintable wood grain skin, or paintable smooth skin: Distinction Doors fiberglass skin is paint and stain ready.",
+      "Triple pane decorative glass: Triple pane decorative glass provides excellent thermal insulation.",
+      "Fiberglass skin won’t dent, ding, or rust: Unlike steel doors, Fiberglass is unaffected by moisture and humidity.",
+      "Extended lock block resists forced entry: Our 20\" extended lock block adds security and peace of mind to your entry.",
+      "Beautifully detailed architectural panels: Distinction Doors are designed with deeper shadow lines and better curb appeal.",
+      "Waterproof composite sides: Distinction Doors use a nonporous composite edge instead of a regular wood edge so it will never rot or warp.",
+      "Insulated core: Our environmentally-friendly insulation provides maximum thermal protection.",
+      "Waterproof composite top and bottom rails: Extra non-porous protection keeps water from seeping into the door."
+    ]
+  },
+  "replace_door_windows": {
+    "title": "Why Replace Your Door or Windows?",
+    "door_image": "/path/to/doorInformation.png",
+    "points": [
+      "You walk or look through them every single day. But how often do you really think about the impact your home's doors and windows have on its value, beauty, and livability? Home improvement experts agree that updating your windows and doors can help you save on energy bills, improve the look and infrastructure of your home and add long-lasting value.",
+      "\"One of the most valuable investments you can make in your home is door and window replacement,\" says Lou \"Mr. Fix It\" Manfredini, home improvement editor for the Today Show and \"USA Today Weekend Magazine.\"",
+      "Replacing your windows can mean making many decisions: Is it time to replace? And if so, how do you go about choosing the best replacement windows?",
+      "Performance",
+      "This is the most compelling reason to change a door or window. On top of testing your patience, windows and doors that stick aren't giving you the optimum benefit in terms of convenience and efficiency. Performance is also tied to safety-if doors are windows are not opening properly they can be a safety hazard.",
+      "Energy Efficiency",
+      "Check for drafts around doors and windows by moving a lit candle slowly around the edges. If the flame flickers, you have a draft -- one of the biggest drains on the energy efficiency of your home. Drafts add up to real dollars on your heating and cooling bills, so this is, for many people, the impetus to replace their windows or doors.",
+      "Maintenance",
+      "Older windows and doors require maintenance -- scraping, painting and caulking. Newer windows and doors feature low maintenance cladding, a protective exterior covering that requires minimal maintenance. Many newer windows also make cleaning easy with a convenient tilt feature that allows you to wash them from inside your house.",
+      "Aesthetics",
+      "Curb appeal is vital if you're selling your house and a satisfying lifestyle enhancement if you plan to stay in your home for years to come. Updated windows and doors not only improve energy efficiency and lower maintenance costs, they make your house look more appealing as well.",
+      "Manfredini advises: \"The number one attribute you should look for in a replacement window or door is quality. Windows are one of the most noticeable parts of your home, so make sure you look for windows that are of furniture-grade quality.\""
+    ],
+    "advice": "The number one attribute you should look for in a replacement window or door is quality. Windows are one of the most noticeable parts of your home, so make sure you look for windows that are of furniture-grade quality."
+  },
+  "paint_fiberglass_door": {
+    "title": "How to Paint Fiberglass Door",
+    "door_image": "/path/to/doorInformation.png",
+    "paintSecton": [
+      {
+        "step": "Materials:",
+        "image": "greenhousewindowfig1.png",
+        "instructions": [
+          "Lint-free cloth",
+          "Acetone",
+          "Rubber Glove",
+          "Masking tape",
+          "4\" Bristle Brush",
+          "For water-based application: Acrylic-based primer / acrylic latex-based exterior grade paint."
+        ]
+      },
+      {
+        "step": "Step 1: Surface Preparation",
+        "image": "vinylwindow.png",
+        "instructions": [
+          "Lay door horizontally on saw horses or a table.",
+          "Remove all the hardware and mask off anything you don't want painted, such as the glass insert.",
+          "Do not sand grained Fiberglass.",
+          "Wipe the door with acetone to clean any dust or residue from the surface.",
+          "Allow acetone to dry from the surface before applying paint. Do not use hydro-carbon based solvents to clean the surface as such products may leave a residue.",
+          "Apply primer with a 4\" brush beginning with the panels. Follow the manufacturer's instructions for drying time before applying topcoat.",
+          "The primer must be completely dry before applying any finish topcoat."
+        ]
+      },
+      {
+        "step": "Step 2: Painting",
+        "image": "greenhousewindowfig1.png",
+        "instructions": [
+          "Use a 4\" brush to apply the topcoat.",
+          "Follow the manufacturer's instructions for the best results."
+        ]
+      }
+    ]
   }
 }

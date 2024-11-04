@@ -42,6 +42,11 @@ import JambsExplained from './components/content/JambsExplained.jsx';
 import GreenHouse from './components/content/GreenHouse.jsx';
 import ReplacementWindows from './components/content/ReplacementWindows.jsx';
 import OurVinylProducts from './components/content/OurVinylProducts.jsx';
+import FiberglassDoor from './components/content/FiberglassDoor.jsx';
+import SlabHungDoor from './components/content/SlabHungDoor.jsx';
+import DiscountDoorWindow from './components/content/DiscountDoorWindow.jsx';
+import ReplaceDoorWindows from './components/content/ReplaceDoorWindows.jsx';
+import PaintFiberglassDoor from './components/content/PaintFiberglassDoor.jsx';
 // import Loader from './Loader.jsx';
 
 
@@ -103,6 +108,11 @@ export const AppRoutes = () => {
         <Route path="green-house" element={<GreenHouse />} />
         <Route path="replacement-windows" element={<ReplacementWindows />} />
         <Route path="ourvinylproducts" element={<OurVinylProducts />} />
+        <Route path="fiberglassdoor" element={<FiberglassDoor />} />
+        <Route path="slabhungdoor" element={<SlabHungDoor />} />
+        <Route path="discountdoorwindow" element={<DiscountDoorWindow />} />
+        <Route path="replacedoorwindows" element={<ReplaceDoorWindows />} />
+        <Route path="paintfiberglassdoor" element={<PaintFiberglassDoor />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
