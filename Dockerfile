@@ -1,19 +1,33 @@
-FROM node:18 AS build
+FROM node:18-alpine AS build
 
 WORKDIR /app
 
-COPY package*.json ./
+# Copy package.json and package-lock.json to install dependencies
+COPY package.json package-lock.json ./
 
+# Install dependencies
 RUN npm install
 
+# Copy the rest of the project files
 COPY . .
 
+# Build the project for production (output will be in the "dist" directory)
 RUN npm run build
 
-FROM nginx:alpine
+# Stage 2: Run the production build
+FROM node:18-alpine
 
-COPY --from=build /app/dist /usr/share/nginx/html
+# Set the working directory for the production environment
+WORKDIR /app
 
-EXPOSE 80
+# Copy the build output from the previous stage
+COPY --from=build /app/dist ./dist
 
-CMD ["nginx", "-g", "daemon off;"]
+# Install a simple HTTP server to serve the static files
+RUN npm install -g serve
+
+# Expose port 3000 to access the app
+EXPOSE 2040
+
+# Run the app using 'serve' on port 3000
+CMD ["serve", "-s", "dist", "-l", "2040"]
