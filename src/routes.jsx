@@ -47,6 +47,7 @@ import SlabHungDoor from './components/content/SlabHungDoor.jsx';
 import DiscountDoorWindow from './components/content/DiscountDoorWindow.jsx';
 import ReplaceDoorWindows from './components/content/ReplaceDoorWindows.jsx';
 import PaintFiberglassDoor from './components/content/PaintFiberglassDoor.jsx';
+import DentilShelf from './components/content/DentilShelf.jsx';
 // import Loader from './Loader.jsx';
 
 
@@ -113,6 +114,7 @@ export const AppRoutes = () => {
         <Route path="discountdoorwindow" element={<DiscountDoorWindow />} />
         <Route path="replacedoorwindows" element={<ReplaceDoorWindows />} />
         <Route path="paintfiberglassdoor" element={<PaintFiberglassDoor />} />
+        <Route path="dentil-shelfc" element={<DentilShelf />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

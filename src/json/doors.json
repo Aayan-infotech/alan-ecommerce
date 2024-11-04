@@ -652,6 +652,35 @@
     ],
     "advice": "The number one attribute you should look for in a replacement window or door is quality. Windows are one of the most noticeable parts of your home, so make sure you look for windows that are of furniture-grade quality."
   },
+  "dentil_shelf": {
+    "title": "How to Install a Dentil Shelf",
+    "introduction": "Please read and understand all installation and adhesive instructions prior to opening the adhesive cartridge",
+    "caution": "Make sure your work area is well-ventillated and has air circulation. Adhesive is flammable, keep away from heat and flame. Please wear safety glasses and latex gloves. Avoid contact with eyes and skin. Read warning label on adhesive box. KEEP OUT OF REACH OF CHILDREN.",
+    "notes": "When painting, the door and dentil shelf should be unfinished when applying dentil shelf. Door needs to be removed from the opening and placed in a horizontal position for a minimum of three hours to allow the adhesive to cure.",
+    "tooles_needed": "Latex Gloves, Safety Glasses, Mineral Spirits, Soap and Water, Stir Stick, Bristle Brush and Disposable container for mixing.",
+    "topics": [
+      {
+        "topic_number": "Step 1",
+        "title": "Before You Start Protect the underside of the door by laying it flat on padded sawhorses or another padded surface. Position the door with the exterior side facing up. Thoroughly clean the door surface and the dentil shelf with soap and water. Be sure to thoroughly rinse with water to make sure all soap and residue are removed and then dry completely. Surfaces must be completely dry before going on to Step 2."
+      },
+      {
+        "topic_number": "Step 2",
+        "title": "Locate Shelf Position the dentil shelf on the door so that it's centered along the width of the door and parallel to the glass opening (suggested location is entered from bottom of glass frame and top of panel embossments). Use a graphite pencil to lightly mark the location of the top and sides of the shelf on the door face.)"
+      },
+      {
+        "topic_number": "Step 3",
+        "title": "Apply Adhesive Open adhesive cartridge as directed in the “DIRECTION FOR USE” instructions on the label of the adhesive cartridge. Dispense adhesive as instructed into a disposable container and mix thoroughly with a clean stir stick for sixty seconds. Using a bristle brush, apply a thin coat of adhesive to the underside of the shelf. Be careful not to allow adhesive on the sides of the shelf. The coating should not be more than 1/16” thick and should be approximately 1/2” away from all edges to help prevent squeeze-out. Carefully press the shelf onto the door face using your pencil lines (from Step 2) as your locating guides. Apply firm pressure to ensure contact with door. You will have approximately 3 to 4 minutes to work with the shelf before the adhesive starts to set. Immediately remove any adhesive squeeze-out with mineral spirits and a clean cloth."
+      },
+      {
+        "topic_number": "Step 4",
+        "title": " Cure Time The shelf and door should remain in the horizontal position for a minimum of three hours to allow the adhesive to cure. After three hours, the door can be finished if painting or re-installed if staining. Full bond strength is reached at sixteen hours."
+      },
+      {
+        "topic_number": "Step 5",
+        "title": "Adhesive Disposal Wipe tip clean, retract plunger slightly and close with the special cap. Allow the adhesive in the disposable container to harden in a well ventilated area. Once hardened, properly dispose of adhesive. Source: plastpro"
+      }
+    ]
+  },
   "paint_fiberglass_door": {
     "title": "How to Paint Fiberglass Door",
     "door_image": "/path/to/doorInformation.png",

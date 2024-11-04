@@ -33,6 +33,7 @@ export const Footer = () => {
       { name: "Gallery", path: "/gallery" },
       { name: "Replacement Windows", path: "/replacement-windows" },
       { name: "Our Vinyl Products", path: "/ourvinylproducts" },
+      { name: "Dentil Shelfc", path: "/dentil-shelfc" },
     ],
     help: [
       { name: "Payment Options", path: "/payment-options" },
