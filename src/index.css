@@ -1,8 +1,26 @@
-body {
+/* body {
   margin: 0;
   padding: 0;
-  /* display: flex; */
+  scrollbar-width: none;
 }
+body::-webkit-scrollbar {
+  display: none;
+} */
+
+/* HTML aur body dono par scroll bar ko remove karne ke liye */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Horizontal scroll bar ko hide karne ke liye */
+  scrollbar-width: none; /* Firefox me scroll bar ko hide karta hai */
+}
+
+/* Webkit-based browsers (Chrome, Safari, Edge) me scroll bar ko hide karne ke liye */
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display: none;
+}
+
+
 .quick_contact a {
   position: fixed;
   display: flex;
