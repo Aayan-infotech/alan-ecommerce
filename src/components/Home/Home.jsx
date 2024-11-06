@@ -19,7 +19,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { CustomerFeedback } from "./CustomerFeedback";
 import { LatestBlogs } from "./LatestBlogs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/slices/spotlightSlice";
@@ -35,6 +35,7 @@ export const Home = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const fetchAllSpotLightDeals = async () => {
     try {
@@ -62,12 +63,22 @@ export const Home = () => {
     { urlPath: "/diyinstall-guides", label: "DIY Installation Guide" },
   ];
   const expore_products = [
-    { id: 1, product_name: "Windows", image: window_image },
-    { id: 2, product_name: "Sliding Door", image: sliding_image },
-    { id: 3, product_name: "System", image: entrydoors_image },
-    { id: 1, product_name: "Bi-Fold and French Doors", image: bifold_image },
-    { id: 2, product_name: "Interior Doors", image: interriordoors_image },
-    { id: 3, product_name: "Hardware", image: harware_image },
+    { id: 1, url: "", product_name: "Windows", image: window_image },
+    { id: 2, url: "", product_name: "Sliding Door", image: sliding_image },
+    { id: 3, url: "", product_name: "System", image: entrydoors_image },
+    {
+      id: 1,
+      url: "",
+      product_name: "Bi-Fold and French Doors",
+      image: bifold_image,
+    },
+    {
+      id: 2,
+      url: "",
+      product_name: "Interior Doors",
+      image: interriordoors_image,
+    },
+    { id: 3, url: "", product_name: "Hardware", image: harware_image },
   ];
 
   const handleAddToCart = (productId, quantity) => {
@@ -92,6 +103,10 @@ export const Home = () => {
 
     scrollMarquee();
   }, []);
+
+  const handleClick = (item) => {
+    navigate("/sub-products", { state: { subproduct: item } });
+  };
 
   return (
     <div className="home-container px-4">
@@ -247,12 +262,10 @@ export const Home = () => {
           {expore_products.length > 0 ? (
             expore_products.map((item, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card sx={{ maxWidth: 300, mx: "auto" }}>
-                  {/* <CardMedia
-                    sx={{ height: 250, backgroundSize: "contain" }}
-                    image={item?.image || No_Image_Available}
-                    title="Product Image"
-                  /> */}
+                <Card
+                  sx={{ maxWidth: 300, mx: "auto" }}
+                  onClick={() => handleClick(item)}
+                >
                   <CardMedia
                     component="img"
                     height="300"

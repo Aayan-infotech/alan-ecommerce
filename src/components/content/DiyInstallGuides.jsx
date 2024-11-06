@@ -7,10 +7,10 @@ import {
   List,
   ListItem,
   Typography,
-  Link,
 } from "@mui/material";
 import card_img1 from "../../assets/doityourselfinstallguides 1.png";
 import card_img2 from "../../assets/tape_measure200 2.png";
+import { Link } from "react-router-dom";
 
 const DiyInstallGuides = () => {
   const { diy_install_guides } = content;
@@ -41,35 +41,65 @@ const DiyInstallGuides = () => {
           </Box>
         </Grid>
         <Grid item xs={12} md={4}>
-          <img src={card_img2} alt="Guide 2" style={{ width: "100%", maxHeight: "200px" }} />
+          <img
+            src={card_img2}
+            alt="Guide 2"
+            style={{ width: "100%", maxHeight: "200px" }}
+          />
         </Grid>
 
         <Grid item xs={12} md={8}>
-          <Box display="flex" flexDirection={{ xs: "column", md: "row" }} justifyContent="space-between">
+          <Box
+            display="flex"
+            flexDirection={{ xs: "column", md: "row" }}
+            justifyContent="space-between"
+          >
             <Box mb={2}>
-              <Typography variant="h5" className="fw-bold">DIY Window Guides:</Typography>
+              <Typography variant="h5" className="fw-bold" gutterBottom>
+                DIY Door Guides:
+              </Typography>
               <Typography variant="subtitle1">Related Articles:</Typography>
               <List sx={{ listStyleType: "disc", pl: 2 }}>
-                {diy_install_guides.related_articles.diy_window_guides.map((guide, index) => (
-                  <ListItem key={index} sx={{ display: "list-item", lineHeight: "1.5" }}>
-                    <Link to="#" underline="hover" color="inherit">
-                      {guide}
-                    </Link>
-                  </ListItem>
-                ))}
+                {diy_install_guides.related_articles.diy_door_guides.map(
+                  (guide, index) => (
+                    <ListItem
+                      key={index}
+                      sx={{ display: "list-item", lineHeight: "1.5" }}
+                    >
+                      <Link
+                        to={guide?.path}
+                        underline="hover"
+                        className="text-black text-decoration-none"
+                      >
+                        {guide?.title}
+                      </Link>
+                    </ListItem>
+                  )
+                )}
               </List>
             </Box>
             <Box>
-            <Typography variant="h5" className="fw-bold" gutterBottom>DIY Door Guides:</Typography>
+              <Typography variant="h5" className="fw-bold">
+                DIY Window Guides:
+              </Typography>
               <Typography variant="subtitle1">Related Articles:</Typography>
               <List sx={{ listStyleType: "disc", pl: 2 }}>
-                {diy_install_guides.related_articles.diy_door_guides.map((guide, index) => (
-                  <ListItem key={index} sx={{ display: "list-item", lineHeight: "1.5" }}>
-                    <Link to="#" underline="hover" color="inherit">
-                      {guide}
-                    </Link>
-                  </ListItem>
-                ))}
+                {diy_install_guides.related_articles.diy_window_guides.map(
+                  (guide, index) => (
+                    <ListItem
+                      key={index}
+                      sx={{ display: "list-item", lineHeight: "1.5" }}
+                    >
+                      <Link
+                        to={guide?.path}
+                        underline="hover"
+                        className="text-black text-decoration-none"
+                      >
+                        {guide?.title}
+                      </Link>
+                    </ListItem>
+                  )
+                )}
               </List>
             </Box>
           </Box>

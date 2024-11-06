@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Typography, Button, Box, Container } from "@mui/material";
 import card_img1 from "../../assets/image 1.png";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Link } from "react-router-dom";
 
 export const MeasuredDoors = () => {
   return (
@@ -141,16 +142,24 @@ export const MeasuredDoors = () => {
               >
                 $ 849
               </Button>
-              <Button
-                variant="contained"
-                className="fw-bold"
-                sx={{ width: "150px", backgroundColor:"#FC5F03" }}
-              >
-                Add to cart
-              </Button>
-              <Button variant="contained" className="fw-bold" sx={{ width: "150px" }}>
-                Next <ArrowForwardIcon />
-              </Button>
+              <Link to="/cart">
+                <Button
+                  variant="contained"
+                  className="fw-bold"
+                  sx={{ width: "150px", backgroundColor: "#FC5F03" }}
+                >
+                  Add to cart
+                </Button>
+              </Link>
+              <Link to="/cart">
+                <Button
+                  variant="contained"
+                  className="fw-bold"
+                  sx={{ width: "150px" }}
+                >
+                  Next <ArrowForwardIcon />
+                </Button>
+              </Link>
             </Grid>
           </Grid>
         </Box>

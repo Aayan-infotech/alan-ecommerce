@@ -44,7 +44,9 @@ const Navbar = () => {
         maxWidth: "1200px",
         margin: "20px auto 0",
         padding: "6px",
-        width: "100%", top: "0", zIndex: "999"
+        width: "100%",
+        top: "0",
+        zIndex: "999",
       }}
     >
       <Toolbar sx={{ position: "sticky", top: "0", zIndex: "999" }}>
@@ -69,11 +71,13 @@ const Navbar = () => {
           >
             Doors & Windows
           </Typography> */}
-          <img
-            src={logo}
-            alt="Logo"
-            style={{ width: "150px", height: "auto" }}
-          />
+          <Link to="/">
+            <img
+              src={logo}
+              alt="Logo"
+              style={{ width: "150px", height: "auto" }}
+            />
+          </Link>
         </Box>
 
         {/* Mobile Menu Icon */}
@@ -183,7 +187,7 @@ const Navbar = () => {
                   backgroundColor: "#0068B3",
                   fontWeight: "bold",
                   fontSize: "12px",
-                  padding: "4px 10px"
+                  padding: "4px 10px",
                 }}
               >
                 Book a Free Consultation

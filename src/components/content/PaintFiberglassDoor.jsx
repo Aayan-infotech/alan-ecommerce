@@ -66,8 +66,8 @@ const PaintFiberglassDoor = () => {
           <Box component="img" src={figure1} />
         </Grid>
 
-        <Grid item xs={12} md={6}>
-          <Box>
+        <Grid item xs={12} md={6} className="text-center">
+          <Box sx={{width:"300px"}}>
             <Box>
               <img src={figure1} alt="" />
             </Box>

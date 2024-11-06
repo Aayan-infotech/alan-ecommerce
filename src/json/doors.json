@@ -75,19 +75,56 @@
     "note": "Here at Discount Door and Window, we want to support you in your door and window replacement projects. This DIY section is dedicated to providing you with the information you need to get the job done. If you still have questions about replacing your door or window, you can contact us and we will try to assist you further.",
     "related_articles": {
       "diy_window_guides": [
-        "How to Install Vinyl Window",
-        "How to Apply Caulk to a Window",
-        "Replace a Window that is Inset, or Not Flush with the Wall",
-        "How to Install a Green House Window",
-        "How to Get Accurate Window Measurements"
+        {
+          "title": "How to Install Vinyl Window",
+          "path": "/diy/vinylwindow"
+        },
+        {
+          "title": "How to Apply Caulk to a Window",
+          "path": "/diy/caulk-window"
+        },
+        {
+          "title": "Replace a Window that is Inset, or Not Flush with the Wall",
+          "path": "/diy/replace-inset-window"
+        },
+        {
+          "title": "How to Install a Green House Window",
+          "path": "/diy/green-house-window"
+        },
+        {
+          "title": "How to Get Accurate Window Measurements",
+          "path": "/guide/accurate-window-measurements"
+        }
       ],
       "diy_door_guides": [
-        "How to Remove an Exterior Door",
-        "How to Paint Smooth Skin Door",
-        "How to Paint Fiberglass Door",
-        "How to Paint Door Jambs",
-        "How to Install an Inswing Exterior Entry Door",
-        "How to Install a Dentil Shelf"
+        {
+          "title": "How to Remove an Exterior Door",
+          "path": "/diy/remove-exterior-door"
+        },
+        {
+          "title": "How to Paint Smooth Skin Door",
+          "path": "/diy/skin-door"
+        },
+        {
+          "title": "How to Paint Fiberglass Door",
+          "path": "/diy/paint-fiberglass-door"
+        },
+        {
+          "title": "How to Paint Door Jambs",
+          "path": "/diy/paint-door-jambs"
+        },
+        {
+          "title": "How to Install a Dentil Shelf",
+          "path": "/diy/install-dentil-shelf"
+        },
+        {
+          "title": "How to Get Accurate Door Measurements",
+          "path": "/guide/accurate-door-measurements"
+        },
+        {
+          "title": "How to use Shims on an entry door",
+          "path": "/diy/install-inswing-entry-door"
+        }
       ]
     }
   },
@@ -145,7 +182,10 @@
           "title": "Learn how to get accurate Window Measurements",
           "path": "/guide/accurate-window-measurements"
         },
-        { "title": "Learn how to get accurate Door Measurements", "path": "/guide/accurate-door-measurements" }
+        {
+          "title": "Learn how to get accurate Door Measurements",
+          "path": "/guide/accurate-door-measurements"
+        }
       ]
     }
   },
@@ -157,10 +197,22 @@
     ],
     "related_articles": {
       "diy_window_guides": [
-        {"title":"Labor Warranty", "path":"/guide/approvedInstallerDoorWindow"},
-        {"title":"Hire a Pre-Approved Installer for an in-home consultation", "path":"/guide/labour-estimate"},
-        {"title":"5 Questions You Should Ask an Installer", "path":"/guide/question-installer"},
-        {"title":"Apply to Become a Pre-Approved Installer", "path":"/guide/apply-installer"}
+        {
+          "title": "Labor Warranty",
+          "path": "/guide/approvedInstallerDoorWindow"
+        },
+        {
+          "title": "Hire a Pre-Approved Installer for an in-home consultation",
+          "path": "/guide/labour-estimate"
+        },
+        {
+          "title": "5 Questions You Should Ask an Installer",
+          "path": "/guide/question-installer"
+        },
+        {
+          "title": "Apply to Become a Pre-Approved Installer",
+          "path": "/guide/apply-installer"
+        }
       ]
     }
   },
@@ -309,6 +361,40 @@
         "title": "Put siliconized acrylic sealant in the gap between the trim and the wall to create a smooth seal."
       }
     ]
+  },
+  "apply_caulk_window": {
+    "title": "How to apply Caulk to a window",
+    "description_guide": "Caulking refers to the process of sealing a gap between two surfaces for the purpose of making it air and watertight. Below is the recommended process of caulking your Vinyl window. The caulks are available as an option when you purchase your window. You can also buy the separately at a hardware store. Let's start with a basic informational video about How to Caulk Windows:",
+    "introduction": "When doing a window replacement, There are 3 different places to seal the window.",
+    "installation_steps": [
+      {
+        "step": 1,
+        "title": "The Gap around the outside edge of the window",
+        "details": [
+          "Put additional polyurethane sealant around the outside of the exterior of the frame as needed to ensure a good seal between the wall and the window frame.Remember to leave 2 or 3 gaps at the bottom to allow moisture to seep out."
+        ]
+      },
+      {
+        "step": 2,
+        "title": "The Gap between the window frame and the wall",
+        "details": [
+          "The space between the window frame and the wall varies on each window. That space should be filled in to insulate the window. To do this you should use an expanding foam sealant. You can buy expanding foam sealant in a can that dispenses through a straw.",
+          "Tips: place the foam as close to the exterior wall as possible, use only enough foam to bridge the gap to fill the void. Do not overfill the void, a ½ inch bead will stop the draft and match the R factor of most energy efficient windows. The foam is not an insulation material where more is better, foam is intended to bridge the gap and be an air barrier. Let the foam cure and then review each window to assure all voids are sealed."
+        ]
+      },
+      {
+        "step": 3,
+        "title": "The gap that the trim creates on the interior of the window.",
+        "details": [
+          "To fill this gap you should use a siliconized acrylic caulking. Clean the surface, apply the caulking lightly, and wipe any remaining caulking off with a rag. You can see this 2 minutes into the following video:"
+        ]
+      }
+    ]
+  },
+  "windwo_flush_with_wall": {
+    "title": "Replace a Window that is Indented, or Not Flush with the Wall",
+    "description_guide1": "Not all windows are flush with the wall. Some are indented in an inch or two. This means the standard flush fin window that overlaps the wall will not work because the window would need to sit deeper into the opening.",
+    "description_guide2": "In this case, the best method is to purchase a retrofit window with flush fins, and then cut the flush fins back to the width of the opening so the window fits inside, and the flush fins cover up the old aluminum window frame."
   },
   "labour_estimate": {
     "title": "Hire an Installer for in-home estimate",

@@ -49,7 +49,13 @@ import DiscountDoorWindow from './components/content/DiscountDoorWindow.jsx';
 import ReplaceDoorWindows from './components/content/ReplaceDoorWindows.jsx';
 import PaintFiberglassDoor from './components/content/PaintFiberglassDoor.jsx';
 import DentilShelf from './components/content/DentilShelf.jsx';
-import { SkinDoor } from './components/content/SkinDoor.jsx';
+import SkinDoor from './components/content/SkinDoor.jsx';
+import ApplyCaulkWindow from './components/content/ApplyCaulkWindow.jsx';
+import WindwoflushWithWall from './components/content/WindwoflushWithWall.jsx';
+import ExteriorDoor from './components/content/ExteriorDoor.jsx';
+import PaintDoorJambs from './components/content/PaintDoorJambs.jsx';
+import InstallInswingEntryDoor from './components/content/InstallInswingEntryDoor.jsx';
+import { SubProducts } from './components/Home/SubProducts.jsx';
 // import Loader from './Loader.jsx';
 
 
@@ -94,7 +100,7 @@ export const AppRoutes = () => {
         <Route path="tax-rebate" element={<TaxRebate />} />
         <Route path="diyinstall-guides" element={<DiyInstallGuides />} />
         <Route path="rightfor-me" element={<RightForMe />} />
-        <Route path="accurate-measurements" element={<AccurateMeasurements />} />
+        <Route path="diyaccurate-measurements" element={<AccurateMeasurements />} />
         <Route path="/guide/accurate-window-measurements" element={<AccurateWindowMeasurements />} />
         <Route path="/guide/accurate-door-measurements" element={<AccurateDoorMeasurements />} />
         <Route path="pre-approved-installer" element={<ApprovedInstaller />} />
@@ -109,18 +115,24 @@ export const AppRoutes = () => {
         <Route path="/guide/question-installer" element={<QuestionInstaller />} />
         <Route path="/guide/apply-installer" element={<ApplyInstaller />} />
         <Route path="/guide/door-jambs" element={<JambsExplained />} />
-        <Route path="green-house" element={<GreenHouse />} />
+        <Route path="/diy/green-house-window" element={<GreenHouse />} />
         <Route path="/guide/replacement-windows" element={<ReplacementWindows />} />
         {/* <Route path="/guide/skin-door" element={<SkinDoor />} /> */}
         <Route path="/diy/skin-door" element={<SkinDoor />} />
+        <Route path="/diy/replace-inset-window" element={<WindwoflushWithWall />} />
         <Route path="/diy/vinylwindow" element={<VinylWindow />} />
+        <Route path="/diy/apply-caulk-window" element={<ApplyCaulkWindow />} />
         <Route path="/guide/vinyl-products" element={<OurVinylProducts />} />
         <Route path="/guide/fiberglass-vs-wood" element={<FiberglassDoor />} />
         <Route path="guide/slab-vs-pre-hung" element={<SlabHungDoor />} />
         <Route path="/guide/fiberglass-info" element={<DiscountDoorWindow />} />
         <Route path="/guide/replace-door-windows" element={<ReplaceDoorWindows />} />
-        <Route path="paintfiberglassdoor" element={<PaintFiberglassDoor />} />
-        <Route path="dentil-shelfc" element={<DentilShelf />} />
+        <Route path="/diy/paint-fiberglass-door" element={<PaintFiberglassDoor />} />
+        <Route path="/diy/remove-exterior-door" element={<ExteriorDoor />} />
+        <Route path="diy/paint-door-jambs" element={<PaintDoorJambs />} />/
+        <Route path="/diy/install-dentil-shelf" element={<DentilShelf />} />
+        <Route path="/diy/install-inswing-entry-door" element={<InstallInswingEntryDoor />} />
+        <Route path="sub-products" element={<SubProducts />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
