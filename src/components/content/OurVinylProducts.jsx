@@ -4,6 +4,7 @@ import { Card, CardContent, Container, Grid, Typography } from "@mui/material";
 import logogreenapprovedproducts1 from "../../assets/logo_greenapprovedproducts1.png";
 import taxenergycredit1 from "../../assets/tax_energy_credit1.png";
 import energystar801 from "../../assets/energy_star801.png";
+import lowe1 from "../../assets/lowe1.png";
 
 const OurVinylProducts = () => {
   const { our_vinyl_products } = content;
@@ -68,7 +69,7 @@ const OurVinylProducts = () => {
                 justifyContent="center"
                 alignItems="center"
               >
-                <img src={product.image} alt={product.step} />
+                <img src={lowe1} alt={product.step} />
               </Grid>
             )}
             <Grid item xs={12} md={6}>
@@ -91,7 +92,7 @@ const OurVinylProducts = () => {
                 justifyContent="center"
                 alignItems="center"
               >
-                <img src={product.image} alt={product.step} />
+                <img src={lowe1} alt={product.step} />
               </Grid>
             )}
           </React.Fragment>

@@ -93,11 +93,11 @@ const AccurateMeasurements = () => {
                     }}
                   >
                     <Link
-                      to="#"
+                      to={guide?.path}
                       underline="hover"
                       className="text-decoration-none text-black"
                     >
-                      {guide}
+                      {guide?.title}
                     </Link>
                   </ListItem>
                 )

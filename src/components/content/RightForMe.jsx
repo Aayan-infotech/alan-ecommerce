@@ -12,10 +12,41 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import card_img1 from "../../assets/whatsrightforme 1.png";
-import card_img2 from "../../assets/tape_measure200 2.png";
+import clauk from '../../components/content/Caulk';
 
 const RightForMe = () => {
   const { whats_right_for_me } = content;
+
+  // const diywindowguides = [
+  //   { title: "Which caulk should I use?", path: clauk },
+  //   {
+  //     title: "When to use Tempered Safety Glass",
+  //     path: "/guide/tempered-glass",
+  //   },
+  //   {
+  //     title: "Importance of Energy Efficiency",
+  //     path: "/guide/energy-efficiency",
+  //   },
+  //   { title: "Door Jambs Explained", path: "/guide/door-jambs" },
+  //   {
+  //     title: "10 Things to Know Before You Buy Replacement Windows",
+  //     path: "/guide/replacement-windows",
+  //   },
+  //   {
+  //     title: "What are the advantages of our Vinyl products?",
+  //     path: "/guide/vinyl-products",
+  //   },
+  //   {
+  //     title: "Fiberglass Door Versus Wood Door?",
+  //     path: "/guide/fiberglass-vs-wood",
+  //   },
+  //   { title: "Slab Door Vs. Pre Hung Door", path: "/guide/slab-vs-pre-hung" },
+  //   { title: "Fiberglass Door Information", path: "/guide/fiberglass-info" },
+  //   {
+  //     title: "Why Replace Your Door or Windows?",
+  //     path: "/guide/replace-door-windows",
+  //   },
+  // ];
 
   return (
     <div>
@@ -37,11 +68,7 @@ const RightForMe = () => {
               display="flex"
               justifyContent={{ xs: "center", md: "flex-start" }}
             >
-              <img
-                src={card_img1}
-                alt="Guide 1"
-                className="w-100"
-              />
+              <img src={card_img1} alt="Guide 1" className="w-100" />
             </Box>
           </Grid>
 
@@ -60,9 +87,7 @@ const RightForMe = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Box >
-              {whats_right_for_me.description1}
-            </Box>
+            <Box>{whats_right_for_me.description1}</Box>
           </Grid>
 
           <Grid
@@ -90,15 +115,15 @@ const RightForMe = () => {
                     sx={{
                       display: "list-item",
                       listStyleType: "disc",
-                      lineHeight: { xs: "1.5rem", md: "1.8rem" }
+                      lineHeight: { xs: "1.5rem", md: "1.8rem" },
                     }}
                   >
                     <Link
-                      to="#"
+                      to={guide?.path}
                       underline="hover"
                       className="text-decoration-none text-black"
                     >
-                      {guide}
+                      {guide?.title}
                     </Link>
                   </ListItem>
                 )

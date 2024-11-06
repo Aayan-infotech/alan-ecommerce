@@ -99,16 +99,40 @@
     ],
     "related_articles": {
       "diy_window_guides": [
-        "Which caulk should I use?",
-        "When to use Tempered Safety Glass",
-        "Importance of Energy Efficiency",
-        "Door Jambs Explained",
-        "10 Things to Know Before You Buy Replacement Windows",
-        "What are the advantages of our Vinyl products?",
-        "Fiberglass Door Versus Wood Door?",
-        "Slab Door Vs. Pre Hung Door",
-        "Fiberglass Door Information",
-        "Why Replace Your Door or Windows?"
+        { "title": "Which caulk should I use?", "path": "/guide/caulk" },
+        {
+          "title": "When to use Tempered Safety Glass",
+          "path": "/guide/tempered-glass"
+        },
+        {
+          "title": "Importance of Energy Efficiency",
+          "path": "/guide/energy-efficiency"
+        },
+        { "title": "Door Jambs Explained", "path": "/guide/door-jambs" },
+        {
+          "title": "10 Things to Know Before You Buy Replacement Windows",
+          "path": "/guide/replacement-windows"
+        },
+        {
+          "title": "What are the advantages of our Vinyl products?",
+          "path": "/guide/vinyl-products"
+        },
+        {
+          "title": "Fiberglass Door Versus Wood Door?",
+          "path": "/guide/fiberglass-vs-wood"
+        },
+        {
+          "title": "Slab Door Vs. Pre Hung Door",
+          "path": "/guide/slab-vs-pre-hung"
+        },
+        {
+          "title": "Request an In-Home Estimate - Discount Door & Window",
+          "path": "/guide/fiberglass-info"
+        },
+        {
+          "title": "Why Replace Your Door or Windows?",
+          "path": "/guide/replace-door-windows"
+        }
       ]
     }
   },
@@ -117,8 +141,11 @@
     "description": "Getting an accurate measurement on your old door and windows is the most important step in purchasing a new product. The new door or window should be 3/8ths of an inch smaller than the rough opening it will be going into. That way there is room to make adjustment, before sealing it into place.",
     "related_articles": {
       "diy_window_guides": [
-        "Learn how to get accurate Window Measurements",
-        "Learn how to get accurate Door Measurements"
+        {
+          "title": "Learn how to get accurate Window Measurements",
+          "path": "/guide/accurate-window-measurements"
+        },
+        { "title": "Learn how to get accurate Door Measurements", "path": "/guide/accurate-door-measurements" }
       ]
     }
   },
@@ -130,11 +157,10 @@
     ],
     "related_articles": {
       "diy_window_guides": [
-        "Request a Pre-Approved Installer to contact you",
-        "Labor Warranty",
-        "Hire a Pre-Approved Installer for an in-home consultation",
-        "5 Questions You Should Ask an Installer",
-        "Apply to Become a Pre-Approved Installer"
+        {"title":"Labor Warranty", "path":"/guide/approvedInstallerDoorWindow"},
+        {"title":"Hire a Pre-Approved Installer for an in-home consultation", "path":"/guide/labour-estimate"},
+        {"title":"5 Questions You Should Ask an Installer", "path":"/guide/question-installer"},
+        {"title":"Apply to Become a Pre-Approved Installer", "path":"/guide/apply-installer"}
       ]
     }
   },
@@ -147,6 +173,9 @@
         "Learn how to get accurate Door Measurements"
       ]
     }
+  },
+  "accurate_door_measurements": {
+    "title": "How to Get Accurate Door Measurements - Discount Door & Window"
   },
   "caulk_guides": {
     "title": "Which caulk should I use?",

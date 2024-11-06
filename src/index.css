@@ -11,8 +11,8 @@ body::-webkit-scrollbar {
 html, body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Horizontal scroll bar ko hide karne ke liye */
-  scrollbar-width: none; /* Firefox me scroll bar ko hide karta hai */
+  overflow-x: hidden; 
+  scrollbar-width: none;
 }
 
 /* Webkit-based browsers (Chrome, Safari, Edge) me scroll bar ko hide karne ke liye */

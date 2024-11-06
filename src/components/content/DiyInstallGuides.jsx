@@ -52,7 +52,7 @@ const DiyInstallGuides = () => {
               <List sx={{ listStyleType: "disc", pl: 2 }}>
                 {diy_install_guides.related_articles.diy_window_guides.map((guide, index) => (
                   <ListItem key={index} sx={{ display: "list-item", lineHeight: "1.5" }}>
-                    <Link href="#" underline="hover" color="inherit">
+                    <Link to="#" underline="hover" color="inherit">
                       {guide}
                     </Link>
                   </ListItem>
@@ -65,7 +65,7 @@ const DiyInstallGuides = () => {
               <List sx={{ listStyleType: "disc", pl: 2 }}>
                 {diy_install_guides.related_articles.diy_door_guides.map((guide, index) => (
                   <ListItem key={index} sx={{ display: "list-item", lineHeight: "1.5" }}>
-                    <Link href="#" underline="hover" color="inherit">
+                    <Link to="#" underline="hover" color="inherit">
                       {guide}
                     </Link>
                   </ListItem>
