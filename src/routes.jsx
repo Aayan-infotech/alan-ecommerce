@@ -100,7 +100,7 @@ export const AppRoutes = () => {
         <Route path="tax-rebate" element={<TaxRebate />} />
         <Route path="diyinstall-guides" element={<DiyInstallGuides />} />
         <Route path="rightfor-me" element={<RightForMe />} />
-        <Route path="diyaccurate-measurements" element={<AccurateMeasurements />} />
+        <Route path="accurate-measurements" element={<AccurateMeasurements />} />
         <Route path="/guide/accurate-window-measurements" element={<AccurateWindowMeasurements />} />
         <Route path="/guide/accurate-door-measurements" element={<AccurateDoorMeasurements />} />
         <Route path="pre-approved-installer" element={<ApprovedInstaller />} />

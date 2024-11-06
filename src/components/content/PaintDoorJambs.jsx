@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import doorJambImage from "../../assets/howtopaintdoorjambs.png";
+import jamb from "../../assets/jamb.png";
 
 const PaintDoorJambs = () => {
   const paintdoors = [
@@ -56,7 +57,7 @@ const PaintDoorJambs = () => {
   const doorContent = paintdoors[0];
 
   return (
-    <Container sx={{ mt: 4, mb:4 }}>
+    <Container sx={{ mt: 4, mb: 4 }}>
       <Typography variant="h4" gutterBottom className="fw-bold">
         {doorContent.title}
       </Typography>
@@ -72,7 +73,7 @@ const PaintDoorJambs = () => {
           </Typography>
         </Grid>
 
-        <Grid item xs={12} className="mt-4">
+        <Grid item xs={12} md={6} className="mt-4">
           <Typography
             variant="h6"
             gutterBottom
@@ -88,6 +89,34 @@ const PaintDoorJambs = () => {
               </ListItem>
             ))}
           </List>
+        </Grid>
+        <Grid item xs={12} md={6} className="text-center">
+          <img src={jamb} alt="Door Jamb Guide" />
+        </Grid>
+
+        <Grid item xs={12} className="mt-4">
+          {/* <Box className="d-flex justify-content-between align-items-center">
+            <Box>
+              <Typography
+                variant="h6"
+                gutterBottom
+                className="fw-bold"
+                sx={{ color: "#FC5F03" }}
+              >
+                Materials Required:
+              </Typography>
+              <List sx={{ listStyleType: "disc", pl: 4 }}>
+                {doorContent.materials.map((material, index) => (
+                  <ListItem key={index} sx={{ display: "list-item" }}>
+                    {material}
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+            <Box>
+              <img src={jamb} alt="Door Jamb Guide" />
+            </Box>
+          </Box> */}
 
           <Typography
             variant="h5"
