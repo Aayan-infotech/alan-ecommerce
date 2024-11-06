@@ -216,7 +216,7 @@ const Navbar = () => {
                 fontWeight: "bold",
               }}
             >
-              (858) 564 - 2564
+              (800) 995 - 9965
             </Typography>
           </>
         )}

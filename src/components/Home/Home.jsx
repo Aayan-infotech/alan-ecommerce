@@ -29,6 +29,7 @@ import window_image from "../../assets/window.png";
 import bifold_image from "../../assets/card_img4.png";
 import interriordoors_image from "../../assets/interriordoors.png";
 import harware_image from "../../assets/harware.png";
+import catimage from "../../assets/7xm155932.png";
 
 export const Home = () => {
   const [spotLightProduct, setSpotLightProduct] = useState([]);
@@ -63,20 +64,53 @@ export const Home = () => {
     { urlPath: "/diyinstall-guides", label: "DIY Installation Guide" },
   ];
   const expore_products = [
-    { id: 1, url: "", product_name: "Windows", image: window_image },
-    { id: 2, url: "", product_name: "Sliding Door", image: sliding_image },
+    {
+      id: 1,
+      url: "",
+      product_name: "Windows",
+      image: window_image,
+      Categories: [
+        { id: 1, cat_name: "XO Slider", image: catimage },
+        { id: 2, cat_name: "XOX Slider", image: catimage },
+        { id: 3, cat_name: "Single or Double Hung", image: catimage },
+        { id: 1, cat_name: "Garden", image: catimage },
+        { id: 2, cat_name: "Casement/Awning Window", image: catimage },
+        { id: 3, cat_name: "Picture Window", image: catimage },
+      ],
+    },
+    {
+      id: 2,
+      url: "",
+      product_name: "Sliding Door",
+      image: sliding_image,
+      Categories: [
+        { id: 1, cat_name: "XOX Slider", image: sliding_image },
+        { id: 2, cat_name: "XO Slider", image: sliding_image },
+        { id: 3, cat_name: "XO Slider", image: sliding_image },
+      ],
+    },
     { id: 3, url: "", product_name: "System", image: entrydoors_image },
     {
       id: 1,
       url: "",
       product_name: "Bi-Fold and French Doors",
       image: bifold_image,
+      Categories: [
+        { id: 1, cat_name: "XO Slider", image: bifold_image },
+        { id: 2, cat_name: "XO Slider", image: bifold_image },
+        { id: 3, cat_name: "XO Slider", image: bifold_image },
+      ],
     },
     {
       id: 2,
       url: "",
       product_name: "Interior Doors",
       image: interriordoors_image,
+      Categories: [
+        { id: 1, cat_name: "XO Slider", image: interriordoors_image },
+        { id: 2, cat_name: "XO Slider", image: interriordoors_image },
+        { id: 3, cat_name: "XO Slider", image: interriordoors_image },
+      ],
     },
     { id: 3, url: "", product_name: "Hardware", image: harware_image },
   ];
@@ -105,7 +139,8 @@ export const Home = () => {
   }, []);
 
   const handleClick = (item) => {
-    navigate("/sub-products", { state: { subproduct: item } });
+    // navigate("/products", { state: { subproduct: item } });
+    navigate("/categories", { state: { categories: item } });
   };
 
   return (
@@ -253,9 +288,6 @@ export const Home = () => {
           <Typography variant="h4" className="heading_1">
             Explore
           </Typography>
-          {/* <Typography variant="h6" className="title">
-            Explore Details
-          </Typography> */}
         </Box>
 
         <Grid container spacing={2} justifyContent="center" alignItems="center">
@@ -275,9 +307,6 @@ export const Home = () => {
                   <CardContent sx={{ backgroundColor: "#0068B333" }}>
                     <Box
                       sx={{
-                        // display: "flex",
-                        // justifyContent: "space-between",
-                        // alignItems: "center",
                         color: "#0068B3",
                         fontWeight: "bold",
                       }}
@@ -291,13 +320,7 @@ export const Home = () => {
                         {item?.product_name}
                       </Typography>
                     </Box>
-                    <Box
-                      // sx={{
-                      //   display: "flex",
-                      //   justifyContent: "space-between",
-                      // }}
-                      className="mt-2"
-                    >
+                    <Box className="mt-2">
                       <Button
                         size="large"
                         variant="contained"
@@ -306,33 +329,7 @@ export const Home = () => {
                       >
                         Buy Now
                       </Button>
-                      {/* <Button
-                        size="small"
-                        variant="outlined"
-                        sx={{ textTransform: "none", fontWeight: "bold" }}
-                        className="w-100"
-                        onClick={() => handleAddToCart(item._id, 1)}
-                      >
-                        Add To Cart
-                      </Button> */}
                     </Box>
-                    {/* <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                      className="mt-1"
-                    >
-                      <Box sx={{ fontWeight: "bold", color: "#0068B3" }}>
-                        <FavoriteBorderIcon className="fs-6" />
-                        Like
-                      </Box>
-                      <Box sx={{ color: "#0068B3", fontWeight: "bold" }}>
-                        <ShareIcon className="fs-6" />
-                        Share
-                      </Box>
-                    </Box> */}
                   </CardContent>
                 </Card>
               </Grid>

@@ -38,6 +38,9 @@ const Window = () => {
 
   const [price, setPrice] = useState(basePrice);
   const location = useLocation();
+  // const categoriesdetails = location.state.categoriesdetails;
+  // console.log(categoriesdetails, "categoriesdetails");
+
   const formatPath = (path) => {
     return path
       .split("/")
@@ -146,7 +149,7 @@ const Window = () => {
           justifyContent: "center",
           alignItems: "center",
           flexWrap: "wrap",
-          height: "50px"
+          height: "50px",
         }}
         className="text-white p-1 rounded-3 doors-title-list"
       >

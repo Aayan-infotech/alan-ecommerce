@@ -56,6 +56,7 @@ import ExteriorDoor from './components/content/ExteriorDoor.jsx';
 import PaintDoorJambs from './components/content/PaintDoorJambs.jsx';
 import InstallInswingEntryDoor from './components/content/InstallInswingEntryDoor.jsx';
 import { SubProducts } from './components/Home/SubProducts.jsx';
+import Categories from './components/Home/Categories.jsx';
 // import Loader from './Loader.jsx';
 
 
@@ -96,7 +97,7 @@ export const AppRoutes = () => {
         <Route path="appointment" element={<BookAppointment />} />
         <Route path="about" element={<About />} />
         <Route path="gallery" element={<Gallery />} />
-        <Route path="profile" element={<Profile />} />
+        <Route path="customer-details" element={<Profile />} />
         <Route path="tax-rebate" element={<TaxRebate />} />
         <Route path="diyinstall-guides" element={<DiyInstallGuides />} />
         <Route path="rightfor-me" element={<RightForMe />} />
@@ -132,7 +133,8 @@ export const AppRoutes = () => {
         <Route path="diy/paint-door-jambs" element={<PaintDoorJambs />} />/
         <Route path="/diy/install-dentil-shelf" element={<DentilShelf />} />
         <Route path="/diy/install-inswing-entry-door" element={<InstallInswingEntryDoor />} />
-        <Route path="sub-products" element={<SubProducts />} />
+        <Route path="/products" element={<SubProducts />} />
+        <Route path="/categories" element={<Categories />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Typography, Button, Box, Container } from "@mui/material";
 import card_img1 from "../../assets/window.png";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Link } from "react-router-dom";
 
 export const MeasuredWindows = () => {
   return (
@@ -148,9 +149,11 @@ export const MeasuredWindows = () => {
               >
                 Add to cart
               </Button>
-              <Button variant="contained" sx={{ width: "150px" }}>
-                Next <ArrowForwardIcon />
-              </Button>
+              <Link to="/cart">
+                <Button variant="contained" sx={{ width: "150px" }}>
+                  Next <ArrowForwardIcon />
+                </Button>
+              </Link>
             </Grid>
           </Grid>
         </Box>

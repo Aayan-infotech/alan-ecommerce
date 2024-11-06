@@ -12,7 +12,7 @@ import {
   TextField,
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const Profile = () => {
@@ -66,7 +66,10 @@ const Profile = () => {
 
   const handleSubmit = async () => {
     try {
-      await axios.put("http://localhost:3000/api/user/profile", selectedOptions); 
+      await axios.put(
+        "http://localhost:3000/api/user/profile",
+        selectedOptions
+      );
       alert("Profile updated successfully!");
     } catch (error) {
       console.error("Error updating profile", error);
@@ -79,7 +82,9 @@ const Profile = () => {
         <Grid container spacing={2} className="w-75">
           <Grid item xs={12} sm={6} md={6}>
             <Box className="mb-3">
-              <InputLabel className="fw-bold text-black mb-2">First Name</InputLabel>
+              <InputLabel className="fw-bold text-black mb-2">
+                First Name
+              </InputLabel>
               <FormControl fullWidth>
                 <TextField
                   name="first_name"
@@ -119,7 +124,9 @@ const Profile = () => {
               </FormControl>
             </Box>
             <Box className="mb-3">
-              <InputLabel className="fw-bold text-black mb-2">Country</InputLabel>
+              <InputLabel className="fw-bold text-black mb-2">
+                Country
+              </InputLabel>
               <FormControl fullWidth>
                 <Select
                   name="country"
@@ -149,7 +156,9 @@ const Profile = () => {
               </FormControl>
             </Box>
             <Box className="mb-3">
-              <InputLabel className="fw-bold text-black mb-2">Landmark</InputLabel>
+              <InputLabel className="fw-bold text-black mb-2">
+                Landmark
+              </InputLabel>
               <FormControl fullWidth>
                 <TextField
                   name="landmark"
@@ -171,7 +180,9 @@ const Profile = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={6}>
             <Box className="mb-3">
-              <InputLabel className="fw-bold text-black mb-2">Last Name</InputLabel>
+              <InputLabel className="fw-bold text-black mb-2">
+                Last Name
+              </InputLabel>
               <FormControl fullWidth>
                 <TextField
                   name="last_name"
@@ -191,7 +202,9 @@ const Profile = () => {
               </FormControl>
             </Box>
             <Box className="mb-3">
-              <InputLabel className="fw-bold text-black mb-2">Mobile no.</InputLabel>
+              <InputLabel className="fw-bold text-black mb-2">
+                Mobile no.
+              </InputLabel>
               <FormControl fullWidth>
                 <TextField
                   name="phone_no"
@@ -211,7 +224,9 @@ const Profile = () => {
               </FormControl>
             </Box>
             <Box className="mb-5">
-              <InputLabel className="fw-bold text-black mb-2">Address</InputLabel>
+              <InputLabel className="fw-bold text-black mb-2">
+                Address
+              </InputLabel>
               <FormControl fullWidth>
                 <TextField
                   name="address"
@@ -231,9 +246,15 @@ const Profile = () => {
               </FormControl>
             </Box>
             <Box sx={{ mt: 4 }}>
-              <Button variant="contained" className="w-100 p-2" onClick={handleSubmit}>
-                Next <ArrowForwardIcon className="fs-5" />
-              </Button>
+              <Link to="/checkout">
+                <Button
+                  variant="contained"
+                  className="w-100 p-2"
+                  onClick={handleSubmit}
+                >
+                  Next <ArrowForwardIcon className="fs-5" />
+                </Button>
+              </Link>
             </Box>
           </Grid>
         </Grid>

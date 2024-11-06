@@ -11,7 +11,7 @@ export const Successfully = () => {
           Payment Successful
         </Typography>
         <Box className="text-center">
-          <img src={successfully} />
+          <img src={successfully} height={150} />
         </Box>
         <Typography variant="h4" align="center" className="fw-bold text-black">
           Your Payment have been successful!
@@ -28,7 +28,7 @@ export const Successfully = () => {
               Home
             </Button>
           </Link>
-          <Link to="/orders">
+          {/* <Link to="/orders">
             <Button
               variant="contained"
               color="primary"
@@ -38,7 +38,7 @@ export const Successfully = () => {
             >
               Orders
             </Button>
-          </Link>
+          </Link> */}
         </Box>
       </Container>
     </div>

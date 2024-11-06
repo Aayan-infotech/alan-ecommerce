@@ -130,7 +130,7 @@ const Cart = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={2}>
-                <Link to="/checkout">
+                <Link to="/measured-windows">
                   <Button
                     variant="outlined"
                     sx={{
@@ -310,20 +310,22 @@ const Cart = () => {
         </Box>
 
         <Box className="text-center mt-4">
-          <Button
-            variant="contained"
-            sx={{
-              p: 1,
-              backgroundColor: "#FC5F03",
-              borderColor: "#FC5F03",
-              textTransform: "none",
-              width: "150px",
-            }}
-            className="rounded-3 fw-bold"
-            onClick={handleCheckoutClick}
-          >
-            Check Out
-          </Button>
+          <Link to="/customer-details">
+            <Button
+              variant="contained"
+              sx={{
+                p: 1,
+                backgroundColor: "#FC5F03",
+                borderColor: "#FC5F03",
+                textTransform: "none",
+                width: "150px",
+              }}
+              className="rounded-3 fw-bold"
+              onClick={handleCheckoutClick}
+            >
+              Check Out
+            </Button>
+          </Link>
         </Box>
       </Container>
     </div>

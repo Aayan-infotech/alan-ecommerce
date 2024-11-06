@@ -89,7 +89,7 @@ export const BookAppointment = ({ open, handleClose }) => {
             <Grid item xs={6} className="text-start">
               <Box className="mb-3">
                 <InputLabel className="fw-bold text-black">
-                  First name <span style={{ fontSize: "10px" }}>(inch)</span>
+                  First name 
                 </InputLabel>
                 <FormControl fullWidth>
                   <TextField></TextField>
@@ -97,7 +97,7 @@ export const BookAppointment = ({ open, handleClose }) => {
               </Box>
               <Box className="mb-3">
                 <InputLabel className="fw-bold text-black">
-                  Last name <span style={{ fontSize: "10px" }}>(inch)</span>
+                  Last name 
                 </InputLabel>
                 <FormControl fullWidth>
                   <TextField></TextField>
@@ -107,7 +107,7 @@ export const BookAppointment = ({ open, handleClose }) => {
             <Grid item xs={6} className="text-start">
               <Box className="mb-3">
                 <InputLabel className="fw-bold text-black">
-                  Email address <span style={{ fontSize: "10px" }}>(inch)</span>
+                  Email address 
                 </InputLabel>
                 <FormControl fullWidth>
                   <TextField></TextField>
@@ -115,7 +115,7 @@ export const BookAppointment = ({ open, handleClose }) => {
               </Box>
               <Box className="mb-3">
                 <InputLabel className="fw-bold text-black">
-                  Mobile no. <span style={{ fontSize: "10px" }}>(inch)</span>
+                  Mobile no. 
                 </InputLabel>
                 <FormControl fullWidth>
                   <TextField></TextField>

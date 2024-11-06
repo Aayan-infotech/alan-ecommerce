@@ -15,13 +15,13 @@ import card_img3 from "../../assets/image 1.png";
 import "../../styles/Home.scss";
 import ShareIcon from "@mui/icons-material/Share";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const SubProducts = () => {
   const location = useLocation();
   const subproduct = location.state.subproduct;
 
-  console.log(subproduct?.product_name, 'subproduct')
+  console.log(subproduct?.product_name, "subproduct");
 
   const spotlightDeals = [
     {
@@ -103,14 +103,16 @@ export const SubProducts = () => {
                   >
                     Buy Now
                   </Button>
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    sx={{ textTransform: "none", fontWeight: "bold" }}
-                    className="w-100"
-                  >
-                    Add To Cart
-                  </Button>
+                  <Link to="/cart" className="w-100">
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      sx={{ textTransform: "none", fontWeight: "bold" }}
+                      className="w-100"
+                    >
+                      Add To Cart
+                    </Button>
+                  </Link>
                 </Box>
                 <Box
                   sx={{
