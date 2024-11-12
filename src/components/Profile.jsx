@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Container,
@@ -10,21 +10,24 @@ import {
   Select,
   MenuItem,
   TextField,
+  FormHelperText,
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify"; // Importing toast for notifications
 
 const Profile = () => {
   const [selectedOptions, setSelectedOptions] = useState({
-    first_name: "",
-    last_name: "",
+    fullName: "",
     email: "",
-    phone_no: "",
+    mobile: "",
     country: "",
     address: "",
-    landmark: "",
+    state: "",
+    zipCode: "",
   });
+
+  const [errors, setErrors] = useState({});
 
   const countries = [
     "United States",
@@ -33,20 +36,6 @@ const Profile = () => {
     "United Kingdom",
     "Germany",
   ];
-
-  const location = useLocation();
-
-  const formatPath = (path) => {
-    return path
-      .split("/")
-      .filter(Boolean)
-      .map((segment) =>
-        segment
-          .replace(/-/g, " ")
-          .replace(/\b\w/g, (char) => char.toUpperCase())
-      )
-      .join(" > ");
-  };
 
   const handleSelectChange = (event) => {
     const { name, value } = event.target;
@@ -62,17 +51,66 @@ const Profile = () => {
       ...prevState,
       [name]: value,
     }));
+
+    // Clear the error message for the field when the user starts typing
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!selectedOptions.fullName) newErrors.fullName = "Full name is required";
+    if (!selectedOptions.email || !/\S+@\S+\.\S+/.test(selectedOptions.email))
+      newErrors.email = "Valid email is required";
+    if (!selectedOptions.mobile || !/^\d{10}$/.test(selectedOptions.mobile))
+      newErrors.mobile = "Mobile number must be 10 digits";
+    if (!selectedOptions.country) newErrors.country = "Country is required";
+    if (!selectedOptions.address) newErrors.address = "Address is required";
+    if (!selectedOptions.state) newErrors.state = "State is required";
+    if (!selectedOptions.zipCode || !/^\d{5}$/.test(selectedOptions.zipCode))
+      newErrors.zipCode = "Zip code must be 5 digits";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async () => {
+    if (!validateForm()) {
+      return; 
+    }
     try {
-      await axios.put(
-        "http://localhost:3000/api/user/profile",
-        selectedOptions
+      const payload = {
+        fullName: selectedOptions.fullName,
+        email: selectedOptions.email,
+        mobile: selectedOptions.mobile,
+        country: selectedOptions.country,
+        address: selectedOptions.address,
+        state: selectedOptions.state,
+        zipCode: selectedOptions.zipCode,
+      };
+
+      const response = await axios.post(
+        "http://44.196.192.232:5000/api/personalDetails/create",
+        payload
       );
-      alert("Profile updated successfully!");
+
+      if (response.data.success) {
+        toast.success("Profile updated successfully!"); 
+        setSelectedOptions({
+          fullName: "",
+          email: "",
+          mobile: "",
+          country: "",
+          address: "",
+          state: "",
+          zipCode: "",
+        });
+      }
     } catch (error) {
       console.error("Error updating profile", error);
+      toast.error("Failed to update profile. Please try again."); 
     }
   };
 
@@ -83,29 +121,30 @@ const Profile = () => {
           <Grid item xs={12} sm={6} md={6}>
             <Box className="mb-3">
               <InputLabel className="fw-bold text-black mb-2">
-                First Name
+                Full Name
               </InputLabel>
-              <FormControl fullWidth>
+              <FormControl fullWidth error={Boolean(errors.fullName)}>
                 <TextField
-                  name="first_name"
-                  value={selectedOptions.first_name}
+                  name="fullName"
+                  value={selectedOptions.fullName}
                   onChange={handleInputChange}
                   variant="outlined"
-                  placeholder="Enter First Name"
+                  placeholder="Enter Full Name"
                   sx={{
                     backgroundColor: "#D0E5F4",
                     borderRadius: "10px",
                     border: "none",
-                    "& fieldset": {
-                      border: "none",
-                    },
+                    "& fieldset": { border: "none" },
                   }}
                 />
+                {errors.fullName && (
+                  <FormHelperText error>{errors.fullName}</FormHelperText>
+                )}
               </FormControl>
             </Box>
             <Box className="mb-3">
               <InputLabel className="fw-bold text-black mb-2">Email</InputLabel>
-              <FormControl fullWidth>
+              <FormControl fullWidth error={Boolean(errors.email)}>
                 <TextField
                   name="email"
                   value={selectedOptions.email}
@@ -116,32 +155,30 @@ const Profile = () => {
                     backgroundColor: "#D0E5F4",
                     borderRadius: "10px",
                     border: "none",
-                    "& fieldset": {
-                      border: "none",
-                    },
+                    "& fieldset": { border: "none" },
                   }}
                 />
+                {errors.email && (
+                  <FormHelperText error>{errors.email}</FormHelperText>
+                )}
               </FormControl>
             </Box>
             <Box className="mb-3">
               <InputLabel className="fw-bold text-black mb-2">
                 Country
               </InputLabel>
-              <FormControl fullWidth>
+              <FormControl fullWidth error={Boolean(errors.country)}>
                 <Select
                   name="country"
                   value={selectedOptions.country}
                   onChange={handleSelectChange}
                   displayEmpty
-                  bottom
                   variant="outlined"
                   sx={{
                     backgroundColor: "#D0E5F4",
                     borderRadius: "10px",
                     border: "none",
-                    "& fieldset": {
-                      border: "none",
-                    },
+                    "& fieldset": { border: "none" },
                   }}
                 >
                   <MenuItem value="">
@@ -153,81 +190,66 @@ const Profile = () => {
                     </MenuItem>
                   ))}
                 </Select>
+                {errors.country && (
+                  <Typography color="error" variant="body2">
+                    {errors.country}
+                  </Typography>
+                )}
               </FormControl>
             </Box>
             <Box className="mb-3">
               <InputLabel className="fw-bold text-black mb-2">
-                Landmark
+                Zip Code
               </InputLabel>
-              <FormControl fullWidth>
+              <FormControl fullWidth error={Boolean(errors.zipCode)}>
                 <TextField
-                  name="landmark"
-                  value={selectedOptions.landmark}
+                  name="zipCode"
+                  value={selectedOptions.zipCode}
                   onChange={handleInputChange}
                   variant="outlined"
-                  placeholder="Enter Landmark"
+                  placeholder="Zip Code"
                   sx={{
                     backgroundColor: "#D0E5F4",
                     borderRadius: "10px",
                     border: "none",
-                    "& fieldset": {
-                      border: "none",
-                    },
+                    "& fieldset": { border: "none" },
                   }}
                 />
+                {errors.zipCode && (
+                  <FormHelperText error>{errors.zipCode}</FormHelperText>
+                )}
               </FormControl>
             </Box>
           </Grid>
           <Grid item xs={12} sm={6} md={6}>
             <Box className="mb-3">
               <InputLabel className="fw-bold text-black mb-2">
-                Last Name
+                Mobile No.
               </InputLabel>
-              <FormControl fullWidth>
+              <FormControl fullWidth error={Boolean(errors.mobile)}>
                 <TextField
-                  name="last_name"
-                  value={selectedOptions.last_name}
+                  name="mobile"
+                  value={selectedOptions.mobile}
                   onChange={handleInputChange}
                   variant="outlined"
-                  placeholder="Enter Last Name"
+                  placeholder="Mobile No."
                   sx={{
                     backgroundColor: "#D0E5F4",
                     borderRadius: "10px",
                     border: "none",
-                    "& fieldset": {
-                      border: "none",
-                    },
+                    "& fieldset": { border: "none" },
                   }}
                 />
+                {errors.mobile && (
+                  <FormHelperText error>{errors.mobile}</FormHelperText>
+                )}
               </FormControl>
             </Box>
             <Box className="mb-3">
               <InputLabel className="fw-bold text-black mb-2">
-                Mobile no.
-              </InputLabel>
-              <FormControl fullWidth>
-                <TextField
-                  name="phone_no"
-                  value={selectedOptions.phone_no}
-                  onChange={handleInputChange}
-                  variant="outlined"
-                  placeholder="Enter Mobile no."
-                  sx={{
-                    backgroundColor: "#D0E5F4",
-                    borderRadius: "10px",
-                    border: "none",
-                    "& fieldset": {
-                      border: "none",
-                    },
-                  }}
-                />
-              </FormControl>
-            </Box>
-            <Box className="mb-5">
-              <InputLabel className="fw-bold text-black mb-2">
                 Address
               </InputLabel>
-              <FormControl fullWidth>
+              <FormControl fullWidth error={Boolean(errors.address)}>
                 <TextField
                   name="address"
                   value={selectedOptions.address}
@@ -238,23 +260,43 @@ const Profile = () => {
                     backgroundColor: "#D0E5F4",
                     borderRadius: "10px",
                     border: "none",
-                    "& fieldset": {
-                      border: "none",
-                    },
+                    "& fieldset": { border: "none" },
                   }}
                 />
+                {errors.address && (
+                  <FormHelperText error>{errors.address}</FormHelperText>
+                )}
               </FormControl>
             </Box>
-            <Box sx={{ mt: 4 }}>
-              <Link to="/checkout">
-                <Button
-                  variant="contained"
-                  className="w-100 p-2"
-                  onClick={handleSubmit}
-                >
-                  Next <ArrowForwardIcon className="fs-5" />
-                </Button>
-              </Link>
+            <Box className="mb-5">
+              <InputLabel className="fw-bold text-black mb-2">State</InputLabel>
+              <FormControl fullWidth error={Boolean(errors.state)}>
+                <TextField
+                  name="state"
+                  value={selectedOptions.state}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                  placeholder="State"
+                  sx={{
+                    backgroundColor: "#D0E5F4",
+                    borderRadius: "10px",
+                    border: "none",
+                    "& fieldset": { border: "none" },
+                  }}
+                />
+                {errors.state && (
+                  <FormHelperText error>{errors.state}</FormHelperText>
+                )}
+              </FormControl>
+            </Box>
+            <Box sx={{ mt: 5 }}>
+              <Button
+                variant="contained"
+                className="w-100 p-2"
+                onClick={handleSubmit}
+              >
+                Next <ArrowForwardIcon className="fs-5" />
+              </Button>
             </Box>
           </Grid>
         </Grid>

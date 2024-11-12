@@ -1,26 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Container,
   Grid,
   Typography,
   Box,
-  Card,
-  CardMedia,
-  CardContent,
-  InputLabel,
   FormControl,
-  MenuItem,
-  Select,
+  InputLabel,
   TextField,
-  TextareaAutosize,
 } from "@mui/material";
 import banner from "../../assets/contact.png";
-import AddLocationIcon from "@mui/icons-material/AddLocation";
-import CallIcon from "@mui/icons-material/Call";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const BookAppointment = ({ open, handleClose }) => {
+  const [appointmentFormsValue, setAppointmentFormsValue] = useState({
+    fullName: "",
+    email: "",
+    mobile: "",
+    message: "",
+    date: "",
+  });
+  const [errors, setErrors] = useState({});
+
   const location = useLocation();
   const formatPath = (path) => {
     const specialMappings = {
@@ -40,8 +44,52 @@ export const BookAppointment = ({ open, handleClose }) => {
       .join(" > ");
   };
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setAppointmentFormsValue({ ...appointmentFormsValue, [name]: value });
+    setErrors({ ...errors, [name]: "" }); // Clear error when input changes
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!appointmentFormsValue.fullName) newErrors.fullName = "Full name is required";
+    if (!appointmentFormsValue.email) newErrors.email = "Email is required";
+    if (!appointmentFormsValue.mobile) newErrors.mobile = "Mobile number is required";
+    if (!appointmentFormsValue.message) newErrors.message = "Message is required";
+    if (!appointmentFormsValue.date) newErrors.date = "Date is required";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async () => {
+    if (!validateForm()) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://44.196.192.232:5000/api/appointments/create",
+        appointmentFormsValue
+      );
+      if (response.data.success) {
+        toast.success(response.data.message, { autoClose: 1000 });
+        setAppointmentFormsValue({
+          fullName: "",
+          email: "",
+          mobile: "",
+          message: "",
+          date: "",
+        });
+      }
+    } catch (error) {
+      toast.error("Failed to book appointment. Please try again.");
+    }
+  };
+
   return (
     <div className="doors-container px-3 mb-4">
+      <ToastContainer />
       <Box
         sx={{
           backgroundImage: `url(${banner})`,
@@ -87,45 +135,82 @@ export const BookAppointment = ({ open, handleClose }) => {
 
           <Grid container spacing={2} className="mt-4" sx={{ maxWidth: 900 }}>
             <Grid item xs={6} className="text-start">
-              <Box className="mb-3">
-                <InputLabel className="fw-bold text-black">
-                  First name 
-                </InputLabel>
+              <Box className="mb-4">
+                <InputLabel className="mb-2">Full Name</InputLabel>
                 <FormControl fullWidth>
-                  <TextField></TextField>
+                  <TextField
+                    onChange={handleInputChange}
+                    value={appointmentFormsValue.fullName}
+                    name="fullName"
+                    error={!!errors.fullName}
+                    helperText={errors.fullName}
+                  />
                 </FormControl>
               </Box>
-              <Box className="mb-3">
-                <InputLabel className="fw-bold text-black">
-                  Last name 
-                </InputLabel>
+              <Box className="mb-4">
+                <InputLabel className="mb-2">Email</InputLabel>
                 <FormControl fullWidth>
-                  <TextField></TextField>
+                  <TextField
+                    onChange={handleInputChange}
+                    value={appointmentFormsValue.email}
+                    name="email"
+                    error={!!errors.email}
+                    helperText={errors.email}
+                  />
                 </FormControl>
               </Box>
             </Grid>
             <Grid item xs={6} className="text-start">
-              <Box className="mb-3">
-                <InputLabel className="fw-bold text-black">
-                  Email address 
-                </InputLabel>
+              <Box className="mb-4">
+                <InputLabel className="mb-2">Mobile</InputLabel>
                 <FormControl fullWidth>
-                  <TextField></TextField>
+                  <TextField
+                    onChange={handleInputChange}
+                    value={appointmentFormsValue.mobile}
+                    name="mobile"
+                    error={!!errors.mobile}
+                    helperText={errors.mobile}
+                  />
                 </FormControl>
               </Box>
-              <Box className="mb-3">
-                <InputLabel className="fw-bold text-black">
-                  Mobile no. 
-                </InputLabel>
+              <Box className="mb-4">
+                <InputLabel className="mb-2">Message</InputLabel>
                 <FormControl fullWidth>
-                  <TextField></TextField>
+                  <TextField
+                    onChange={handleInputChange}
+                    value={appointmentFormsValue.message}
+                    name="message"
+                    multiline
+                    error={!!errors.message}
+                    helperText={errors.message}
+                  />
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid item xs={6} className="text-start">
+              <Box className="mb-4">
+                <InputLabel className="mb-2">Date</InputLabel>
+                <FormControl fullWidth>
+                  <TextField
+                    onChange={handleInputChange}
+                    value={appointmentFormsValue.date}
+                    type="date"
+                    inputProps={{ min: new Date().toISOString().split("T")[0] }}
+                    name="date"
+                    error={!!errors.date}
+                    helperText={errors.date}
+                  />
                 </FormControl>
               </Box>
             </Grid>
           </Grid>
 
           <Box className="text-center">
-            <Button variant="contained" sx={{ width: "150px" }}>
+            <Button
+              variant="contained"
+              sx={{ width: "150px" }}
+              onClick={handleSubmit}
+            >
               Submit
             </Button>
           </Box>
