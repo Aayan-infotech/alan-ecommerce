@@ -39,7 +39,7 @@ const Navbar = () => {
     <AppBar
       position="sticky"
       color="default"
-      className="navbar-content"
+      className="navbar-content rounded-3"
       sx={{
         maxWidth: "1200px",
         margin: "20px auto 0",
@@ -187,10 +187,10 @@ const Navbar = () => {
                   backgroundColor: "#0068B3",
                   fontWeight: "bold",
                   fontSize: "12px",
-                  padding: "4px 10px",
+                  textTransform:"none"
                 }}
               >
-                Book a Free Consultation
+                Book an Appointment
               </Button>
             </Link>
             <Link to="/contact">

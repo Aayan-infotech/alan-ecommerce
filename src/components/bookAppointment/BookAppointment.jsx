@@ -208,10 +208,10 @@ export const BookAppointment = ({ open, handleClose }) => {
           <Box className="text-center">
             <Button
               variant="contained"
-              sx={{ width: "150px" }}
+              sx={{ textTransform:"none" }}
               onClick={handleSubmit}
             >
-              Submit
+              Schedule An Appointment
             </Button>
           </Box>
         </Box>
