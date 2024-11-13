@@ -32,28 +32,29 @@ import harware_image from "../../assets/harware.png";
 import catimage from "../../assets/7xm155932.png";
 
 export const Home = () => {
-  const [spotLightProduct, setSpotLightProduct] = useState([]);
+  const [exploreCategories, setExploreCategories] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const fetchAllSpotLightDeals = async () => {
+  const fetchExploreCategories = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/all-deals");
-      if (response?.data?.status) {
-        setSpotLightProduct(response?.data?.data);
+      const response = await axios.get("http://44.196.192.232:5000/api/category");
+      // if (response?.data?.status) {
+      console.log(response?.data, 'response?.data')
+        setExploreCategories(response?.data);
         setErrorMessage("");
-      } else {
-        setErrorMessage(response.data.message);
-      }
+      // } else {
+      //   setErrorMessage(response.data.message);
+      // }
     } catch (error) {
       setErrorMessage(error?.response?.data?.message);
     }
   };
 
   useEffect(() => {
-    fetchAllSpotLightDeals();
+    fetchExploreCategories();
   }, []);
 
   const buttonData = [
@@ -291,8 +292,8 @@ export const Home = () => {
         </Box>
 
         <Grid container spacing={2} justifyContent="center" alignItems="center">
-          {expore_products.length > 0 ? (
-            expore_products.map((item, index) => (
+          {exploreCategories.length > 0 ? (
+            exploreCategories.map((item, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <Card
                   sx={{ maxWidth: 300, mx: "auto" }}
@@ -301,7 +302,7 @@ export const Home = () => {
                   <CardMedia
                     component="img"
                     height="300"
-                    image={item?.image || No_Image_Available}
+                    image={item?.category_image || No_Image_Available}
                     alt="green iguana"
                   />
                   <CardContent sx={{ backgroundColor: "#0068B333" }}>
@@ -317,7 +318,7 @@ export const Home = () => {
                         variant="h5"
                         component="div"
                       >
-                        {item?.product_name}
+                        {item?.categoryName}
                       </Typography>
                     </Box>
                     <Box className="mt-2">

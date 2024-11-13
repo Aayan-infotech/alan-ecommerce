@@ -26,7 +26,7 @@ export const RequestEstimation = () => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
-    setErrors({ ...errors, [name]: "" }); // Clear error when input changes
+    setErrors({ ...errors, [name]: "" });
   };
 
   const validateForm = () => {
