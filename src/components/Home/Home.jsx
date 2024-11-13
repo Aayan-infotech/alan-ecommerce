@@ -303,6 +303,7 @@ export const Home = () => {
                     height="300"
                     image={item?.image || No_Image_Available}
                     alt="green iguana"
+                    sx={{objectFit:"fill"}}
                   />
                   <CardContent sx={{ backgroundColor: "#0068B333" }}>
                     <Box
