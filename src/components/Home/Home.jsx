@@ -41,13 +41,12 @@ export const Home = () => {
   const fetchExploreCategories = async () => {
     try {
       const response = await axios.get("http://44.196.192.232:5000/api/category");
-      // if (response?.data?.status) {
-      console.log(response?.data, 'response?.data')
-        setExploreCategories(response?.data);
+      if (response?.data?.status === 200) {
+        setExploreCategories(response?.data?.data);
         setErrorMessage("");
-      // } else {
-      //   setErrorMessage(response.data.message);
-      // }
+      } else {
+        setErrorMessage(response.data.message);
+      }
     } catch (error) {
       setErrorMessage(error?.response?.data?.message);
     }
@@ -302,7 +301,7 @@ export const Home = () => {
                   <CardMedia
                     component="img"
                     height="300"
-                    image={item?.category_image || No_Image_Available}
+                    image={item?.image || No_Image_Available}
                     alt="green iguana"
                   />
                   <CardContent sx={{ backgroundColor: "#0068B333" }}>
