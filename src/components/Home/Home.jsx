@@ -138,9 +138,9 @@ export const Home = () => {
     scrollMarquee();
   }, []);
 
-  const handleClick = (item) => {
-    // navigate("/products", { state: { subproduct: item } });
-    navigate("/categories", { state: { categories: item } });
+  const handleClick = (categoryId) => {
+    // navigate("/categories", { state: { categories: item } });
+    navigate(`/categories/${categoryId}`);
   };
 
   return (
@@ -296,7 +296,7 @@ export const Home = () => {
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <Card
                   sx={{ maxWidth: 300, mx: "auto" }}
-                  onClick={() => handleClick(item)}
+                  onClick={() => handleClick(item?._id)}
                 >
                   <CardMedia
                     component="img"

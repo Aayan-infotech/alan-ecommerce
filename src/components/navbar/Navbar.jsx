@@ -52,25 +52,6 @@ const Navbar = () => {
       <Toolbar sx={{ position: "sticky", top: "0", zIndex: "999" }}>
         {/* Heading Section */}
         <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-          {/* <Typography
-            variant="h4"
-            component="div"
-            className="discount-heading mb-0"
-          >
-            Discount
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            component="div"
-            sx={{
-              fontSize: "17px",
-              color: "#0068B3",
-              fontWeight: "bold",
-              lineHeight: "0.75",
-            }}
-          >
-            Doors & Windows
-          </Typography> */}
           <Link to="/">
             <img
               src={logo}
@@ -79,8 +60,6 @@ const Navbar = () => {
             />
           </Link>
         </Box>
-
-        {/* Mobile Menu Icon */}
         {isMobile && (
           <>
             <IconButton color="inherit" onClick={handleMenuOpen}>

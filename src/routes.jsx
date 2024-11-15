@@ -134,7 +134,7 @@ export const AppRoutes = () => {
         <Route path="/diy/install-dentil-shelf" element={<DentilShelf />} />
         <Route path="/diy/install-inswing-entry-door" element={<InstallInswingEntryDoor />} />
         <Route path="/products" element={<SubProducts />} />
-        <Route path="/categories" element={<Categories />} />
+        <Route path="/categories/:categoryId" element={<Categories />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
