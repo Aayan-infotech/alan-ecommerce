@@ -33,6 +33,7 @@ const Categories = () => {
     try {
       const response = await axios.get(`http://44.196.192.232:5000/api/category/get-subcategory/${categoryId}`);
       if (response?.data?.status === 200) {
+        console.log(response?.data?.data, 'response?.data?.data')
         setExploreCategories(response?.data?.data);
         setErrorMessage("");
       } else {
@@ -52,9 +53,9 @@ const Categories = () => {
     }
   }, [categoryId]);
 
-  // const handleClick = (item) => {
-  //   navigate("/windows", { state: { categoriesdetails: item } });
-  // };
+  const handleClick = (subcategoryDetails) => {
+    navigate("/windows", { state: { subcategoryDetails: subcategoryDetails } });
+  };
 
   return (
     <div className="doors-container px-3 mb-4">
@@ -97,54 +98,54 @@ const Categories = () => {
               <Grid container spacing={2}>
                 {exploreCategories?.map((category, index) => (
                   <Grid item xs={12} sm={6} md={4} key={index}>
-                    <Link to="/windows" className="text-decoration-none">
+                    {/* <Link to="/windows" className="text-decoration-none"> */}
+                    <Box
+                      sx={{
+                        borderRadius: "10px",
+                        overflow: "hidden",
+                        textAlign: "center",
+                        position: "relative",
+                        borderTopLeftRadius: "50px",
+                        borderTopRightRadius: "50px",
+                        borderBottomLeftRadius: "50px",
+                        borderBottomRightRadius: "50px",
+                        backgroundColor: "aliceblue",
+                        maxWidth: "330px",
+                        width: "100%",
+                      }}
+                      onClick={() => handleClick(category)}
+                    >
+                      <Box
+                        component="img"
+                        src={category?.productDetails?.images || No_Image_Available}
+                        alt={category?.productDetails?.subcategoryName}
+                        sx={{
+                          width: "100%",
+                          height: "300px",
+                          objectFit: "fill",
+                        }}
+                      />
                       <Box
                         sx={{
-                          borderRadius: "10px",
-                          overflow: "hidden",
-                          textAlign: "center",
-                          position: "relative",
-                          borderTopLeftRadius: "50px",
-                          borderTopRightRadius: "50px",
-                          borderBottomLeftRadius: "50px",
-                          borderBottomRightRadius: "50px",
-                          backgroundColor: "aliceblue",
-                          maxWidth: "330px",
+                          backgroundColor: "#FC5F03CC",
+                          padding: "10px",
+                          color: "white",
+                          position: "absolute",
+                          bottom: 0,
                           width: "100%",
+                          textAlign: "center",
+                          fontWeight: "bold",
+                          maxHeight: "100px",
+                          height: "100%",
                         }}
-                      // onClick={() => handleClick(category)}
+                        className="d-flex justify-content-center align-items-center"
                       >
-                        <Box
-                          component="img"
-                          src={No_Image_Available}
-                          alt={category.subcategoryName}
-                          sx={{
-                            width: "100%",
-                            height: "300px",
-                            objectFit: "contain",
-                          }}
-                        />
-                        <Box
-                          sx={{
-                            backgroundColor: "#FC5F03CC",
-                            padding: "10px",
-                            color: "white",
-                            position: "absolute",
-                            bottom: 0,
-                            width: "100%",
-                            textAlign: "center",
-                            fontWeight: "bold",
-                            maxHeight: "100px",
-                            height: "100%",
-                          }}
-                          className="d-flex justify-content-center align-items-center"
-                        >
-                          <Typography variant="h5" className="fw-bold text-white">
-                            {category.subcategoryName}
-                          </Typography>
-                        </Box>
+                        <Typography variant="h5" className="fw-bold text-white">
+                          {category?.productDetails?.productName || 'N/A'}
+                        </Typography>
                       </Box>
-                    </Link>
+                    </Box>
+                    {/* </Link> */}
                   </Grid>
                 ))}
               </Grid>

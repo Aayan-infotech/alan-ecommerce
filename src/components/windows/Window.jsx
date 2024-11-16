@@ -18,10 +18,12 @@ import card_img3 from "../../assets/blog1.png";
 import Divider from "@mui/material/Divider";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
 
 const basePrice = 0;
 
 const Window = () => {
+  const [getEstimation, setGetEstimation] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState({
     width: "",
     height: "",
@@ -38,8 +40,7 @@ const Window = () => {
 
   const [price, setPrice] = useState(basePrice);
   const location = useLocation();
-  // const categoriesdetails = location.state.categoriesdetails;
-  // console.log(categoriesdetails, "categoriesdetails");
+  const { subcategoryDetails } = location.state || {};
 
   const formatPath = (path) => {
     return path
@@ -52,6 +53,23 @@ const Window = () => {
       )
       .join(" > ");
   };
+
+  const fetchDimensions = async () => {
+    try {
+      const response = await axios.get(`http://44.196.192.232:5000/api/windows/getProduct/${subcategoryDetails?._id}`);
+      if (response?.data?.success) {
+        setGetEstimation(response?.data?.data?.dimensions)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if (subcategoryDetails?._id) {
+      fetchDimensions();
+    }
+  }, [subcategoryDetails?._id])
 
   const categories = [
     "Wood Entry Door",
@@ -295,8 +313,13 @@ const Window = () => {
                     <MenuItem value="">
                       <em>Width</em>
                     </MenuItem>
-                    <MenuItem value={10}>5</MenuItem>
-                    <MenuItem value={20}>7</MenuItem>
+                    {/* <MenuItem value={10}>5</MenuItem>
+                    <MenuItem value={20}>7</MenuItem> */}
+                    {getEstimation.width?.map((item, index) => (
+                      <MenuItem key={index} value={item.width}>
+                        {item.width}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -326,8 +349,13 @@ const Window = () => {
                     <MenuItem value="">
                       <em>Height</em>
                     </MenuItem>
-                    <MenuItem value={10}>10</MenuItem>
-                    <MenuItem value={20}>10</MenuItem>
+                    {/* <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={20}>10</MenuItem> */}
+                      {getEstimation?.height?.map((item, index) => (
+                      <MenuItem key={index} value={item?.height}>
+                        {item?.height}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -359,8 +387,13 @@ const Window = () => {
                     <MenuItem value="">
                       <em>Fraction</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    {/* <MenuItem value={10}>20</MenuItem>
+                    <MenuItem value={24}>5</MenuItem> */}
+                     {getEstimation?.fraction?.map((item, index) => (
+                      <MenuItem key={index} value={item?.fraction}>
+                        {item?.fraction}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -387,8 +420,13 @@ const Window = () => {
                     <MenuItem value="">
                       <em>Grid</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    {/* <MenuItem value={10}>20</MenuItem>
+                    <MenuItem value={24}>5</MenuItem> */}
+                    {getEstimation?.gridOptions?.map((item, index) => (
+                      <MenuItem key={index} value={item?.gridOptions}>
+                        {item?.gridOptions}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -420,8 +458,13 @@ const Window = () => {
                     <MenuItem value="">
                       <em>Fin Type</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    {/* <MenuItem value={10}>20</MenuItem>
+                    <MenuItem value={24}>5</MenuItem> */}
+                     {getEstimation?.finType?.map((item, index) => (
+                      <MenuItem key={index} value={item?.finType}>
+                        {item?.finType}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -450,8 +493,13 @@ const Window = () => {
                     <MenuItem value="">
                       <em>Glass Type</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    {/* <MenuItem value={10}>20</MenuItem>
+                    <MenuItem value={24}>5</MenuItem> */}
+                     {getEstimation?.glassType?.map((item, index) => (
+                      <MenuItem key={index} value={item?.glassType}>
+                        {item?.glassType}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -481,8 +529,13 @@ const Window = () => {
                     <MenuItem value="">
                       <em>Color</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    {/* <MenuItem value={10}>20</MenuItem>
+                    <MenuItem value={24}>5</MenuItem> */}
+                     {getEstimation?.color?.map((item, index) => (
+                      <MenuItem key={index} value={item?.color}>
+                        {item?.color}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -511,8 +564,13 @@ const Window = () => {
                     <MenuItem value="">
                       <em>Tempering Option</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    {/* <MenuItem value={10}>20</MenuItem>
+                    <MenuItem value={24}>5</MenuItem> */}
+                     {getEstimation?.temperingOptions?.map((item, index) => (
+                      <MenuItem key={index} value={item?.temperingOptions}>
+                        {item?.temperingOptions}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -544,8 +602,13 @@ const Window = () => {
                     <MenuItem value="">
                       <em>Side Window Opens</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    {/* <MenuItem value={10}>20</MenuItem>
+                    <MenuItem value={24}>5</MenuItem> */}
+                     {getEstimation?.sideWindowOpens?.map((item, index) => (
+                      <MenuItem key={index} value={item?.sideWindowOpens}>
+                        {item?.sideWindowOpens}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -587,8 +650,13 @@ const Window = () => {
                     <MenuItem value="">
                       <em>Installation Option</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    {/* <MenuItem value={10}>20</MenuItem>
+                    <MenuItem value={24}>5</MenuItem> */}
+                    {getEstimation?.installationOption?.map((item, index) => (
+                      <MenuItem key={index} value={item?.installationOption}>
+                        {item?.installationOption}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Grid>
