@@ -9,6 +9,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  TextField,
 } from "@mui/material";
 import banner from "../../assets/doors.png";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -37,8 +38,9 @@ const Window = () => {
     installationOption: "",
     instructions: "",
   });
+  const [selectedImage, setSelectedImage] = useState(card_img1);
 
-  const [price, setPrice] = useState(basePrice);
+  const [price, setPrice] = useState(null);
   const location = useLocation();
   const { subcategoryDetails } = location.state || {};
 
@@ -58,7 +60,9 @@ const Window = () => {
     try {
       const response = await axios.get(`http://44.196.192.232:5000/api/windows/getProduct/${subcategoryDetails?._id}`);
       if (response?.data?.success) {
-        setGetEstimation(response?.data?.data?.dimensions)
+        const productData = response.data.data.productDetails;
+        setGetEstimation(response.data.data);
+        setPrice(productData.price);
       }
     } catch (error) {
       console.log(error);
@@ -91,46 +95,46 @@ const Window = () => {
   };
 
   const calculatePrice = () => {
-    let calculatedPrice = basePrice;
+    let calculatedPrice = getEstimation?.productDetails?.price || 0;
+    const selectedWidth = getEstimation?.dimensions?.width?.find(dim => dim.width === selectedOptions.width);
+    const selectedHeight = getEstimation?.dimensions?.height?.find(dim => dim.height === selectedOptions.height);
+    const selectedFraction = getEstimation?.dimensions?.fraction?.find(dim => dim.fraction === selectedOptions.fraction);
+    const selectedGrid = getEstimation?.dimensions?.gridOptions?.find(dim => dim.gridOptions === selectedOptions.grid);
+    const selectedFinType = getEstimation?.dimensions?.finType?.find(dim => dim.finType === selectedOptions.finType);
+    const selectedGlassType = getEstimation?.dimensions?.glassType?.find(dim => dim.glassType === selectedOptions.glassType);
+    const selectedColor = getEstimation?.dimensions?.color?.find(dim => dim.color === selectedOptions.color);
+    const selectedTemperingOption = getEstimation?.dimensions?.temperingOptions?.find(dim => dim.temperingOptions === selectedOptions.temperingOption);
+    const selectedSideWindowOpens = getEstimation?.dimensions?.sideWindowOpens?.find(dim => dim.sideWindowOpens === selectedOptions.sideWindowOpens);
+    const selectedInstallationOption = getEstimation?.dimensions?.installationOption?.find(dim => dim.installationOption === selectedOptions.installationOption);
 
-    // Example pricing logic based on selections
-    if (selectedOptions.width)
-      calculatedPrice += parseInt(selectedOptions.width);
-    if (selectedOptions.height)
-      calculatedPrice += parseInt(selectedOptions.height);
-    if (selectedOptions.fraction)
-      calculatedPrice += parseInt(selectedOptions.fraction);
-    if (selectedOptions.grid) calculatedPrice += parseInt(selectedOptions.grid);
-    if (selectedOptions.finType)
-      calculatedPrice += parseInt(selectedOptions.finType);
-    if (selectedOptions.glassType)
-      calculatedPrice += parseInt(selectedOptions.glassType);
-    if (selectedOptions.color)
-      calculatedPrice += parseInt(selectedOptions.color);
-    if (selectedOptions.temperingOption)
-      calculatedPrice += parseInt(selectedOptions.temperingOption);
-    if (selectedOptions.sideWindowOpens)
-      calculatedPrice += parseInt(selectedOptions.sideWindowOpens);
-    if (selectedOptions.installationOption)
-      calculatedPrice += parseInt(selectedOptions.installationOption);
+    // Add selected option prices to the base price
+    if (selectedWidth) calculatedPrice += selectedWidth.price;
+    if (selectedHeight) calculatedPrice += selectedHeight.price;
+    if (selectedFraction) calculatedPrice += selectedFraction.price;
+    if (selectedGrid) calculatedPrice += selectedGrid.price;
+    if (selectedFinType) calculatedPrice += selectedFinType.price;
+    if (selectedGlassType) calculatedPrice += selectedGlassType.price;
+    if (selectedColor) calculatedPrice += selectedColor.price;
+    if (selectedTemperingOption) calculatedPrice += selectedTemperingOption.price;
+    if (selectedSideWindowOpens) calculatedPrice += selectedSideWindowOpens.price;
+    if (selectedInstallationOption) calculatedPrice += selectedInstallationOption.price;
 
     setPrice(calculatedPrice);
   };
 
+
   useEffect(() => {
-    calculatePrice();
-  }, [selectedOptions]);
-  const images = [
-    card_img1,
-    card_img2,
-    card_img3,
-    card_img1,
-    card_img2,
-    card_img3,
-    card_img2,
-  ];
+    if (getEstimation?.productDetails?.price) {
+      calculatePrice();
+    }
+  }, [selectedOptions, getEstimation]);
+
   const maxVisibleImages = 5;
-  const remainingImages = images.length - maxVisibleImages;
+  const remainingImages = getEstimation?.productDetails?.images?.length - maxVisibleImages;
+
+  const handleChangeImage = (imageSrc) => {
+    setSelectedImage(imageSrc);
+  };
 
   return (
     <div className="doors-container px-3">
@@ -191,16 +195,17 @@ const Window = () => {
           <Grid item xs={12} md={5}>
             <Box>
               <img
-                src={card_img1}
+                src={selectedImage}
                 alt="Main Door"
                 style={{
                   width: "100%",
                   borderRadius: "5px",
-                  maxHeight: "200px",
+                  maxHeight: "280px",
+                  objectFit:"fill"
                 }}
               />
               <Grid container spacing={2} sx={{ marginTop: "15px" }}>
-                {images.slice(0, maxVisibleImages).map((imageSrc, index) => (
+                {getEstimation?.productDetails?.images.slice(0, maxVisibleImages).map((imageSrc, index) => (
                   <Grid item xs={4} key={index}>
                     <img
                       src={imageSrc}
@@ -210,7 +215,9 @@ const Window = () => {
                         height: "100px",
                         borderRadius: "5px",
                         objectFit: "cover",
+                        cursor: "pointer"
                       }}
+                      onClick={() => handleChangeImage(imageSrc)}
                     />
                   </Grid>
                 ))}
@@ -299,7 +306,7 @@ const Window = () => {
                     value={selectedOptions.width}
                     onChange={handleSelectChange}
                     renderValue={(selected) => {
-                      return selected ? selected : "Width";
+                      return selected ? selected : "Select";
                     }}
                     sx={{
                       backgroundColor: "#D0E5F4",
@@ -311,11 +318,9 @@ const Window = () => {
                     }}
                   >
                     <MenuItem value="">
-                      <em>Width</em>
+                      <em>none</em>
                     </MenuItem>
-                    {/* <MenuItem value={10}>5</MenuItem>
-                    <MenuItem value={20}>7</MenuItem> */}
-                    {getEstimation.width?.map((item, index) => (
+                    {getEstimation?.dimensions?.width?.map((item, index) => (
                       <MenuItem key={index} value={item.width}>
                         {item.width}
                       </MenuItem>
@@ -335,7 +340,7 @@ const Window = () => {
                     value={selectedOptions.height}
                     onChange={handleSelectChange}
                     renderValue={(selected) => {
-                      return selected ? selected : "Height";
+                      return selected ? selected : "Select";
                     }}
                     sx={{
                       backgroundColor: "#D0E5F4",
@@ -347,11 +352,11 @@ const Window = () => {
                     }}
                   >
                     <MenuItem value="">
-                      <em>Height</em>
+                      <em>none</em>
                     </MenuItem>
                     {/* <MenuItem value={10}>10</MenuItem>
                     <MenuItem value={20}>10</MenuItem> */}
-                      {getEstimation?.height?.map((item, index) => (
+                    {getEstimation?.dimensions?.height?.map((item, index) => (
                       <MenuItem key={index} value={item?.height}>
                         {item?.height}
                       </MenuItem>
@@ -373,7 +378,7 @@ const Window = () => {
                     value={selectedOptions.fraction}
                     onChange={handleSelectChange}
                     renderValue={(selected) => {
-                      return selected ? selected : "Fraction";
+                      return selected ? selected : "Select";
                     }}
                     sx={{
                       backgroundColor: "#D0E5F4",
@@ -385,11 +390,9 @@ const Window = () => {
                     }}
                   >
                     <MenuItem value="">
-                      <em>Fraction</em>
+                      <em>none</em>
                     </MenuItem>
-                    {/* <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem> */}
-                     {getEstimation?.fraction?.map((item, index) => (
+                    {getEstimation?.dimensions?.fraction?.map((item, index) => (
                       <MenuItem key={index} value={item?.fraction}>
                         {item?.fraction}
                       </MenuItem>
@@ -406,7 +409,7 @@ const Window = () => {
                     value={selectedOptions.grid}
                     onChange={handleSelectChange}
                     renderValue={(selected) => {
-                      return selected ? selected : "Grid";
+                      return selected ? selected : "Select";
                     }}
                     sx={{
                       backgroundColor: "#D0E5F4",
@@ -418,11 +421,9 @@ const Window = () => {
                     }}
                   >
                     <MenuItem value="">
-                      <em>Grid</em>
+                      <em>none</em>
                     </MenuItem>
-                    {/* <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem> */}
-                    {getEstimation?.gridOptions?.map((item, index) => (
+                    {getEstimation?.dimensions?.gridOptions?.map((item, index) => (
                       <MenuItem key={index} value={item?.gridOptions}>
                         {item?.gridOptions}
                       </MenuItem>
@@ -444,7 +445,7 @@ const Window = () => {
                     value={selectedOptions.finType}
                     onChange={handleSelectChange}
                     renderValue={(selected) => {
-                      return selected ? selected : "Fin Type";
+                      return selected ? selected : "Select";
                     }}
                     sx={{
                       backgroundColor: "#D0E5F4",
@@ -456,11 +457,9 @@ const Window = () => {
                     }}
                   >
                     <MenuItem value="">
-                      <em>Fin Type</em>
+                      <em>none</em>
                     </MenuItem>
-                    {/* <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem> */}
-                     {getEstimation?.finType?.map((item, index) => (
+                    {getEstimation?.dimensions?.finType?.map((item, index) => (
                       <MenuItem key={index} value={item?.finType}>
                         {item?.finType}
                       </MenuItem>
@@ -479,7 +478,7 @@ const Window = () => {
                     value={selectedOptions.glassType}
                     onChange={handleSelectChange}
                     renderValue={(selected) => {
-                      return selected ? selected : "Glass Type";
+                      return selected ? selected : "Select";
                     }}
                     sx={{
                       backgroundColor: "#D0E5F4",
@@ -491,11 +490,9 @@ const Window = () => {
                     }}
                   >
                     <MenuItem value="">
-                      <em>Glass Type</em>
+                      <em>none</em>
                     </MenuItem>
-                    {/* <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem> */}
-                     {getEstimation?.glassType?.map((item, index) => (
+                    {getEstimation?.dimensions?.glassType?.map((item, index) => (
                       <MenuItem key={index} value={item?.glassType}>
                         {item?.glassType}
                       </MenuItem>
@@ -507,7 +504,7 @@ const Window = () => {
 
             <Grid container spacing={2} className="mb-4">
               <Grid item xs={6}>
-                <InputLabel className="fw-bold text-black">Color </InputLabel>
+                <InputLabel className="fw-bold text-black">Color</InputLabel>
                 <FormControl fullWidth>
                   <Select
                     displayEmpty
@@ -515,7 +512,7 @@ const Window = () => {
                     value={selectedOptions.color}
                     onChange={handleSelectChange}
                     renderValue={(selected) => {
-                      return selected ? selected : "Color";
+                      return selected ? selected : "Select";
                     }}
                     sx={{
                       backgroundColor: "#D0E5F4",
@@ -527,11 +524,9 @@ const Window = () => {
                     }}
                   >
                     <MenuItem value="">
-                      <em>Color</em>
+                      <em>none</em>
                     </MenuItem>
-                    {/* <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem> */}
-                     {getEstimation?.color?.map((item, index) => (
+                    {getEstimation?.dimensions?.color?.map((item, index) => (
                       <MenuItem key={index} value={item?.color}>
                         {item?.color}
                       </MenuItem>
@@ -550,7 +545,7 @@ const Window = () => {
                     value={selectedOptions.temperingOption}
                     onChange={handleSelectChange}
                     renderValue={(selected) => {
-                      return selected ? selected : "Tempering Option";
+                      return selected ? selected : "Select";
                     }}
                     sx={{
                       backgroundColor: "#D0E5F4",
@@ -562,11 +557,9 @@ const Window = () => {
                     }}
                   >
                     <MenuItem value="">
-                      <em>Tempering Option</em>
+                      <em>none</em>
                     </MenuItem>
-                    {/* <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem> */}
-                     {getEstimation?.temperingOptions?.map((item, index) => (
+                    {getEstimation?.dimensions?.temperingOptions?.map((item, index) => (
                       <MenuItem key={index} value={item?.temperingOptions}>
                         {item?.temperingOptions}
                       </MenuItem>
@@ -588,7 +581,7 @@ const Window = () => {
                     value={selectedOptions.sideWindowOpens}
                     onChange={handleSelectChange}
                     renderValue={(selected) => {
-                      return selected ? selected : "Side Window Opens";
+                      return selected ? selected : "Select";
                     }}
                     sx={{
                       backgroundColor: "#D0E5F4",
@@ -600,11 +593,9 @@ const Window = () => {
                     }}
                   >
                     <MenuItem value="">
-                      <em>Side Window Opens</em>
+                      <em>none</em>
                     </MenuItem>
-                    {/* <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem> */}
-                     {getEstimation?.sideWindowOpens?.map((item, index) => (
+                    {getEstimation?.dimensions?.sideWindowOpens?.map((item, index) => (
                       <MenuItem key={index} value={item?.sideWindowOpens}>
                         {item?.sideWindowOpens}
                       </MenuItem>
@@ -636,7 +627,7 @@ const Window = () => {
                     value={selectedOptions.installationOption}
                     onChange={handleSelectChange}
                     renderValue={(selected) => {
-                      return selected ? selected : "Installation Option";
+                      return selected ? selected : "Select";
                     }}
                     sx={{
                       backgroundColor: "#D0E5F4",
@@ -648,11 +639,9 @@ const Window = () => {
                     }}
                   >
                     <MenuItem value="">
-                      <em>Installation Option</em>
+                      <em>none</em>
                     </MenuItem>
-                    {/* <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem> */}
-                    {getEstimation?.installationOption?.map((item, index) => (
+                    {getEstimation?.dimensions?.installationOption?.map((item, index) => (
                       <MenuItem key={index} value={item?.installationOption}>
                         {item?.installationOption}
                       </MenuItem>
@@ -665,13 +654,13 @@ const Window = () => {
                   Instruction, Questions or Comments?
                 </InputLabel>
                 <FormControl fullWidth>
-                  <Select
+                  <TextField
                     displayEmpty
                     name="instructions"
                     value={selectedOptions.instructions}
                     onChange={handleSelectChange}
                     renderValue={(selected) => {
-                      return selected ? selected : "Instructions";
+                      return selected ? selected : "Select";
                     }}
                     sx={{
                       backgroundColor: "#D0E5F4",
@@ -682,12 +671,12 @@ const Window = () => {
                       },
                     }}
                   >
-                    <MenuItem value="">
-                      <em>Instructions</em>
+                    {/* <MenuItem value="">
+                      <em>none</em>
                     </MenuItem>
                     <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
-                  </Select>
+                    <MenuItem value={24}>5</MenuItem> */}
+                  </TextField>
                 </FormControl>
               </Grid>
             </Grid>
@@ -696,7 +685,7 @@ const Window = () => {
       </Container>
       <Box sx={{ textAlign: "center" }} className="mb-5 mt-5">
         <Link to="/measured-windows">
-          <Button variant="contained" size="large">
+          <Button variant="contained" size="large" sx={{textTransform:"none"}}>
             Proceed <ArrowForwardIcon />
           </Button>
         </Link>
