@@ -303,7 +303,7 @@ export const Home = () => {
                     height="300"
                     image={item?.image || No_Image_Available}
                     alt="green iguana"
-                    sx={{objectFit:"fill"}}
+                    sx={{ objectFit: "fill" }}
                   />
                   <CardContent sx={{ backgroundColor: "#0068B333" }}>
                     <Box
@@ -318,7 +318,10 @@ export const Home = () => {
                         variant="h5"
                         component="div"
                       >
-                        {item?.categoryName}
+                        {item?.categoryName
+                          ?.split(' ')
+                          .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                          .join(' ')}
                       </Typography>
                     </Box>
                     <Box className="mt-2">

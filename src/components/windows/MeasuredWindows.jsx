@@ -2,9 +2,14 @@ import React from "react";
 import { Grid, Typography, Button, Box, Container } from "@mui/material";
 import card_img1 from "../../assets/window.png";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const MeasuredWindows = () => {
+  const location = useLocation();
+  const { selectedOptions, price, selectedImage } = location.state || {};
+  console.log(selectedOptions, 'selectedOptions')
+
+
   return (
     <div>
       <Container className="mt-4">
@@ -38,52 +43,52 @@ export const MeasuredWindows = () => {
                   <Grid item xs={6}>
                     <Typography variant="body2">Width</Typography>
                     <Typography variant="body1">
-                      <strong className="fs-5">25 inch</strong>
+                      <strong className="fs-5">{selectedOptions?.Width_Inches_Fraction || 'N/A'} inch</strong>
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>
                     <Typography variant="body2">Height</Typography>
                     <Typography variant="body1">
-                      <strong className="fs-5">32 inch</strong>
+                      <strong className="fs-5">{selectedOptions?.Height_Inches_Fraction || 'N/A'} inch</strong>
                     </Typography>
                   </Grid>
 
                   <Grid item xs={6}>
                     <Typography variant="body2">Fraction</Typography>
                     <Typography variant="body1">
-                      <strong className="fs-5">Selected Fraction</strong>
+                      <strong className="fs-5">{selectedOptions?.fraction || 'N/A'}</strong>
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>
                     <Typography variant="body2">Grid</Typography>
                     <Typography variant="body1">
-                      <strong className="fs-5">Selected Grid</strong>
+                      <strong className="fs-5">{selectedOptions?.Select_Grid_Options || 'N/A'}</strong>
                     </Typography>
                   </Grid>
 
                   <Grid item xs={6}>
                     <Typography variant="body2">Fin Type</Typography>
                     <Typography variant="body1">
-                      <strong className="fs-5">Selected Fin Type</strong>
+                      <strong className="fs-5">{selectedOptions?.Fin_Type || 'N/A'}</strong>
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>
                     <Typography variant="body2">Glass Type</Typography>
                     <Typography variant="body1">
-                      <strong className="fs-5">Fiber</strong>
+                      <strong className="fs-5">{selectedOptions?.glass_type || 'N/A'}</strong>
                     </Typography>
                   </Grid>
 
                   <Grid item xs={6}>
                     <Typography variant="body2">Color</Typography>
                     <Typography variant="body1">
-                      <strong className="fs-5">White</strong>
+                      <strong className="fs-5">{selectedOptions?.color || 'N/A'}</strong>
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>
                     <Typography variant="body2">Tempering Option</Typography>
                     <Typography variant="body1">
-                      <strong className="fs-5">Selected Option</strong>
+                      <strong className="fs-5">{selectedOptions?.Tempering_Option || 'N/A'}</strong>
                     </Typography>
                   </Grid>
 
@@ -96,7 +101,7 @@ export const MeasuredWindows = () => {
                   <Grid item xs={6}>
                     <Typography variant="body2">Installation Option</Typography>
                     <Typography variant="body1">
-                      <strong className="fs-5">Selected Option</strong>
+                      <strong className="fs-5">{selectedOptions?.Installation_Option || 'N/A'}</strong>
                     </Typography>
                   </Grid>
 
@@ -140,7 +145,7 @@ export const MeasuredWindows = () => {
                 className="fw-bold"
                 sx={{ width: "150px", backgroundColor: "black" }}
               >
-                $ 849
+                $ {price}
               </Button>
               <Button
                 variant="outlined"
