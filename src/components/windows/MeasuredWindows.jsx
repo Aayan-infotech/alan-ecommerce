@@ -7,8 +7,6 @@ import { Link, useLocation } from "react-router-dom";
 export const MeasuredWindows = () => {
   const location = useLocation();
   const { selectedOptions, price, selectedImage } = location.state || {};
-  console.log(selectedOptions, 'selectedOptions')
-
 
   return (
     <div>
@@ -18,9 +16,10 @@ export const MeasuredWindows = () => {
             <Grid item xs={12} md={4}>
               <Box>
                 <img
-                  src={card_img1}
+                  src={selectedImage || card_img1}
                   alt="Wood Entry Door"
-                  style={{ maxWidth: 400, maxHeight: 400, borderRadius: "8px" }}
+                  className="w-100 rounded-4"
+                  // style={{ maxWidth: 400, maxHeight: 400, borderRadius: "8px" }}
                 />
                 <Typography variant="h4" sx={{ mt: 2 }} className="fw-bold">
                   Wood Entry Door
@@ -36,17 +35,37 @@ export const MeasuredWindows = () => {
               </Box>
             </Grid>
 
-            {/* Right Options and Pricing Section */}
             <Grid item xs={12} md={8}>
               <Box sx={{ padding: "20px" }}>
                 <Grid container spacing={2}>
-                  <Grid item xs={6}>
-                    <Typography variant="body2">Width</Typography>
-                    <Typography variant="body1">
-                      <strong className="fs-5">{selectedOptions?.Width_Inches_Fraction || 'N/A'} inch</strong>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
+                  {selectedOptions &&
+                    Object.entries(selectedOptions).map(
+                      ([key, value], index) => (
+                        <Grid item xs={6} key={index}>
+                          <Typography variant="body2">
+                            {key.replace(/_/g, " ")}
+                          </Typography>
+                          <Typography variant="body1">
+                            <strong className="fs-5">
+                              <strong className="fs-5">{value || "N/A"}</strong>
+                            </strong>
+                          </Typography>
+                        </Grid>
+                      )
+                    )}
+                  {/* {selectedOptions && Object.entries(selectedOptions).map(
+                      ([key, value], index) => (
+                        <Grid item xs={6} key={index}>
+                          <Typography variant="body2">
+                            {key.replace(/_/g, " ")}
+                          </Typography>
+                          <Typography variant="body1">
+                            <strong className="fs-5">{value || "N/A"}</strong>
+                          </Typography>
+                        </Grid>
+                      )
+                    )} */}
+                  {/* <Grid item xs={6}>
                     <Typography variant="body2">Height</Typography>
                     <Typography variant="body1">
                       <strong className="fs-5">{selectedOptions?.Height_Inches_Fraction || 'N/A'} inch</strong>
@@ -112,7 +131,7 @@ export const MeasuredWindows = () => {
                     <Typography variant="body1">
                       <strong className="fs-5">No Comments</strong>
                     </Typography>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </Box>
             </Grid>

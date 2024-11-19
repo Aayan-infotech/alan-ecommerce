@@ -194,7 +194,7 @@ const Window = () => {
                             width: "100%",
                             height: "100px",
                             borderRadius: "5px",
-                            objectFit: "cover",
+                            objectFit: "fill",
                             cursor: "pointer"
                           }}
                           onClick={() => handleChangeImage(imageSrc)}
