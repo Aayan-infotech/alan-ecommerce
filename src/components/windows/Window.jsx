@@ -324,7 +324,7 @@ const Window = () => {
                         </Grid>
                       ))}
                 </Grid>
-                <Grid item xs={6}>
+                {/* <Grid item xs={6}>
                   <InputLabel className="fw-bold text-black">
                     Instruction, Questions or Comments?
                   </InputLabel>
@@ -338,7 +338,7 @@ const Window = () => {
                       }}
                     ></TextField>
                   </FormControl>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12}>
                   <Divider sx={{ margin: "20px 0" }} />
                 </Grid>
