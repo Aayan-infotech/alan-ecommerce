@@ -52,7 +52,6 @@ const Window = () => {
       );
       if (response?.data?.success) {
         const data = response.data.data;
-        console.log(data, "data");
         setGetEstimation(data);
         setPrice(data.productDetails.price);
       }
@@ -68,17 +67,6 @@ const Window = () => {
       fetchDimensions();
     }
   }, [subcategoryDetails?._id]);
-
-  // const categories = [
-  //   "Wood Entry Door",
-  //   "Fiber Glass Entry Doors",
-  //   "Vinyl Sliding Patio Doors",
-  //   "Fiberglass French Doors",
-  //   "French Wood Doors",
-  //   "Vinyl Swinging French Door",
-  //   "Hardware",
-  //   "Other Doors",
-  // ];
 
   const handleSelectChange = (dimensionKey, value) => {
     setSelectedOptions((prevState) => ({
@@ -133,14 +121,14 @@ const Window = () => {
   };
 
   const handleProceed = () => {
-    if (validateSelections()) {
-      const allSelectedOptionsDetails = {
-        selectedOptions,
-        price,
-        selectedImage,
-      };
-      navigate("/measured-windows", { state: allSelectedOptionsDetails });
-    }
+    // if (validateSelections()) {
+    const allSelectedOptionsDetails = {
+      selectedOptions,
+      price,
+      selectedImage,
+    };
+    navigate("/measured-windows", { state: allSelectedOptionsDetails });
+    // }
   };
 
   return (
@@ -173,31 +161,6 @@ const Window = () => {
               </Typography>
             </Box>
           </Box>
-          {/* <Box
-            sx={{
-              backgroundColor: "#fc5f03",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexWrap: "wrap",
-              height: "50px",
-            }}
-            className="text-white p-1 rounded-3 doors-title-list"
-          >
-            <Typography className="title-size" sx={{ fontSize: "15px" }}>
-              Select Category <ArrowForwardIosIcon className="fs-6" />
-            </Typography>
-
-            {categories.map((category, index) => (
-              <Typography
-                key={index}
-                className="title-size"
-                sx={{ fontSize: "15px" }}
-              >
-                {category}
-              </Typography>
-            ))}
-          </Box> */}
           <Container>
             {/* ------------------------------------------- */}
             <Grid container spacing={4} className="mt-4">
@@ -305,8 +268,13 @@ const Window = () => {
               <Grid item xs={12} md={7}>
                 <Grid container spacing={2} className="mb-4">
                   {getEstimation?.dimensions &&
-                    Object.entries(getEstimation.dimensions).map(
-                      ([key, dimension]) => (
+                    Object.entries(getEstimation.dimensions)
+                      .filter(
+                        ([key, dimension]) =>
+                          Array.isArray(dimension.data) &&
+                          dimension.data.length > 0
+                      )
+                      .map(([key, dimension]) => (
                         <Grid item xs={6} key={key}>
                           <InputLabel
                             className="fw-bold text-black"
@@ -354,8 +322,22 @@ const Window = () => {
                             </Typography>
                           )}
                         </Grid>
-                      )
-                    )}
+                      ))}
+                </Grid>
+                <Grid item xs={6}>
+                  <InputLabel className="fw-bold text-black">
+                    Instruction, Questions or Comments?
+                  </InputLabel>
+                  <FormControl fullWidth>
+                    <TextField
+                      sx={{
+                        backgroundColor: "#D0E5F4",
+                        borderRadius: "10px",
+                        border: "none",
+                        "& fieldset": { border: "none" },
+                      }}
+                    ></TextField>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                   <Divider sx={{ margin: "20px 0" }} />
