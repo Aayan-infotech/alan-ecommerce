@@ -26,6 +26,7 @@ const Window = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedImage, setSelectedImage] = useState(card_img1);
   const [price, setPrice] = useState(0);
+  const [errors, setErrors] = useState({});
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -68,21 +69,25 @@ const Window = () => {
     }
   }, [subcategoryDetails?._id]);
 
-  const categories = [
-    "Wood Entry Door",
-    "Fiber Glass Entry Doors",
-    "Vinyl Sliding Patio Doors",
-    "Fiberglass French Doors",
-    "French Wood Doors",
-    "Vinyl Swinging French Door",
-    "Hardware",
-    "Other Doors",
-  ];
+  // const categories = [
+  //   "Wood Entry Door",
+  //   "Fiber Glass Entry Doors",
+  //   "Vinyl Sliding Patio Doors",
+  //   "Fiberglass French Doors",
+  //   "French Wood Doors",
+  //   "Vinyl Swinging French Door",
+  //   "Hardware",
+  //   "Other Doors",
+  // ];
 
   const handleSelectChange = (dimensionKey, value) => {
     setSelectedOptions((prevState) => ({
       ...prevState,
       [dimensionKey]: value,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [dimensionKey]: !value ? "Please select a value" : null,
     }));
   };
 
@@ -114,13 +119,28 @@ const Window = () => {
     setSelectedImage(imageSrc);
   };
 
+  const validateSelections = () => {
+    const validationErrors = {};
+    Object.entries(getEstimation?.dimensions || {}).forEach(
+      ([key, dimension]) => {
+        if (!selectedOptions[key]) {
+          validationErrors[key] = `Please select a ${dimension.label}`;
+        }
+      }
+    );
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
+
   const handleProceed = () => {
-    const allSelectedOptionsDetails = {
-      selectedOptions,
-      price,
-      selectedImage,
-    };
-    navigate("/measured-windows", { state: allSelectedOptionsDetails });
+    if (validateSelections()) {
+      const allSelectedOptionsDetails = {
+        selectedOptions,
+        price,
+        selectedImage,
+      };
+      navigate("/measured-windows", { state: allSelectedOptionsDetails });
+    }
   };
 
   return (
@@ -153,7 +173,7 @@ const Window = () => {
               </Typography>
             </Box>
           </Box>
-          <Box
+          {/* <Box
             sx={{
               backgroundColor: "#fc5f03",
               display: "flex",
@@ -177,30 +197,41 @@ const Window = () => {
                 {category}
               </Typography>
             ))}
-          </Box>
+          </Box> */}
           <Container>
             {/* ------------------------------------------- */}
             <Grid container spacing={4} className="mt-4">
               <Grid item xs={12} md={5}>
                 <Box>
-                  <img src={selectedImage} alt="Main Door" style={{ width: "100%", borderRadius: "5px", maxHeight: "280px", objectFit: "fill" }} />
+                  <img
+                    src={selectedImage}
+                    alt="Main Door"
+                    style={{
+                      width: "100%",
+                      borderRadius: "5px",
+                      maxHeight: "280px",
+                      objectFit: "fill",
+                    }}
+                  />
                   <Grid container spacing={2} sx={{ marginTop: "15px" }}>
-                    {getEstimation?.productDetails?.images.slice(0, maxVisibleImages).map((imageSrc, index) => (
-                      <Grid item xs={4} key={index}>
-                        <img
-                          src={imageSrc}
-                          alt={`Image ${index + 1}`}
-                          style={{
-                            width: "100%",
-                            height: "100px",
-                            borderRadius: "5px",
-                            objectFit: "fill",
-                            cursor: "pointer"
-                          }}
-                          onClick={() => handleChangeImage(imageSrc)}
-                        />
-                      </Grid>
-                    ))}
+                    {getEstimation?.productDetails?.images
+                      .slice(0, maxVisibleImages)
+                      .map((imageSrc, index) => (
+                        <Grid item xs={4} key={index}>
+                          <img
+                            src={imageSrc}
+                            alt={`Image ${index + 1}`}
+                            style={{
+                              width: "100%",
+                              height: "100px",
+                              borderRadius: "5px",
+                              objectFit: "fill",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => handleChangeImage(imageSrc)}
+                          />
+                        </Grid>
+                      ))}
                     {remainingImages > 0 && (
                       <Grid
                         item
@@ -244,9 +275,9 @@ const Window = () => {
                     color="textSecondary"
                     className="w-75 mt-3"
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-                    euismod bibendum laoreet. Proin gravida dolor sit amet lacus
-                    accumsan et viverra justo commodo.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Aenean euismod bibendum laoreet. Proin gravida dolor sit
+                    amet lacus accumsan et viverra justo commodo.
                   </Typography>
                   <Box
                     sx={{
@@ -277,13 +308,32 @@ const Window = () => {
                     Object.entries(getEstimation.dimensions).map(
                       ([key, dimension]) => (
                         <Grid item xs={6} key={key}>
-                          <InputLabel className="fw-bold text-black" id={`${key}-label`}>
+                          <InputLabel
+                            className="fw-bold text-black"
+                            id={`${key}-label`}
+                          >
                             {dimension.label}
                           </InputLabel>
-                          <FormControl fullWidth>
-                            <Select displayEmpty name="width" labelId={`${key}-label`} value={selectedOptions[key] || ""}
-                              onChange={(e) => handleSelectChange(key, e.target.value)}
-                              sx={{ backgroundColor: "#D0E5F4", borderRadius: "10px", border: "none", "& fieldset": { border: "none", }, }}>
+                          <FormControl
+                            fullWidth
+                            error={Boolean(errors[key])}
+                            sx={{ marginBottom: errors[key] ? "10px" : "0" }}
+                          >
+                            <Select
+                              displayEmpty
+                              name={key}
+                              labelId={`${key}-label`}
+                              value={selectedOptions[key] || ""}
+                              onChange={(e) =>
+                                handleSelectChange(key, e.target.value)
+                              }
+                              sx={{
+                                backgroundColor: "#D0E5F4",
+                                borderRadius: "10px",
+                                border: "none",
+                                "& fieldset": { border: "none" },
+                              }}
+                            >
                               <MenuItem value="">
                                 <em>Select</em>
                               </MenuItem>
@@ -294,11 +344,19 @@ const Window = () => {
                               ))}
                             </Select>
                           </FormControl>
+                          {errors[key] && (
+                            <Typography
+                              variant="body2"
+                              color="error"
+                              sx={{ marginTop: "-8px", fontSize: "12px" }}
+                            >
+                              {errors[key]}
+                            </Typography>
+                          )}
                         </Grid>
                       )
                     )}
                 </Grid>
-
                 <Grid item xs={12}>
                   <Divider sx={{ margin: "20px 0" }} />
                 </Grid>
@@ -306,11 +364,14 @@ const Window = () => {
             </Grid>
           </Container>
           <Box sx={{ textAlign: "center" }} className="mb-5 mt-5">
-            {/* <Link to="/measured-windows"> */}
-              <Button onClick={handleProceed} variant="contained" size="large" sx={{ textTransform: "none" }}>
-                Proceed <ArrowForwardIcon />
-              </Button>
-            {/* </Link> */}
+            <Button
+              onClick={handleProceed}
+              variant="contained"
+              size="large"
+              sx={{ textTransform: "none" }}
+            >
+              Proceed <ArrowForwardIcon />
+            </Button>
           </Box>
         </>
       )}

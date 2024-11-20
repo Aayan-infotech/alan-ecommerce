@@ -33,7 +33,6 @@ const Categories = () => {
     try {
       const response = await axios.get(`http://44.196.192.232:5000/api/category/get-subcategory/${categoryId}`);
       if (response?.data?.status === 200) {
-        console.log(response?.data?.data, 'response?.data?.data')
         setExploreCategories(response?.data?.data);
         setErrorMessage("");
       } else {
@@ -98,7 +97,6 @@ const Categories = () => {
               <Grid container spacing={2}>
                 {exploreCategories?.map((category, index) => (
                   <Grid item xs={12} sm={6} md={4} key={index}>
-                    {/* <Link to="/windows" className="text-decoration-none"> */}
                     <Box
                       sx={{
                         borderRadius: "10px",
@@ -117,7 +115,7 @@ const Categories = () => {
                     >
                       <Box
                         component="img"
-                        src={category?.productDetails?.images || No_Image_Available}
+                        src={category?.productDetails?.images[0] || No_Image_Available}
                         alt={category?.productDetails?.subcategoryName}
                         sx={{
                           width: "100%",
@@ -145,7 +143,6 @@ const Categories = () => {
                         </Typography>
                       </Box>
                     </Box>
-                    {/* </Link> */}
                   </Grid>
                 ))}
               </Grid>
