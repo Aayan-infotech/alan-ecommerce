@@ -24,6 +24,9 @@ import { CouponDetails } from "./CouponDetails";
 
 const Cart = () => {
   const location = useLocation();
+
+  const { price,selectedImage,getEstimation, } = location.state || {};
+
   const [quantity, setQuantity] = useState(1);
   const [showCouponDetails, setShowCouponDetails] = useState(false);
 
@@ -35,7 +38,7 @@ const Cart = () => {
         ? prevQuantity - 1
         : 1
     );
-  };
+  };  
 
   const formatPath = (path) => {
     return path
@@ -84,21 +87,21 @@ const Cart = () => {
         <Card sx={{ mb: 2, borderRadius: 2, boxShadow: 3 }}>
           <CardContent>
             <Grid container alignItems="center" spacing={2}>
-              <Grid item xs={12} sm={2}>
+              <Grid item xs={12} sm={3}>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <CardMedia
                     component="img"
                     alt="Golden Door"
-                    image={card_img1}
+                    image={selectedImage || card_img1}
                     className="me-2"
                     sx={{ borderRadius: 1, objectFit: "contain", maxWidth: 50 }}
                   />
-                  <Typography className="fw-bold">Golden Door</Typography>
+                  <Typography className="fw-bold">{getEstimation?.productDetails?.productName}</Typography>
                 </Box>
               </Grid>
               <Grid item xs={12} sm={2}>
                 <Typography component="div" className="fw-bold">
-                  Price: <span style={{ color: "gray" }}>$200</span>
+                  Price: <span style={{ color: "gray" }}>$ {price}</span>
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={3}>
@@ -126,10 +129,10 @@ const Cart = () => {
               </Grid>
               <Grid item xs={12} sm={2}>
                 <Typography component="div" className="fw-bold">
-                  Subtotal: <span style={{ color: "gray" }}>$200</span>
+                  Subtotal: <span style={{ color: "gray" }}>$ {price * quantity}</span>
                 </Typography>
               </Grid>
-              <Grid item xs={12} sm={2}>
+              <Grid item xs={12} sm={1}>
                 <Link to="/measured-windows">
                   <Button
                     variant="outlined"

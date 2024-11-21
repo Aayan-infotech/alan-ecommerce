@@ -2,11 +2,22 @@ import React from "react";
 import { Grid, Typography, Button, Box, Container } from "@mui/material";
 import card_img1 from "../../assets/window.png";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export const MeasuredWindows = () => {
   const location = useLocation();
-  const { selectedOptions, price, selectedImage } = location.state || {};
+  const navigate = useNavigate();
+  const { selectedOptions, price, selectedImage, getEstimation } =
+    location.state || {};
+
+  const handleToProceedCart = () => {
+    const selectedOptionsDetails = {
+      price,
+      selectedImage,
+      getEstimation,
+    };
+    navigate("/cart", { state: selectedOptionsDetails });
+  };
 
   return (
     <div>
@@ -173,11 +184,15 @@ export const MeasuredWindows = () => {
               >
                 Add to cart
               </Button>
-              <Link to="/cart">
-                <Button variant="contained" sx={{ width: "150px" }}>
-                  Next <ArrowForwardIcon />
-                </Button>
-              </Link>
+              {/* <Link to="/cart"> */}
+              <Button
+                onClick={handleToProceedCart}
+                variant="contained"
+                sx={{ width: "150px" }}
+              >
+                Next <ArrowForwardIcon />
+              </Button>
+              {/* </Link> */}
             </Grid>
           </Grid>
         </Box>

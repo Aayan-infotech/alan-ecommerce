@@ -126,6 +126,7 @@ const Window = () => {
       selectedOptions,
       price,
       selectedImage,
+      getEstimation
     };
     navigate("/measured-windows", { state: allSelectedOptionsDetails });
     // }
@@ -231,16 +232,14 @@ const Window = () => {
                     )}
                   </Grid>
                   <Typography variant="h5" className="fw-bold mt-3">
-                    Wood Entry Doors
+                    {getEstimation?.productDetails?.productName || 'N/A'}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="textSecondary"
                     className="w-75 mt-3"
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Aenean euismod bibendum laoreet. Proin gravida dolor sit
-                    amet lacus accumsan et viverra justo commodo.
+                   {getEstimation?.productDetails?.description || 'N/A'}
                   </Typography>
                   <Box
                     sx={{
