@@ -11,11 +11,11 @@ const WindowContent = () => {
     <Container className="mb-4">
       <Grid container spacing={2}>
         <Grid item xs={6} className="d-flex justify-content-center">
-          <Box>
+          <Box className="w-50">
             <Typography variant="h4" className="fw-bold">
               {window_estimate_description.header.title}
             </Typography>
-            <Typography variant="body1" className="w-25">
+            <Typography sx={{fontSize:"20px"}}>
               {window_estimate_description.header.description}
             </Typography>
           </Box>
