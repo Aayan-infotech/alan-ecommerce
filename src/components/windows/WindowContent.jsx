@@ -1,7 +1,7 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import { Box, Container, Typography } from "@mui/material";
-import windowimg from "../../assets/windowdesimg.png";
+import windowimg from "../../assets/windowdescription.png";
 import content from "../../json/doors.json";
 
 const WindowContent = () => {
@@ -21,7 +21,7 @@ const WindowContent = () => {
           </Box>
         </Grid>
         <Grid item xs={6}>
-          <img src={window_estimate_description.image} alt="Window Description" />
+          <img src={window_estimate_description.image || windowimg} alt="Window Description" />
         </Grid>
       </Grid>
       <Grid container spacing={2}>
