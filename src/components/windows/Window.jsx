@@ -99,7 +99,7 @@ const Window = () => {
     }
   }, [selectedOptions, getEstimation]);
 
-  const maxVisibleImages = 3;
+  const maxVisibleImages = 2;
   const remainingImages =
     getEstimation?.productDetails?.images?.length - maxVisibleImages || 0;
 

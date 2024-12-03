@@ -136,7 +136,10 @@
     ],
     "related_articles": {
       "diy_window_guides": [
-        { "title": "Which caulk should I use?", "path": "/guide/caulk" },
+        {
+          "title": "Which caulk should I use?",
+          "path": "/guide/caulk"
+        },
         {
           "title": "When to use Tempered Safety Glass",
           "path": "/guide/tempered-glass"
@@ -145,7 +148,10 @@
           "title": "Importance of Energy Efficiency",
           "path": "/guide/energy-efficiency"
         },
-        { "title": "Door Jambs Explained", "path": "/guide/door-jambs" },
+        {
+          "title": "Door Jambs Explained",
+          "path": "/guide/door-jambs"
+        },
         {
           "title": "10 Things to Know Before You Buy Replacement Windows",
           "path": "/guide/replacement-windows"
@@ -298,7 +304,11 @@
         "Gloves to protect from caulking",
         "Shims to adjust the window placement"
       ],
-      "diy_door_guides": ["Step ladder", "Spirit level", "Glass cleaner"]
+      "diy_door_guides": [
+        "Step ladder",
+        "Spirit level",
+        "Glass cleaner"
+      ]
     },
     "installation_steps": [
       {
@@ -354,7 +364,9 @@
       {
         "step": 9,
         "title": "Put siliconized acrylic sealant in the gap between the trim and the wall to create a smooth seal.",
-        "details": ["Wipe off any excess sealant with a rag."]
+        "details": [
+          "Wipe off any excess sealant with a rag."
+        ]
       },
       {
         "step": 10,
@@ -832,6 +844,55 @@
           "Use a 4\" brush to apply the topcoat.",
           "Follow the manufacturer's instructions for the best results."
         ]
+      }
+    ]
+  },
+  "window_estimate_description": {
+    "header": {
+      "title": "How to measure",
+      "description": "body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam."
+    },
+    "image": "src/assets/windowdesimg.png",
+    "sections": [
+      {
+        "title": "More About Doors",
+        "description": "The right door is key to the appearance and performance of your home. Look for products that reflect your style as well as your practical needs. With Discount Door and Window you can choose from many energy efficient door options, including patio doors and exterior doors like Vinyl Doors, Fiberglass Doors, and Solid Wood Doors. Discount Door and Window is the place to go for discount doors in San Diego."
+      },
+      {
+        "title": "Step Into Luxury With Doors That Add An Extra Touch Of Elegance",
+        "description": "When it comes to elevating the style and sophistication of your home, there's no better place to start than with your doors and door replacement. We specialize in providing high-quality doors that provide security and functionality and add an extra touch of elegance and luxury to your space. From stunning wooden designs to sleek and modern options, our collection of doors offers something for every taste and style."
+      },
+      {
+        "title": "Welcome Your Guests In Style With Our Inviting Doors",
+        "description": "Whether you're looking to enhance your home's curb appeal or add a touch of luxury to your interiors, our doors are the perfect choice for those who demand both beauty and functionality. Constitute scrolling the best door designs before you plan for exterior door installation."
+      },
+      {
+        "title": "Wood Entry Doors",
+        "description": "Wood entry doors are durable and strong and provide natural insulation, making them energy efficient. They also have a warm and inviting appearance and can add value to a home."
+      },
+      {
+        "title": "Fiberglass Entry Doors",
+        "description": "Fiberglass entry doors are a popular and modern option for front doors. They are made of composite materials that are durable, weather-resistant, and energy-efficient. Vinyl Sliding Patio Doors Vinyl sliding patio doors are a practical and cost-effective option for connecting indoor and outdoor living spaces. They are made of PVC (polyvinyl chloride) and are low-maintenance, weather-resistant, and energy-efficient."
+      },
+      {
+        "title": "Fiberglass French Doors",
+        "description": "If you are looking for door contractors in San Diego for a modern look, these doors are perfect for you. Fiberglass French doors are a popular and modern option for interior or exterior doors. They are made of composite materials that are durable, weather-resistant, and energy-efficient"
+      },
+      {
+        "title": "French Wood Doors",
+        "description": "French wood doors are a classic and traditional option for interior or exterior doors. They also have a warm and inviting appearance and can add value to a home."
+      },
+      {
+        "title": "Vinyl Swinging French Door",
+        "description": "These doors are easy to operate and provide excellent ventilation. Vinyl swinging French doors are ideal for creating an elegant and modern look for a home."
+      },
+      {
+        "title": "Why Get The Best Doors With Us?",
+        "description": "At Discount Door & Window, we are committed to providing our customers with high-quality doors and windows at affordable prices. We understand the importance of having durable and efficient doors and windows in your home or business, which is why we offer a wide selection of products that are made with top-of-the-line materials and advanced manufacturing techniques. Our team of experts is dedicated to helping you find and buy doors in San Diego, perfect doors and windows that meet your specific needs and preferences."
+      },
+      {
+        "title": "Transform Your Home With Our Doors!",
+        "description": "When you choose to buy doors and windows from Discount Door & Window, you can trust that you are getting the best value for your money and that your investment will provide you with years of reliable performance and aesthetic appeal. So, connect with us immediately if you are finding exterior door contractors in San Diego and want to get products at affordable prices."
       }
     ]
   }
