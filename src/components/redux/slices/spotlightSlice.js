@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import apiUrl from "../../../apiUrl"; 
+import { apiUrl } from "../../../apiUtils";
 
 export const addToCart = createAsyncThunk(
   "spotlight/addToCart",
   async ({ productId, quantity }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${apiUrl}/api/cart/doors/add-cart`, {
+      const response = await axios.post(apiUrl(`api/cart/doors/add-cart`), {
+      // const response = await axios.post(`${apiUrl}/api/cart/doors/add-cart`, {
         productId,
         quantity,
       }, {

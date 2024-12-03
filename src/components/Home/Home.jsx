@@ -30,7 +30,8 @@ import bifold_image from "../../assets/card_img4.png";
 import interriordoors_image from "../../assets/interriordoors.png";
 import harware_image from "../../assets/harware.png";
 import catimage from "../../assets/7xm155932.png";
-import Loader from '../../loader/Loader'
+import Loader from '../../loader/Loader';
+// import { apiUrl } from "../../apiUtils";
 
 export const Home = () => {
   const [exploreCategories, setExploreCategories] = useState([]);
@@ -43,7 +44,8 @@ export const Home = () => {
   const fetchExploreCategories = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://44.196.192.232:5000/api/category");
+      const response = await axios.get('http://44.196.64.110:5000/api/category/getall'); 
+      console.log(response, 'response');
       if (response?.data?.status === 200) {
         setExploreCategories(response?.data?.data);
         setErrorMessage("");
@@ -51,12 +53,12 @@ export const Home = () => {
         setErrorMessage(response.data.message);
       }
     } catch (error) {
-      setErrorMessage(error?.response?.data?.message);
+      setErrorMessage(error?.response?.data?.message || 'An error occurred.');
     } finally {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     fetchExploreCategories();
   }, []);

@@ -19,6 +19,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "../../loader/Loader";
+import WindowContent from "./WindowContent";
 
 const Window = () => {
   const [getEstimation, setGetEstimation] = useState(null);
@@ -47,9 +48,8 @@ const Window = () => {
   const fetchDimensions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        `http://44.196.192.232:5000/api/windows/getProduct/${subcategoryDetails?._id}`
-      );
+      const response = await axios.get(`http://44.196.64.110:5000/api/windows/getProduct/${subcategoryDetails?._id}`);
+      console.log(response.data.data, 'response')
       if (response?.data?.success) {
         const data = response.data.data;
         setGetEstimation(data);
@@ -99,7 +99,7 @@ const Window = () => {
     }
   }, [selectedOptions, getEstimation]);
 
-  const maxVisibleImages = 5;
+  const maxVisibleImages = 3;
   const remainingImages =
     getEstimation?.productDetails?.images?.length - maxVisibleImages || 0;
 
@@ -239,7 +239,7 @@ const Window = () => {
                     color="textSecondary"
                     className="w-75 mt-3"
                   >
-                   {getEstimation?.productDetails?.description || 'N/A'}
+                    {getEstimation?.productDetails?.description || 'N/A'}
                   </Typography>
                   <Box
                     sx={{
@@ -265,50 +265,122 @@ const Window = () => {
                 </Box>
               </Grid>
               <Grid item xs={12} md={7}>
+                {/* <Grid container spacing={2} className="mb-4">
+                  {getEstimation?.dimensions &&
+                    Object.entries(getEstimation.dimensions).filter(([key, dimension]) => Array.isArray(dimension.data) && dimension.data.length > 0)
+                      .map(([key, dimension]) => (
+                        <Grid item xs={6} key={key}>
+                          <InputLabel className="fw-bold text-black" id={`${key}-label`} >
+                            {dimension.label} </InputLabel>
+                          <FormControl fullWidth error={Boolean(errors[key])} sx={{ marginBottom: errors[key] ? "10px" : "0" }}>
+                            <Select displayEmpty name={key} labelId={`${key}-label`} value={selectedOptions[key] || ""} onChange={(e) => handleSelectChange(key, e.target.value)}
+                              sx={{ backgroundColor: "#D0E5F4", borderRadius: "10px", border: "none", "& fieldset": { border: "none" }, }}>
+                              <MenuItem value="">
+                                <em>Select</em>
+                              </MenuItem>
+                              {dimension?.data?.map((option, index) => (<MenuItem key={index} value={option?.name}>   {option?.name} </MenuItem>))}
+                            </Select>
+                          </FormControl>
+                          {errors[key] && (
+                            <Typography variant="body2" color="error" sx={{ marginTop: "-8px", fontSize: "12px" }}>
+                              {errors[key]}
+                            </Typography>
+                          )}
+                        </Grid>
+                      ))}
+                </Grid> */}
                 <Grid container spacing={2} className="mb-4">
                   {getEstimation?.dimensions &&
                     Object.entries(getEstimation.dimensions)
                       .filter(
                         ([key, dimension]) =>
-                          Array.isArray(dimension.data) &&
-                          dimension.data.length > 0
+                          Array.isArray(dimension.data) && dimension.data.length > 0
                       )
                       .map(([key, dimension]) => (
                         <Grid item xs={6} key={key}>
-                          <InputLabel
-                            className="fw-bold text-black"
-                            id={`${key}-label`}
-                          >
+                          <InputLabel className="fw-bold text-black" id={`${key}-label`}>
                             {dimension.label}
                           </InputLabel>
-                          <FormControl
-                            fullWidth
-                            error={Boolean(errors[key])}
-                            sx={{ marginBottom: errors[key] ? "10px" : "0" }}
-                          >
+                          <FormControl fullWidth error={Boolean(errors[key])}>
                             <Select
                               displayEmpty
                               name={key}
                               labelId={`${key}-label`}
                               value={selectedOptions[key] || ""}
-                              onChange={(e) =>
-                                handleSelectChange(key, e.target.value)
-                              }
+                              onChange={(e) => handleSelectChange(key, e.target.value)}
                               sx={{
                                 backgroundColor: "#D0E5F4",
                                 borderRadius: "10px",
                                 border: "none",
                                 "& fieldset": { border: "none" },
                               }}
+                              renderValue={(selected) => {
+                                if (!selected) return <em>Select</em>;
+                                return key === "color" ? (
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      gap: "8px",
+                                    }}
+                                  >
+                                    <span
+                                      style={{
+                                        display: "inline-block",
+                                        width: "20px",
+                                        height: "20px",
+                                        backgroundColor: selected,
+                                        borderRadius: "5px",
+                                        border: "1px solid #ccc",
+                                      }}
+                                    ></span>
+                                    {selected}
+                                  </div>
+                                ) : (
+                                  selected
+                                );
+                              }}
                             >
-                              <MenuItem value="">
-                                <em>Select</em>
-                              </MenuItem>
-                              {dimension?.data?.map((option, index) => (
-                                <MenuItem key={index} value={option?.name}>
-                                  {option?.name}
-                                </MenuItem>
-                              ))}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  gap: "16px",
+                                  padding: "8px",
+                                  flexWrap: "wrap",
+                                }}
+                              >
+                                {dimension?.data?.map((option, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={option?.name}
+                                    sx={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                      width: "60px", 
+                                    }}
+                                  >
+                                    {key === "color" ? (
+                                      <>
+                                        <span
+                                          style={{
+                                            display: "flex",
+                                            width: "40px",
+                                            height: "40px",
+                                            backgroundColor: option.name,
+                                            borderRadius: "5px",
+                                            marginBottom: "8px",
+                                          }}
+                                        ></span>
+                                        {option.name}
+                                      </>
+                                    ) : (
+                                      option.name
+                                    )}
+                                  </MenuItem>
+                                ))}
+                              </div>
                             </Select>
                           </FormControl>
                           {errors[key] && (
@@ -323,21 +395,6 @@ const Window = () => {
                         </Grid>
                       ))}
                 </Grid>
-                {/* <Grid item xs={6}>
-                  <InputLabel className="fw-bold text-black">
-                    Instruction, Questions or Comments?
-                  </InputLabel>
-                  <FormControl fullWidth>
-                    <TextField
-                      sx={{
-                        backgroundColor: "#D0E5F4",
-                        borderRadius: "10px",
-                        border: "none",
-                        "& fieldset": { border: "none" },
-                      }}
-                    ></TextField>
-                  </FormControl>
-                </Grid> */}
                 <Grid item xs={12}>
                   <Divider sx={{ margin: "20px 0" }} />
                 </Grid>
@@ -345,15 +402,11 @@ const Window = () => {
             </Grid>
           </Container>
           <Box sx={{ textAlign: "center" }} className="mb-5 mt-5">
-            <Button
-              onClick={handleProceed}
-              variant="contained"
-              size="large"
-              sx={{ textTransform: "none" }}
-            >
+            <Button onClick={handleProceed} variant="contained" size="large" sx={{ textTransform: "none" }}>
               Proceed <ArrowForwardIcon />
             </Button>
           </Box>
+          <WindowContent/>
         </>
       )}
     </div>

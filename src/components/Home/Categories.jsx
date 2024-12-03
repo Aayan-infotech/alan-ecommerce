@@ -31,7 +31,7 @@ const Categories = () => {
   const fetchExploreSubCategories = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://44.196.192.232:5000/api/category/get-subcategory/${categoryId}`);
+      const response = await axios.get(`http://44.196.64.110:5000/api/category/get-subcategory/${categoryId}`);
       if (response?.data?.status === 200) {
         setExploreCategories(response?.data?.data);
         setErrorMessage("");
