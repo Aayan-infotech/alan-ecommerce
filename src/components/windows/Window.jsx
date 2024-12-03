@@ -298,10 +298,23 @@ const Window = () => {
                       )
                       .map(([key, dimension]) => (
                         <Grid item xs={6} key={key}>
-                          <InputLabel className="fw-bold text-black" id={`${key}-label`}>
+                          <InputLabel
+                            className="fw-bold text-black"
+                            id={`${key}-label`}
+                          >
                             {dimension.label}
                           </InputLabel>
-                          <FormControl fullWidth error={Boolean(errors[key])}>
+                          <FormControl
+                            fullWidth
+                            error={Boolean(errors[key])}
+                            sx={{
+                              marginBottom: errors[key] ? "10px" : "0",
+                              ...(key === "color" && {
+                                width: "100%",
+                                display: "flex"
+                              }),
+                            }}
+                          >
                             <Select
                               displayEmpty
                               name={key}
@@ -341,46 +354,40 @@ const Window = () => {
                                 );
                               }}
                             >
-                              <div
-                                style={{
-                                  display: "flex",
-                                  gap: "16px",
-                                  padding: "8px",
-                                  flexWrap: "wrap",
-                                }}
-                              >
-                                {dimension?.data?.map((option, index) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={option?.name}
-                                    sx={{
-                                      display: "flex",
-                                      flexDirection: "column",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                      width: "60px", 
-                                    }}
-                                  >
-                                    {key === "color" ? (
-                                      <>
-                                        <span
-                                          style={{
-                                            display: "flex",
-                                            width: "40px",
-                                            height: "40px",
-                                            backgroundColor: option.name,
-                                            borderRadius: "5px",
-                                            marginBottom: "8px",
-                                          }}
-                                        ></span>
-                                        {option.name}
-                                      </>
-                                    ) : (
-                                      option.name
-                                    )}
-                                  </MenuItem>
-                                ))}
-                              </div>
+                              {dimension?.data?.map((option, index) => (
+                                <MenuItem
+                                  key={index}
+                                  value={option?.name}
+                                  sx={
+                                    key === "color"
+                                      ? {
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                      }
+                                      : {}
+                                  }
+                                >
+                                  {key === "color" ? (
+                                    <>
+                                      <span
+                                        style={{
+                                          display: "inline-block",
+                                          width: "40px",
+                                          height: "40px",
+                                          backgroundColor: option.name,
+                                          borderRadius: "5px",
+                                          marginBottom: "8px",
+                                        }}
+                                      ></span>
+                                      {option.name}
+                                    </>
+                                  ) : (
+                                    option.name
+                                  )}
+                                </MenuItem>
+                              ))}
                             </Select>
                           </FormControl>
                           {errors[key] && (
@@ -395,6 +402,7 @@ const Window = () => {
                         </Grid>
                       ))}
                 </Grid>
+
                 <Grid item xs={12}>
                   <Divider sx={{ margin: "20px 0" }} />
                 </Grid>
@@ -406,7 +414,7 @@ const Window = () => {
               Proceed <ArrowForwardIcon />
             </Button>
           </Box>
-          <WindowContent/>
+          <WindowContent />
         </>
       )}
     </div>
