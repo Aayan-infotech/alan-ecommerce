@@ -4,7 +4,7 @@ import banner from "../../assets/doors.png";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import No_Image_Available from "../../assets/No_Image_Available.jpg";
-import Loader from '../../loader/Loader'
+import Loader from "../../loader/Loader";
 
 const Categories = () => {
   const [exploreCategories, setExploreCategories] = useState([]);
@@ -31,7 +31,9 @@ const Categories = () => {
   const fetchExploreSubCategories = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://44.196.64.110:5000/api/category/get-subcategory/${categoryId}`);
+      const response = await axios.get(
+        `http://44.196.64.110:5000/api/category/get-subcategory/${categoryId}`
+      );
       if (response?.data?.status === 200) {
         setExploreCategories(response?.data?.data);
         setErrorMessage("");
@@ -77,7 +79,11 @@ const Categories = () => {
           >
             <Box>
               {exploreCategories?.map((category, index) => (
-                <Typography key={index} variant="h2" className="text-black fw-bold">
+                <Typography
+                  key={index}
+                  variant="h2"
+                  className="text-black fw-bold"
+                >
                   {category.subcategoryName}
                 </Typography>
               ))}
@@ -90,7 +96,12 @@ const Categories = () => {
           </Box>
           <Container sx={{ mt: 4 }}>
             {errorMessage ? (
-              <Typography variant="h6" color="error" textAlign="center" sx={{ mt: 2 }}>
+              <Typography
+                variant="h6"
+                color="error"
+                textAlign="center"
+                sx={{ mt: 2 }}
+              >
                 {errorMessage}
               </Typography>
             ) : (
@@ -103,27 +114,25 @@ const Categories = () => {
                         overflow: "hidden",
                         textAlign: "center",
                         position: "relative",
-                        borderTopLeftRadius: "50px",
-                        borderTopRightRadius: "50px",
-                        borderBottomLeftRadius: "50px",
-                        borderBottomRightRadius: "50px",
-                        backgroundColor: "aliceblue",
-                        maxWidth: "330px",
+                        backgroundColor: "#f1f1f1",
                         width: "100%",
                       }}
+                      className="rounded-3 p-2"
                       onClick={() => handleClick(category)}
                     >
                       <Box
                         component="img"
-                        src={category?.productDetails?.images[0] || No_Image_Available}
+                        className="p-3"
+                        src={
+                          category?.productDetails?.images[0] ||
+                          No_Image_Available
+                        }
                         alt={category?.productDetails?.subcategoryName}
-                        sx={{
-                          width: "100%",
-                          height: "300px",
-                          objectFit: "fill",
-                        }}
-                      />
-                      <Box
+                        sx={{ width: "100%", height: "300px", objectFit: "fill",}}/>
+                      <Typography variant="h5" className="fw-bold">
+                        {category?.productDetails?.productName || "N/A"}
+                      </Typography>
+                      {/* <Box
                         sx={{
                           backgroundColor: "#FC5F03CC",
                           padding: "10px",
@@ -141,7 +150,7 @@ const Categories = () => {
                         <Typography variant="h5" className="fw-bold text-white">
                           {category?.productDetails?.productName || 'N/A'}
                         </Typography>
-                      </Box>
+                      </Box> */}
                     </Box>
                   </Grid>
                 ))}
