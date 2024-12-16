@@ -48,8 +48,10 @@ const Window = () => {
   const fetchDimensions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://44.196.64.110:5000/api/windows/getProduct/${subcategoryDetails?._id}`);
-      console.log(response.data.data, 'response')
+      const response = await axios.get(
+        `http://44.196.64.110:5000/api/windows/getProduct/${subcategoryDetails?._id}`
+      );
+      console.log(response.data.data, "response");
       if (response?.data?.success) {
         const data = response.data.data;
         setGetEstimation(data);
@@ -126,7 +128,7 @@ const Window = () => {
       selectedOptions,
       price,
       selectedImage,
-      getEstimation
+      getEstimation,
     };
     navigate("/measured-windows", { state: allSelectedOptionsDetails });
     // }
@@ -232,36 +234,15 @@ const Window = () => {
                     )}
                   </Grid>
                   <Typography variant="h5" className="fw-bold mt-3">
-                    {getEstimation?.productDetails?.productName || 'N/A'}
+                    {getEstimation?.productDetails?.productName || "N/A"}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="textSecondary"
                     className="w-75 mt-3"
                   >
-                    {getEstimation?.productDetails?.description || 'N/A'}
+                    {getEstimation?.productDetails?.description || "N/A"}
                   </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                    className="mt-3"
-                  >
-                    <Typography variant="h4">Pricing</Typography>
-                    <Box>
-                      <Box
-                        sx={{ backgroundColor: "black", width: "150px" }}
-                        className="text-white text-center rounded-1"
-                      >
-                        <Typography variant="h4">$ {price}</Typography>
-                      </Box>
-                      <Typography sx={{ fontSize: "10px" }}>
-                        (According to Selected Options)
-                      </Typography>
-                    </Box>
-                  </Box>
                 </Box>
               </Grid>
               <Grid item xs={12} md={7}>
@@ -289,12 +270,34 @@ const Window = () => {
                         </Grid>
                       ))}
                 </Grid> */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                  className="mb-3"
+                >
+                  <Typography variant="h4" className="fw-bold">Pricing</Typography>
+                  <Box>
+                    <Box
+                      sx={{ backgroundColor: "black", width: "200px" }}
+                      className="text-white text-center rounded-1"
+                    >
+                      <Typography variant="h5">$ {price.toFixed(2)}</Typography>
+                    </Box>
+                    <Typography sx={{ fontSize: "10px" }}>
+                      (According to Selected Options)
+                    </Typography>
+                  </Box>
+                </Box>
                 <Grid container spacing={2} className="mb-4">
                   {getEstimation?.dimensions &&
                     Object.entries(getEstimation.dimensions)
                       .filter(
                         ([key, dimension]) =>
-                          Array.isArray(dimension.data) && dimension.data.length > 0
+                          Array.isArray(dimension.data) &&
+                          dimension.data.length > 0
                       )
                       .map(([key, dimension]) => (
                         <Grid item xs={6} key={key}>
@@ -311,7 +314,7 @@ const Window = () => {
                               marginBottom: errors[key] ? "10px" : "0",
                               ...(key === "color" && {
                                 width: "100%",
-                                display: "flex"
+                                display: "flex",
                               }),
                             }}
                           >
@@ -320,7 +323,9 @@ const Window = () => {
                               name={key}
                               labelId={`${key}-label`}
                               value={selectedOptions[key] || ""}
-                              onChange={(e) => handleSelectChange(key, e.target.value)}
+                              onChange={(e) =>
+                                handleSelectChange(key, e.target.value)
+                              }
                               sx={{
                                 backgroundColor: "#D0E5F4",
                                 borderRadius: "10px",
@@ -361,11 +366,11 @@ const Window = () => {
                                   sx={
                                     key === "color"
                                       ? {
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                      }
+                                          display: "flex",
+                                          flexDirection: "column",
+                                          alignItems: "center",
+                                          justifyContent: "center",
+                                        }
                                       : {}
                                   }
                                 >
@@ -410,7 +415,12 @@ const Window = () => {
             </Grid>
           </Container>
           <Box sx={{ textAlign: "center" }} className="mb-5 mt-5">
-            <Button onClick={handleProceed} variant="contained" size="large" sx={{ textTransform: "none" }}>
+            <Button
+              onClick={handleProceed}
+              variant="contained"
+              size="large"
+              sx={{ textTransform: "none" }}
+            >
               Proceed <ArrowForwardIcon />
             </Button>
           </Box>

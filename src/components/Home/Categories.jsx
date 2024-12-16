@@ -130,7 +130,7 @@ const Categories = () => {
                         alt={category?.productDetails?.subcategoryName}
                         sx={{ width: "100%", height: "300px", objectFit: "fill",}}/>
                       <Typography variant="h5" className="fw-bold">
-                        {category?.productDetails?.productName || "N/A"}
+                        {category?.productDetails?.productName || category?.categoryName || "N/A"}
                       </Typography>
                       {/* <Box
                         sx={{

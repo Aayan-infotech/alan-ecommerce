@@ -356,9 +356,9 @@ export const Home = () => {
           </Grid>
 
           {/* ----------------Our Products--------------------- */}
-          <Box>
+          {/* <Box>
             <OurProducts />
-          </Box>
+          </Box> */}
 
           {/* ----------------Our Customer Feedback--------------------- */}
           <Box>
