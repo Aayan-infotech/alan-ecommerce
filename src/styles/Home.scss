@@ -123,6 +123,9 @@
   .pos-home-top .home-content .text-section {
     position: absolute;
     text-align: left;
+    z-index: 1;
+    max-width: calc(100% - 30%);
+    left: 0;
   }
 
   .pos-home-top .text-section .main-heading,
@@ -141,6 +144,19 @@
     font-size: 1.75rem
   }
 
+  .home-container .home-content {
+    position: relative;
+  }
+
+  .home-container .home-content::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.541);
+    height: 100%;
+    width: 100%;
+  }
 }
 
 @media screen and (min-width: 768px) {

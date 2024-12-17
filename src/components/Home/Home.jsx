@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Container,
@@ -19,15 +18,6 @@ import { LatestBlogs } from "./LatestBlogs";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../redux/slices/spotlightSlice";
-import sliding_image from "../../assets/sliding.png";
-import entrydoors_image from "../../assets/entrydoors.png";
-import window_image from "../../assets/window.png";
-import bifold_image from "../../assets/card_img4.png";
-import interriordoors_image from "../../assets/interriordoors.png";
-import harware_image from "../../assets/harware.png";
-import catimage from "../../assets/7xm155932.png";
-import Loader from "../../loader/Loader";
 // import { apiUrl } from "../../apiUtils";
 
 export const Home = () => {
