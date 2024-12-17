@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Container,
-  FormControl,
   InputLabel,
   TextField,
   Typography,
@@ -15,50 +14,77 @@ export const OrderTrack = () => {
     <div>
       <Container
         sx={{
-          mt: 5,
-          mb: 4,
+          mt: { xs: 2, md: 5 },
+          mb: { xs: 3, md: 4 },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <Box>
-        <Typography variant="h4" align="center" className="fw-bold text-black">
-          Track Your Order
-        </Typography>
-        <Typography variant="body4" align="center" className="text-black mt-2">
-          for tracking the order you need to enter Order ID
-        </Typography>
-          <Box className="mt-4">
-            <InputLabel className="text-black fw-bold">Order Id</InputLabel>
+        <Box
+          sx={{
+            p: { xs: 2, md: 4 },
+          }}
+        >
+          <Typography
+            variant="h4"
+            align="center"
+            sx={{
+              fontWeight: "bold",
+              color: "black",
+              fontSize: { xs: "1.8rem", md: "2.2rem" }, 
+            }}
+          >
+            Track Your Order
+          </Typography>
+          <Typography
+            variant="body1"
+            align="center"
+            sx={{
+              mt: 1,
+              color: "black",
+              fontSize: { xs: "0.9rem", md: "1rem" }, 
+            }}
+          >
+            For tracking the order, you need to enter your Order ID.
+          </Typography>
+          <Box sx={{ mt: 3 }}>
+            <InputLabel
+              sx={{
+                color: "black",
+                fontWeight: "bold",
+                fontSize: { xs: "0.9rem", md: "1rem" },
+              }}
+            >
+              Order ID
+            </InputLabel>
             <TextField
               id="outlined-basic"
               variant="outlined"
-              placeholder="Enter Order Id"
+              placeholder="Enter Order ID"
+              fullWidth
               sx={{
                 mt: 1,
-                width: "300px",
                 backgroundColor: "#D0E5F4",
                 borderRadius: "10px",
-                width: "400px",
-                border: "none",
                 "& fieldset": {
-                  border: "none",
+                  border: "none", 
                 },
               }}
             />
           </Box>
-          <Box className="text-center mt-3">
+          <Box sx={{ textAlign: "center", mt: 3 }}>
             <Link to="/traking-order">
               <Button
                 variant="contained"
                 color="primary"
                 size="large"
                 sx={{
-                  width: "150px",
+                  width: { xs: "100%", sm: "150px" }, 
                   backgroundColor: "#1C4E9B",
                   textTransform: "capitalize",
                   fontWeight: "bold",
+                  fontSize: { xs: "1rem", md: "1.1rem" },
                 }}
               >
                 Login

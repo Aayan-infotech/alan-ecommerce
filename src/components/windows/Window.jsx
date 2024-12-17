@@ -123,6 +123,7 @@ const Window = () => {
   };
 
   const handleProceed = () => {
+    // if (validateSelections()) {
     const allSelectedOptionsDetails = {
       selectedOptions,
       price,
@@ -130,6 +131,7 @@ const Window = () => {
       getEstimation,
     };
     navigate("/measured-windows", { state: allSelectedOptionsDetails });
+    // }
   };
 
   return (
@@ -163,6 +165,7 @@ const Window = () => {
             </Box>
           </Box>
           <Container>
+            {/* ------------------------------------------- */}
             <Grid container spacing={4} className="mt-4">
               <Grid item xs={12} md={5}>
                 <Box>
@@ -411,7 +414,7 @@ const Window = () => {
               </Grid>
             </Grid>
           </Container>
-          <Box sx={{ textAlign: "center" }} className="mb-5 mt-5">
+          <Box sx={{ textAlign: "center" }} className="mb-4">
             <Button
               onClick={handleProceed}
               variant="contained"

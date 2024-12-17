@@ -81,7 +81,7 @@ const Categories = () => {
               {exploreCategories?.map((category, index) => (
                 <Typography
                   key={index}
-                  variant="h2"
+                  variant="h5"
                   className="text-black fw-bold"
                 >
                   {category.subcategoryName}

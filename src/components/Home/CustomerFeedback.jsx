@@ -84,7 +84,7 @@ export const CustomerFeedback = () => {
 
   return (
     <div className="feedback-section py-5">
-      <div className="container">
+      <div>
         <Typography variant="h4" className="text-center mb-2">
           Our Customer Feedback
         </Typography>

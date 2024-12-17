@@ -15,34 +15,38 @@ export const Login = () => {
     <div>
       <Container
         sx={{
-          mt: 5,
+          mt: { xs: 3, md: 5 }, 
           mb: 4,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <Box>
+        <Box sx={{ width: { xs: "100%", sm: "80%", md: "400px" } }}>
           <Typography
             variant="h4"
             align="center"
             className="fw-bold text-black"
+            sx={{ fontSize: { xs: "1.8rem", md: "2.125rem" } }} 
           >
             Login
           </Typography>
           <Box className="mt-4">
-            <InputLabel className="text-black fw-bold">Email</InputLabel>
+            <InputLabel
+              className="text-black fw-bold"
+              sx={{ fontSize: { xs: "0.9rem", md: "1rem" } }}
+            >
+              Email
+            </InputLabel>
             <TextField
               id="outlined-basic"
               variant="outlined"
               placeholder="Enter Email"
               sx={{
                 mt: 1,
-                width: "300px",
+                width: "100%",
                 backgroundColor: "#D0E5F4",
                 borderRadius: "10px",
-                width: "400px",
-                border: "none",
                 "& fieldset": {
                   border: "none",
                 },
@@ -50,7 +54,12 @@ export const Login = () => {
             />
           </Box>
           <Box className="mt-4">
-            <InputLabel className="text-black fw-bold">Password</InputLabel>
+            <InputLabel
+              className="text-black fw-bold"
+              sx={{ fontSize: { xs: "0.9rem", md: "1rem" } }}
+            >
+              Password
+            </InputLabel>
             <TextField
               id="outlined-basic"
               type="password"
@@ -58,7 +67,7 @@ export const Login = () => {
               placeholder="Enter Password"
               sx={{
                 mt: 1,
-                width: "400px",
+                width: "100%",
                 backgroundColor: "#D0E5F4",
                 borderRadius: "10px",
                 "& fieldset": {
@@ -74,7 +83,7 @@ export const Login = () => {
                 color="primary"
                 size="large"
                 sx={{
-                  width: "150px",
+                  width: { xs: "100%", sm: "150px" }, 
                   backgroundColor: "#1C4E9B",
                   textTransform: "capitalize",
                   fontWeight: "bold",

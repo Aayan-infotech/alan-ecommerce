@@ -13,9 +13,6 @@ import {
 import "../../styles/Home.scss";
 import banner from "../../assets/home-banner.png";
 import No_Image_Available from "../../assets/No_Image_Available.jpg";
-import { OurProducts } from "./OurProducts";
-import ShareIcon from "@mui/icons-material/Share";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { CustomerFeedback } from "./CustomerFeedback";
 import { LatestBlogs } from "./LatestBlogs";
@@ -30,7 +27,7 @@ import bifold_image from "../../assets/card_img4.png";
 import interriordoors_image from "../../assets/interriordoors.png";
 import harware_image from "../../assets/harware.png";
 import catimage from "../../assets/7xm155932.png";
-import Loader from '../../loader/Loader';
+import Loader from "../../loader/Loader";
 // import { apiUrl } from "../../apiUtils";
 
 export const Home = () => {
@@ -44,8 +41,10 @@ export const Home = () => {
   const fetchExploreCategories = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://44.196.64.110:5000/api/category/getall'); 
-      console.log(response, 'response');
+      const response = await axios.get(
+        "http://44.196.64.110:5000/api/category/getall"
+      );
+      console.log(response, "response");
       if (response?.data?.status === 200) {
         setExploreCategories(response?.data?.data);
         setErrorMessage("");
@@ -53,12 +52,12 @@ export const Home = () => {
         setErrorMessage(response.data.message);
       }
     } catch (error) {
-      setErrorMessage(error?.response?.data?.message || 'An error occurred.');
+      setErrorMessage(error?.response?.data?.message || "An error occurred.");
     } finally {
       setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     fetchExploreCategories();
   }, []);
@@ -70,61 +69,6 @@ export const Home = () => {
     { urlPath: "/pre-approved-installer", label: "Find an Installer" },
     { urlPath: "/diyinstall-guides", label: "DIY Installation Guide" },
   ];
-  const expore_products = [
-    {
-      id: 1,
-      url: "",
-      product_name: "Windows",
-      image: window_image,
-      Categories: [
-        { id: 1, cat_name: "XO Slider", image: catimage },
-        { id: 2, cat_name: "XOX Slider", image: catimage },
-        { id: 3, cat_name: "Single or Double Hung", image: catimage },
-        { id: 1, cat_name: "Garden", image: catimage },
-        { id: 2, cat_name: "Casement/Awning Window", image: catimage },
-        { id: 3, cat_name: "Picture Window", image: catimage },
-      ],
-    },
-    {
-      id: 2,
-      url: "",
-      product_name: "Sliding Door",
-      image: sliding_image,
-      Categories: [
-        { id: 1, cat_name: "XOX Slider", image: sliding_image },
-        { id: 2, cat_name: "XO Slider", image: sliding_image },
-        { id: 3, cat_name: "XO Slider", image: sliding_image },
-      ],
-    },
-    { id: 3, url: "", product_name: "System", image: entrydoors_image },
-    {
-      id: 1,
-      url: "",
-      product_name: "Bi-Fold and French Doors",
-      image: bifold_image,
-      Categories: [
-        { id: 1, cat_name: "XO Slider", image: bifold_image },
-        { id: 2, cat_name: "XO Slider", image: bifold_image },
-        { id: 3, cat_name: "XO Slider", image: bifold_image },
-      ],
-    },
-    {
-      id: 2,
-      url: "",
-      product_name: "Interior Doors",
-      image: interriordoors_image,
-      Categories: [
-        { id: 1, cat_name: "XO Slider", image: interriordoors_image },
-        { id: 2, cat_name: "XO Slider", image: interriordoors_image },
-        { id: 3, cat_name: "XO Slider", image: interriordoors_image },
-      ],
-    },
-    { id: 3, url: "", product_name: "Hardware", image: harware_image },
-  ];
-
-  const handleAddToCart = (productId, quantity) => {
-    dispatch(addToCart({ productId, quantity }));
-  };
 
   const marqueeRef = useRef(null);
 
@@ -146,16 +90,14 @@ export const Home = () => {
   }, []);
 
   const handleClick = (categoryId) => {
-    // navigate("/categories", { state: { categories: item } });
     navigate(`/categories/${categoryId}`);
   };
 
   return (
     <>
       <div className="home-container px-4">
-        <Container>
-          <Grid container alignItems="center" className="home-content">
-            {/* Left Section: Text */}
+        <Container className="position-relative pos-home-top mt-4 mt-lg-0"> 
+          <Grid container alignItems="center" className="home-content ">
             <Grid item xs={12} md={6} className="text-section">
               <Typography variant="h3" component="h1" className="main-heading">
                 Upgrade Your Home With
@@ -178,19 +120,13 @@ export const Home = () => {
                 </Button>
               </Link>
             </Grid>
-
-            {/* Right Section: Image */}
             <Grid item xs={12} md={6} className="image-section">
-              <img
-                src={banner} // Replace with your image path
-                alt="Home"
-                className="home-image"
-              />
+              <img src={banner} alt="Home" className="home-image" />
             </Grid>
           </Grid>
         </Container>
         <Box className="marquee-container">
-          <div className="marquee-content" ref={marqueeRef}>
+          <div className="marquee-content marquee-home" ref={marqueeRef}>
             <div className="d-flex">
               <Typography
                 variant="h2"
@@ -271,17 +207,19 @@ export const Home = () => {
         <Container>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
+              display: "grid",
+              gap: "1rem",
+              gridTemplateColumns: { xs: "1fr", md: "auto" }, 
+              justifyContent: { md: "space-between" },
               alignItems: "center",
-              flexDirection: { xs: "column", md: "row" },
             }}
+            className="button-container"
           >
             {buttonData.map((button, index) => (
-              <Link to={button?.urlPath} key={index}>
+              <Link to={button?.urlPath} key={index} className="button-link">
                 <Button
                   variant="contained"
-                  className="me-3"
+                  className="custom-button"
                   sx={{ textTransform: "none" }}
                 >
                   {button.label} <ArrowForwardIcon className="fs-5" />
@@ -298,7 +236,12 @@ export const Home = () => {
             </Typography>
           </Box>
 
-          <Grid container spacing={2} justifyContent="center" alignItems="center">
+          <Grid
+            container
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+          >
             {exploreCategories.length > 0 ? (
               exploreCategories.map((item, index) => (
                 <Grid item xs={12} sm={6} md={4} key={index}>
@@ -327,9 +270,13 @@ export const Home = () => {
                           component="div"
                         >
                           {item?.categoryName
-                            ?.split(' ')
-                            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                            .join(' ')}
+                            ?.split(" ")
+                            .map(
+                              (word) =>
+                                word.charAt(0).toUpperCase() +
+                                word.slice(1).toLowerCase()
+                            )
+                            .join(" ")}
                         </Typography>
                       </Box>
                       <Box className="mt-2">
@@ -354,18 +301,9 @@ export const Home = () => {
               </Grid>
             )}
           </Grid>
-
-          {/* ----------------Our Products--------------------- */}
-          {/* <Box>
-            <OurProducts />
-          </Box> */}
-
-          {/* ----------------Our Customer Feedback--------------------- */}
           <Box>
             <CustomerFeedback />
           </Box>
-
-          {/* ----------------Latest Blogs--------------------- */}
           <Box>
             <LatestBlogs />
           </Box>

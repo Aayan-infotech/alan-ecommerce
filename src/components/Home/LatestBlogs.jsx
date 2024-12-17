@@ -51,7 +51,7 @@ const feedbackData = [
 export const LatestBlogs = () => {
   return (
     <div className="feedback-section">
-      <div className="container">
+      <div className="container p-0">
         <Typography variant="h4" className="text-center mb-2">
           Latest Blogs
         </Typography>

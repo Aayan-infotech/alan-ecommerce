@@ -50,7 +50,6 @@ const Navbar = () => {
       }}
     >
       <Toolbar sx={{ position: "sticky", top: "0", zIndex: "999" }}>
-        {/* Heading Section */}
         <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
           <Link to="/">
             <img
@@ -69,27 +68,30 @@ const Navbar = () => {
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
+              PaperProps={{sx:{width: '250px', borderRadius:"10px"}}}
             >
-              <Link to="/" onClick={handleMenuClose}>
+              <Link to="/" onClick={handleMenuClose} className="text-black text-decoration-none">
                 <MenuItem>Home</MenuItem>
               </Link>
-              <Link to="/doors" onClick={handleMenuClose}>
+              <Link to="/doors" onClick={handleMenuClose} className="text-black text-decoration-none">
                 <MenuItem>Products</MenuItem>
               </Link>
-              <Link to="/windows" onClick={handleMenuClose}>
+              <Link to="/windows" onClick={handleMenuClose} className="text-black text-decoration-none">
                 <MenuItem>Installation Guide</MenuItem>
               </Link>
-              <Link to="/hardware-products" onClick={handleMenuClose}>
+              <Link to="/hardware-products" onClick={handleMenuClose} className="text-black text-decoration-none">
                 <MenuItem>DIY Guide</MenuItem>
               </Link>
-              <Link to="/new-collection" onClick={handleMenuClose}>
+              <Link to="/new-collection" onClick={handleMenuClose} className="text-black text-decoration-none">
                 <MenuItem>New Collection</MenuItem>
               </Link>
+              <Box className="ms-2">
+              <Button variant="contained" size="small" className="me-2"> Small </Button>
+              <Button variant="contained" size="small"> Small </Button>
+              </Box>
             </Menu>
           </>
         )}
-
-        {/* Desktop Navigation Links */}
         {!isMobile && (
           <>
             <Link className="text-decoration-none" to="/">
@@ -112,15 +114,9 @@ const Navbar = () => {
                 DIY Guide
               </Button>
             </Link>
-            {/* <Link className="text-decoration-none" to="/new-collection">
-              <Button color="inherit" className="nav-title">
-                New Collection
-              </Button>
-            </Link> */}
           </>
         )}
 
-        {/* Right Section: Icons and Button */}
         {!isMobile && (
           <>
             <IconButton

@@ -84,10 +84,18 @@ export const HardwareProducts = () => {
         }}
       >
         <Box>
-          <Typography variant="h2" className="text-black fw-bold">
+          <Typography
+            variant="h4"
+            className="text-black fw-bold"
+            sx={{ fontSize: { xs: "1.8rem", md: "2.5rem" } }}
+          >
             Hardware Products
           </Typography>
-          <Typography variant="h6" className="text-black fw-bold">
+          <Typography
+            variant="body1"
+            className="text-black fw-bold"
+            sx={{ fontSize: { xs: "0.8rem", md: "1rem" } }}
+          >
             <span>
               Home {">"} {formatPath(location.pathname)}
             </span>
@@ -97,15 +105,45 @@ export const HardwareProducts = () => {
 
       <Container className="mt-4">
         <Grid container spacing={2}>
-          {products?.map((product, index) => (
+          {products.map((product, index) => (
             <Grid item xs={12} sm={6} md={6} lg={6} key={index}>
-              <Card sx={{ display: "flex", maxWidth: 500, height: 200 }}>
+              <Card
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", sm: "row" },
+                  maxWidth: { xs: "100%", sm: 500 },
+                  height: { xs: "auto", sm: 200 },
+                  position: "relative",
+                  margin: "auto",
+                }}
+              >
+                {/* Delivered Chip */}
+                {product.isDelivered && (
+                  <Chip
+                    label="Delivered"
+                    color="success"
+                    sx={{
+                      position: "absolute",
+                      top: 10,
+                      left: 10,
+                      zIndex: 1,
+                      borderRadius: 2,
+                      fontSize: { xs: "0.6rem", md: "0.8rem" },
+                    }}
+                  />
+                )}
+                {/* Card Media */}
                 <CardMedia
                   component="img"
-                  sx={{ width: 151, height: 200 }}
+                  sx={{
+                    width: { xs: "100%", sm: 151 },
+                    height: { xs: "150px", sm: "200px" },
+                    objectFit: "cover",
+                  }}
                   image={product.imageUrl}
                   alt={product.title}
                 />
+                {/* Card Content */}
                 <Box
                   sx={{
                     display: "flex",
@@ -122,48 +160,104 @@ export const HardwareProducts = () => {
                         alignItems: "center",
                       }}
                     >
-                      <Typography variant="h6" color="primary">
+                      <Typography
+                        variant="h6"
+                        color="primary"
+                        sx={{ fontSize: { xs: "1rem", md: "1.25rem" } }}
+                      >
                         {product.title}
                       </Typography>
-                      <Typography variant="h6" color="primary">
+                      <Typography
+                        variant="h6"
+                        color="primary"
+                        sx={{ fontSize: { xs: "1rem", md: "1.25rem" } }}
+                      >
                         ${product.price}
                       </Typography>
                     </Box>
-                    <Typography variant="body2" color="primary">
+                    <Typography
+                      variant="body2"
+                      color="primary"
+                      sx={{ fontSize: { xs: "0.8rem", md: "1rem" } }}
+                    >
                       {product.description}
                     </Typography>
+
+                    {/* Buttons */}
                     <Box
                       sx={{
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
+                        flexDirection: { xs: "column", sm: "row" },
+                        gap: 1,
+                        my: 1,
                       }}
-                      className="my-1"
                     >
-                      <Button variant="contained" size="small" className="w-100 me-3">
-                        Buy Now
-                      </Button>
-                      <Button variant="outlined" size="small" className="w-100">
-                        Add to cart
-                      </Button>
+                      {product.trackOrder ? (
+                        <Link to="/order-track" style={{ width: "100%" }}>
+                          <Button
+                            variant="contained"
+                            size="small"
+                            fullWidth
+                            sx={{
+                              fontSize: { xs: "0.7rem", md: "0.8rem" },
+                              padding: "6px",
+                            }}
+                          >
+                            Track Order
+                          </Button>
+                        </Link>
+                      ) : (
+                        <>
+                          <Button
+                            variant="contained"
+                            size="small"
+                            sx={{ fontSize: "0.8rem", width: "48%" }}
+                          >
+                            Rebook
+                          </Button>
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            sx={{ fontSize: "0.8rem", width: "48%" }}
+                          >
+                            Add to Cart
+                          </Button>
+                        </>
+                      )}
                     </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                      className="mt-1"
-                    >
-                      <Box sx={{ fontWeight: "bold", color: "#0068B3" }}>
-                        <FavoriteBorderIcon className="fs-6" />
-                        Like
+
+                    {/* Icons */}
+                    {!product.trackOrder && (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                        className="mt-1"
+                      >
+                        <Box
+                          sx={{
+                            fontWeight: "bold",
+                            color: "#0068B3",
+                            fontSize: "0.9rem",
+                          }}
+                        >
+                          <FavoriteBorderIcon fontSize="small" /> Like
+                        </Box>
+                        <Box
+                          sx={{
+                            color: "#0068B3",
+                            fontWeight: "bold",
+                            fontSize: "0.9rem",
+                          }}
+                        >
+                          <ShareIcon fontSize="small" /> Share
+                        </Box>
                       </Box>
-                      <Box sx={{ color: "#0068B3", fontWeight: "bold" }}>
-                        <ShareIcon className="fs-6" />
-                        Share
-                      </Box>
-                    </Box>
+                    )}
                   </CardContent>
                 </Box>
               </Card>

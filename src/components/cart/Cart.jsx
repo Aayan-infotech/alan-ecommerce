@@ -25,7 +25,7 @@ import { CouponDetails } from "./CouponDetails";
 const Cart = () => {
   const location = useLocation();
 
-  const { price,selectedImage,getEstimation, } = location.state || {};
+  const { price, selectedImage, getEstimation } = location.state || {};
 
   const [quantity, setQuantity] = useState(1);
   const [showCouponDetails, setShowCouponDetails] = useState(false);
@@ -38,7 +38,7 @@ const Cart = () => {
         ? prevQuantity - 1
         : 1
     );
-  };  
+  };
 
   const formatPath = (path) => {
     return path
@@ -87,26 +87,55 @@ const Cart = () => {
         <Card sx={{ mb: 2, borderRadius: 2, boxShadow: 3 }}>
           <CardContent>
             <Grid container alignItems="center" spacing={2}>
-              <Grid item xs={12} sm={3}>
-                <Box sx={{ display: "flex", alignItems: "center" }}>
+              {/* First Row: Image, Price, Delete Icon (Mobile View) */}
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                container
+                spacing={2}
+                alignItems="center"
+              >
+                <Grid
+                  item
+                  xs={6}
+                  sm={12}
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
                   <CardMedia
                     component="img"
                     alt="Golden Door"
                     image={selectedImage || card_img1}
-                    className="me-2"
                     sx={{ borderRadius: 1, objectFit: "contain", maxWidth: 50 }}
                   />
-                  <Typography className="fw-bold">{getEstimation?.productDetails?.productName}</Typography>
-                </Box>
+                  <Typography className="fw-bold" sx={{ ml: 1 }}>
+                    {getEstimation?.productDetails?.productName}
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={3} sm={12}>
+                  <Typography className="fw-bold">
+                    Price: <span style={{ color: "gray" }}>$ {price}</span>
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={3} sm={12} sx={{ textAlign: "right" }}>
+                  <IconButton color="primary">
+                    <DeleteIcon />
+                  </IconButton>
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={2}>
-                <Typography component="div" className="fw-bold">
-                  Price: <span style={{ color: "gray" }}>$ {price}</span>
-                </Typography>
-              </Grid>
+
+              {/* Second Row: Quantity */}
               <Grid item xs={12} sm={3}>
-                <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Typography variant="body1" className="text-black fw-bold">
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: { xs: "space-between", sm: "flex-start" },
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography className="text-black fw-bold">
                     Quantity:
                   </Typography>
                   <IconButton onClick={() => handleQuantityChange("decrement")}>
@@ -118,6 +147,8 @@ const Cart = () => {
                       height: "30px",
                       display: "flex",
                       alignItems: "center",
+                      justifyContent: "center",
+                      minWidth: "40px",
                     }}
                   >
                     {quantity}
@@ -127,30 +158,40 @@ const Cart = () => {
                   </IconButton>
                 </Box>
               </Grid>
-              <Grid item xs={12} sm={2}>
-                <Typography component="div" className="fw-bold">
-                  Subtotal: <span style={{ color: "gray" }}>$ {price * quantity}</span>
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={1}>
-                <Link to="/measured-windows">
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      borderColor: "black",
-                      color: "black",
-                      textTransform: "none",
-                    }}
-                    className="rounded-3"
+
+              {/* Third Row: Subtotal and See Button */}
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                container
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Grid item xs={6} sm={6}>
+                  <Typography className="fw-bold">
+                    Subtotal:{" "}
+                    <span style={{ color: "gray" }}>$ {price * quantity}</span>
+                  </Typography>
+                </Grid>
+                <Grid item xs={6} sm={6} sx={{ textAlign: "right" }}>
+                  <Link
+                    to="/measured-windows"
+                    style={{ textDecoration: "none" }}
                   >
-                    See
-                  </Button>
-                </Link>
-              </Grid>
-              <Grid item xs={12} sm={1}>
-                <IconButton color="primary">
-                  <DeleteIcon />
-                </IconButton>
+                    <Button
+                      variant="outlined"
+                      sx={{
+                        borderColor: "black",
+                        color: "black",
+                        textTransform: "none",
+                      }}
+                      className="rounded-3"
+                    >
+                      See
+                    </Button>
+                  </Link>
+                </Grid>
               </Grid>
             </Grid>
           </CardContent>
@@ -171,7 +212,7 @@ const Cart = () => {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      p: 4,
+                      p: 2,
                     }}
                   >
                     <img
@@ -189,7 +230,6 @@ const Cart = () => {
                   </Card>
                 </Box>
 
-                {/* Pickup Card */}
                 <Card
                   variant="outlined"
                   className="shadow"
