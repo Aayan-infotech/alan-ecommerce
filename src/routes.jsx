@@ -57,6 +57,8 @@ import PaintDoorJambs from './components/content/PaintDoorJambs.jsx';
 import InstallInswingEntryDoor from './components/content/InstallInswingEntryDoor.jsx';
 import { SubProducts } from './components/Home/SubProducts.jsx';
 import Categories from './components/Home/Categories.jsx';
+import DoorsCategoryTypes from './components/doors/DoorsCategoryTypes.jsx';
+import SubDoorsCategory from './components/doors/SubDoorsCategory.jsx';
 // import Loader from './Loader.jsx';
 
 
@@ -81,6 +83,8 @@ export const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="subDoorsCategory" element={<SubDoorsCategory/>} />
+        <Route path="doorscategorytypes" element={<DoorsCategoryTypes />} />
         <Route path="doors" element={<Doors />} />
         <Route path="measured-doors" element={<MeasuredDoors />} />
         <Route path="windows" element={<Window />} />

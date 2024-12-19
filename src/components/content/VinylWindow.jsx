@@ -79,10 +79,6 @@ const VinylWindow = () => {
           </Box>
         </Grid>
       </Grid>
-
-      {/* ------------------------Installation Instructions------------------- */}
-
-
       <Box>
         <Box className="text-center mb-4">
           <Typography variant="h5" gutterBottom className="fw-bold">

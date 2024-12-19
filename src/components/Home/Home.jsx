@@ -34,9 +34,9 @@ export const Home = () => {
       const response = await axios.get(
         "http://44.196.64.110:5000/api/category/getall"
       );
-      console.log(response, "response");
       if (response?.data?.status === 200) {
         setExploreCategories(response?.data?.data);
+        localStorage.setItem("windowCategoryId", response?.data?.data[0]._id);
         setErrorMessage("");
       } else {
         setErrorMessage(response.data.message);

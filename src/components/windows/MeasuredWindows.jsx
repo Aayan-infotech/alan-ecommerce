@@ -7,8 +7,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 export const MeasuredWindows = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { selectedOptions, price, selectedImage, getEstimation } =
+  const { selectedOptions, price, selectedImage, getEstimation, customWidth, customHeight } =
     location.state || {};
+    console.log(selectedOptions, "details");
 
   const handleToProceedCart = () => {
     const selectedOptionsDetails = {
@@ -64,85 +65,6 @@ export const MeasuredWindows = () => {
                         </Grid>
                       )
                     )}
-                  {/* {selectedOptions && Object.entries(selectedOptions).map(
-                      ([key, value], index) => (
-                        <Grid item xs={6} key={index}>
-                          <Typography variant="body2">
-                            {key.replace(/_/g, " ")}
-                          </Typography>
-                          <Typography variant="body1">
-                            <strong className="fs-5">{value || "N/A"}</strong>
-                          </Typography>
-                        </Grid>
-                      )
-                    )} */}
-                  {/* <Grid item xs={6}>
-                    <Typography variant="body2">Height</Typography>
-                    <Typography variant="body1">
-                      <strong className="fs-5">{selectedOptions?.Height_Inches_Fraction || 'N/A'} inch</strong>
-                    </Typography>
-                  </Grid>
-
-                  <Grid item xs={6}>
-                    <Typography variant="body2">Fraction</Typography>
-                    <Typography variant="body1">
-                      <strong className="fs-5">{selectedOptions?.fraction || 'N/A'}</strong>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography variant="body2">Grid</Typography>
-                    <Typography variant="body1">
-                      <strong className="fs-5">{selectedOptions?.Select_Grid_Options || 'N/A'}</strong>
-                    </Typography>
-                  </Grid>
-
-                  <Grid item xs={6}>
-                    <Typography variant="body2">Fin Type</Typography>
-                    <Typography variant="body1">
-                      <strong className="fs-5">{selectedOptions?.Fin_Type || 'N/A'}</strong>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography variant="body2">Glass Type</Typography>
-                    <Typography variant="body1">
-                      <strong className="fs-5">{selectedOptions?.glass_type || 'N/A'}</strong>
-                    </Typography>
-                  </Grid>
-
-                  <Grid item xs={6}>
-                    <Typography variant="body2">Color</Typography>
-                    <Typography variant="body1">
-                      <strong className="fs-5">{selectedOptions?.color || 'N/A'}</strong>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography variant="body2">Tempering Option</Typography>
-                    <Typography variant="body1">
-                      <strong className="fs-5">{selectedOptions?.Tempering_Option || 'N/A'}</strong>
-                    </Typography>
-                  </Grid>
-
-                  <Grid item xs={6}>
-                    <Typography variant="body2">Side Window Open</Typography>
-                    <Typography variant="body1">
-                      <strong className="fs-5">Yes</strong>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography variant="body2">Installation Option</Typography>
-                    <Typography variant="body1">
-                      <strong className="fs-5">{selectedOptions?.Installation_Option || 'N/A'}</strong>
-                    </Typography>
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Typography variant="body2">
-                      Special Instructions, Questions or Comments?
-                    </Typography>
-                    <Typography variant="body1">
-                      <strong className="fs-5">No Comments</strong>
-                    </Typography>
-                  </Grid> */}
                 </Grid>
               </Box>
             </Grid>
@@ -175,7 +97,7 @@ export const MeasuredWindows = () => {
                 className="fw-bold"
                 sx={{ width: "150px", backgroundColor: "black" }}
               >
-                $ {price}
+                $ {price.toFixed(2)}
               </Button>
               <Button
                 variant="outlined"

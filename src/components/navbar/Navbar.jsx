@@ -15,7 +15,6 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PhoneIcon from "@mui/icons-material/Phone";
 import MenuIcon from "@mui/icons-material/Menu";
 import "../../styles/Navbar.scss";
@@ -26,6 +25,8 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const categoryId = localStorage.getItem("windowCategoryId");
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -68,27 +69,47 @@ const Navbar = () => {
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
-              PaperProps={{sx:{width: '250px', borderRadius:"10px"}}}
+              PaperProps={{ sx: { width: "250px", borderRadius: "10px" } }}
             >
-              <Link to="/" onClick={handleMenuClose} className="text-black text-decoration-none">
+              <Link
+                to="/"
+                onClick={handleMenuClose}
+                className="text-black text-decoration-none"
+              >
                 <MenuItem>Home</MenuItem>
               </Link>
-              <Link to="/doors" onClick={handleMenuClose} className="text-black text-decoration-none">
+              <Link
+                to="/doors"
+                onClick={handleMenuClose}
+                className="text-black text-decoration-none"
+              >
                 <MenuItem>Products</MenuItem>
               </Link>
-              <Link to="/windows" onClick={handleMenuClose} className="text-black text-decoration-none">
+              <Link
+                to="/windows"
+                onClick={handleMenuClose}
+                className="text-black text-decoration-none"
+              >
                 <MenuItem>Installation Guide</MenuItem>
               </Link>
-              <Link to="/hardware-products" onClick={handleMenuClose} className="text-black text-decoration-none">
+              <Link
+                to="/hardware-products"
+                onClick={handleMenuClose}
+                className="text-black text-decoration-none"
+              >
                 <MenuItem>DIY Guide</MenuItem>
               </Link>
-              <Link to="/new-collection" onClick={handleMenuClose} className="text-black text-decoration-none">
+              <Link
+                to="/new-collection"
+                onClick={handleMenuClose}
+                className="text-black text-decoration-none"
+              >
                 <MenuItem>New Collection</MenuItem>
               </Link>
-              <Box className="ms-2">
+              {/* <Box className="ms-2">
               <Button variant="contained" size="small" className="me-2"> Small </Button>
               <Button variant="contained" size="small"> Small </Button>
-              </Box>
+              </Box> */}
             </Menu>
           </>
         )}
@@ -99,11 +120,47 @@ const Navbar = () => {
                 Home
               </Button>
             </Link>
-            <Link className="text-decoration-none" to="/doors">
-              <Button color="inherit" className="nav-title">
+            {/* <Link className="text-decoration-none" to="/doors">
+              <Button color="inherit" className="nav-title" dropdown-toggle>
                 Products
               </Button>
-            </Link>
+            </Link> */}
+            <div className="dropdown">
+              <Button
+                color="inherit"
+                className="nav-title"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Products
+              </Button>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link
+                    className="text-decoration-none"
+                    to={`/categories/${categoryId}`}
+                  >
+                    <button className="dropdown-item" type="button">
+                      Window
+                    </button>
+                  </Link>
+                </li>
+                <li>
+                  <Link className="text-decoration-none" to="/doorscategorytypes">
+                    <button className="dropdown-item" type="button">
+                      Doors
+                    </button>
+                  </Link>
+                </li>
+                <li>
+                  <Link className="text-decoration-none" to="/doors">
+                    <button className="dropdown-item" type="button">
+                      Hardware
+                    </button>
+                  </Link>
+                </li>
+              </ul>
+            </div>
             <Link className="text-decoration-none" to="/windows">
               <Button color="inherit" className="nav-title">
                 Installation Guide
@@ -162,7 +219,7 @@ const Navbar = () => {
                   backgroundColor: "#0068B3",
                   fontWeight: "bold",
                   fontSize: "12px",
-                  textTransform:"none"
+                  textTransform: "none",
                 }}
               >
                 Book an Appointment

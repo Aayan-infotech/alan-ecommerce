@@ -26,6 +26,9 @@ const Window = () => {
   const [loading, setLoading] = useState(true);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedImage, setSelectedImage] = useState(card_img1);
+  const [showCustomHeightWidth, setShowCustomHeightWidth] = useState(false);
+  const [customWidth, setCustomWidth] = useState("");
+  const [customHeight, setCustomHeight] = useState("");
   const [price, setPrice] = useState(0);
   const [errors, setErrors] = useState({});
 
@@ -81,6 +84,26 @@ const Window = () => {
     }));
   };
 
+  // const calculatePrice = () => {
+  //   let calculatedPrice = getEstimation?.productDetails?.price || 0;
+  //   Object.keys(selectedOptions).forEach((key) => {
+  //     const selectedValue = selectedOptions[key];
+  //     const dimension = getEstimation?.dimensions[key]?.data?.find(
+  //       (item) => item.name === selectedValue
+  //     );
+  //     if (dimension) {
+  //       calculatedPrice += dimension.cost;
+  //     }
+  //   });
+  //   setPrice(calculatedPrice);
+  // };
+
+  // useEffect(() => {
+  //   if (getEstimation) {
+  //     calculatePrice();
+  //   }
+  // }, [selectedOptions, getEstimation]);
+
   const calculatePrice = () => {
     let calculatedPrice = getEstimation?.productDetails?.price || 0;
     Object.keys(selectedOptions).forEach((key) => {
@@ -92,6 +115,14 @@ const Window = () => {
         calculatedPrice += dimension.cost;
       }
     });
+    if (showCustomHeightWidth) {
+      if (customWidth && !isNaN(customWidth)) {
+        calculatedPrice += parseFloat(customWidth) * 10;
+      }
+      if (customHeight && !isNaN(customHeight)) {
+        calculatedPrice += parseFloat(customHeight) * 10;
+      }
+    }
     setPrice(calculatedPrice);
   };
 
@@ -99,7 +130,7 @@ const Window = () => {
     if (getEstimation) {
       calculatePrice();
     }
-  }, [selectedOptions, getEstimation]);
+  }, [selectedOptions, getEstimation, customWidth, customHeight]);
 
   const maxVisibleImages = 2;
   const remainingImages =
@@ -109,30 +140,33 @@ const Window = () => {
     setSelectedImage(imageSrc);
   };
 
-  const validateSelections = () => {
-    const validationErrors = {};
-    Object.entries(getEstimation?.dimensions || {}).forEach(
-      ([key, dimension]) => {
-        if (!selectedOptions[key]) {
-          validationErrors[key] = `Please select a ${dimension.label}`;
-        }
-      }
-    );
-    setErrors(validationErrors);
-    return Object.keys(validationErrors).length === 0;
-  };
-
   const handleProceed = () => {
-    // if (validateSelections()) {
+    const updatedSelectedOptions = {
+      ...selectedOptions,
+      Width_Inches_Fraction: customWidth,
+      Height_Inches_Fraction: customHeight,
+    };
     const allSelectedOptionsDetails = {
-      selectedOptions,
+      selectedOptions: updatedSelectedOptions,
       price,
       selectedImage,
       getEstimation,
     };
     navigate("/measured-windows", { state: allSelectedOptionsDetails });
-    // }
   };
+
+  // const validateSelections = () => {
+  //   const validationErrors = {};
+  //   Object.entries(getEstimation?.dimensions || {}).forEach(
+  //     ([key, dimension]) => {
+  //       if (!selectedOptions[key]) {
+  //         validationErrors[key] = `Please select a ${dimension.label}`;
+  //       }
+  //     }
+  //   );
+  //   setErrors(validationErrors);
+  //   return Object.keys(validationErrors).length === 0;
+  // };
 
   return (
     <div className="doors-container px-3">
@@ -246,30 +280,6 @@ const Window = () => {
                 </Box>
               </Grid>
               <Grid item xs={12} md={7}>
-                {/* <Grid container spacing={2} className="mb-4">
-                  {getEstimation?.dimensions &&
-                    Object.entries(getEstimation.dimensions).filter(([key, dimension]) => Array.isArray(dimension.data) && dimension.data.length > 0)
-                      .map(([key, dimension]) => (
-                        <Grid item xs={6} key={key}>
-                          <InputLabel className="fw-bold text-black" id={`${key}-label`} >
-                            {dimension.label} </InputLabel>
-                          <FormControl fullWidth error={Boolean(errors[key])} sx={{ marginBottom: errors[key] ? "10px" : "0" }}>
-                            <Select displayEmpty name={key} labelId={`${key}-label`} value={selectedOptions[key] || ""} onChange={(e) => handleSelectChange(key, e.target.value)}
-                              sx={{ backgroundColor: "#D0E5F4", borderRadius: "10px", border: "none", "& fieldset": { border: "none" }, }}>
-                              <MenuItem value="">
-                                <em>Select</em>
-                              </MenuItem>
-                              {dimension?.data?.map((option, index) => (<MenuItem key={index} value={option?.name}>   {option?.name} </MenuItem>))}
-                            </Select>
-                          </FormControl>
-                          {errors[key] && (
-                            <Typography variant="body2" color="error" sx={{ marginTop: "-8px", fontSize: "12px" }}>
-                              {errors[key]}
-                            </Typography>
-                          )}
-                        </Grid>
-                      ))}
-                </Grid> */}
                 <Box
                   sx={{
                     display: "flex",
@@ -278,7 +288,9 @@ const Window = () => {
                   }}
                   className="mb-3"
                 >
-                  <Typography variant="h4" className="fw-bold">Pricing</Typography>
+                  <Typography variant="h4" className="fw-bold">
+                    Pricing
+                  </Typography>
                   <Box>
                     <Box
                       sx={{ backgroundColor: "black", width: "200px" }}
@@ -291,6 +303,16 @@ const Window = () => {
                     </Typography>
                   </Box>
                 </Box>
+                {!showCustomHeightWidth && (
+                  <Button
+                    onClick={() => setShowCustomHeightWidth(true)}
+                    variant="outlined"
+                    className="fw-bold"
+                    sx={{ marginBottom: "10px", textTransform: "none" }}
+                  >
+                    Add Custom Height & Width
+                  </Button>
+                )}
                 <Grid container spacing={2} className="mb-4">
                   {getEstimation?.dimensions &&
                     Object.entries(getEstimation.dimensions)
@@ -316,7 +338,16 @@ const Window = () => {
                                 width: "100%",
                                 display: "flex",
                               }),
+                              ...(key === "Width_Inches_Fraction" ||
+                              key === "Height_Inches_Fraction"
+                                ? { opacity: showCustomHeightWidth ? 0.5 : 1 }
+                                : {}),
                             }}
+                            disabled={
+                              showCustomHeightWidth &&
+                              (key === "Width_Inches_Fraction" ||
+                                key === "Height_Inches_Fraction")
+                            }
                           >
                             <Select
                               displayEmpty
@@ -360,20 +391,7 @@ const Window = () => {
                               }}
                             >
                               {dimension?.data?.map((option, index) => (
-                                <MenuItem
-                                  key={index}
-                                  value={option?.name}
-                                  sx={
-                                    key === "color"
-                                      ? {
-                                          display: "flex",
-                                          flexDirection: "column",
-                                          alignItems: "center",
-                                          justifyContent: "center",
-                                        }
-                                      : {}
-                                  }
-                                >
+                                <MenuItem key={index} value={option?.name}>
                                   {key === "color" ? (
                                     <>
                                       <span
@@ -395,6 +413,35 @@ const Window = () => {
                               ))}
                             </Select>
                           </FormControl>
+                          {(key === "Width_Inches_Fraction" ||
+                            key === "Height_Inches_Fraction") &&
+                            showCustomHeightWidth && (
+                              <>
+                                {key === "Width_Inches_Fraction" && (
+                                  <TextField
+                                    label="Custom Width"
+                                    variant="outlined"
+                                    value={customWidth}
+                                    onChange={(e) =>
+                                      setCustomWidth(e.target.value)
+                                    }
+                                    sx={{ marginTop: "10px", width: "100%" }}
+                                  />
+                                )}
+                                {key === "Height_Inches_Fraction" && (
+                                  <TextField
+                                    label="Custom Height"
+                                    variant="outlined"
+                                    value={customHeight}
+                                    onChange={(e) =>
+                                      setCustomHeight(e.target.value)
+                                    }
+                                    sx={{ marginTop: "10px", width: "100%" }}
+                                  />
+                                )}
+                              </>
+                            )}
+
                           {errors[key] && (
                             <Typography
                               variant="body2"

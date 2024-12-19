@@ -19,6 +19,7 @@ import Divider from "@mui/material/Divider";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
 import content from "../../json/doors.json";
+import { useLocation } from "react-router-dom";
 
 const basePrice = 0;
 
@@ -37,6 +38,8 @@ export const Doors = () => {
     instructions: "",
   });
   const [price, setPrice] = useState(basePrice);
+  const location = useLocation(); // Hook to get the location object
+  const { subcategory } = location.state || {};
 
   const categories = [
     "Wood Entry Door",
@@ -97,7 +100,7 @@ export const Doors = () => {
     card_img2,
   ];
 
-  const maxVisibleImages = 5;
+  const maxVisibleImages = 2;
   const remainingImages = images.length - maxVisibleImages;
 
   return (
@@ -124,8 +127,6 @@ export const Doors = () => {
           </Typography>
         </Box>
       </Box>
-
-      {/* Categories Section */}
       <Box
         sx={{
           backgroundColor: "#fc5f03",
@@ -133,7 +134,7 @@ export const Doors = () => {
           justifyContent: "center",
           alignItems: "center",
           flexWrap: "wrap",
-          height: "50px"
+          height: "50px",
         }}
         className="text-white p-1 rounded-3 doors-title-list"
       >
@@ -153,11 +154,12 @@ export const Doors = () => {
       </Box>
       <Container className="mb-4">
         {/* ------------------------------------------- */}
+
         <Grid container spacing={4} className="mt-4">
           <Grid item xs={12} md={5}>
             <Box>
               <img
-                src={card_img1}
+                src={subcategory?.image}
                 alt="Main Door"
                 style={{
                   width: "100%",
@@ -227,32 +229,34 @@ export const Doors = () => {
                 euismod bibendum laoreet. Proin gravida dolor sit amet lacus
                 accumsan et viverra justo commodo.
               </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-                className="mt-3"
-              >
-                <Typography variant="h4">Pricing</Typography>
-                <Box>
-                  <Box
-                    sx={{ backgroundColor: "black", width: "150px" }}
-                    className="text-white text-center rounded-1"
-                  >
-                    <Typography variant="h4">$ {price}</Typography>
-                  </Box>
-                  <Typography sx={{ fontSize: "10px" }}>
-                    (According to Selected Options)
-                  </Typography>
-                </Box>
-              </Box>
             </Box>
           </Grid>
 
           {/* Right side - Customization Options */}
           <Grid item xs={12} md={7}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+              className="mb-3"
+            >
+              <Typography variant="h4" className="fw-bold">
+                Pricing
+              </Typography>
+              <Box>
+                <Box
+                  sx={{ backgroundColor: "black", width: "200px" }}
+                  className="text-white text-center rounded-1"
+                >
+                  <Typography variant="h4">$ {price}</Typography>
+                </Box>
+                <Typography sx={{ fontSize: "10px" }}>
+                  (According to Selected Options)
+                </Typography>
+              </Box>
+            </Box>
             <Grid container spacing={2} className="mb-4">
               <Grid item xs={6}>
                 <InputLabel className="fw-bold text-black">
@@ -279,8 +283,8 @@ export const Doors = () => {
                     <MenuItem value="">
                       <em>Width</em>
                     </MenuItem>
-                    <MenuItem value={10}>5</MenuItem>
-                    <MenuItem value={20}>7</MenuItem>
+                    <MenuItem value={5}>5</MenuItem>
+                    <MenuItem value={7}>7</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -310,8 +314,8 @@ export const Doors = () => {
                     <MenuItem value="">
                       <em>Height</em>
                     </MenuItem>
-                    <MenuItem value={10}>10</MenuItem>
-                    <MenuItem value={20}>10</MenuItem>
+                    <MenuItem value={15}>15</MenuItem>
+                    <MenuItem value={20}>20</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -343,8 +347,8 @@ export const Doors = () => {
                     <MenuItem value="">
                       <em>Fraction</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    <MenuItem value={14}>14</MenuItem>
+                    <MenuItem value={24}>24</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -371,8 +375,8 @@ export const Doors = () => {
                     <MenuItem value="">
                       <em>Grid</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    <MenuItem value={3}>3</MenuItem>
+                    <MenuItem value={8}>8</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -404,8 +408,8 @@ export const Doors = () => {
                     <MenuItem value="">
                       <em>Fin Type</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    <MenuItem value={22}>22</MenuItem>
+                    <MenuItem value={21}>21</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -434,8 +438,8 @@ export const Doors = () => {
                     <MenuItem value="">
                       <em>Glass Type</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={24}>24</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -465,8 +469,8 @@ export const Doors = () => {
                     <MenuItem value="">
                       <em>Color</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={24}>24</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -495,8 +499,8 @@ export const Doors = () => {
                     <MenuItem value="">
                       <em>Tempering Option</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={24}>24</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -528,8 +532,8 @@ export const Doors = () => {
                     <MenuItem value="">
                       <em>Side Window Opens</em>
                     </MenuItem>
-                    <MenuItem value={10}>20</MenuItem>
-                    <MenuItem value={24}>5</MenuItem>
+                    <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={24}>24</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
