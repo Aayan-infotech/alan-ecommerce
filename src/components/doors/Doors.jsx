@@ -9,6 +9,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  TextField,
 } from "@mui/material";
 import banner from "../../assets/doors.png";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -38,7 +39,12 @@ export const Doors = () => {
     instructions: "",
   });
   const [price, setPrice] = useState(basePrice);
-  const location = useLocation(); // Hook to get the location object
+  const [customWidth, setCustomWidth] = useState("");
+  const [customHeight, setCustomHeight] = useState("");
+  const [isCustomHeightWidth, setIsCustomHeightWidth] = useState(false);
+  const [showCustomHeightWidth, setShowCustomHeightWidth] = useState(false);
+
+  const location = useLocation();
   const { subcategory } = location.state || {};
 
   const categories = [
@@ -62,8 +68,6 @@ export const Doors = () => {
 
   const calculatePrice = () => {
     let calculatedPrice = basePrice;
-
-    // Example pricing logic based on selections
     if (selectedOptions.width)
       calculatedPrice += parseInt(selectedOptions.width);
     if (selectedOptions.height)
@@ -84,12 +88,22 @@ export const Doors = () => {
     if (selectedOptions.installationOption)
       calculatedPrice += parseInt(selectedOptions.installationOption);
 
+    if (showCustomHeightWidth) {
+      if (customWidth && !isNaN(customWidth)) {
+        calculatedPrice += parseFloat(customWidth) * 10;
+      }
+      if (customHeight && !isNaN(customHeight)) {
+        calculatedPrice += parseFloat(customHeight) * 10;
+      }
+    }
+
     setPrice(calculatedPrice);
   };
 
   useEffect(() => {
     calculatePrice();
-  }, [selectedOptions]);
+  }, [selectedOptions, customWidth, customHeight, showCustomHeightWidth]);
+
   const images = [
     card_img1,
     card_img2,
@@ -102,6 +116,11 @@ export const Doors = () => {
 
   const maxVisibleImages = 2;
   const remainingImages = images.length - maxVisibleImages;
+
+  const handleCustomHeightWidthToggle = () => {
+    setIsCustomHeightWidth(!isCustomHeightWidth);
+    setShowCustomHeightWidth(!showCustomHeightWidth);
+  };
 
   return (
     <div className="doors-container px-3">
@@ -153,8 +172,6 @@ export const Doors = () => {
         ))}
       </Box>
       <Container className="mb-4">
-        {/* ------------------------------------------- */}
-
         <Grid container spacing={4} className="mt-4">
           <Grid item xs={12} md={5}>
             <Box>
@@ -231,8 +248,6 @@ export const Doors = () => {
               </Typography>
             </Box>
           </Grid>
-
-          {/* Right side - Customization Options */}
           <Grid item xs={12} md={7}>
             <Box
               sx={{
@@ -257,6 +272,14 @@ export const Doors = () => {
                 </Typography>
               </Box>
             </Box>
+            <Button
+              onClick={handleCustomHeightWidthToggle}
+              variant="outlined"
+              className="fw-bold"
+              sx={{ marginBottom: "10px", textTransform: "none" }}
+            >
+              Add Custom Height & Width
+            </Button>
             <Grid container spacing={2} className="mb-4">
               <Grid item xs={6}>
                 <InputLabel className="fw-bold text-black">
@@ -268,17 +291,14 @@ export const Doors = () => {
                     name="width"
                     value={selectedOptions.width}
                     onChange={handleSelectChange}
-                    renderValue={(selected) => {
-                      return selected ? selected : "Width";
-                    }}
+                    renderValue={(selected) => selected || "Width"}
                     sx={{
                       backgroundColor: "#D0E5F4",
                       borderRadius: "10px",
                       border: "none",
-                      "& fieldset": {
-                        border: "none",
-                      },
+                      "& fieldset": { border: "none" },
                     }}
+                    disabled={isCustomHeightWidth} // Disable select when custom height/width is enabled
                   >
                     <MenuItem value="">
                       <em>Width</em>
@@ -299,17 +319,14 @@ export const Doors = () => {
                     name="height"
                     value={selectedOptions.height}
                     onChange={handleSelectChange}
-                    renderValue={(selected) => {
-                      return selected ? selected : "Height";
-                    }}
+                    renderValue={(selected) => selected || "Height"}
                     sx={{
                       backgroundColor: "#D0E5F4",
                       borderRadius: "10px",
                       border: "none",
-                      "& fieldset": {
-                        border: "none",
-                      },
+                      "& fieldset": { border: "none" },
                     }}
+                    disabled={isCustomHeightWidth}
                   >
                     <MenuItem value="">
                       <em>Height</em>
@@ -320,6 +337,29 @@ export const Doors = () => {
                 </FormControl>
               </Grid>
             </Grid>
+            {showCustomHeightWidth && (
+              <Grid container spacing={2} className="mb-4">
+                <Grid item xs={6}>
+                  <TextField
+                    label="Custom Width (inch)"
+                    type="number"
+                    value={customWidth}
+                    onChange={(e) => setCustomWidth(e.target.value)}
+                    fullWidth
+                  />
+                </Grid>
+
+                <Grid item xs={6}>
+                  <TextField
+                    label="Custom Height (inch)"
+                    type="number"
+                    value={customHeight}
+                    onChange={(e) => setCustomHeight(e.target.value)}
+                    fullWidth
+                  />
+                </Grid>
+              </Grid>
+            )}
 
             <Grid container spacing={2} className="mb-4">
               <Grid item xs={6}>
@@ -381,7 +421,6 @@ export const Doors = () => {
                 </FormControl>
               </Grid>
             </Grid>
-
             <Grid container spacing={2} className="mb-4">
               <Grid item xs={6}>
                 <InputLabel className="fw-bold text-black">
@@ -444,7 +483,6 @@ export const Doors = () => {
                 </FormControl>
               </Grid>
             </Grid>
-
             <Grid container spacing={2} className="mb-4">
               <Grid item xs={6}>
                 <InputLabel className="fw-bold text-black">Color </InputLabel>
