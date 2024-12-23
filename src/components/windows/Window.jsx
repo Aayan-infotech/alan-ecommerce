@@ -293,10 +293,10 @@ const Window = () => {
                   </Typography>
                   <Box>
                     <Box
-                      sx={{ backgroundColor: "black", width: "200px" }}
-                      className="text-white text-center rounded-1"
+                      sx={{ backgroundColor: "#F5F5F5", width: "200px" }}
+                      className="text-white text-center rounded-1 p-2"
                     >
-                      <Typography variant="h5">$ {price.toFixed(2)}</Typography>
+                      <Typography variant="h5" sx={{ color: "#FF0000", fontWeight:"bold" }}>$ {price.toFixed(2)}</Typography>
                     </Box>
                     <Typography sx={{ fontSize: "10px" }}>
                       (According to Selected Options)
