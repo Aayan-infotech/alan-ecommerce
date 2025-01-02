@@ -18,7 +18,9 @@ import { LatestBlogs } from "./LatestBlogs";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-// import { apiUrl } from "../../apiUtils";
+import Loader from "../../loader/Loader";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 
 export const Home = () => {
   const [exploreCategories, setExploreCategories] = useState([]);
@@ -80,7 +82,7 @@ export const Home = () => {
   }, []);
 
   const handleClick = (item) => {
-    if (item?.isSubCategory) {
+    if (!item?.isSubCategory) {
       navigate(`/allsubproducts/${item?._id}`, {
         state: { categorydetails: item },
       });
@@ -231,72 +233,78 @@ export const Home = () => {
               Explore
             </Typography>
           </Box>
-
-          <Grid
-            container
-            spacing={2}
-            justifyContent="center"
-            alignItems="center"
-          >
-            {exploreCategories.length > 0 ? (
-              exploreCategories.map((item, index) => (
-                <Grid item xs={12} sm={6} md={4} key={index}>
-                  <Card
-                    sx={{ maxWidth: 300, mx: "auto" }}
-                    onClick={() => handleClick(item)}
-                  >
-                    <CardMedia
-                      component="img"
-                      height="300"
-                      image={item?.image || No_Image_Available}
-                      alt="green iguana"
-                      sx={{ objectFit: "fill" }}
-                    />
-                    <CardContent sx={{ backgroundColor: "#0068B333" }}>
-                      <Box
-                        sx={{
-                          color: "#0068B3",
-                          fontWeight: "bold",
-                        }}
-                        className="text-center"
-                      >
-                        <Typography
-                          className="fw-bold"
-                          variant="h5"
-                          component="div"
+          {loading && (
+            <Backdrop open={true} style={{ zIndex: 1000, color: "#fff" }}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
+          )}
+          {!loading && (
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+              alignItems="center"
+            >
+              {exploreCategories.length > 0 ? (
+                exploreCategories.map((item, index) => (
+                  <Grid item xs={12} sm={6} md={4} key={index}>
+                    <Card
+                      sx={{ maxWidth: 300, mx: "auto" }}
+                      onClick={() => handleClick(item)}
+                    >
+                      <CardMedia
+                        component="img"
+                        height="300"
+                        image={item?.images[0] || No_Image_Available}
+                        alt="green iguana"
+                        sx={{ objectFit: "fill" }}
+                      />
+                      <CardContent sx={{ backgroundColor: "#0068B333" }}>
+                        <Box
+                          sx={{
+                            color: "#0068B3",
+                            fontWeight: "bold",
+                          }}
+                          className="text-center"
                         >
-                          {item?.name
-                            ?.split(" ")
-                            .map(
-                              (word) =>
-                                word.charAt(0).toUpperCase() +
-                                word.slice(1).toLowerCase()
-                            )
-                            .join(" ")}
-                        </Typography>
-                      </Box>
-                      <Box className="mt-2">
-                        <Button
-                          size="large"
-                          variant="contained"
-                          sx={{ textTransform: "none", fontWeight: "bold" }}
-                          className="w-100 fw-bold"
-                        >
-                          Buy Now
-                        </Button>
-                      </Box>
-                    </CardContent>
-                  </Card>
+                          <Typography
+                            className="fw-bold"
+                            variant="h5"
+                            component="div"
+                          >
+                            {item?.name
+                              ?.split(" ")
+                              .map(
+                                (word) =>
+                                  word.charAt(0).toUpperCase() +
+                                  word.slice(1).toLowerCase()
+                              )
+                              .join(" ")}
+                          </Typography>
+                        </Box>
+                        <Box className="mt-2">
+                          <Button
+                            size="large"
+                            variant="contained"
+                            sx={{ textTransform: "none", fontWeight: "bold" }}
+                            className="w-100 fw-bold"
+                          >
+                            Buy Now
+                          </Button>
+                        </Box>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ))
+              ) : (
+                <Grid item xs={12}>
+                  <Typography variant="h6" align="center">
+                    {errorMessage}
+                  </Typography>
                 </Grid>
-              ))
-            ) : (
-              <Grid item xs={12}>
-                <Typography variant="h6" align="center">
-                  {errorMessage}
-                </Typography>
-              </Grid>
-            )}
-          </Grid>
+              )}
+            </Grid>
+          )}
           <Box>
             <CustomerFeedback />
           </Box>

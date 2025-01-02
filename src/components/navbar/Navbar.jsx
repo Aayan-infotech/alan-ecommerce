@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -20,13 +20,37 @@ import MenuIcon from "@mui/icons-material/Menu";
 import "../../styles/Navbar.scss";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [exploreCategories, setExploreCategories] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const categoryId = localStorage.getItem("windowCategoryId");
+
+  const fetchExploreCategories = async () => {
+    try {
+      const response = await axios.get(
+        "http://44.196.64.110:7878/api/categories/getAllCategories"
+      );
+      console.log(response?.data?.data, 'hgsdajkfasd')
+      if (response?.data?.status === 200) {
+        setExploreCategories(response?.data?.data);
+        setErrorMessage("");
+      } else {
+        setErrorMessage(response.data.message);
+      }
+    } catch (error) {
+      setErrorMessage(error?.response?.data?.message || "An error occurred.");
+    }
+  };
+
+  useEffect(() => {
+    fetchExploreCategories();
+  }, []);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -146,7 +170,10 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link className="text-decoration-none" to="/doorscategorytypes">
+                  <Link
+                    className="text-decoration-none"
+                    to="/doorscategorytypes"
+                  >
                     <button className="dropdown-item" type="button">
                       Doors
                     </button>

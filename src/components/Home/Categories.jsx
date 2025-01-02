@@ -54,8 +54,17 @@ const Categories = () => {
     }
   }, [categoryId]);
 
-  const handleClick = (subcategoryDetails) => {
-    navigate(`/sub-sub-categoryies/${subcategoryDetails._id}`);
+  // const handleClick = (subcategoryDetails) => {
+  //   navigate(`/sub-sub-categoryies/${subcategoryDetails._id}`);
+  // };
+  const handleClick = (category) => {
+    if (!category?.isSubCategory) {
+      navigate(`/sub-sub-categoryies/${category?._id}`, {
+        state: { categorydetails: category },
+      });
+    } else {
+      navigate(`/categories/${category?._id}`);
+    }
   };
 
   return (
@@ -123,7 +132,7 @@ const Categories = () => {
                       <Box
                         component="img"
                         className="p-3"
-                        src={category?.images[0] || No_Image_Available}
+                        src={category?.images || No_Image_Available}
                         alt={category?.name}
                         sx={{
                           width: "100%",
