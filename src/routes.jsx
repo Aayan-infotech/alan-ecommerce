@@ -59,6 +59,8 @@ import { SubProducts } from './components/Home/SubProducts.jsx';
 import Categories from './components/Home/Categories.jsx';
 import DoorsCategoryTypes from './components/doors/DoorsCategoryTypes.jsx';
 import SubDoorsCategory from './components/doors/SubDoorsCategory.jsx';
+import SubSubCategories from './components/Home/SubSubCategories.jsx';
+import AllSubProducts from './components/Home/AllSubProducts.jsx';
 // import Loader from './Loader.jsx';
 
 
@@ -139,6 +141,8 @@ export const AppRoutes = () => {
         <Route path="/diy/install-inswing-entry-door" element={<InstallInswingEntryDoor />} />
         <Route path="/products" element={<SubProducts />} />
         <Route path="/categories/:categoryId" element={<Categories />} />
+        <Route path="/sub-sub-categoryies/:subCategory_id" element={<SubSubCategories />} />
+        <Route path="/allsubproducts/:products_id" element={<AllSubProducts />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

@@ -32,7 +32,7 @@ export const Home = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        "http://44.196.64.110:5000/api/category/getall"
+        "http://44.196.64.110:7878/api/categories/getAllCategories"
       );
       if (response?.data?.status === 200) {
         setExploreCategories(response?.data?.data);
@@ -79,14 +79,20 @@ export const Home = () => {
     scrollMarquee();
   }, []);
 
-  const handleClick = (categoryId) => {
-    navigate(`/categories/${categoryId}`);
+  const handleClick = (item) => {
+    if (item?.isSubCategory) {
+      navigate(`/allsubproducts/${item?._id}`, {
+        state: { categorydetails: item },
+      });
+    } else {
+      navigate(`/categories/${item?._id}`);
+    }
   };
 
   return (
     <>
       <div className="home-container px-4">
-        <Container className="position-relative pos-home-top mt-4 mt-lg-0"> 
+        <Container className="position-relative pos-home-top mt-4 mt-lg-0">
           <Grid container alignItems="center" className="home-content ">
             <Grid item xs={12} md={6} className="text-section">
               <Typography variant="h3" component="h1" className="main-heading">
@@ -199,7 +205,7 @@ export const Home = () => {
             sx={{
               display: "grid",
               gap: "1rem",
-              gridTemplateColumns: { xs: "1fr", md: "auto" }, 
+              gridTemplateColumns: { xs: "1fr", md: "auto" },
               justifyContent: { md: "space-between" },
               alignItems: "center",
             }}
@@ -237,7 +243,7 @@ export const Home = () => {
                 <Grid item xs={12} sm={6} md={4} key={index}>
                   <Card
                     sx={{ maxWidth: 300, mx: "auto" }}
-                    onClick={() => handleClick(item?._id)}
+                    onClick={() => handleClick(item)}
                   >
                     <CardMedia
                       component="img"
@@ -259,7 +265,7 @@ export const Home = () => {
                           variant="h5"
                           component="div"
                         >
-                          {item?.categoryName
+                          {item?.name
                             ?.split(" ")
                             .map(
                               (word) =>

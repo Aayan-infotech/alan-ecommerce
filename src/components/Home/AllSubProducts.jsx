@@ -6,12 +6,15 @@ import axios from "axios";
 import No_Image_Available from "../../assets/No_Image_Available.jpg";
 import Loader from "../../loader/Loader";
 
-const Categories = () => {
-  const [exploreCategories, setExploreCategories] = useState([]);
+const AllSubProducts = () => {
+  const [subsubCategories, setSubsubCategories] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
-  const { categoryId } = useParams();
+  const { products_id } = useParams();
+  const { subCategory_id } = useParams();
   const location = useLocation();
+  const { categorydetails } = location.state || {};
+  console.log(categorydetails, "categorydetails");
 
   const navigate = useNavigate();
 
@@ -31,32 +34,43 @@ const Categories = () => {
   const fetchExploreSubCategories = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        `http://44.196.64.110:7878/api/subcategory/categoryid/${categoryId}`
-      );
+      let response;
+      if (categorydetails?.type === "category") {
+        response = await axios.get(
+          `http://44.196.64.110:7878/api/products/type/category/id/${products_id}`
+        );
+      } else {
+        response = await axios.get(
+          `http://44.196.64.110:7878/api/products/type/subSubCategory/id/${products_id}`
+        );
+      }
+
+      console.log(response?.data?.data, "response");
       if (response?.data?.status === 200) {
-        setExploreCategories(response?.data?.data);
+        setSubsubCategories(response?.data?.data);
         setErrorMessage("");
       } else {
-        setErrorMessage(response.data.message);
+        setErrorMessage(response?.data?.message);
       }
     } catch (error) {
-      console.log(error);
-      setErrorMessage(error?.response?.data?.message);
+      console.error("Error fetching subcategories:", error);
+      setErrorMessage(
+        error?.response?.data?.message || "An unexpected error occurred."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (categoryId) {
+    if (products_id) {
       fetchExploreSubCategories();
     }
-  }, [categoryId]);
+  }, [products_id]);
 
-  const handleClick = (subcategoryDetails) => {
-    navigate(`/sub-sub-categoryies/${subcategoryDetails._id}`);
-  };
+  // const handleClick = (subcategoryDetails) => {
+  //   navigate("/windows", { state: { subcategoryDetails: subcategoryDetails } });
+  // };
 
   return (
     <div className="doors-container px-3 mb-4">
@@ -78,7 +92,7 @@ const Categories = () => {
             }}
           >
             <Box>
-              {exploreCategories?.map((category, index) => (
+              {subsubCategories?.map((category, index) => (
                 <Typography
                   key={index}
                   variant="h5"
@@ -106,7 +120,7 @@ const Categories = () => {
               </Typography>
             ) : (
               <Grid container spacing={2}>
-                {exploreCategories?.map((category, index) => (
+                {subsubCategories?.map((category, index) => (
                   <Grid item xs={12} sm={6} md={4} key={index}>
                     <Box
                       sx={{
@@ -118,12 +132,12 @@ const Categories = () => {
                         width: "100%",
                       }}
                       className="rounded-3 p-2"
-                      onClick={() => handleClick(category)}
+                      // onClick={() => handleClick(category)}
                     >
                       <Box
                         component="img"
                         className="p-3"
-                        src={category?.images[0] || No_Image_Available}
+                        src={category?.images || No_Image_Available}
                         alt={category?.name}
                         sx={{
                           width: "100%",
@@ -146,4 +160,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default AllSubProducts;

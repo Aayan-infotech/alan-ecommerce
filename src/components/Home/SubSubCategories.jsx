@@ -6,11 +6,11 @@ import axios from "axios";
 import No_Image_Available from "../../assets/No_Image_Available.jpg";
 import Loader from "../../loader/Loader";
 
-const Categories = () => {
-  const [exploreCategories, setExploreCategories] = useState([]);
+const SubCategories = () => {
+  const [subsubCategories, setSubsubCategories] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
-  const { categoryId } = useParams();
+  const { subCategory_id } = useParams();
   const location = useLocation();
 
   const navigate = useNavigate();
@@ -32,10 +32,11 @@ const Categories = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://44.196.64.110:7878/api/subcategory/categoryid/${categoryId}`
+        `http://44.196.64.110:7878/api/subSubCategories/subcategoryid/${subCategory_id}`
       );
+      console.log(response.data.data, "response");
       if (response?.data?.status === 200) {
-        setExploreCategories(response?.data?.data);
+        setSubsubCategories(response?.data?.data);
         setErrorMessage("");
       } else {
         setErrorMessage(response.data.message);
@@ -49,13 +50,14 @@ const Categories = () => {
   };
 
   useEffect(() => {
-    if (categoryId) {
+    if (subCategory_id) {
       fetchExploreSubCategories();
     }
-  }, [categoryId]);
+  }, [subCategory_id]);
 
   const handleClick = (subcategoryDetails) => {
-    navigate(`/sub-sub-categoryies/${subcategoryDetails._id}`);
+    // navigate("/allsubproducts", { state: { subcategoryDetails: subcategoryDetails } });
+    navigate(`/allsubproducts/${subcategoryDetails._id}`);
   };
 
   return (
@@ -78,7 +80,7 @@ const Categories = () => {
             }}
           >
             <Box>
-              {exploreCategories?.map((category, index) => (
+              {subsubCategories?.map((category, index) => (
                 <Typography
                   key={index}
                   variant="h5"
@@ -106,7 +108,7 @@ const Categories = () => {
               </Typography>
             ) : (
               <Grid container spacing={2}>
-                {exploreCategories?.map((category, index) => (
+                {subsubCategories?.map((category, index) => (
                   <Grid item xs={12} sm={6} md={4} key={index}>
                     <Box
                       sx={{
@@ -123,7 +125,7 @@ const Categories = () => {
                       <Box
                         component="img"
                         className="p-3"
-                        src={category?.images[0] || No_Image_Available}
+                        src={category?.images || No_Image_Available}
                         alt={category?.name}
                         sx={{
                           width: "100%",
@@ -146,4 +148,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default SubCategories;
