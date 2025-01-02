@@ -19,7 +19,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import MenuIcon from "@mui/icons-material/Menu";
 import "../../styles/Navbar.scss";
 import logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Navbar = () => {
@@ -30,13 +30,14 @@ const Navbar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const categoryId = localStorage.getItem("windowCategoryId");
+  const navigate = useNavigate();
 
   const fetchExploreCategories = async () => {
     try {
       const response = await axios.get(
         "http://44.196.64.110:7878/api/categories/getAllCategories"
       );
-      console.log(response?.data?.data, 'hgsdajkfasd')
+      console.log(response?.data?.data, "hgsdajkfasd");
       if (response?.data?.status === 200) {
         setExploreCategories(response?.data?.data);
         setErrorMessage("");
@@ -58,6 +59,16 @@ const Navbar = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+  
+  const handleClick = (category) => {
+    if (!category?.isSubCategory) {
+      navigate(`/allsubproducts/${category?._id}`, {
+        state: { categorydetails: category },
+      });
+    } else {
+      navigate(`/categories/${category?._id}`);
+    }
   };
 
   return (
@@ -159,33 +170,25 @@ const Navbar = () => {
                 Products
               </Button>
               <ul className="dropdown-menu">
-                <li>
-                  <Link
-                    className="text-decoration-none"
-                    to={`/categories/${categoryId}`}
-                  >
-                    <button className="dropdown-item" type="button">
-                      Window
-                    </button>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="text-decoration-none"
-                    to="/doorscategorytypes"
-                  >
-                    <button className="dropdown-item" type="button">
-                      Doors
-                    </button>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="text-decoration-none" to="/doors">
-                    <button className="dropdown-item" type="button">
-                      Hardware
-                    </button>
-                  </Link>
-                </li>
+                {exploreCategories.length > 0 ? (
+                  exploreCategories.map((category) => (
+                    <li
+                      key={category._id}
+                      onClick={() => handleClick(category)}
+                    >
+                      {/* <Link
+                        className="text-decoration-none"
+                        to={`/categories/${category._id}`}
+                      > */}
+                      <button className="dropdown-item" type="button">
+                        {category.name}
+                      </button>
+                      {/* </Link> */}
+                    </li>
+                  ))
+                ) : (
+                  <li className="dropdown-item">No categories available</li>
+                )}
               </ul>
             </div>
             <Link className="text-decoration-none" to="/windows">
