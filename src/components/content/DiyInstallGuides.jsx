@@ -17,38 +17,32 @@ const DiyInstallGuides = () => {
 
   return (
     <Container sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom className="fw-bold">
+      <Typography variant="h4" className="fw-bold">
         {diy_install_guides.title}
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <Box mt={2}>
             <img src={card_img1} alt="Guide 1" style={{ width: "100%" }} />
           </Box>
         </Grid>
 
-        <Grid item xs={12} md={6} className="d-flex align-items-center">
-          <Typography variant="body1" paragraph>
-            {diy_install_guides.description_guide1}
-          </Typography>
+        <Grid item xs={12} className="d-flex align-items-center">
+          <p className="mb-0">{diy_install_guides.description_guide1}</p>
         </Grid>
 
-        <Grid item xs={12} md={8}>
-          <Box mt={2}>
-            <Typography variant="body1" paragraph>
-              {diy_install_guides.description_guide}
-            </Typography>
-          </Box>
+        <Grid item xs={12} md={8} className="d-flex align-items-center">
+          <p className="mb-0">{diy_install_guides.description_guide}</p>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={4} className="d-flex justify-content-center">
           <img
             src={card_img2}
             alt="Guide 2"
-            style={{ width: "100%", maxHeight: "200px" }}
+            sx={{ width: { xs: "100%", md: "100%", objectFit: "contain" } }}
           />
         </Grid>
 
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12}>
           <Box
             display="flex"
             flexDirection={{ xs: "column", md: "row" }}
@@ -64,7 +58,7 @@ const DiyInstallGuides = () => {
                   (guide, index) => (
                     <ListItem
                       key={index}
-                      sx={{ display: "list-item", lineHeight: "1.5" }}
+                      sx={{ display: "list-item", lineHeight: "1.5",lineHeight: "0.8rem", }}
                     >
                       <Link
                         to={guide?.path}
@@ -88,7 +82,7 @@ const DiyInstallGuides = () => {
                   (guide, index) => (
                     <ListItem
                       key={index}
-                      sx={{ display: "list-item", lineHeight: "1.5" }}
+                      sx={{ display: "list-item", lineHeight: "1.5",lineHeight: "0.8rem", }}
                     >
                       <Link
                         to={guide?.path}

@@ -14,19 +14,23 @@ const AllSubProducts = () => {
   const { subCategory_id } = useParams();
   const location = useLocation();
   const { categorydetails } = location.state || {};
-  console.log(categorydetails, "categorydetails");
 
   const navigate = useNavigate();
 
   const formatPath = (path) => {
+    const pathMapping = {
+      allsubproducts: "Products",
+    };
     return path
       .split("/")
       .filter(Boolean)
       .slice(0, -1)
-      .map((segment) =>
-        segment
-          .replace(/-/g, " ")
-          .replace(/\b\w/g, (char) => char.toUpperCase())
+      .map(
+        (segment) =>
+          pathMapping[segment.toLowerCase()] ||
+          segment
+            .replace(/-/g, " ")
+            .replace(/\b\w/g, (char) => char.toUpperCase())
       )
       .join(" > ");
   };
@@ -44,8 +48,6 @@ const AllSubProducts = () => {
           `http://44.196.64.110:7878/api/products/type/subSubCategory/id/${products_id}`
         );
       }
-
-      console.log(response?.data?.data, "response");
       if (response?.data?.status === 200) {
         setSubsubCategories(response?.data?.data);
         setErrorMessage("");
@@ -53,7 +55,6 @@ const AllSubProducts = () => {
         setErrorMessage(response?.data?.message);
       }
     } catch (error) {
-      console.error("Error fetching subcategories:", error);
       setErrorMessage(
         error?.response?.data?.message || "An unexpected error occurred."
       );
@@ -68,9 +69,9 @@ const AllSubProducts = () => {
     }
   }, [products_id]);
 
-  // const handleClick = (subcategoryDetails) => {
-  //   navigate("/windows", { state: { subcategoryDetails: subcategoryDetails } });
-  // };
+  const handleClick = (category) => {
+    navigate(`/dimensions/${category?._id}`);
+  };
 
   return (
     <div className="doors-container px-3 mb-4">
@@ -132,7 +133,7 @@ const AllSubProducts = () => {
                         width: "100%",
                       }}
                       className="rounded-3 p-2"
-                      // onClick={() => handleClick(category)}
+                      onClick={() => handleClick(category)}
                     >
                       <Box
                         component="img"
@@ -148,6 +149,11 @@ const AllSubProducts = () => {
                       <Typography variant="h5" className="fw-bold">
                         {category?.name || "N/A"}
                       </Typography>
+                      <span>
+                        Sale:&nbsp;&nbsp;<h4 className="fw-bold text-danger d-inline">
+                          ${category?.price || "N/A"}
+                        </h4>
+                      </span>
                     </Box>
                   </Grid>
                 ))}

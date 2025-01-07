@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import card_img1 from "../../assets/Group 35593.png";
 import card_img2 from "../../assets/tape_measure200 2.png";
 
 const AccurateMeasurements = () => {
@@ -29,6 +30,21 @@ const AccurateMeasurements = () => {
           {accurate_measurements.title}
         </Typography>
         <Grid container spacing={2}>
+        <Grid item xs={12}>
+            <Box
+              mt={2}
+              display="flex"
+              justifyContent={{ xs: "center", md: "flex-start" }}
+            >
+              <img
+                src={card_img1}
+                alt="Guide 1"
+                style={{
+                  width: "100%",
+                }}
+              />
+            </Box>
+          </Grid>
           <Grid item xs={12} md={6}>
             <Box
               mt={2}

@@ -65,16 +65,14 @@ import AllSubProducts from './components/Home/AllSubProducts.jsx';
 
 
 export const AppRoutes = () => {
+  
   // const [loading, setLoading] = useState(false);
   // const location = useLocation();
-
   // useEffect(() => {
   //   const handleStart = () => setLoading(true);
   //   const handleComplete = () => setLoading(false);
-
   //   handleStart();
   //   setTimeout(handleComplete, 10000);
-
   //   return () => handleComplete();
   // }, [location]);
 
@@ -89,7 +87,8 @@ export const AppRoutes = () => {
         <Route path="doorscategorytypes" element={<DoorsCategoryTypes />} />
         <Route path="doors" element={<Doors />} />
         <Route path="measured-doors" element={<MeasuredDoors />} />
-        <Route path="windows" element={<Window />} />
+        {/* <Route path="windows" element={<Window />} /> */}
+        <Route path="dimensions/:product_id" element={<Window />} />
         <Route path="measured-windows" element={<MeasuredWindows />} />
         <Route path="hardware-products" element={<HardwareProducts />} />
         <Route path="new-collection" element={<NewCollection />} />

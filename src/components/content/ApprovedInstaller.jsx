@@ -32,9 +32,8 @@ const ApprovedInstaller = () => {
           {pre_approved_installer.title}
         </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12}>
             <Box
-              // mt={2}
               display="flex"
               justifyContent={{ xs: "center", md: "flex-start" }}
             >
@@ -49,22 +48,20 @@ const ApprovedInstaller = () => {
           <Grid
             item
             xs={12}
-            md={6}
             sx={{
               display: "flex",
-              // alignItems: "center",
               textAlign: { xs: "center", md: "left" },
               paddingX: { xs: 2, md: 0 },
             }}
           >
-            <Typography variant="body1" paragraph>
+            <p className="mb-0">
               {pre_approved_installer.description}
-            </Typography>
+            </p>
           </Grid>
           <Grid item xs={12}>
-            <Box >
+            <p className="mb-0">
               {pre_approved_installer.description1}
-            </Box>
+            </p>
           </Grid>
 
           <Grid
@@ -93,7 +90,8 @@ const ApprovedInstaller = () => {
                       display: "list-item",
                       listStyleType: "disc",
                       lineHeight: { xs: "1.5rem", md: "1.8rem" },
-                      fontWeight: "bold"
+                      fontWeight: "bold",
+                      lineHeight: "0.8rem",
                     }}
                   >
                     <Link

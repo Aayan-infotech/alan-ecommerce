@@ -18,7 +18,7 @@ const WindowContent = () => {
         >
           <Box 
             sx={{
-              width: { xs: "90%", sm: "75%", md: "50%" }, 
+              // width: { xs: "100%", sm: "75%", md: "50%" }, 
               textAlign: { xs: "left", md: "left" } 
             }}
           >

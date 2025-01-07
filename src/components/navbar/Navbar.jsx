@@ -32,6 +32,10 @@ const Navbar = () => {
   const categoryId = localStorage.getItem("windowCategoryId");
   const navigate = useNavigate();
 
+/*************  ✨ Codeium Command ⭐  *************/
+  /**
+   * Fetches all categories from the server and updates the exploreCategories state with the response.
+/******  77b59c7d-2b29-4e12-bc2f-8809eb4228c9  *******/
   const fetchExploreCategories = async () => {
     try {
       const response = await axios.get(
