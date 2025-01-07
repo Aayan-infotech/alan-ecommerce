@@ -63,7 +63,7 @@ const WindowContent = () => {
           {window_estimate_description.sections.map((section, index) => (
             <Box 
               key={index} 
-              className="mb-3" 
+              className="mb-3 my-3" 
               sx={{ textAlign: { xs: "left", md: "left" } }}
             >
               <Typography 

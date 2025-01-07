@@ -76,7 +76,7 @@ const Window = () => {
       const response = await axios.get(
         `http://44.196.64.110:7878/api/dims/ProductID/${product_id}`
       );
-      console.log(response.data.data?.Dimensions, "response");
+      console.log(response.data.data, "response");
       if (response?.data?.success) {
         setCurrentProductDetails(response.data.data?.product);
         setCurrentProductDimensions(response.data.data?.Dimensions);
@@ -114,7 +114,7 @@ const Window = () => {
 
   const maxVisibleImages = 2;
   const remainingImages =
-    getEstimation?.productDetails?.images?.length - maxVisibleImages || 0;
+    currentProductDimensions?.productDetails?.images?.length - maxVisibleImages || 0;
 
   const handleChangeImage = (imageSrc) => {
     setSelectedImage(imageSrc);
@@ -146,7 +146,6 @@ const Window = () => {
       totalPrice,
       currentProductDetails
     };
-    console.log(allSelectedOptionsDetails, 'abinash');
     navigate("/measured-windows", { state: allSelectedOptionsDetails });
   };
 
@@ -195,7 +194,7 @@ const Window = () => {
                     }}
                   />
                   <Grid container spacing={2} sx={{ marginTop: "15px" }}>
-                    {getEstimation?.productDetails?.images
+                    {getEstimation?.currentProductDetails?.images
                       .slice(0, maxVisibleImages)
                       .map((imageSrc, index) => (
                         <Grid item xs={4} key={index}>
@@ -249,7 +248,7 @@ const Window = () => {
                     )}
                   </Grid>
                   <Typography variant="h5" className="fw-bold mt-3">
-                    {getEstimation?.productDetails?.productName || "N/A"}
+                    {currentProductDetails?.name || "N/A"}
                   </Typography>
                   <Typography
                     variant="body2"
@@ -331,7 +330,7 @@ const Window = () => {
                             handleSelectChange(category, e.target.value)
                           }
                         >
-                          <option selected>Select {category}</option>
+                          <option selected>Select {category.replace(/([a-z])([A-Z])/g, "$1 $2")}</option>
                           {currentProductDimensions[category].map((item) => (
                             <option key={item._id} value={item.value}>
                               {item[category]}
