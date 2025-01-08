@@ -114,7 +114,8 @@ const Window = () => {
 
   const maxVisibleImages = 2;
   const remainingImages =
-    currentProductDimensions?.productDetails?.images?.length - maxVisibleImages || 0;
+    currentProductDimensions?.productDetails?.images?.length -
+      maxVisibleImages || 0;
 
   const handleChangeImage = (imageSrc) => {
     setSelectedImage(imageSrc);
@@ -136,7 +137,7 @@ const Window = () => {
 
     return price.toFixed(2);
   };
-  
+
   const handleProceed = () => {
     const totalPrice = calculatePrice();
     const allSelectedOptionsDetails = {
@@ -144,7 +145,7 @@ const Window = () => {
       customDimensions,
       selectedImage,
       totalPrice,
-      currentProductDetails
+      currentProductDetails,
     };
     navigate("/measured-windows", { state: allSelectedOptionsDetails });
   };
@@ -293,7 +294,7 @@ const Window = () => {
                 {showCustomHeightWidth && (
                   <div className="row ma-0 gy-3 mb-3">
                     <div className="col-12 col-md-6">
-                      <label htmlFor="height">Height</label>
+                      <label htmlFor="height fw-bold">Height</label>
                       <input
                         type="number"
                         id="height"
@@ -305,7 +306,7 @@ const Window = () => {
                       />
                     </div>
                     <div className="col-12 col-md-6">
-                      <label htmlFor="width">Width</label>
+                      <label htmlFor="width fw-bold">Width</label>
                       <input
                         type="number"
                         id="width"
@@ -318,10 +319,22 @@ const Window = () => {
                     </div>
                   </div>
                 )}
-                <div class="row ma-0 gy-3">
+                <div className="row ma-0 gy-3">
                   {currentProductDimensions &&
                     Object.keys(currentProductDimensions).map((category) => (
                       <div className="col-12 col-md-6" key={category}>
+                        {category === "installation" && (
+                          <div className="mb-2 text-danger fw-bold">
+                            Installation for San Diego. For installation in
+                            other areas, please contact us.
+                          </div>
+                        )}
+                        <label
+                          htmlFor={`select-${category}`}
+                          className="form-label fw-semibold mb-2"
+                        >
+                          {category.replace(/([a-z])([A-Z])/g, "$1 $2")}
+                        </label>
                         <select
                           className="form-select p-3"
                           style={customStyles}
@@ -330,7 +343,10 @@ const Window = () => {
                             handleSelectChange(category, e.target.value)
                           }
                         >
-                          <option selected>Select {category.replace(/([a-z])([A-Z])/g, "$1 $2")}</option>
+                          <option selected>
+                            Select{" "}
+                            {category.replace(/([a-z])([A-Z])/g, "$1 $2")}
+                          </option>
                           {currentProductDimensions[category].map((item) => (
                             <option key={item._id} value={item.value}>
                               {item[category]}

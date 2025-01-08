@@ -56,7 +56,6 @@ const SubCategories = () => {
   }, [subCategory_id]);
 
   const handleClick = (subcategoryDetails) => {
-    // navigate("/allsubproducts", { state: { subcategoryDetails: subcategoryDetails } });
     navigate(`/allsubproducts/${subcategoryDetails._id}`);
   };
 
@@ -130,7 +129,7 @@ const SubCategories = () => {
                         sx={{
                           width: "100%",
                           height: "300px",
-                          objectFit: "fill",
+                          objectFit: "contain",
                         }}
                       />
                       <Typography variant="h5" className="fw-bold">
