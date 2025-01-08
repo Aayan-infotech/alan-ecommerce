@@ -333,7 +333,7 @@ const Window = () => {
                           htmlFor={`select-${category}`}
                           className="form-label fw-semibold mb-2"
                         >
-                          {category.replace(/([a-z])([A-Z])/g, "$1 $2")}
+                          {category.charAt(0).toUpperCase() + category.slice(1).replace(/([a-z])([A-Z])/g, "$1 $2")}
                         </label>
                         <select
                           className="form-select p-3"
@@ -344,7 +344,7 @@ const Window = () => {
                           }
                         >
                           <option selected>
-                            Select{" "}
+                            Select
                             {category.replace(/([a-z])([A-Z])/g, "$1 $2")}
                           </option>
                           {currentProductDimensions[category].map((item) => (
