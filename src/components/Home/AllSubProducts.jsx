@@ -146,9 +146,9 @@ const AllSubProducts = () => {
                           objectFit: "fill",
                         }}
                       />
-                      <Typography variant="h5" className="fw-bold">
+                      <p className="fw-bold mb-0">
                         {category?.name || "N/A"}
-                      </Typography>
+                      </p>
                       <span>
                         Sale:&nbsp;&nbsp;<h4 className="fw-bold text-danger d-inline">
                           ${category?.price || "N/A"}

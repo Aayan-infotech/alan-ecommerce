@@ -21,6 +21,7 @@ import "../../styles/Navbar.scss";
 import logo from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -32,10 +33,6 @@ const Navbar = () => {
   const categoryId = localStorage.getItem("windowCategoryId");
   const navigate = useNavigate();
 
-/*************  ✨ Codeium Command ⭐  *************/
-  /**
-   * Fetches all categories from the server and updates the exploreCategories state with the response.
-/******  77b59c7d-2b29-4e12-bc2f-8809eb4228c9  *******/
   const fetchExploreCategories = async () => {
     try {
       const response = await axios.get(
@@ -64,7 +61,7 @@ const Navbar = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  
+
   const handleClick = (category) => {
     if (!category?.isSubCategory) {
       navigate(`/allsubproducts/${category?._id}`, {
@@ -230,6 +227,18 @@ const Navbar = () => {
             >
               <FavoriteBorderIcon sx={{ color: "#fc5f03" }} />
             </IconButton>
+            {/* <Link to="/profile"> */}
+            <IconButton
+              color="inherit"
+              sx={{
+                "&:hover": {
+                  backgroundColor: "transparent",
+                },
+              }}
+            >
+              <AccountCircleIcon sx={{ color: "#fc5f03" }} />
+            </IconButton>
+            {/* </Link> */}
             <Link to="/cart">
               <IconButton
                 color="inherit"

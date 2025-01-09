@@ -181,8 +181,8 @@ const Window = () => {
             </Box>
           </Box>
           <Container>
-            <div class="row gy-3 gy-md-4 my-2">
-              <div class="col-12 col-md-5">
+            <div className="row gy-3 gy-md-4 my-2">
+              <div className="col-12 col-md-5">
                 <Box>
                   <img
                     src={selectedImage}
@@ -261,7 +261,7 @@ const Window = () => {
                   />
                 </Box>
               </div>
-              <div class="col-12 col-md-7">
+              <div className="col-12 col-md-7">
                 <div className="d-flex justify-content-between align-items-center mb-2">
                   <Typography variant="h4" className="fw-bold">
                     Pricing
@@ -323,12 +323,7 @@ const Window = () => {
                   {currentProductDimensions &&
                     Object.keys(currentProductDimensions).map((category) => (
                       <div className="col-12 col-md-6" key={category}>
-                        {category === "installation" && (
-                          <div className="mb-2 text-danger fw-bold">
-                            Installation for San Diego. For installation in
-                            other areas, please contact us.
-                          </div>
-                        )}
+                       
                         <label
                           htmlFor={`select-${category}`}
                           className="form-label fw-semibold mb-2"
@@ -344,8 +339,8 @@ const Window = () => {
                           }
                         >
                           <option selected>
-                            Select
-                            {category.replace(/([a-z])([A-Z])/g, "$1 $2")}
+                            Select{" "}
+                            {category.charAt(0).toUpperCase() + category.slice(1).replace(/([a-z])([A-Z])/g, "$1 $2")}
                           </option>
                           {currentProductDimensions[category].map((item) => (
                             <option key={item._id} value={item.value}>
@@ -353,6 +348,12 @@ const Window = () => {
                             </option>
                           ))}
                         </select>
+                        {category === "installation" && (
+                          <div className="mb-2 text-danger fw-bold">
+                            Installation for San Diego. For installation in
+                            other areas, please contact us.
+                          </div>
+                        )}
                       </div>
                     ))}
                 </div>

@@ -140,9 +140,9 @@ const Categories = () => {
                           objectFit: "fill",
                         }}
                       />
-                      <Typography variant="h5" className="fw-bold">
+                      <p className="fw-bold">
                         {category?.name || "N/A"}
-                      </Typography>
+                      </p>
                     </Box>
                   </Grid>
                 ))}
