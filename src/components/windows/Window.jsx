@@ -125,21 +125,26 @@ const Window = () => {
   };
 
   const calculatePrice = () => {
-    if (!currentProductDetails) return 0;
-    let price = currentProductDetails?.product?.price;
+    if (!currentProductDetails?.product) return 0;
+    
+    let price = currentProductDetails.product.price;
+    
     Object.keys(selectedOptions).forEach((category) => {
-      const selectedValue = selectedOptions[category];
-      const selectedItem = currentProductDimensions[category]?.find(
-        (item) => item.value === selectedValue
-      );
-      if (selectedItem) {
-        const percentage = parseFloat(selectedItem.value);
-        price = price + (price * percentage) / 100;
+      const selectedOption = selectedOptions[category];
+      if (currentProductDimensions && currentProductDimensions[category]) {
+        const selectedItem = currentProductDimensions[category].find(
+          (item) => item[category] === selectedOption.name
+        );
+        if (selectedItem) {
+          const percentage = parseFloat(selectedItem.value);  
+          price += (price * percentage) / 100;
+        }
       }
     });
-
+    
     return price.toFixed(2);
   };
+  
 
   const handleProceed = () => {
     const totalPrice = calculatePrice();
