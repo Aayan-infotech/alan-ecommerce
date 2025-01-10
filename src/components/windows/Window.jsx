@@ -20,6 +20,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "../../loader/Loader";
 import WindowContent from "./WindowContent";
+import No_Image_Available from "../../assets/No_Image_Available.jpg";
 
 const customStyles = {
   outline: "none",
@@ -30,7 +31,6 @@ const customStyles = {
 };
 
 const Window = () => {
-  const [getEstimation, setGetEstimation] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedImage, setSelectedImage] = useState(card_img1);
@@ -76,9 +76,9 @@ const Window = () => {
       const response = await axios.get(
         `http://44.196.64.110:7878/api/dims/ProductID/${product_id}`
       );
-      console.log(response.data.data, "response");
       if (response?.data?.success) {
-        setCurrentProductDetails(response.data.data?.product);
+        setSelectedImage(response.data.data?.product?.images[0]);
+        setCurrentProductDetails(response.data.data);
         setCurrentProductDimensions(response.data.data?.Dimensions);
       }
     } catch (error) {
@@ -105,17 +105,20 @@ const Window = () => {
     }));
   };
 
-  const handleSelectChange = (category, value) => {
+  const handleSelectChange = (category, value, name) => {
+    console.log(name, "abimash");
     setSelectedOptions({
       ...selectedOptions,
-      [category]: value,
+      [category]: { value, name },
     });
   };
 
   const maxVisibleImages = 2;
+  const images = currentProductDetails?.images || [];
+  const primaryImage =
+    currentProductDetails?.product?.images[0] || images[0] || "";
   const remainingImages =
-    currentProductDimensions?.productDetails?.images?.length -
-      maxVisibleImages || 0;
+    images.length > maxVisibleImages ? images.length - maxVisibleImages : 0;
 
   const handleChangeImage = (imageSrc) => {
     setSelectedImage(imageSrc);
@@ -123,7 +126,7 @@ const Window = () => {
 
   const calculatePrice = () => {
     if (!currentProductDetails) return 0;
-    let price = currentProductDetails.price;
+    let price = currentProductDetails?.product?.price;
     Object.keys(selectedOptions).forEach((category) => {
       const selectedValue = selectedOptions[category];
       const selectedItem = currentProductDimensions[category]?.find(
@@ -185,17 +188,17 @@ const Window = () => {
               <div className="col-12 col-md-5">
                 <Box>
                   <img
-                    src={selectedImage}
+                    src={selectedImage || primaryImage || No_Image_Available}
                     alt="Main Door"
                     style={{
                       width: "100%",
                       borderRadius: "5px",
                       maxHeight: "280px",
-                      objectFit: "fill",
+                      objectFit: "contain",
                     }}
                   />
                   <Grid container spacing={2} sx={{ marginTop: "15px" }}>
-                    {getEstimation?.currentProductDetails?.images
+                    {images
                       .slice(0, maxVisibleImages)
                       .map((imageSrc, index) => (
                         <Grid item xs={4} key={index}>
@@ -249,14 +252,15 @@ const Window = () => {
                     )}
                   </Grid>
                   <Typography variant="h5" className="fw-bold mt-3">
-                    {currentProductDetails?.name || "N/A"}
+                    {currentProductDetails?.product?.name || "N/A"}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="textSecondary"
                     className="w-75 mt-3"
                     dangerouslySetInnerHTML={{
-                      __html: currentProductDetails?.Description || "N/A",
+                      __html:
+                        currentProductDetails?.product?.Description || "N/A",
                     }}
                   />
                 </Box>
@@ -323,24 +327,34 @@ const Window = () => {
                   {currentProductDimensions &&
                     Object.keys(currentProductDimensions).map((category) => (
                       <div className="col-12 col-md-6" key={category}>
-                       
                         <label
                           htmlFor={`select-${category}`}
                           className="form-label fw-semibold mb-2"
                         >
-                          {category.charAt(0).toUpperCase() + category.slice(1).replace(/([a-z])([A-Z])/g, "$1 $2")}
+                          {category.charAt(0).toUpperCase() +
+                            category
+                              .slice(1)
+                              .replace(/([a-z])([A-Z])/g, "$1 $2")}
                         </label>
                         <select
                           className="form-select p-3"
                           style={customStyles}
                           aria-label={`Select ${category}`}
                           onChange={(e) =>
-                            handleSelectChange(category, e.target.value)
+                            // handleSelectChange(category, e.target.value)
+                            handleSelectChange(
+                              category,
+                              e.target.value,
+                              e.target.selectedOptions[0].text
+                            )
                           }
                         >
                           <option selected>
                             Select{" "}
-                            {category.charAt(0).toUpperCase() + category.slice(1).replace(/([a-z])([A-Z])/g, "$1 $2")}
+                            {category.charAt(0).toUpperCase() +
+                              category
+                                .slice(1)
+                                .replace(/([a-z])([A-Z])/g, "$1 $2")}
                           </option>
                           {currentProductDimensions[category].map((item) => (
                             <option key={item._id} value={item.value}>

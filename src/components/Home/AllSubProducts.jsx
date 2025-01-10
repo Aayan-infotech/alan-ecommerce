@@ -138,12 +138,12 @@ const AllSubProducts = () => {
                       <Box
                         component="img"
                         className="p-3"
-                        src={category?.images || No_Image_Available}
+                        src={category?.images[0] || No_Image_Available}
                         alt={category?.name}
                         sx={{
                           width: "100%",
                           height: "300px",
-                          objectFit: "fill",
+                          objectFit: "contain",
                         }}
                       />
                       <p className="fw-bold mb-0">

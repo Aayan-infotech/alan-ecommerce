@@ -1,16 +1,21 @@
 import React from "react";
 import { Grid, Typography, Button, Box, Container } from "@mui/material";
-import card_img1 from "../../assets/window.png";
+import No_Image_Available from "../../assets/No_Image_Available.jpg";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export const MeasuredWindows = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { selectedOptions, customDimensions, selectedImage, totalPrice, currentProductDetails } =
-    location.state || {};
+  const {
+    selectedOptions,
+    customDimensions,
+    selectedImage,
+    totalPrice,
+    currentProductDetails,
+  } = location.state || {};
 
-  console.log(currentProductDetails, "details");
+  console.log(selectedOptions, "details");
 
   const handleToProceedCart = () => {
     const selectedOptionsDetails = {
@@ -28,21 +33,24 @@ export const MeasuredWindows = () => {
         <Box>
           <Grid container spacing={4}>
             <Grid item xs={12} md={4}>
-              <Box>
+              <Box className="text-center">
                 <img
-                  src={selectedImage || "/src/assets/window.png"}
+                  src={selectedImage || No_Image_Available}
                   alt="Window"
-                  className="w-100 rounded-4"
+                  height="300"
                 />
+              </Box>
+              <Box>
                 <Typography variant="h4" sx={{ mt: 2 }} className="fw-bold">
-                  {currentProductDetails?.name}
+                  {currentProductDetails?.product?.name}
                 </Typography>
                 <Typography
                   variant="body2"
                   color="text.secondary"
                   sx={{ mt: 1 }}
                   dangerouslySetInnerHTML={{
-                    __html: currentProductDetails?.Description || "N/A",
+                    __html:
+                      currentProductDetails?.product?.Description || "N/A",
                   }}
                 />
               </Box>
@@ -68,13 +76,13 @@ export const MeasuredWindows = () => {
 
                   {selectedOptions &&
                     Object.entries(selectedOptions).map(
-                      ([key, value], index) => (
+                      ([key, { value, name }], index) => (
                         <Grid item xs={6} key={index}>
                           <Typography variant="h6">
                             {key.replace(/([a-z])([A-Z])/g, "$1 $2")}
                           </Typography>
                           <Typography variant="body1">
-                            <strong className="fs-5">{value || "N/A"}</strong>
+                            <strong className="fs-5">{name || "N/A"}</strong>
                           </Typography>
                         </Grid>
                       )
@@ -109,14 +117,18 @@ export const MeasuredWindows = () => {
               <Button
                 variant="contained"
                 className="fw-bold"
-                sx={{ width: "150px", backgroundColor: "black", fontSize:"17px" }}
+                sx={{
+                  width: "150px",
+                  backgroundColor: "black",
+                  fontSize: "17px",
+                }}
               >
                 ${totalPrice}
               </Button>
               <Button
                 variant="outlined"
                 color="primary"
-                sx={{ width: "150px", textTransform:"none" }}
+                sx={{ width: "150px", textTransform: "none" }}
                 className="fw-bold"
               >
                 Add to cart
@@ -124,7 +136,7 @@ export const MeasuredWindows = () => {
               <Button
                 onClick={handleToProceedCart}
                 variant="contained"
-                sx={{ width: "150px", textTransform:"none" }}
+                sx={{ width: "150px", textTransform: "none" }}
               >
                 Next <ArrowForwardIcon />
               </Button>
