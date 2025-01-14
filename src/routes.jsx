@@ -140,7 +140,7 @@ export const AppRoutes = () => {
         <Route path="/diy/install-inswing-entry-door" element={<InstallInswingEntryDoor />} />
         <Route path="/products" element={<SubProducts />} />
         <Route path="/categories/:categoryId" element={<Categories />} />
-        <Route path="/sub-sub-categoryies/:subCategory_id" element={<SubSubCategories />} />
+        <Route path="/sub-sub-categories/:subCategory_id" element={<SubSubCategories />} />
         <Route path="/allsubproducts/:products_id" element={<AllSubProducts />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

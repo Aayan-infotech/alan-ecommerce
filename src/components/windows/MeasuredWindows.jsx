@@ -108,15 +108,11 @@ export const MeasuredWindows = () => {
             <Grid
               item
               xs={6}
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
+              className="text-end"
             >
               <Button
                 variant="contained"
-                className="fw-bold"
+                className="fw-bold me-3"
                 sx={{
                   width: "150px",
                   backgroundColor: "black",
@@ -130,15 +126,9 @@ export const MeasuredWindows = () => {
                 color="primary"
                 sx={{ width: "150px", textTransform: "none" }}
                 className="fw-bold"
-              >
-                Add to cart
-              </Button>
-              <Button
                 onClick={handleToProceedCart}
-                variant="contained"
-                sx={{ width: "150px", textTransform: "none" }}
               >
-                Next <ArrowForwardIcon />
+                Next <ArrowForwardIcon className="fs-5"/>
               </Button>
             </Grid>
           </Grid>

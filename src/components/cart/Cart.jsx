@@ -24,11 +24,10 @@ import { CouponDetails } from "./CouponDetails";
 
 const Cart = () => {
   const location = useLocation();
-
-  const { price, selectedImage, getEstimation } = location.state || {};
-
   const [quantity, setQuantity] = useState(1);
   const [showCouponDetails, setShowCouponDetails] = useState(false);
+  const [shippinhgMethod, setShippinhgMethod] = useState("delivery");
+  const { price, selectedImage, getEstimation } = location.state || {};
 
   const handleQuantityChange = (operation) => {
     setQuantity((prevQuantity) =>
@@ -84,71 +83,46 @@ const Cart = () => {
       </Box>
 
       <Container className="mt-4">
-        <Card sx={{ mb: 2, borderRadius: 2, boxShadow: 3 }}>
-          <CardContent>
-            <Grid container alignItems="center" spacing={2}>
-              {/* First Row: Image, Price, Delete Icon (Mobile View) */}
-              <Grid
-                item
-                xs={12}
-                sm={3}
-                container
-                spacing={2}
-                alignItems="center"
-              >
-                <Grid
-                  item
-                  xs={6}
-                  sm={12}
-                  sx={{ display: "flex", alignItems: "center" }}
-                >
-                  <CardMedia
-                    component="img"
-                    alt="Golden Door"
-                    image={selectedImage || card_img1}
-                    sx={{ borderRadius: 1, objectFit: "contain", maxWidth: 50 }}
+        <div className="card mb-4">
+          <div className="card-body">
+            <div className="row gx-4 align-items-center">
+              <div className="col-12 col-sm-4 col-md-3 mb-3 mb-md-0">
+                <div className="d-flex align-items-center">
+                  <img
+                    src={selectedImage || card_img1}
+                    height="50"
+                    alt="image"
+                    className="me-2"
                   />
-                  <Typography className="fw-bold" sx={{ ml: 1 }}>
-                    {getEstimation?.productDetails?.productName}
-                  </Typography>
-                </Grid>
+                  <div>
+                    <p className="mb-0">
+                      {getEstimation?.productDetails?.productName ||
+                        "Product Name"}
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-                <Grid item xs={3} sm={12}>
-                  <Typography className="fw-bold">
-                    Price: <span style={{ color: "gray" }}>$ {price}</span>
-                  </Typography>
-                </Grid>
+              <div className="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
+                <div className="text-start text-md-center">
+                  Price:&nbsp;<span style={{ color: "gray" }}>${price}</span>
+                </div>
+              </div>
 
-                <Grid item xs={3} sm={12} sx={{ textAlign: "right" }}>
-                  <IconButton color="primary">
-                    <DeleteIcon />
-                  </IconButton>
-                </Grid>
-              </Grid>
-
-              {/* Second Row: Quantity */}
-              <Grid item xs={12} sm={3}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: { xs: "space-between", sm: "flex-start" },
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography className="text-black fw-bold">
-                    Quantity:
-                  </Typography>
+              <div className="col-12 col-sm-8 col-md">
+                <div className="d-flex justify-content-between justify-content-md-start align-items-center">
+                  Quantity:
                   <IconButton onClick={() => handleQuantityChange("decrement")}>
                     <RemoveCircleOutlineIcon sx={{ color: "black" }} />
                   </IconButton>
                   <Typography
-                    className="p-2 border border-2 rounded-1"
+                    className="p-2 border border-2 rounded-1 text-center"
                     sx={{
                       height: "30px",
+                      minWidth: "40px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      minWidth: "40px",
                     }}
                   >
                     {quantity}
@@ -156,48 +130,248 @@ const Cart = () => {
                   <IconButton onClick={() => handleQuantityChange("increment")}>
                     <ControlPointIcon sx={{ color: "black" }} />
                   </IconButton>
-                </Box>
-              </Grid>
+                </div>
+              </div>
 
-              {/* Third Row: Subtotal and See Button */}
-              <Grid
-                item
-                xs={12}
-                sm={3}
-                container
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Grid item xs={6} sm={6}>
-                  <Typography className="fw-bold">
-                    Subtotal:{" "}
-                    <span style={{ color: "gray" }}>$ {price * quantity}</span>
-                  </Typography>
-                </Grid>
-                <Grid item xs={6} sm={6} sx={{ textAlign: "right" }}>
-                  <Link
-                    to="/measured-windows"
-                    style={{ textDecoration: "none" }}
+              <div class="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
+                <div class="text-start text-md-center">
+                  Subtotal:&nbsp;
+                  <span style={{ color: "gray" }}>${price * quantity}</span>
+                </div>
+              </div>
+
+              <div class="col-6 col-sm-4 col-md-1 d-flex justify-content-center">
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderColor: "black",
+                    color: "black",
+                    textTransform: "none",
+                  }}
+                  className="rounded-3"
+                >
+                  See
+                </Button>
+              </div>
+
+              <div class="col-6 col-sm-4 col-md-1 d-flex justify-content-center">
+                <IconButton color="primary">
+                  <DeleteIcon />
+                </IconButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row gx-3 gy-3">
+          <div class="col-12 col-md-4">
+            <div class="p-2 border border-1 rounded">
+              <h6 className="fw-bold">Billing</h6>
+              <form>
+                <div class="mb-3">
+                  <input
+                    type="text"
+                    placeholder="First Name"
+                    class="form-control"
+                    style={{ outline: "none", boxShadow: "none" }}
+                  />
+                </div>
+                <div class="mb-3">
+                  <input
+                    type="text"
+                    placeholder="Last Name"
+                    class="form-control"
+                    style={{ outline: "none", boxShadow: "none" }}
+                  />
+                </div>
+                <div class="mb-3">
+                  <input
+                    type="text"
+                    placeholder="Company Name"
+                    class="form-control"
+                    style={{ outline: "none", boxShadow: "none" }}
+                  />
+                </div>
+                <div class="mb-3">
+                  <input
+                    type="number"
+                    placeholder="Phone Number"
+                    class="form-control"
+                    style={{ outline: "none", boxShadow: "none" }}
+                  />
+                </div>
+                <div class="mb-3">
+                  <input
+                    type="text"
+                    placeholder="Country"
+                    class="form-control"
+                    style={{ outline: "none", boxShadow: "none" }}
+                  />
+                </div>
+                <div class="mb-3">
+                  <textarea
+                    type="text"
+                    placeholder="Address"
+                    class="form-control"
+                    style={{ outline: "none", boxShadow: "none" }}
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+          <div className="col-12 col-md-4 border border-1 rounded p-2">
+            <h6 className="fw-bold">Shipping Method</h6>
+            <div className="d-flex align-items-center mb-3">
+              <div class="form-check me-4">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault1"
+                  checked={shippinhgMethod === "delivery"}
+                  onChange={() => setShippinhgMethod("delivery")}
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Delivery
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault2"
+                  checked={shippinhgMethod === "pickup"}
+                  onChange={() => setShippinhgMethod("pickup")}
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Pickup
+                </label>
+              </div>
+            </div>
+            {shippinhgMethod === "pickup" && (
+              <div>
+                <div className="p-2 border border-1 rounded mb-2 d-flex align-items-start">
+                  <input
+                    type="radio"
+                    id="option1"
+                    name="pickupOption"
+                    value="option1"
+                    className="me-2"
+                  />
+                  <label
+                    htmlFor="option1"
+                    className="w-100 d-flex justify-content-between"
                   >
-                    <Button
-                      variant="outlined"
-                      sx={{
-                        borderColor: "black",
-                        color: "black",
-                        textTransform: "none",
-                      }}
-                      className="rounded-3"
-                    >
-                      See
-                    </Button>
-                  </Link>
-                </Grid>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
+                    <div>
+                      <h6 className="fw-bold">Customer Pick UP Los Angeles</h6>
+                      <p className="mb-0">
+                        &nbsp;-&nbsp;Inland Valley Hope Partners
+                      </p>
+                      <p className="mb-0">
+                        &nbsp;-&nbsp;904 E. California Street
+                      </p>
+                      <p className="mb-0">&nbsp;-&nbsp;Ontario</p>
+                      <p className="mb-0">
+                        &nbsp;-&nbsp;Salvation Army - Bellflower Temple Corps
+                      </p>
+                    </div>
+                    <h6 className="fw-bold">$340</h6>
+                  </label>
+                </div>
+                <div className="p-2 border border-1 rounded mb-2 d-flex align-items-start">
+                  <input
+                    type="radio"
+                    id="option2"
+                    name="pickupOption"
+                    value="option2"
+                    className="me-2"
+                  />
+                  <label
+                    htmlFor="option2"
+                    className="w-100 d-flex justify-content-between"
+                  >
+                    <div>
+                      <h6 className="fw-bold">Fright Delivery</h6>
+                      <p className="mb-0">
+                        &nbsp;-&nbsp;Inland Valley Hope Partners
+                      </p>
+                      <p className="mb-0">
+                        &nbsp;-&nbsp;904 E. California Street
+                      </p>
+                      <p className="mb-0">&nbsp;-&nbsp;Ontario</p>
+                      <p className="mb-0">
+                        &nbsp;-&nbsp;Salvation Army - Bellflower Temple Corps
+                      </p>
+                    </div>
+                    <h6 className="fw-bold">$140</h6>
+                  </label>
+                </div>
+              </div>
+            )}
+            {shippinhgMethod === "delivery" && (
+              <div className="p-2 border border-1 rounded mb-2 d-flex align-items-start">
+                <input
+                  type="radio"
+                  id="option3"
+                  name="pickupOption"
+                  value="option3"
+                  className="me-2"
+                />
+                <label
+                  htmlFor="option3"
+                  className="w-100 d-flex justify-content-between"
+                >
+                  <div>
+                    <h6 className="fw-bold">Noida Sector 66, </h6>
+                    <p className="mb-0">&nbsp;-&nbsp;Abinash Sinha</p>
+                    <p className="mb-0">&nbsp;-&nbsp;Uttar Pradesh, India</p>
+                    <p className="mb-0">&nbsp;-&nbsp;Metro 59</p>
+                  </div>
+                  <h6 className="fw-bold">$240</h6>
+                </label>
+              </div>
+            )}
+          </div>
+          <div className="col-12 col-md-4 mt-3">
+            <div className="p-2 border border-1 rounded">
+              <h6 className="fw-bold">Product Details</h6>
+              <div>
+                <h6 className="fw-bold">
+                  {getEstimation?.productDetails?.productName || "Product Name"}
+                </h6>
+                <p className="mb-0">
+                  Rating: {getEstimation?.productDetails?.rating || "N/A"} / 5
+                </p>
+                <p className="mb-0">
+                  Review: {getEstimation?.productDetails?.review || "No review"}
+                </p>
+              </div>
+              <hr />
+              <div className="d-flex justify-content-between">
+                <span>Price</span>
+                <span>${price || "0.00"}</span>
+              </div>
+              <div className="d-flex justify-content-between">
+                <span>Quantity</span>
+                <span>{quantity || "1"}</span>
+              </div>
+              <div className="d-flex justify-content-between">
+                <span>Subtotal</span>
+                <span>${(price * quantity).toFixed(2)}</span>
+              </div>
+              <div className="d-flex justify-content-between fw-bold">
+                <span>Total</span>
+                <span>${(price * quantity).toFixed(2)}</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <Box sx={{ p: 1 }}>
+        {/* <Box sx={{ p: 1 }}>
           {showCouponDetails ? (
             <CouponDetails />
           ) : (
@@ -278,7 +452,6 @@ const Cart = () => {
                   }}
                 >
                   <Grid container spacing={2} alignItems="center">
-                    {/* Image Icon */}
                     <Grid
                       item
                       xs={12}
@@ -296,12 +469,9 @@ const Cart = () => {
                         className="me-4"
                       />
                     </Grid>
-
-                    {/* Address and Zip Code Fields */}
                     <Grid item xs={12} md={10}>
                       <Box>
                         <Grid container spacing={2}>
-                          {/* Address Field */}
                           <Grid item xs={4}>
                             <Typography sx={{ fontWeight: "bold" }}>
                               Address:
@@ -321,8 +491,6 @@ const Cart = () => {
                               }}
                             />
                           </Grid>
-
-                          {/* Zip Code Field */}
                           <Grid item xs={4}>
                             <Typography sx={{ fontWeight: "bold" }}>
                               Zip Code:
@@ -350,7 +518,7 @@ const Cart = () => {
               </Grid>
             </Grid>
           )}
-        </Box>
+        </Box> */}
 
         <Box className="text-center mt-4">
           <Link to="/customer-details">

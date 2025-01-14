@@ -14,14 +14,15 @@ import {
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import axios from "axios";
-import { toast } from "react-toastify"; // Importing toast for notifications
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const [selectedOptions, setSelectedOptions] = useState({
-    fullName: "",
+    full_name: "",
     email: "",
-    mobile: "",
-    country: "",
+    password: "",
+    mobile_number: "",
+    // country_name: "",
     address: "",
     state: "",
     zipCode: "",
@@ -51,8 +52,6 @@ const Profile = () => {
       ...prevState,
       [name]: value,
     }));
-
-    // Clear the error message for the field when the user starts typing
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: "",
@@ -61,12 +60,17 @@ const Profile = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!selectedOptions.fullName) newErrors.fullName = "Full name is required";
+    if (!selectedOptions.full_name)
+      newErrors.full_name = "Full name is required";
+    if (!selectedOptions.password) newErrors.password = "Full name is required";
     if (!selectedOptions.email || !/\S+@\S+\.\S+/.test(selectedOptions.email))
       newErrors.email = "Valid email is required";
-    if (!selectedOptions.mobile || !/^\d{10}$/.test(selectedOptions.mobile))
-      newErrors.mobile = "Mobile number must be 10 digits";
-    if (!selectedOptions.country) newErrors.country = "Country is required";
+    if (
+      !selectedOptions.mobile_number ||
+      !/^\d{10}$/.test(selectedOptions.mobile_number)
+    )
+      newErrors.mobile_number = "Mobile number must be 10 digits";
+    // if (!selectedOptions.country_name) newErrors.country_name = "Country is required";
     if (!selectedOptions.address) newErrors.address = "Address is required";
     if (!selectedOptions.state) newErrors.state = "State is required";
     if (!selectedOptions.zipCode || !/^\d{5}$/.test(selectedOptions.zipCode))
@@ -78,14 +82,15 @@ const Profile = () => {
 
   const handleSubmit = async () => {
     if (!validateForm()) {
-      return; 
+      return;
     }
     try {
       const payload = {
-        fullName: selectedOptions.fullName,
+        full_name: selectedOptions.full_name,
         email: selectedOptions.email,
-        mobile: selectedOptions.mobile,
-        country: selectedOptions.country,
+        password: selectedOptions.password,
+        mobile_number: selectedOptions.mobile_number,
+        // country_name: selectedOptions.country_name,
         address: selectedOptions.address,
         state: selectedOptions.state,
         zipCode: selectedOptions.zipCode,
@@ -97,12 +102,13 @@ const Profile = () => {
       );
 
       if (response.data.success) {
-        toast.success("Profile updated successfully!"); 
+        toast.success("Profile updated successfully!");
         setSelectedOptions({
-          fullName: "",
+          full_name: "",
           email: "",
-          mobile: "",
-          country: "",
+          password: "",
+          mobile_number: "",
+          // country_name: "",
           address: "",
           state: "",
           zipCode: "",
@@ -110,23 +116,23 @@ const Profile = () => {
       }
     } catch (error) {
       console.error("Error updating profile", error);
-      toast.error("Failed to update profile. Please try again."); 
+      toast.error("Failed to update profile. Please try again.");
     }
   };
 
   return (
     <div className="doors-container px-3">
-      <Container className="mt-4 d-flex justify-content-center align-items-center">
+      <Container className="mt-4 d-flex justify-content-center align-items-center mb-4">
         <Grid container spacing={2} className="w-75">
           <Grid item xs={12} sm={6} md={6}>
             <Box className="mb-3">
               <InputLabel className="fw-bold text-black mb-2">
                 Full Name
               </InputLabel>
-              <FormControl fullWidth error={Boolean(errors.fullName)}>
+              <FormControl fullWidth error={Boolean(errors.full_name)}>
                 <TextField
-                  name="fullName"
-                  value={selectedOptions.fullName}
+                  name="full_name"
+                  value={selectedOptions.full_name}
                   onChange={handleInputChange}
                   variant="outlined"
                   placeholder="Enter Full Name"
@@ -137,8 +143,8 @@ const Profile = () => {
                     "& fieldset": { border: "none" },
                   }}
                 />
-                {errors.fullName && (
-                  <FormHelperText error>{errors.fullName}</FormHelperText>
+                {errors.full_name && (
+                  <FormHelperText error>{errors.full_name}</FormHelperText>
                 )}
               </FormControl>
             </Box>
@@ -163,14 +169,14 @@ const Profile = () => {
                 )}
               </FormControl>
             </Box>
-            <Box className="mb-3">
+            {/* <Box className="mb-3">
               <InputLabel className="fw-bold text-black mb-2">
                 Country
               </InputLabel>
-              <FormControl fullWidth error={Boolean(errors.country)}>
+              <FormControl fullWidth error={Boolean(errors.country_name)}>
                 <Select
-                  name="country"
-                  value={selectedOptions.country}
+                  name="country_name"
+                  value={selectedOptions.country_name}
                   onChange={handleSelectChange}
                   displayEmpty
                   variant="outlined"
@@ -194,6 +200,30 @@ const Profile = () => {
                   <Typography color="error" variant="body2">
                     {errors.country}
                   </Typography>
+                )}
+              </FormControl>
+            </Box> */}
+            <Box className="mb-3">
+              <InputLabel className="fw-bold text-black mb-2">
+                Password
+              </InputLabel>
+              <FormControl fullWidth error={Boolean(errors.password)}>
+                <TextField
+                  name="password"
+                  type="password"
+                  value={selectedOptions.password}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                  placeholder="Enter Password"
+                  sx={{
+                    backgroundColor: "#D0E5F4",
+                    borderRadius: "10px",
+                    border: "none",
+                    "& fieldset": { border: "none" },
+                  }}
+                />
+                {errors.email && (
+                  <FormHelperText error>{errors.password}</FormHelperText>
                 )}
               </FormControl>
             </Box>
@@ -226,10 +256,10 @@ const Profile = () => {
               <InputLabel className="fw-bold text-black mb-2">
                 Mobile No.
               </InputLabel>
-              <FormControl fullWidth error={Boolean(errors.mobile)}>
+              <FormControl fullWidth error={Boolean(errors.mobile_number)}>
                 <TextField
-                  name="mobile"
-                  value={selectedOptions.mobile}
+                  name="mobile_number"
+                  value={selectedOptions.mobile_number}
                   onChange={handleInputChange}
                   variant="outlined"
                   placeholder="Mobile No."
@@ -240,8 +270,8 @@ const Profile = () => {
                     "& fieldset": { border: "none" },
                   }}
                 />
-                {errors.mobile && (
-                  <FormHelperText error>{errors.mobile}</FormHelperText>
+                {errors.mobile_number && (
+                  <FormHelperText error>{errors.mobile_number}</FormHelperText>
                 )}
               </FormControl>
             </Box>
@@ -268,7 +298,7 @@ const Profile = () => {
                 )}
               </FormControl>
             </Box>
-            <Box className="mb-5">
+            <Box className="mb-3">
               <InputLabel className="fw-bold text-black mb-2">State</InputLabel>
               <FormControl fullWidth error={Boolean(errors.state)}>
                 <TextField

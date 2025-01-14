@@ -54,12 +54,9 @@ const Categories = () => {
     }
   }, [categoryId]);
 
-  // const handleClick = (subcategoryDetails) => {
-  //   navigate(`/sub-sub-categoryies/${subcategoryDetails._id}`);
-  // };
   const handleClick = (category) => {
     if (!category?.isSubCategory) {
-      navigate(`/sub-sub-categoryies/${category?._id}`, {
+      navigate(`/sub-sub-categories/${category?._id}`, {
         state: { categorydetails: category },
       });
     } else {

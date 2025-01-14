@@ -34,7 +34,6 @@ const Window = () => {
   const [loading, setLoading] = useState(true);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedImage, setSelectedImage] = useState(card_img1);
-  const [showCustomHeightWidth, setShowCustomHeightWidth] = useState(false);
   const [customDimensions, setCustomDimensions] = useState({
     height: "",
     width: "",
@@ -94,9 +93,6 @@ const Window = () => {
     }
   }, [product_id]);
 
-  const handleCustomHeightWidthToggle = () => {
-    setShowCustomHeightWidth((prev) => !prev);
-  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCustomDimensions((prev) => ({
@@ -126,9 +122,7 @@ const Window = () => {
 
   const calculatePrice = () => {
     if (!currentProductDetails?.product) return 0;
-    
     let price = currentProductDetails.product.price;
-    
     Object.keys(selectedOptions).forEach((category) => {
       const selectedOption = selectedOptions[category];
       if (currentProductDimensions && currentProductDimensions[category]) {
@@ -136,15 +130,18 @@ const Window = () => {
           (item) => item[category] === selectedOption.name
         );
         if (selectedItem) {
-          const percentage = parseFloat(selectedItem.value);  
-          price += (price * percentage) / 100;
+          const value = selectedItem.value;
+          if (value === "" || value === null) {
+            price += parseFloat(selectedItem.amount);
+          } else {
+            const percentage = parseFloat(selectedItem.value);
+            price += (price * percentage) / 100;
+          }
         }
       }
     });
-    
     return price.toFixed(2);
   };
-  
 
   const handleProceed = () => {
     const totalPrice = calculatePrice();
@@ -292,42 +289,38 @@ const Window = () => {
                     </Typography>
                   </Box>
                 </div>
-                <Button
-                  onClick={handleCustomHeightWidthToggle}
-                  variant="outlined"
-                  className="fw-bold"
-                  sx={{ marginBottom: "10px", textTransform: "none" }}
-                >
-                  Add Custom Height & Width
-                </Button>
-                {showCustomHeightWidth && (
-                  <div className="row ma-0 gy-3 mb-3">
-                    <div className="col-12 col-md-6">
-                      <label htmlFor="height fw-bold">Height</label>
-                      <input
-                        type="number"
-                        id="height"
-                        name="height"
-                        value={customDimensions.height}
-                        onChange={handleInputChange}
-                        className="form-control p-3"
-                        placeholder="Enter height"
-                      />
-                    </div>
-                    <div className="col-12 col-md-6">
-                      <label htmlFor="width fw-bold">Width</label>
-                      <input
-                        type="number"
-                        id="width"
-                        name="width"
-                        value={customDimensions.width}
-                        onChange={handleInputChange}
-                        className="form-control p-3"
-                        placeholder="Enter width"
-                      />
-                    </div>
+                <div className="row ma-0 gy-3 mb-3">
+                  <div className="col-12 col-md-6">
+                    <label htmlFor="height" className="fw-bold mb-2">
+                      Height <span style={{ fontSize: "10px" }}>(inch)</span>
+                    </label>
+                    <input
+                      type="number"
+                      id="height"
+                      name="height"
+                      value={customDimensions.height}
+                      onChange={handleInputChange}
+                      className="form-control p-3"
+                      placeholder="Enter height"
+                      style={customStyles}
+                    />
                   </div>
-                )}
+                  <div className="col-12 col-md-6">
+                    <label htmlFor="height" className="fw-bold mb-2">
+                      Width <span style={{ fontSize: "10px" }}>(inch)</span>
+                    </label>
+                    <input
+                      type="number"
+                      id="width"
+                      name="width"
+                      value={customDimensions.width}
+                      onChange={handleInputChange}
+                      className="form-control p-3"
+                      placeholder="Enter width"
+                      style={customStyles}
+                    />
+                  </div>
+                </div>
                 <div className="row ma-0 gy-3">
                   {currentProductDimensions &&
                     Object.keys(currentProductDimensions).map((category) => (
@@ -346,7 +339,6 @@ const Window = () => {
                           style={customStyles}
                           aria-label={`Select ${category}`}
                           onChange={(e) =>
-                            // handleSelectChange(category, e.target.value)
                             handleSelectChange(
                               category,
                               e.target.value,
