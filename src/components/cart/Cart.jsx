@@ -355,9 +355,6 @@ const Cart = () => {
                 <p className="mb-0">
                   Rating: {getEstimation?.productDetails?.rating || "N/A"} / 5
                 </p>
-                {/* <p className="mb-0">
-                  Review: {getEstimation?.productDetails?.review || "No review"}
-                </p> */}
               </div>
               <hr />
               <div className="d-flex justify-content-between">

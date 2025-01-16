@@ -11,12 +11,19 @@ import {
   MenuItem,
   TextField,
   FormHelperText,
+  Snackbar,
+  Alert,
+  Modal,
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const [btnLoader, setBtnLoader] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const [selectedOptions, setSelectedOptions] = useState({
     full_name: "",
     email: "",
@@ -26,8 +33,11 @@ const Profile = () => {
     state: "",
     zipCode: "",
   });
-
+  const [openOtpModal, setOpenOtpModal] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [submittedEmail, setSubmittedEmail] = useState("");
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -63,28 +73,36 @@ const Profile = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (!validateForm()) {
       return;
     }
+    setBtnLoader(true);
     try {
       const payload = {
-        full_name: selectedOptions.full_name,
+        name: selectedOptions.full_name,
         email: selectedOptions.email,
         password: selectedOptions.password,
-        mobile_number: selectedOptions.mobile_number,
+        mobile: selectedOptions.mobile_number,
         address: selectedOptions.address,
         state: selectedOptions.state,
         zipCode: selectedOptions.zipCode,
       };
 
       const response = await axios.post(
-        "http://44.196.64.110:5000/api/personalDetails/create",
-        payload
+        "http://44.196.64.110:7878/api/CustMng/custCreate",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-
       if (response.data.success) {
-        toast.success("Profile updated successfully!");
+        setSubmittedEmail(selectedOptions.email);
+        toast.success("Profile created successfully!");
+        setOpenOtpModal(true);
         setSelectedOptions({
           full_name: "",
           email: "",
@@ -94,11 +112,55 @@ const Profile = () => {
           state: "",
           zipCode: "",
         });
+      } else {
+        toast.error(response.data.message || "Failed to create profile.");
       }
     } catch (error) {
-      console.error("Error updating profile", error);
-      toast.error("Failed to update profile. Please try again.");
+      toast.error("Failed to create profile. Please try again.");
+      setSnackbarMessage(error.response?.data?.message || "An error occurred.");
+      setOpenSnackbar(true);
+    } finally {
+      setBtnLoader(false);
     }
+  };
+
+  const handleOtpChange = (e) => {
+    setOtp(e.target.value);
+  };
+
+  const handleOtpSubmit = async () => {
+    if (!otp) {
+      toast.error("Please enter the OTP.");
+      return;
+    }
+    try {
+      const payload = {
+        email: submittedEmail,
+        otp,
+      };
+      const response = await axios.post(
+        "http://44.196.64.110:7878/api/CustMng/otpVerify",
+        payload
+      );
+      if (response.data.success) {
+        const successMessage =
+          response.data.message || "OTP verified successfully!";
+        toast.success(successMessage);
+        setSnackbarMessage(successMessage);
+        setOpenSnackbar(true);
+        setOpenOtpModal(false);
+        navigate("/login");
+      } else {
+        toast.error("Invalid OTP. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error verifying OTP", error);
+      toast.error("Failed to verify OTP. Please try again.");
+    }
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
   };
 
   return (
@@ -269,15 +331,84 @@ const Profile = () => {
             <Box sx={{ mt: 5 }}>
               <Button
                 variant="contained"
-                className="w-100 p-2"
+                className="w-100 p-2 fw-bold"
                 onClick={handleSubmit}
+                sx={{ textTransform: "none" }}
               >
-                Next <ArrowForwardIcon className="fs-5" />
+                {btnLoader ? (
+                  <span>
+                    <i className="fa-solid fa-spinner"></i>
+                    Submitting...
+                  </span>
+                ) : (
+                  "Submit"
+                )}
               </Button>
             </Box>
           </Grid>
         </Grid>
       </Container>
+      <Modal
+        open={openOtpModal}
+        onClose={() => setOpenOtpModal(false)}
+        aria-labelledby="otp-modal-title"
+        aria-describedby="otp-modal-description"
+      >
+        <Box
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            backgroundColor: "white",
+            padding: "20px",
+            borderRadius: "10px",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            width: "500px",
+            height: "300px",
+            textAlign: "center",
+          }}
+        >
+          <h4 className="mb-3">Enter OTP</h4>
+          <p className="mb-3">Email: {submittedEmail}</p>
+          <FormControl fullWidth>
+            <TextField
+              name="otp"
+              type="text"
+              value={otp}
+              onChange={handleOtpChange}
+              variant="outlined"
+              placeholder="Enter OTP"
+              sx={{
+                backgroundColor: "#D0E5F4",
+                borderRadius: "10px",
+                border: "none",
+                "& fieldset": { border: "none" },
+              }}
+            />
+          </FormControl>
+          <Box sx={{ mt: 3 }}>
+            <Button
+              variant="contained"
+              className="w-100"
+              sx={{ textTransform: "none" }}
+              onClick={handleOtpSubmit}
+            >
+              Submit OTP
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={1000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="error" variant="filled">
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
