@@ -22,6 +22,7 @@ import logo from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -29,6 +30,8 @@ const Navbar = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const isLoggedIn = Cookies.get("isLoggedIn");
 
   const categoryId = localStorage.getItem("windowCategoryId");
   const navigate = useNavigate();
@@ -38,7 +41,6 @@ const Navbar = () => {
       const response = await axios.get(
         "http://44.196.64.110:7878/api/categories/getAllCategories"
       );
-      console.log(response?.data?.data, "hgsdajkfasd");
       if (response?.data?.status === 200) {
         setExploreCategories(response?.data?.data);
         setErrorMessage("");
@@ -122,7 +124,7 @@ const Navbar = () => {
                 <MenuItem>Products</MenuItem>
               </Link>
               <Link
-                to="/windows"
+                to="/diyinstall-guides"
                 onClick={handleMenuClose}
                 className="text-black text-decoration-none"
               >
@@ -156,11 +158,6 @@ const Navbar = () => {
                 Home
               </Button>
             </Link>
-            {/* <Link className="text-decoration-none" to="/doors">
-              <Button color="inherit" className="nav-title" dropdown-toggle>
-                Products
-              </Button>
-            </Link> */}
             <div className="dropdown">
               <Button
                 color="inherit"
@@ -177,14 +174,9 @@ const Navbar = () => {
                       key={category._id}
                       onClick={() => handleClick(category)}
                     >
-                      {/* <Link
-                        className="text-decoration-none"
-                        to={`/categories/${category._id}`}
-                      > */}
                       <button className="dropdown-item" type="button">
                         {category.name}
                       </button>
-                      {/* </Link> */}
                     </li>
                   ))
                 ) : (
@@ -192,7 +184,7 @@ const Navbar = () => {
                 )}
               </ul>
             </div>
-            <Link className="text-decoration-none" to="/windows">
+            <Link className="text-decoration-none" to="/diyinstall-guides">
               <Button color="inherit" className="nav-title">
                 Installation Guide
               </Button>
@@ -217,43 +209,47 @@ const Navbar = () => {
             >
               <SearchIcon sx={{ color: "#fc5f03" }} />
             </IconButton>
-            <IconButton
-              color="inherit"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "transparent",
-                },
-              }}
-            >
-              <FavoriteBorderIcon sx={{ color: "#fc5f03" }} />
-            </IconButton>
-            {/* <Link to="/profile"> */}
-            <IconButton
-              color="inherit"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "transparent",
-                },
-              }}
-            >
-              <AccountCircleIcon sx={{ color: "#fc5f03" }} />
-            </IconButton>
-            {/* </Link> */}
-            <Link to="/cart">
-              <IconButton
-                color="inherit"
-                className="me-3"
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "transparent",
-                  },
-                }}
-              >
-                <Badge badgeContent={4} color="primary">
-                  <ShoppingCartIcon sx={{ color: "#fc5f03" }} />
-                </Badge>
-              </IconButton>
-            </Link>
+            {isLoggedIn && (
+              <>
+                <IconButton
+                  color="inherit"
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                >
+                  <FavoriteBorderIcon sx={{ color: "#fc5f03" }} />
+                </IconButton>
+                <Link to="/customer-register">
+                  <IconButton
+                    color="inherit"
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                      },
+                    }}
+                  >
+                    <AccountCircleIcon sx={{ color: "#fc5f03" }} />
+                  </IconButton>
+                </Link>
+                <Link to="/cart">
+                  <IconButton
+                    color="inherit"
+                    className="me-3"
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                      },
+                    }}
+                  >
+                    <Badge badgeContent={4} color="primary">
+                      <ShoppingCartIcon sx={{ color: "#fc5f03" }} />
+                    </Badge>
+                  </IconButton>
+                </Link>
+              </>
+            )}
             <Link to="/appointment">
               <Button
                 variant="contained"

@@ -22,11 +22,42 @@ import Vector from "../../assets/Vector.png";
 import { Link, useLocation } from "react-router-dom";
 import { CouponDetails } from "./CouponDetails";
 
+const pickupAddressOptions = [
+  {
+    id: "option1",
+    title: "Window Pick Up",
+    description: [
+      "Green World Windows and Doors",
+      "3810 Wabash Drive",
+      "Mira Loma, CA 91752",
+    ],
+    price: "$340",
+  },
+  {
+    id: "option2",
+    title: "Door Pickup",
+    description: ["A.A.W. Doors", "13900 S Broadway", "Los Angeles, CA 90061"],
+    price: "$140",
+  },
+  {
+    id: "option3",
+    title: "Both Door and Window Pick Up",
+    description: [
+      "Discount Door and Window",
+      "5450 Complex St.",
+      "Unit 301",
+      "San Diego, CA 92123",
+    ],
+    price: "$440",
+  },
+];
+
 const Cart = () => {
   const location = useLocation();
   const [quantity, setQuantity] = useState(1);
   const [showCouponDetails, setShowCouponDetails] = useState(false);
   const [shippinhgMethod, setShippinhgMethod] = useState("delivery");
+  const [selectedOption, setSelectedOption] = useState("");
   const { price, selectedImage, getEstimation } = location.state || {};
 
   const handleQuantityChange = (operation) => {
@@ -53,6 +84,10 @@ const Cart = () => {
 
   const handleCheckoutClick = () => {
     setShowCouponDetails(true);
+  };
+
+  const handleChange = (e) => {
+    setSelectedOption(e.target.value);
   };
 
   return (
@@ -133,14 +168,14 @@ const Cart = () => {
                 </div>
               </div>
 
-              <div class="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
-                <div class="text-start text-md-center">
+              <div className="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
+                <div className="text-start text-md-center">
                   Subtotal:&nbsp;
                   <span style={{ color: "gray" }}>${price * quantity}</span>
                 </div>
               </div>
 
-              <div class="col-6 col-sm-4 col-md-1 d-flex justify-content-center">
+              <div className="col-6 col-sm-4 col-md-1 d-flex justify-content-center">
                 <Button
                   variant="outlined"
                   sx={{
@@ -154,7 +189,7 @@ const Cart = () => {
                 </Button>
               </div>
 
-              <div class="col-6 col-sm-4 col-md-1 d-flex justify-content-center">
+              <div className="col-6 col-sm-4 col-md-1 d-flex justify-content-center">
                 <IconButton color="primary">
                   <DeleteIcon />
                 </IconButton>
@@ -163,60 +198,60 @@ const Cart = () => {
           </div>
         </div>
 
-        <div class="row gx-3 gy-3">
-          <div class="col-12 col-md-4">
-            <div class="p-2 border border-1 rounded">
+        <div className="row gx-3 gy-3">
+          <div className="col-12 col-md-4">
+            <div className="p-2 border border-1 rounded">
               <h6 className="fw-bold">Billing</h6>
               <form>
-                <div class="mb-3">
+                <div className="mb-3">
                   <input
                     type="text"
                     placeholder="First Name"
-                    class="form-control"
+                    className="form-control"
                     style={{ outline: "none", boxShadow: "none" }}
                   />
                 </div>
-                <div class="mb-3">
+                <div className="mb-3">
                   <input
                     type="text"
                     placeholder="Last Name"
-                    class="form-control"
+                    className="form-control"
                     style={{ outline: "none", boxShadow: "none" }}
                   />
                 </div>
-                <div class="mb-3">
+                <div className="mb-3">
                   <input
                     type="text"
                     placeholder="Company Name"
-                    class="form-control"
+                    className="form-control"
                     style={{ outline: "none", boxShadow: "none" }}
                   />
                 </div>
-                <div class="mb-3">
+                <div className="mb-3">
                   <input
                     type="number"
                     placeholder="Phone Number"
-                    class="form-control"
+                    className="form-control"
                     style={{ outline: "none", boxShadow: "none" }}
                   />
                 </div>
-                <div class="mb-3">
+                <div className="mb-3">
                   <input
                     type="text"
                     placeholder="Country"
-                    class="form-control"
+                    className="form-control"
                     style={{ outline: "none", boxShadow: "none" }}
                   />
                 </div>
-                <div class="mb-3">
+                <div className="mb-3">
                   <textarea
                     type="text"
                     placeholder="Address"
-                    class="form-control"
+                    className="form-control"
                     style={{ outline: "none", boxShadow: "none" }}
                   />
                 </div>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" className="btn btn-primary">
                   Submit
                 </button>
               </form>
@@ -225,91 +260,65 @@ const Cart = () => {
           <div className="col-12 col-md-4 border border-1 rounded p-2">
             <h6 className="fw-bold">Shipping Method</h6>
             <div className="d-flex align-items-center mb-3">
-              <div class="form-check me-4">
+              <div className="form-check me-4">
                 <input
-                  class="form-check-input"
+                  className="form-check-input"
                   type="radio"
                   name="flexRadioDefault"
                   id="flexRadioDefault1"
                   checked={shippinhgMethod === "delivery"}
                   onChange={() => setShippinhgMethod("delivery")}
                 />
-                <label class="form-check-label" for="flexRadioDefault1">
+                <label className="form-check-label" for="flexRadioDefault1">
                   Delivery
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
-                  class="form-check-input"
+                  className="form-check-input"
                   type="radio"
                   name="flexRadioDefault"
                   id="flexRadioDefault2"
                   checked={shippinhgMethod === "pickup"}
                   onChange={() => setShippinhgMethod("pickup")}
                 />
-                <label class="form-check-label" for="flexRadioDefault2">
+                <label className="form-check-label" for="flexRadioDefault2">
                   Pickup
                 </label>
               </div>
             </div>
             {shippinhgMethod === "pickup" && (
               <div>
-                <div className="p-2 border border-1 rounded mb-2 d-flex align-items-start">
-                  <input
-                    type="radio"
-                    id="option1"
-                    name="pickupOption"
-                    value="option1"
-                    className="me-2"
-                  />
-                  <label
-                    htmlFor="option1"
-                    className="w-100 d-flex justify-content-between"
+                {pickupAddressOptions.map((option) => (
+                  <div
+                    key={option.id}
+                    className="p-2 border border-1 rounded mb-2 d-flex align-items-start"
                   >
-                    <div>
-                      <h6 className="fw-bold">Customer Pick UP Los Angeles</h6>
-                      <p className="mb-0">
-                        &nbsp;-&nbsp;Inland Valley Hope Partners
-                      </p>
-                      <p className="mb-0">
-                        &nbsp;-&nbsp;904 E. California Street
-                      </p>
-                      <p className="mb-0">&nbsp;-&nbsp;Ontario</p>
-                      <p className="mb-0">
-                        &nbsp;-&nbsp;Salvation Army - Bellflower Temple Corps
-                      </p>
-                    </div>
-                    <h6 className="fw-bold">$340</h6>
-                  </label>
-                </div>
-                <div className="p-2 border border-1 rounded mb-2 d-flex align-items-start">
-                  <input
-                    type="radio"
-                    id="option2"
-                    name="pickupOption"
-                    value="option2"
-                    className="me-2"
-                  />
-                  <label
-                    htmlFor="option2"
-                    className="w-100 d-flex justify-content-between"
-                  >
-                    <div>
-                      <h6 className="fw-bold">Fright Delivery</h6>
-                      <p className="mb-0">
-                        &nbsp;-&nbsp;Inland Valley Hope Partners
-                      </p>
-                      <p className="mb-0">
-                        &nbsp;-&nbsp;904 E. California Street
-                      </p>
-                      <p className="mb-0">&nbsp;-&nbsp;Ontario</p>
-                      <p className="mb-0">
-                        &nbsp;-&nbsp;Salvation Army - Bellflower Temple Corps
-                      </p>
-                    </div>
-                    <h6 className="fw-bold">$140</h6>
-                  </label>
-                </div>
+                    <input
+                      type="radio"
+                      id={option.id}
+                      name="pickupOption"
+                      value={option.id}
+                      className="me-2"
+                      checked={selectedOption === option.id}
+                      onChange={handleChange}
+                    />
+                    <label
+                      htmlFor={option.id}
+                      className="w-100 d-flex justify-content-between"
+                    >
+                      <div>
+                        <h6 className="fw-bold">{option.title}</h6>
+                        {option.description.map((line, index) => (
+                          <p key={index} className="mb-0">
+                            &nbsp;-&nbsp;{line}
+                          </p>
+                        ))}
+                      </div>
+                      {/* <h6 className="fw-bold">{option.price}</h6> */}
+                    </label>
+                  </div>
+                ))}
               </div>
             )}
             {shippinhgMethod === "delivery" && (
@@ -331,7 +340,7 @@ const Cart = () => {
                     <p className="mb-0">&nbsp;-&nbsp;Uttar Pradesh, India</p>
                     <p className="mb-0">&nbsp;-&nbsp;Metro 59</p>
                   </div>
-                  <h6 className="fw-bold">$240</h6>
+                  {/* <h6 className="fw-bold">$240</h6> */}
                 </label>
               </div>
             )}
@@ -346,9 +355,9 @@ const Cart = () => {
                 <p className="mb-0">
                   Rating: {getEstimation?.productDetails?.rating || "N/A"} / 5
                 </p>
-                <p className="mb-0">
+                {/* <p className="mb-0">
                   Review: {getEstimation?.productDetails?.review || "No review"}
-                </p>
+                </p> */}
               </div>
               <hr />
               <div className="d-flex justify-content-between">
@@ -521,7 +530,7 @@ const Cart = () => {
         </Box> */}
 
         <Box className="text-center mt-4">
-          <Link to="/customer-details">
+          <Link to="/checkout">
             <Button
               variant="contained"
               sx={{

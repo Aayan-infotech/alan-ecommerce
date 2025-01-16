@@ -30,7 +30,7 @@ const AccurateMeasurements = () => {
           {accurate_measurements.title}
         </Typography>
         <Grid container spacing={2}>
-        <Grid item xs={12}>
+          <Grid item xs={12}>
             <Box
               mt={2}
               display="flex"
@@ -57,8 +57,8 @@ const AccurateMeasurements = () => {
                 style={{
                   width: "100%",
                   maxWidth: "400px",
-                  height: "auto",
                 }}
+                height="300"
               />
             </Box>
           </Grid>
@@ -74,51 +74,41 @@ const AccurateMeasurements = () => {
               paddingX: { xs: 2, md: 0 },
             }}
           >
-            <Typography variant="body1" paragraph>
-              {accurate_measurements.description}
-            </Typography>
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: { xs: "center", md: "flex-start" },
-              paddingX: { xs: 2, md: 0 },
-            }}
-          >
-            <List
-              sx={{
-                listStyleType: "disc",
-                paddingLeft: { xs: 2, md: "20px" },
-                maxWidth: "500px",
-                width: "100%",
-              }}
-            >
-              {accurate_measurements.related_articles.diy_window_guides.map(
-                (guide, index) => (
-                  <ListItem
-                    key={index}
-                    sx={{
-                      display: "list-item",
-                      listStyleType: "disc",
-                      lineHeight: { xs: "1.5rem", md: "1.8rem" },
-                      fontWeight:"bold"
-                    }}
-                  >
-                    <Link
-                      to={guide?.path}
-                      underline="hover"
-                      className="text-decoration-none text-black"
+            <Box>
+              <Typography variant="body1" paragraph>
+                {accurate_measurements.description}
+              </Typography>
+              <List
+                sx={{
+                  listStyleType: "disc",
+                  paddingLeft: { xs: 2, md: "20px" },
+                  maxWidth: "500px",
+                  width: "100%",
+                }}
+              >
+                {accurate_measurements.related_articles.diy_window_guides.map(
+                  (guide, index) => (
+                    <ListItem
+                      key={index}
+                      sx={{
+                        display: "list-item",
+                        listStyleType: "disc",
+                        lineHeight: "0.8rem",
+                        fontWeight: "bold",
+                      }}
                     >
-                      {guide?.title}
-                    </Link>
-                  </ListItem>
-                )
-              )}
-            </List>
+                      <Link
+                        to={guide?.path}
+                        underline="hover"
+                        className="text-decoration-none text-black"
+                      >
+                        {guide?.title}
+                      </Link>
+                    </ListItem>
+                  )
+                )}
+              </List>
+            </Box>
           </Grid>
         </Grid>
       </Container>

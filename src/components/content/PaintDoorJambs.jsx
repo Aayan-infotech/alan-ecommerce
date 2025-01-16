@@ -84,7 +84,16 @@ const PaintDoorJambs = () => {
           </Typography>
           <List sx={{ listStyleType: "disc", pl: 4 }}>
             {doorContent.materials.map((material, index) => (
-              <ListItem key={index} sx={{ display: "list-item" }}>
+              <ListItem
+                key={index}
+                sx={{
+                  display: "list-item",
+                  lineHeight: "0.8rem",
+                  "@media (max-width: 768px)": {
+                    lineHeight: "1.2rem",
+                  },
+                }}
+              >
                 {material}
               </ListItem>
             ))}
@@ -94,47 +103,32 @@ const PaintDoorJambs = () => {
           <img src={jamb} alt="Door Jamb Guide" />
         </Grid>
 
-        <Grid item xs={12} className="mt-4">
-          {/* <Box className="d-flex justify-content-between align-items-center">
-            <Box>
-              <Typography
-                variant="h6"
-                gutterBottom
-                className="fw-bold"
-                sx={{ color: "#FC5F03" }}
-              >
-                Materials Required:
-              </Typography>
-              <List sx={{ listStyleType: "disc", pl: 4 }}>
-                {doorContent.materials.map((material, index) => (
-                  <ListItem key={index} sx={{ display: "list-item" }}>
-                    {material}
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
-            <Box>
-              <img src={jamb} alt="Door Jamb Guide" />
-            </Box>
-          </Box> */}
-
+        <Grid item xs={12}>
           <Typography
             variant="h5"
             gutterBottom
             className="fw-bold text-center"
-            mt={4}
             sx={{ color: "#FC5F03" }}
           >
             Instructions:
           </Typography>
           {doorContent.instructions.map((section, index) => (
-            <Box key={index} mt={2}>
+            <Box key={index}>
               <Typography variant="h6" gutterBottom>
                 {section.title}
               </Typography>
               <List sx={{ listStyleType: "decimal", pl: 4 }}>
                 {section.steps.map((step, idx) => (
-                  <ListItem key={idx} sx={{ display: "list-item" }}>
+                  <ListItem
+                    key={idx}
+                    sx={{
+                      display: "list-item",
+                      lineHeight: "0.8rem",
+                      "@media (max-width: 768px)": {
+                        lineHeight: "1.2rem",
+                      },
+                    }}
+                  >
                     {step}
                   </ListItem>
                 ))}
@@ -161,7 +155,7 @@ const PaintDoorJambs = () => {
               of acrylic latex paint with a 2- to 3-inch latex paintbrush.
             </Typography>
           </Box>
-          <Box mt={2}>
+          <Box>
             <Typography variant="body1" gutterBottom>
               Resources: <br />
               Popular Mechanics: 5 Pro Painting Tips Every Amateur Should Know

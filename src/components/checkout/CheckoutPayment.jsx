@@ -35,7 +35,7 @@ export const CheckoutPayment = () => {
 
   return (
     <div>
-      <Container sx={{ mt: 5 }}>
+      <Container sx={{ mt: 5, mb: 3 }}>
         <Typography variant="h3" align="center" className="fw-bold text-black">
           Checkout
         </Typography>

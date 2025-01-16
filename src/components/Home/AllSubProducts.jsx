@@ -149,11 +149,6 @@ const AllSubProducts = () => {
                       <p className="fw-bold mb-0">
                         {category?.name || "N/A"}
                       </p>
-                      <span>
-                        Sale:&nbsp;&nbsp;<h4 className="fw-bold text-danger d-inline">
-                          ${category?.price || "N/A"}
-                        </h4>
-                      </span>
                     </Box>
                   </Grid>
                 ))}

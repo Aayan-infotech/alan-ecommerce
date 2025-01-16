@@ -21,6 +21,7 @@ import axios from "axios";
 import Loader from "../../loader/Loader";
 import WindowContent from "./WindowContent";
 import No_Image_Available from "../../assets/No_Image_Available.jpg";
+import LinearProgress from '@mui/material/LinearProgress';
 
 const customStyles = {
   outline: "none",
@@ -42,6 +43,9 @@ const Window = () => {
   const [currentProductDetails, setCurrentProductDetails] = useState({});
   const [currentProductDimensions, setCurrentProductDimensions] =
     useState(null);
+  const [customPrice, setCustomPrice] = useState(null);
+  const [formError, setFormError] = useState(false);
+  const [isCalculating, setIsCalculating] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -93,16 +97,45 @@ const Window = () => {
     }
   }, [product_id]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const { name, value } = e.target;
     setCustomDimensions((prev) => ({
       ...prev,
       [name]: value,
     }));
+    if (name === "height" || name === "width") {
+      const { height, width } = { ...customDimensions, [name]: value };
+      if (height && width) {
+        setFormError(false);
+        setIsCalculating(true);
+        try {
+          const response = await axios.post(
+            "http://44.196.64.110:7878/api/prodFormula/calculateCustomHeightWidth",
+            {
+              width: parseFloat(width),
+              height: parseFloat(height),
+              Product_id: product_id,
+              Price: currentProductDetails?.product?.price || 0,
+            }
+          );
+          if (response?.data?.success) {
+            setCustomPrice(response.data.data.totalPrice);
+          } else {
+            setCustomPrice(null);
+          }
+        } catch (error) {
+          console.error("Error calculating custom price:", error);
+          setCustomPrice(null);
+        } finally {
+          setIsCalculating(false);
+        }
+      } else {
+        setFormError(true);
+      }
+    }
   };
 
   const handleSelectChange = (category, value, name) => {
-    console.log(name, "abimash");
     setSelectedOptions({
       ...selectedOptions,
       [category]: { value, name },
@@ -123,6 +156,9 @@ const Window = () => {
   const calculatePrice = () => {
     if (!currentProductDetails?.product) return 0;
     let price = currentProductDetails.product.price;
+    if (customPrice) {
+      price = customPrice;
+    }
     Object.keys(selectedOptions).forEach((category) => {
       const selectedOption = selectedOptions[category];
       if (currentProductDimensions && currentProductDimensions[category]) {
@@ -152,6 +188,10 @@ const Window = () => {
       totalPrice,
       currentProductDetails,
     };
+    localStorage.setItem(
+      "allSelectedOptionsDetails",
+      JSON.stringify(allSelectedOptionsDetails)
+    );
     navigate("/measured-windows", { state: allSelectedOptionsDetails });
   };
 
@@ -176,7 +216,7 @@ const Window = () => {
           >
             <Box>
               <Typography variant="h2" className="text-black fw-bold">
-                Window
+                Products
               </Typography>
               <Typography variant="h6" className="text-black fw-bold">
                 <span>
@@ -185,6 +225,7 @@ const Window = () => {
               </Typography>
             </Box>
           </Box>
+          {isCalculating && <LinearProgress sx={{ marginBottom: 2 }} />}
           <Container>
             <div className="row gy-3 gy-md-4 my-2">
               <div className="col-12 col-md-5">
@@ -289,38 +330,57 @@ const Window = () => {
                     </Typography>
                   </Box>
                 </div>
-                <div className="row ma-0 gy-3 mb-3">
-                  <div className="col-12 col-md-6">
-                    <label htmlFor="height" className="fw-bold mb-2">
-                      Height <span style={{ fontSize: "10px" }}>(inch)</span>
-                    </label>
-                    <input
-                      type="number"
-                      id="height"
-                      name="height"
-                      value={customDimensions.height}
-                      onChange={handleInputChange}
-                      className="form-control p-3"
-                      placeholder="Enter height"
-                      style={customStyles}
-                    />
+                {currentProductDetails?.product?.productFormulaAdded?.toLowerCase() !==
+                  "no" && (
+                  <div className="row ma-0 gy-3 mb-3">
+                    <div className="col-12 col-md-6">
+                      <label htmlFor="height" className="fw-bold mb-2">
+                        Height <span style={{ fontSize: "10px" }}>(inch)</span>
+                      </label>
+                      <input
+                        type="number"
+                        id="height"
+                        name="height"
+                        value={customDimensions.height}
+                        onChange={handleInputChange}
+                        className="form-control p-3"
+                        placeholder="Enter height"
+                        style={customStyles}
+                      />
+                      {formError && !customDimensions.height && (
+                        <Typography
+                          variant="body2"
+                          sx={{ color: "red", fontSize: "12px" }}
+                        >
+                          Height is required for price calculation.
+                        </Typography>
+                      )}
+                    </div>
+                    <div className="col-12 col-md-6">
+                      <label htmlFor="height" className="fw-bold mb-2">
+                        Width <span style={{ fontSize: "10px" }}>(inch)</span>
+                      </label>
+                      <input
+                        type="number"
+                        id="width"
+                        name="width"
+                        value={customDimensions.width}
+                        onChange={handleInputChange}
+                        className="form-control p-3"
+                        placeholder="Enter width"
+                        style={customStyles}
+                      />
+                      {formError && !customDimensions.width && (
+                        <Typography
+                          variant="body2"
+                          sx={{ color: "red", fontSize: "12px" }}
+                        >
+                          Width is required for price calculation.
+                        </Typography>
+                      )}
+                    </div>
                   </div>
-                  <div className="col-12 col-md-6">
-                    <label htmlFor="height" className="fw-bold mb-2">
-                      Width <span style={{ fontSize: "10px" }}>(inch)</span>
-                    </label>
-                    <input
-                      type="number"
-                      id="width"
-                      name="width"
-                      value={customDimensions.width}
-                      onChange={handleInputChange}
-                      className="form-control p-3"
-                      placeholder="Enter width"
-                      style={customStyles}
-                    />
-                  </div>
-                </div>
+                )}
                 <div className="row ma-0 gy-3">
                   {currentProductDimensions &&
                     Object.keys(currentProductDimensions).map((category) => (
@@ -346,7 +406,7 @@ const Window = () => {
                             )
                           }
                         >
-                          <option selected>
+                          <option>
                             Select{" "}
                             {category.charAt(0).toUpperCase() +
                               category
@@ -360,10 +420,13 @@ const Window = () => {
                           ))}
                         </select>
                         {category === "installation" && (
-                          <div className="mb-2 text-danger fw-bold">
+                          <Typography
+                            variant="body2"
+                            className="mb-2 text-danger fw-bold"
+                          >
                             Installation for San Diego. For installation in
                             other areas, please contact us.
-                          </div>
+                          </Typography>
                         )}
                       </div>
                     ))}

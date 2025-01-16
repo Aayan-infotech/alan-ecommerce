@@ -22,29 +22,12 @@ const Profile = () => {
     email: "",
     password: "",
     mobile_number: "",
-    // country_name: "",
     address: "",
     state: "",
     zipCode: "",
   });
 
   const [errors, setErrors] = useState({});
-
-  const countries = [
-    "United States",
-    "Canada",
-    "Mexico",
-    "United Kingdom",
-    "Germany",
-  ];
-
-  const handleSelectChange = (event) => {
-    const { name, value } = event.target;
-    setSelectedOptions((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -70,8 +53,8 @@ const Profile = () => {
       !/^\d{10}$/.test(selectedOptions.mobile_number)
     )
       newErrors.mobile_number = "Mobile number must be 10 digits";
-    // if (!selectedOptions.country_name) newErrors.country_name = "Country is required";
     if (!selectedOptions.address) newErrors.address = "Address is required";
+    if (!selectedOptions.password) newErrors.password = "Password is required";
     if (!selectedOptions.state) newErrors.state = "State is required";
     if (!selectedOptions.zipCode || !/^\d{5}$/.test(selectedOptions.zipCode))
       newErrors.zipCode = "Zip code must be 5 digits";
@@ -90,7 +73,6 @@ const Profile = () => {
         email: selectedOptions.email,
         password: selectedOptions.password,
         mobile_number: selectedOptions.mobile_number,
-        // country_name: selectedOptions.country_name,
         address: selectedOptions.address,
         state: selectedOptions.state,
         zipCode: selectedOptions.zipCode,
@@ -108,7 +90,6 @@ const Profile = () => {
           email: "",
           password: "",
           mobile_number: "",
-          // country_name: "",
           address: "",
           state: "",
           zipCode: "",
@@ -169,40 +150,6 @@ const Profile = () => {
                 )}
               </FormControl>
             </Box>
-            {/* <Box className="mb-3">
-              <InputLabel className="fw-bold text-black mb-2">
-                Country
-              </InputLabel>
-              <FormControl fullWidth error={Boolean(errors.country_name)}>
-                <Select
-                  name="country_name"
-                  value={selectedOptions.country_name}
-                  onChange={handleSelectChange}
-                  displayEmpty
-                  variant="outlined"
-                  sx={{
-                    backgroundColor: "#D0E5F4",
-                    borderRadius: "10px",
-                    border: "none",
-                    "& fieldset": { border: "none" },
-                  }}
-                >
-                  <MenuItem value="">
-                    <em>Select Country</em>
-                  </MenuItem>
-                  {countries.map((country, index) => (
-                    <MenuItem key={index} value={country}>
-                      {country}
-                    </MenuItem>
-                  ))}
-                </Select>
-                {errors.country && (
-                  <Typography color="error" variant="body2">
-                    {errors.country}
-                  </Typography>
-                )}
-              </FormControl>
-            </Box> */}
             <Box className="mb-3">
               <InputLabel className="fw-bold text-black mb-2">
                 Password
@@ -222,7 +169,7 @@ const Profile = () => {
                     "& fieldset": { border: "none" },
                   }}
                 />
-                {errors.email && (
+                {errors.password && (
                   <FormHelperText error>{errors.password}</FormHelperText>
                 )}
               </FormControl>

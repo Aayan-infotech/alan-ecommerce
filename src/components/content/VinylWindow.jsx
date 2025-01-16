@@ -48,7 +48,10 @@ const VinylWindow = () => {
               <Typography variant="h5" className="fw-bold">Required Tools:</Typography>
               <List sx={{ listStyleType: "disc", pl: 2 }}>
                 {vinyl_window.related_articles.diy_window_guides.map((guide, index) => (
-                  <ListItem key={index} sx={{ display: "list-item", lineHeight: "1.5" }}>
+                  <ListItem key={index} sx={{ display: "list-item", lineHeight: "0.8rem",
+                    "@media (max-width: 768px)": {
+                      lineHeight: "1.2rem",
+                    }, }}>
                     <Link href="#" underline="hover" color="inherit">
                       {guide}
                     </Link>
@@ -56,19 +59,22 @@ const VinylWindow = () => {
                 ))}
               </List>
             </Box>
-            <Box mb={2} className="p-4">
+            <Box mb={2} className="px-4">
               <img src={vinylwindow1} alt="Guide 2" height={300} />
             </Box>
           </Box>
         </Grid>
 
         <Grid item xs={12} md={8}>
-          <Box className="p-4" display="flex" flexDirection={{ xs: "column", md: "row" }} justifyContent="space-between">
+          <Box className="px-4" display="flex" flexDirection={{ xs: "column", md: "row" }} justifyContent="space-between">
             <Box mb={2}>
               <Typography variant="h5" className="fw-bold">May Also Need:</Typography>
               <List sx={{ listStyleType: "disc", pl: 2 }}>
                 {vinyl_window.related_articles.diy_door_guides.map((guide, index) => (
-                  <ListItem key={index} sx={{ display: "list-item", lineHeight: "1.5" }}>
+                  <ListItem key={index} sx={{ display: "list-item", lineHeight: "0.8rem",
+                    "@media (max-width: 768px)": {
+                      lineHeight: "1.2rem",
+                    }, }}>
                     <Link href="#" underline="hover" color="inherit">
                       {guide}
                     </Link>
@@ -80,7 +86,7 @@ const VinylWindow = () => {
         </Grid>
       </Grid>
       <Box>
-        <Box className="text-center mb-4">
+        <Box className="text-center mb-2">
           <Typography variant="h5" gutterBottom className="fw-bold">
             Installation Instructions
           </Typography>

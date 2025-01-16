@@ -88,6 +88,7 @@ const RightForMe = () => {
                         display: "list-item",
                         listStyleType: "disc",
                         lineHeight: "0.8rem",
+                        fontWeight:"bold"
                       }}
                     >
                       <Link
@@ -128,6 +129,7 @@ const RightForMe = () => {
                         display: "list-item",
                         listStyleType: "disc",
                         lineHeight: "0.8rem",
+                        fontWeight:"bold",
                       }}
                     >
                       <Link

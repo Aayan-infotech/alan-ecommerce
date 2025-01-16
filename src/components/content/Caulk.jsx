@@ -8,11 +8,7 @@ import {
     ListItem,
     Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import caulk from "../../assets/caulk.png";
-import card_img1 from "../../assets/whatsrightforme1.png";
-import card_img2 from "../../assets/whatsrightforme2.png";
-
 const Caulk = () => {
     const { caulk_guides } = content;
 
@@ -32,7 +28,6 @@ const Caulk = () => {
                 </Typography>
 
                 <Grid container spacing={2}>
-                    {/* Image Section */}
                     <Grid item xs={12} md={6}>
                         <Box
                             display="flex"
@@ -41,8 +36,6 @@ const Caulk = () => {
                             <img src={caulk} alt="Caulking Guide" className="w-100" />
                         </Box>
                     </Grid>
-
-                    {/* Introduction Section */}
                     <Grid
                         item
                         xs={12}
@@ -57,8 +50,6 @@ const Caulk = () => {
                             {caulk_guides.introduction}
                         </Typography>
                     </Grid>
-
-                    {/* Recommendation Section */}
                     <Grid item xs={12}>
                         <Box>
                             <Typography variant="body1">
@@ -96,7 +87,7 @@ const Caulk = () => {
                                         justifyContent: { xs: "center", md: "flex-start" },
                                     }}
                                 >
-                                    <img src={sealant.image} alt={`${sealant.type} image`} />
+                                    <img src={sealant?.image} alt={`${sealant?.type} image`} />
                                 </Box>
                             </Box>
                         ))}

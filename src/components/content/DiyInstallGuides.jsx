@@ -31,13 +31,14 @@ const DiyInstallGuides = () => {
           <p className="mb-0">{diy_install_guides.description_guide1}</p>
         </Grid>
 
-        <Grid item xs={12} md={8} className="d-flex align-items-center">
+        <Grid item xs={12} md={10} className="my-4">
           <p className="mb-0">{diy_install_guides.description_guide}</p>
         </Grid>
-        <Grid item xs={12} md={4} className="d-flex justify-content-center">
+        <Grid item xs={12} md={2} className="d-flex justify-content-center">
           <img
             src={card_img2}
             alt="Guide 2"
+            height="100"
             sx={{ width: { xs: "100%", md: "100%", objectFit: "contain" } }}
           />
         </Grid>
@@ -58,7 +59,15 @@ const DiyInstallGuides = () => {
                   (guide, index) => (
                     <ListItem
                       key={index}
-                      sx={{ display: "list-item", lineHeight: "1.5",lineHeight: "0.8rem", }}
+                      sx={{
+                        display: "list-item",
+                        lineHeight: "1.5",
+                        lineHeight: "0.8rem",
+                        "@media (max-width: 768px)": {
+                          lineHeight: "1.2rem",
+                        },
+                        fontWeight: "bold",
+                      }}
                     >
                       <Link
                         to={guide?.path}
@@ -73,7 +82,7 @@ const DiyInstallGuides = () => {
               </List>
             </Box>
             <Box>
-              <Typography variant="h5" className="fw-bold">
+              <Typography variant="h5" className="fw-bold" gutterBottom>
                 DIY Window Guides:
               </Typography>
               <Typography variant="subtitle1">Related Articles:</Typography>
@@ -82,7 +91,15 @@ const DiyInstallGuides = () => {
                   (guide, index) => (
                     <ListItem
                       key={index}
-                      sx={{ display: "list-item", lineHeight: "1.5",lineHeight: "0.8rem", }}
+                      sx={{
+                        display: "list-item",
+                        lineHeight: "1.5",
+                        lineHeight: "0.8rem",
+                        "@media (max-width: 768px)": {
+                          lineHeight: "1.2rem",
+                        },
+                        fontWeight: "bold",
+                      }}
                     >
                       <Link
                         to={guide?.path}

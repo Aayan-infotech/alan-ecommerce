@@ -12,10 +12,9 @@ import { Button } from "@mui/material";
 import howtopaintsmoothskindoor from "../../assets/howtopaintsmoothskindoor.png";
 
 const InstallInswingEntryDoor = () => {
-  const skindoor = [];
 
   return (
-    <Container className="mt-5">
+    <Container className="mt-5 mb-4">
       <Typography variant="h4" component="h1" className="fw-bold mb-4">
         How to use Shims on an entry door
       </Typography>
