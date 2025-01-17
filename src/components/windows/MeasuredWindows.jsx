@@ -18,7 +18,6 @@ import Cookies from "js-cookie";
 
 export const MeasuredWindows = () => {
   const [isNotLoggedIn, setisNotLoggedIn] = useState(false);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
   const [storedData, setStoredData] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,7 +31,7 @@ export const MeasuredWindows = () => {
     }
   }, []);
 
-  const isLoggedIn = Cookies.get("isLoggedIn");
+const isLoggedIn = Cookies.get("authToken") && Cookies.get("userLoggedInId");
 
   const handleToProceedCart = () => {
     if (isLoggedIn) {

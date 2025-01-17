@@ -21,7 +21,10 @@ import axios from "axios";
 import Loader from "../../loader/Loader";
 import WindowContent from "./WindowContent";
 import No_Image_Available from "../../assets/No_Image_Available.jpg";
-import LinearProgress from '@mui/material/LinearProgress';
+import LinearProgress from "@mui/material/LinearProgress";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useDispatch } from "react-redux";
+import { addtocartproduct } from "../redux/slices/addToCartSlice";
 
 const customStyles = {
   outline: "none",
@@ -46,10 +49,12 @@ const Window = () => {
   const [customPrice, setCustomPrice] = useState(null);
   const [formError, setFormError] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
+  const [btnLoader, setBtnLoader] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
   const { product_id } = useParams();
+  const dispatch = useDispatch();
 
   const formatPath = (path) => {
     return path
@@ -192,7 +197,32 @@ const Window = () => {
       "allSelectedOptionsDetails",
       JSON.stringify(allSelectedOptionsDetails)
     );
+    console.log(allSelectedOptionsDetails, "allSelectedOptionsDetails");
     navigate("/measured-windows", { state: allSelectedOptionsDetails });
+  };
+
+  const handleToProceedAddToCart = async () => {
+    setBtnLoader(true);
+    const totalPrice = calculatePrice();
+    const userId = "67889fed49175102813655b8";
+    const productDetails = {
+      totalPrice,
+      product_price: currentProductDetails?.product?.price || 0,
+      name: currentProductDetails?.product?.name || "",
+      sku: currentProductDetails?.product?.sku || "",
+      images: currentProductDetails?.product?.images || [],
+      selectedOptions,
+      customDimensions,
+    };
+    try {
+      await dispatch(addtocartproduct({ userId, productDetails }));
+      alert("Item added to cart successfully!");
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("Failed to add item to cart.");
+    } finally {
+      setBtnLoader(false);
+    }
   };
 
   return (
@@ -440,7 +470,27 @@ const Window = () => {
                 size="large"
                 sx={{ textTransform: "none" }}
               >
-                Proceed <ArrowForwardIcon />
+                Proceed&nbsp;&nbsp; <ArrowForwardIcon className="fs-5"/>
+              </Button>
+              &nbsp;&nbsp;&nbsp;
+              <span> Or </span>&nbsp;&nbsp;&nbsp;
+              <Button
+                variant="contained"
+                size="large"
+                onClick={handleToProceedAddToCart}
+                sx={{ textTransform: "none" }}
+              >
+                {btnLoader ? (
+                  <span>Adding...</span>
+                ) : (
+                  <span>
+                    Add To Cart&nbsp;&nbsp;
+                    <ShoppingCartIcon
+                      className="fs-5"
+                      style={{ marginLeft: "8px" }}
+                    />
+                  </span>
+                )}
               </Button>
             </Box>
           </Container>

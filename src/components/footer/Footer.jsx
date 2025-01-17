@@ -29,11 +29,6 @@ export const Footer = () => {
       { name: "Shopping Cart", path: "/cart" },
       { name: "Door Hardware", path: "/hardware-products" },
       { name: "Right For Me", path: "/rightfor-me" },
-      // { name: "Get Tax Rebate!", path: "/tax-rebate" },
-      // { name: "Gallery", path: "/gallery" },
-      // { name: "Replacement Windows", path: "/replacement-windows" },
-      // { name: "Our Vinyl Products", path: "/ourvinylproducts" },
-      // { name: "Dentil Shelfc", path: "/dentil-shelfc" },
     ],
     help: [
       { name: "Payment Options", path: "/payment-options" },

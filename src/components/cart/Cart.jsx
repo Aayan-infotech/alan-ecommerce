@@ -5,22 +5,15 @@ import {
   Grid,
   Typography,
   Box,
-  Card,
-  CardMedia,
-  CardContent,
   IconButton,
-  TextField,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import banner from "../../assets/doors.png";
 import card_img1 from "../../assets/window.png";
-import productdelivery from "../../assets/product-delivery-icon.png";
-import truckicon from "../../assets/truck-icon.png";
-import Vector from "../../assets/Vector.png";
 import { Link, useLocation } from "react-router-dom";
-import { CouponDetails } from "./CouponDetails";
+import ModeIcon from "@mui/icons-material/Mode";
 
 const pickupAddressOptions = [
   {
@@ -55,10 +48,27 @@ const pickupAddressOptions = [
 const Cart = () => {
   const location = useLocation();
   const [quantity, setQuantity] = useState(1);
-  const [showCouponDetails, setShowCouponDetails] = useState(false);
   const [shippinhgMethod, setShippinhgMethod] = useState("delivery");
   const [selectedOption, setSelectedOption] = useState("");
+  const [billingDetails, setBillingDetails] = useState({
+    firstName: "",
+    lastName: "",
+    companyName: "",
+    phoneNumber: "",
+    address: "",
+  });
   const { price, selectedImage, getEstimation } = location.state || {};
+
+  console.log(getEstimation, "getEstimation");
+  const [storedData, setStoredData] = useState(null);
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("allSelectedOptionsDetails");
+    console.log(storedData, "storedData");
+    if (storedData) {
+      setStoredData(JSON.parse(storedData));
+    }
+  }, []);
 
   const handleQuantityChange = (operation) => {
     setQuantity((prevQuantity) =>
@@ -82,12 +92,26 @@ const Cart = () => {
       .join(" > ");
   };
 
-  const handleCheckoutClick = () => {
-    setShowCouponDetails(true);
-  };
-
   const handleChange = (e) => {
     setSelectedOption(e.target.value);
+  };
+
+  const handleEditCustomerAddress = () => {
+    setBillingDetails({
+      firstName: "Abinash",
+      lastName: "Sinha",
+      companyName: "Discount Doors",
+      phoneNumber: "9876543210",
+      address: "Noida Sector 66, Uttar Pradesh, India",
+    });
+  };
+
+  const handleBillingChange = (e) => {
+    const { name, value } = e.target;
+    setBillingDetails((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return (
@@ -131,7 +155,7 @@ const Cart = () => {
                   />
                   <div>
                     <p className="mb-0">
-                      {getEstimation?.productDetails?.productName ||
+                      {storedData?.currentProductDetails?.product?.name ||
                         "Product Name"}
                     </p>
                   </div>
@@ -140,7 +164,10 @@ const Cart = () => {
 
               <div className="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
                 <div className="text-start text-md-center">
-                  Price:&nbsp;<span style={{ color: "gray" }}>${price}</span>
+                  Price:&nbsp;
+                  <span>
+                    ${storedData?.currentProductDetails?.product?.price}
+                  </span>
                 </div>
               </div>
 
@@ -171,24 +198,9 @@ const Cart = () => {
               <div className="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
                 <div className="text-start text-md-center">
                   Subtotal:&nbsp;
-                  <span style={{ color: "gray" }}>${price * quantity}</span>
+                  <span>${storedData?.totalPrice * quantity}</span>
                 </div>
               </div>
-
-              <div className="col-6 col-sm-4 col-md-1 d-flex justify-content-center">
-                <Button
-                  variant="outlined"
-                  sx={{
-                    borderColor: "black",
-                    color: "black",
-                    textTransform: "none",
-                  }}
-                  className="rounded-3"
-                >
-                  See
-                </Button>
-              </div>
-
               <div className="col-6 col-sm-4 col-md-1 d-flex justify-content-center">
                 <IconButton color="primary">
                   <DeleteIcon />
@@ -206,7 +218,10 @@ const Cart = () => {
                 <div className="mb-3">
                   <input
                     type="text"
+                    name="firstName"
                     placeholder="First Name"
+                    value={billingDetails.firstName}
+                    onChange={handleBillingChange}
                     className="form-control"
                     style={{ outline: "none", boxShadow: "none" }}
                   />
@@ -214,7 +229,10 @@ const Cart = () => {
                 <div className="mb-3">
                   <input
                     type="text"
+                    name="lastName"
                     placeholder="Last Name"
+                    value={billingDetails.lastName}
+                    onChange={handleBillingChange}
                     className="form-control"
                     style={{ outline: "none", boxShadow: "none" }}
                   />
@@ -222,7 +240,10 @@ const Cart = () => {
                 <div className="mb-3">
                   <input
                     type="text"
+                    name="companyName"
                     placeholder="Company Name"
+                    value={billingDetails.companyName}
+                    onChange={handleBillingChange}
                     className="form-control"
                     style={{ outline: "none", boxShadow: "none" }}
                   />
@@ -230,15 +251,10 @@ const Cart = () => {
                 <div className="mb-3">
                   <input
                     type="number"
+                    name="phoneNumber"
                     placeholder="Phone Number"
-                    className="form-control"
-                    style={{ outline: "none", boxShadow: "none" }}
-                  />
-                </div>
-                <div className="mb-3">
-                  <input
-                    type="text"
-                    placeholder="Country"
+                    value={billingDetails.phoneNumber}
+                    onChange={handleBillingChange}
                     className="form-control"
                     style={{ outline: "none", boxShadow: "none" }}
                   />
@@ -246,13 +262,16 @@ const Cart = () => {
                 <div className="mb-3">
                   <textarea
                     type="text"
+                    name="address"
                     placeholder="Address"
+                    value={billingDetails.address}
+                    onChange={handleBillingChange}
                     className="form-control"
                     style={{ outline: "none", boxShadow: "none" }}
                   />
                 </div>
                 <button type="submit" className="btn btn-primary">
-                  Submit
+                  Update
                 </button>
               </form>
             </div>
@@ -315,7 +334,7 @@ const Cart = () => {
                           </p>
                         ))}
                       </div>
-                      {/* <h6 className="fw-bold">{option.price}</h6> */}
+                      <h6 className="fw-bold">{option.price}</h6>
                     </label>
                   </div>
                 ))}
@@ -339,8 +358,17 @@ const Cart = () => {
                     <p className="mb-0">&nbsp;-&nbsp;Abinash Sinha</p>
                     <p className="mb-0">&nbsp;-&nbsp;Uttar Pradesh, India</p>
                     <p className="mb-0">&nbsp;-&nbsp;Metro 59</p>
+                    <p className="mb-0">&nbsp;-&nbsp;Discount Doors</p>
+                    <p className="mb-0">&nbsp;-&nbsp;Los Angeles</p>
                   </div>
-                  {/* <h6 className="fw-bold">$240</h6> */}
+                  <h6 className="fw-bold">$240</h6>
+                  <IconButton
+                    onClick={handleEditCustomerAddress}
+                    variant="outlined"
+                    sx={{ height: "40px", width: "40px" }}
+                  >
+                    <ModeIcon color="primary" />
+                  </IconButton>
                 </label>
               </div>
             )}
@@ -348,14 +376,18 @@ const Cart = () => {
           <div className="col-12 col-md-4 mt-3">
             <div className="p-2 border border-1 rounded">
               <h6 className="fw-bold">Product Details</h6>
-              <div>
-                <h6 className="fw-bold">
-                  {getEstimation?.productDetails?.productName || "Product Name"}
-                </h6>
-                <p className="mb-0">
-                  Rating: {getEstimation?.productDetails?.rating || "N/A"} / 5
-                </p>
-              </div>
+              {storedData?.selectedOptions &&
+                Object.entries(storedData.selectedOptions).map(
+                  ([key, option]) => (
+                    <div
+                      key={key}
+                      className="d-flex justify-content-between align-items-center mb-2"
+                    >
+                      <h6 className="fw-bold">{key}</h6>
+                      <p className="mb-0">{option.name}</p>
+                    </div>
+                  )
+                )}
               <hr />
               <div className="d-flex justify-content-between">
                 <span>Price</span>
@@ -367,164 +399,17 @@ const Cart = () => {
               </div>
               <div className="d-flex justify-content-between">
                 <span>Subtotal</span>
-                <span>${(price * quantity).toFixed(2)}</span>
+                <span>${(storedData?.totalPrice * quantity).toFixed(2)}</span>
               </div>
               <div className="d-flex justify-content-between fw-bold">
                 <span>Total</span>
-                <span>${(price * quantity).toFixed(2)}</span>
+                <span>
+                  ${(storedData?.totalPricee * quantity).toFixed(2)}
+                </span>
               </div>
             </div>
           </div>
         </div>
-
-        {/* <Box sx={{ p: 1 }}>
-          {showCouponDetails ? (
-            <CouponDetails />
-          ) : (
-            <Grid container spacing={4}>
-              <Grid item xs={12} md={4}>
-                <Box sx={{ mb: 3 }}>
-                  <Card
-                    className="shadow"
-                    sx={{
-                      bgcolor: "#FC5F03",
-                      color: "white",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      p: 2,
-                    }}
-                  >
-                    <img
-                      src={truckicon}
-                      alt="df"
-                      height={40}
-                      className="me-4"
-                    />
-                    <CardContent sx={{ padding: "0 !important" }}>
-                      <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                        Delivery
-                      </Typography>
-                      <Typography>Available</Typography>
-                    </CardContent>
-                  </Card>
-                </Box>
-
-                <Card
-                  variant="outlined"
-                  className="shadow"
-                  sx={{
-                    display: "flex",
-                    border: "none",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    p: 4,
-                  }}
-                >
-                  <img
-                    src={productdelivery}
-                    alt="df"
-                    height={40}
-                    className="me-4"
-                  />
-                  <CardContent sx={{ padding: "0 !important" }}>
-                    <Typography
-                      variant="h6"
-                      color="primary"
-                      sx={{ fontWeight: "bold" }}
-                    >
-                      Pickup
-                    </Typography>
-                    <Typography color="error">Available</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-
-              <Grid
-                item
-                xs={12}
-                md={8}
-                sx={{ display: "flex", alignItems: "center" }}
-              >
-                <Card
-                  variant="outlined"
-                  sx={{
-                    p: { xs: 2, md: 4 },
-                    boxShadow: 3,
-                    borderRadius: 2,
-                    height: { xs: "auto", md: 200 },
-                    display: "flex",
-                    flexDirection: { xs: "column", md: "row" },
-                  }}
-                >
-                  <Grid container spacing={2} alignItems="center">
-                    <Grid
-                      item
-                      xs={12}
-                      md={2}
-                      sx={{
-                        display: "flex",
-                        justifyContent: { xs: "flex-start", md: "center" },
-                        mb: { xs: 2, md: 0 },
-                      }}
-                    >
-                      <img
-                        src={Vector}
-                        alt="Truck Icon"
-                        height={40}
-                        className="me-4"
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={10}>
-                      <Box>
-                        <Grid container spacing={2}>
-                          <Grid item xs={4}>
-                            <Typography sx={{ fontWeight: "bold" }}>
-                              Address:
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={8}>
-                            <TextField
-                              fullWidth
-                              placeholder="Enter Your Address"
-                              variant="outlined"
-                              sx={{
-                                borderRadius: 1,
-                                "& .MuiOutlinedInput-notchedOutline": {
-                                  border: "none",
-                                },
-                                padding: "4px 10px",
-                              }}
-                            />
-                          </Grid>
-                          <Grid item xs={4}>
-                            <Typography sx={{ fontWeight: "bold" }}>
-                              Zip Code:
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={8}>
-                            <TextField
-                              fullWidth
-                              placeholder="Enter Zip code"
-                              variant="outlined"
-                              sx={{
-                                borderRadius: 1,
-                                "& .MuiOutlinedInput-notchedOutline": {
-                                  border: "none",
-                                },
-                                padding: "4px 10px",
-                              }}
-                            />
-                          </Grid>
-                        </Grid>
-                      </Box>
-                    </Grid>
-                  </Grid>
-                </Card>
-              </Grid>
-            </Grid>
-          )}
-        </Box> */}
 
         <Box className="text-center mt-4">
           <Link to="/checkout">
@@ -538,7 +423,6 @@ const Cart = () => {
                 width: "150px",
               }}
               className="rounded-3 fw-bold"
-              onClick={handleCheckoutClick}
             >
               Check Out
             </Button>

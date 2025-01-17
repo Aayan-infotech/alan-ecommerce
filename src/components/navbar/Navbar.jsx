@@ -31,10 +31,8 @@ const Navbar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const isLoggedIn = Cookies.get("isLoggedIn");
-
-  const categoryId = localStorage.getItem("windowCategoryId");
   const navigate = useNavigate();
+  const isLoggedIn = Cookies.get("authToken") && Cookies.get("userLoggedInId");
 
   const fetchExploreCategories = async () => {
     try {
@@ -144,10 +142,6 @@ const Navbar = () => {
               >
                 <MenuItem>New Collection</MenuItem>
               </Link>
-              {/* <Box className="ms-2">
-              <Button variant="contained" size="small" className="me-2"> Small </Button>
-              <Button variant="contained" size="small"> Small </Button>
-              </Box> */}
             </Menu>
           </>
         )}
@@ -221,8 +215,10 @@ const Navbar = () => {
                 >
                   <FavoriteBorderIcon sx={{ color: "#fc5f03" }} />
                 </IconButton>
-                <Link to="/customer-register">
+                <div className="dropdown">
                   <IconButton
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
                     color="inherit"
                     sx={{
                       "&:hover": {
@@ -232,7 +228,19 @@ const Navbar = () => {
                   >
                     <AccountCircleIcon sx={{ color: "#fc5f03" }} />
                   </IconButton>
-                </Link>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <button className="dropdown-item" type="button">
+                        My Orders
+                      </button>
+                      <Link to="/user-details" className="text-decoration-none">
+                        <button className="dropdown-item" type="button">
+                          My Account
+                        </button>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
                 <Link to="/cart">
                   <IconButton
                     color="inherit"

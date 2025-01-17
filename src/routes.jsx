@@ -68,14 +68,24 @@ import SubDoorsCategory from "./components/doors/SubDoorsCategory.jsx";
 import SubSubCategories from "./components/Home/SubSubCategories.jsx";
 import AllSubProducts from "./components/Home/AllSubProducts.jsx";
 import Cookies from "js-cookie";
+import { UserDetails } from "./components/login/UserDetails.jsx";
 
 export const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const loggedIn = Cookies.get("isLoggedIn");
-    setIsLoggedIn(!!loggedIn);
+    const authToken = Cookies.get("authToken");
+    const userLoggedInId = Cookies.get("userLoggedInId");
+
+    if (authToken && userLoggedInId) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+
+    setIsCheckingAuth(false);
   }, []);
 
   useEffect(() => {
@@ -86,10 +96,19 @@ export const AppRoutes = () => {
       "/order-track",
       "/traking-order",
     ];
-    if (protectedRoutes.includes(currentPath) && !isLoggedIn) {
+
+    if (
+      !isCheckingAuth &&
+      protectedRoutes.includes(currentPath) &&
+      !isLoggedIn
+    ) {
       navigate("/login");
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, isCheckingAuth, navigate]);
+
+  if (isCheckingAuth) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -97,6 +116,7 @@ export const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/user-details" element={<UserDetails />} />
         <Route path="subDoorsCategory" element={<SubDoorsCategory />} />
         <Route path="doorscategorytypes" element={<DoorsCategoryTypes />} />
         <Route path="doors" element={<Doors />} />

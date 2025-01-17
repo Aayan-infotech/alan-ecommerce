@@ -8,14 +8,13 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { showErrorToast, showSuccessToast } from "../toastMessage/Toast";
 import Cookies from "js-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../redux/slices/userLoginSlice";
 
 export const Login = () => {
-  const [btnLoader, setBtnLoader] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [formData, setFormData] = useState({
@@ -23,6 +22,12 @@ export const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // Get loading, error, and message from Redux state
+  const { loading, error, message, loginDetails } = useSelector(
+    (state) => state.user_login
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,36 +37,19 @@ export const Login = () => {
     });
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    setBtnLoader(true);
-    try {
-      const response = await axios.post(
-        "http://44.196.64.110:7878/api/CustMng/login",
-        {
-          email: formData.email,
-          password: formData.password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (response?.status === 200 && response?.data?.success) {
-        setSnackbarMessage(response?.data?.message || "Login successful");
+    dispatch(userLogin(formData)).then((action) => {
+      if (userLogin.fulfilled.match(action)) {
         setOpenSnackbar(true);
-        Cookies.set("isLoggedIn", "true");
-        Cookies.set("user", JSON.stringify(response?.data?.customer));
-        navigate("/measured-windows");
+        Cookies.set("userLoggedInId", action.payload.customerId);
+        Cookies.set("authToken", action.payload.token);
+        navigate("/");
+      } else if (userLogin.rejected.match(action)) {
+        setSnackbarMessage(action.payload || "Login failed");
+        setOpenSnackbar(true);
       }
-    } catch (error) {
-      const errorMessage = error?.response?.data?.message || "Login failed";
-      setSnackbarMessage(errorMessage);
-      setOpenSnackbar(true);
-    } finally {
-      setBtnLoader(false);
-    }
+    });
   };
 
   const handleCloseSnackbar = () => {
@@ -151,15 +139,9 @@ export const Login = () => {
                 fontWeight: "bold",
               }}
               onClick={handleLogin}
+              disabled={loading} // Disable the button when loading is true
             >
-              {btnLoader ? (
-                <span>
-                  <i className="fa-solid fa-spinner"></i>
-                  Logging...
-                </span>
-              ) : (
-                "Login"
-              )}
+              {loading ? <span>Logging...</span> : "Login"}
             </Button>
             <Typography variant="body1" className="mt-2">
               Doesn't have an account?&nbsp;
