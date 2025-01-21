@@ -7,12 +7,14 @@ import {
   Typography,
   Snackbar,
   Alert,
+  IconButton,
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../redux/slices/userLoginSlice";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export const Login = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -21,10 +23,10 @@ export const Login = () => {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Get loading, error, and message from Redux state
   const { loading, error, message, loginDetails } = useSelector(
     (state) => state.user_login
   );
@@ -43,7 +45,7 @@ export const Login = () => {
       if (userLogin.fulfilled.match(action)) {
         setOpenSnackbar(true);
         Cookies.set("userLoggedInId", action.payload.customerId);
-        Cookies.set("authToken", action.payload.token);
+        Cookies.set("alanAuthToken", action.payload.token);
         navigate("/");
       } else if (userLogin.rejected.match(action)) {
         setSnackbarMessage(action.payload || "Login failed");
@@ -54,6 +56,10 @@ export const Login = () => {
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
   };
 
   return (
@@ -110,7 +116,7 @@ export const Login = () => {
             </InputLabel>
             <TextField
               id="outlined-basic"
-              type="password"
+              type={showPassword ? "text" : "password"}
               variant="outlined"
               placeholder="Enter Password"
               name="password"
@@ -124,6 +130,20 @@ export const Login = () => {
                 "& fieldset": {
                   border: "none",
                 },
+              }}
+              InputProps={{
+                endAdornment: (
+                  <IconButton
+                    onClick={togglePasswordVisibility}
+                    sx={{ cursor: "pointer" }}
+                  >
+                    {showPassword ? (
+                      <VisibilityOff sx={{ color: "black" }} />
+                    ) : (
+                      <Visibility sx={{ color: "black" }} />
+                    )}
+                  </IconButton>
+                ),
               }}
             />
           </Box>

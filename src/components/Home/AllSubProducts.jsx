@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Typography, Box } from "@mui/material";
+import { Container, Grid, Typography, Box, TextField, InputAdornment } from "@mui/material";
 import banner from "../../assets/doors.png";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import No_Image_Available from "../../assets/No_Image_Available.jpg";
 import Loader from "../../loader/Loader";
+import SearchIcon from "@mui/icons-material/Search";
 
 const AllSubProducts = () => {
   const [subsubCategories, setSubsubCategories] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const { products_id } = useParams();
-  const { subCategory_id } = useParams();
   const location = useLocation();
   const { categorydetails } = location.state || {};
 
@@ -110,6 +110,20 @@ const AllSubProducts = () => {
             </Box>
           </Box>
           <Container sx={{ mt: 4 }}>
+            <Box className="text-end mb-3">
+              <TextField
+                id="outlined-basic"
+                variant="outlined"
+                placeholder="Search Product Name"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Box>
             {errorMessage ? (
               <Typography
                 variant="h6"
@@ -146,9 +160,7 @@ const AllSubProducts = () => {
                           objectFit: "contain",
                         }}
                       />
-                      <p className="fw-bold mb-0">
-                        {category?.name || "N/A"}
-                      </p>
+                      <p className="fw-bold mb-0">{category?.name || "N/A"}</p>
                     </Box>
                   </Grid>
                 ))}

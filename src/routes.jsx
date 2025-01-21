@@ -76,19 +76,26 @@ export const AppRoutes = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const authToken = Cookies.get("authToken");
+    const alanAuthToken = Cookies.get("alanAuthToken");
     const userLoggedInId = Cookies.get("userLoggedInId");
 
-    if (authToken && userLoggedInId) {
+    if (alanAuthToken && userLoggedInId) {
       setIsLoggedIn(true);
+      localStorage.setItem("isLoggedIn", "true"); 
     } else {
       setIsLoggedIn(false);
+      localStorage.removeItem("isLoggedIn");
     }
 
-    setIsCheckingAuth(false);
+    setIsCheckingAuth(false); 
   }, []);
 
   useEffect(() => {
+    const loginStatus = localStorage.getItem("isLoggedIn");
+
+    if (loginStatus === "true") {
+      setIsLoggedIn(true);
+    }
     const currentPath = window.location.pathname;
     const protectedRoutes = [
       "/cart",

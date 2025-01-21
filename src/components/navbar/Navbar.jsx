@@ -23,6 +23,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -30,9 +31,12 @@ const Navbar = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const { products } = useSelector((state) => state.cart);
+  const productCount = products?.orders ? products.orders.length : 0;
 
   const navigate = useNavigate();
-  const isLoggedIn = Cookies.get("authToken") && Cookies.get("userLoggedInId");
+  const isLoggedIn =
+    Cookies.get("alanAuthToken") && Cookies.get("userLoggedInId");
 
   const fetchExploreCategories = async () => {
     try {
@@ -251,7 +255,7 @@ const Navbar = () => {
                       },
                     }}
                   >
-                    <Badge badgeContent={4} color="primary">
+                    <Badge badgeContent={productCount} color="primary">
                       <ShoppingCartIcon sx={{ color: "#fc5f03" }} />
                     </Badge>
                   </IconButton>

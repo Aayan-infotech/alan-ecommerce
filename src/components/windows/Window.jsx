@@ -25,6 +25,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useDispatch } from "react-redux";
 import { addtocartproduct } from "../redux/slices/addToCartSlice";
+import Cookies from "js-cookie";
 
 const customStyles = {
   outline: "none",
@@ -55,6 +56,7 @@ const Window = () => {
   const navigate = useNavigate();
   const { product_id } = useParams();
   const dispatch = useDispatch();
+  const userLoggedInId = Cookies.get("userLoggedInId");
 
   const formatPath = (path) => {
     return path
@@ -84,6 +86,7 @@ const Window = () => {
       const response = await axios.get(
         `http://44.196.64.110:7878/api/dims/ProductID/${product_id}`
       );
+      console.log(response?.data?.data, 'response?.dataddd')
       if (response?.data?.success) {
         setSelectedImage(response.data.data?.product?.images[0]);
         setCurrentProductDetails(response.data.data);
@@ -204,9 +207,9 @@ const Window = () => {
   const handleToProceedAddToCart = async () => {
     setBtnLoader(true);
     const totalPrice = calculatePrice();
-    const userId = "67889fed49175102813655b8";
     const productDetails = {
       totalPrice,
+      _id: currentProductDetails.product._id,
       product_price: currentProductDetails?.product?.price || 0,
       name: currentProductDetails?.product?.name || "",
       sku: currentProductDetails?.product?.sku || "",
@@ -215,7 +218,7 @@ const Window = () => {
       customDimensions,
     };
     try {
-      await dispatch(addtocartproduct({ userId, productDetails }));
+      await dispatch(addtocartproduct({ userId: userLoggedInId, productDetails }));
       alert("Item added to cart successfully!");
     } catch (error) {
       console.error("Error adding to cart:", error);
@@ -470,7 +473,7 @@ const Window = () => {
                 size="large"
                 sx={{ textTransform: "none" }}
               >
-                Proceed&nbsp;&nbsp; <ArrowForwardIcon className="fs-5"/>
+                Proceed&nbsp;&nbsp; <ArrowForwardIcon className="fs-5" />
               </Button>
               &nbsp;&nbsp;&nbsp;
               <span> Or </span>&nbsp;&nbsp;&nbsp;

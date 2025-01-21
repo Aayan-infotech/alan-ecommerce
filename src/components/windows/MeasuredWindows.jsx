@@ -31,7 +31,7 @@ export const MeasuredWindows = () => {
     }
   }, []);
 
-const isLoggedIn = Cookies.get("authToken") && Cookies.get("userLoggedInId");
+const isLoggedIn = Cookies.get("alanAuthToken") && Cookies.get("userLoggedInId");
 
   const handleToProceedCart = () => {
     if (isLoggedIn) {
