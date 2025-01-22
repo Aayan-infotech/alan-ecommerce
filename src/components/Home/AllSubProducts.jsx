@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Typography, Box, TextField, InputAdornment } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Typography,
+  Box,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
 import banner from "../../assets/doors.png";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -10,12 +17,15 @@ import SearchIcon from "@mui/icons-material/Search";
 const AllSubProducts = () => {
   const [subsubCategories, setSubsubCategories] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const { products_id } = useParams();
   const location = useLocation();
   const { categorydetails } = location.state || {};
 
   const navigate = useNavigate();
+
+  let debounceTimer;
 
   const formatPath = (path) => {
     const pathMapping = {
@@ -63,11 +73,45 @@ const AllSubProducts = () => {
     }
   };
 
+  const fetchSearchResults = async (query, productId) => {
+    if (!query.trim()) {
+      fetchExploreSubCategories();
+      return;
+    }
+    try {
+      const response = await axios.get(
+        `http://44.196.64.110:7878/api/products/search?name=${query}&category_id=${productId}`
+      );
+      if (response?.data?.status === 200) {
+        setSubsubCategories(response?.data?.data || []);
+        setErrorMessage("");
+      } else {
+        setSubsubCategories([]);
+        setErrorMessage(response?.data?.message || "No products found.");
+      }
+    } catch (error) {
+      setSubsubCategories([]);
+      setErrorMessage(
+        error?.response?.data?.message || "An unexpected error occurred."
+      );
+    }
+  };
+
   useEffect(() => {
     if (products_id) {
       fetchExploreSubCategories();
     }
   }, [products_id]);
+
+  const handleSearch = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      fetchSearchResults(query, products_id);
+    }, 500);
+  };
 
   const handleClick = (category) => {
     navigate(`/dimensions/${category?._id}`);
@@ -114,6 +158,8 @@ const AllSubProducts = () => {
               <TextField
                 id="outlined-basic"
                 variant="outlined"
+                value={searchQuery}
+                onChange={handleSearch}
                 placeholder="Search Product Name"
                 InputProps={{
                   endAdornment: (

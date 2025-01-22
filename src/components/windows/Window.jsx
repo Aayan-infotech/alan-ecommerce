@@ -86,7 +86,7 @@ const Window = () => {
       const response = await axios.get(
         `http://44.196.64.110:7878/api/dims/ProductID/${product_id}`
       );
-      console.log(response?.data?.data, 'response?.dataddd')
+      console.log(response?.data?.data, "response?.dataddd");
       if (response?.data?.success) {
         setSelectedImage(response.data.data?.product?.images[0]);
         setCurrentProductDetails(response.data.data);
@@ -218,7 +218,9 @@ const Window = () => {
       customDimensions,
     };
     try {
-      await dispatch(addtocartproduct({ userId: userLoggedInId, productDetails }));
+      await dispatch(
+        addtocartproduct({ userId: userLoggedInId, productDetails })
+      );
       alert("Item added to cart successfully!");
     } catch (error) {
       console.error("Error adding to cart:", error);
@@ -328,7 +330,12 @@ const Window = () => {
                     )}
                   </Grid>
                   <Typography variant="h5" className="fw-bold mt-3">
-                    {currentProductDetails?.product?.name || "N/A"}
+                    {/* {currentProductDetails?.product?.name || "N/A"} */}
+                    {currentProductDetails?.product?.name
+                      ? currentProductDetails.product?.name
+                          .replace(/_/g, " ")
+                          .replace(/\b\w/g, (char) => char.toUpperCase())
+                      : "N/A"}
                   </Typography>
                   <Typography
                     variant="body2"
