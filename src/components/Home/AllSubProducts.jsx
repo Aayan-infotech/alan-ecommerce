@@ -6,6 +6,7 @@ import {
   Box,
   TextField,
   InputAdornment,
+  IconButton,
 } from "@mui/material";
 import banner from "../../assets/doors.png";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
@@ -13,6 +14,8 @@ import axios from "axios";
 import No_Image_Available from "../../assets/No_Image_Available.jpg";
 import Loader from "../../loader/Loader";
 import SearchIcon from "@mui/icons-material/Search";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Cookies from "js-cookie";
 
 const AllSubProducts = () => {
   const [subsubCategories, setSubsubCategories] = useState([]);
@@ -22,9 +25,10 @@ const AllSubProducts = () => {
   const { products_id } = useParams();
   const location = useLocation();
   const { categorydetails } = location.state || {};
+  const userLoggedInId = Cookies.get("userLoggedInId");
+  const alanAuthToken = Cookies.get("alanAuthToken");
 
   const navigate = useNavigate();
-
   let debounceTimer;
 
   const formatPath = (path) => {
@@ -111,6 +115,32 @@ const AllSubProducts = () => {
     debounceTimer = setTimeout(() => {
       fetchSearchResults(query, products_id);
     }, 500);
+  };
+
+  const handleWishList = async (productId) => {
+    try {
+      const response = await axios.post(
+        "http://44.196.64.110:7878/api/wishlist",
+        {
+          product_id: productId,
+          user_id: userLoggedInId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${alanAuthToken}`,
+          },
+        }
+      );
+      if (response?.data?.status === 200) {
+        alert(response?.data?.message || "Added to wishlist successfully!");
+      } else {
+        alert(response?.data?.message || "Failed to add to wishlist");
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error?.response?.data?.message || "An unexpected error occurred.");
+    }
   };
 
   const handleClick = (category) => {
@@ -206,7 +236,22 @@ const AllSubProducts = () => {
                           objectFit: "contain",
                         }}
                       />
-                      <p className="fw-bold mb-0">{category?.name || "N/A"}</p>
+                      <p className="fw-bold mb-0">
+                        {category?.name
+                          ? category?.name
+                              .replace(/_/g, " ")
+                              .replace(/\b\w/g, (char) => char.toUpperCase())
+                          : "N/A"}
+                        &nbsp;&nbsp;
+                        <IconButton
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleWishList(category?._id);
+                          }}
+                        >
+                          <FavoriteBorderIcon />
+                        </IconButton>
+                      </p>
                     </Box>
                   </Grid>
                 ))}

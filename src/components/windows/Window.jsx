@@ -474,7 +474,7 @@ const Window = () => {
               </div>
             </div>
             <Box sx={{ textAlign: "center" }} className="my-4">
-              <Button
+              {/* <Button
                 onClick={handleProceed}
                 variant="contained"
                 size="large"
@@ -482,8 +482,8 @@ const Window = () => {
               >
                 Proceed&nbsp;&nbsp; <ArrowForwardIcon className="fs-5" />
               </Button>
-              &nbsp;&nbsp;&nbsp;
-              <span> Or </span>&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; */}
+              {/* <span> Or </span>&nbsp;&nbsp;&nbsp; */}
               <Button
                 variant="contained"
                 size="large"

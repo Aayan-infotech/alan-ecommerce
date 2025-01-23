@@ -27,9 +27,7 @@ export const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { loading, error, message, loginDetails } = useSelector(
-    (state) => state.user_login
-  );
+  const { loading } = useSelector((state) => state.user_login);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +44,8 @@ export const Login = () => {
         setOpenSnackbar(true);
         Cookies.set("userLoggedInId", action.payload.customerId);
         Cookies.set("alanAuthToken", action.payload.token);
-        navigate("/");
+        // navigate("/");
+        window.location.href = "/";
       } else if (userLogin.rejected.match(action)) {
         setSnackbarMessage(action.payload || "Login failed");
         setOpenSnackbar(true);

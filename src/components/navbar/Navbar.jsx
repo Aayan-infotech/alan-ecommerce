@@ -24,6 +24,7 @@ import axios from "axios";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
+import PersonIcon from "@mui/icons-material/Person";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -33,6 +34,7 @@ const Navbar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { products } = useSelector((state) => state.cart);
   const productCount = products?.orders ? products.orders.length : 0;
+  console.log(productCount, "productCount");
 
   const navigate = useNavigate();
   const isLoggedIn =
@@ -139,13 +141,13 @@ const Navbar = () => {
               >
                 <MenuItem>DIY Guide</MenuItem>
               </Link>
-              <Link
+              {/* <Link
                 to="/new-collection"
                 onClick={handleMenuClose}
                 className="text-black text-decoration-none"
               >
                 <MenuItem>New Collection</MenuItem>
-              </Link>
+              </Link> */}
             </Menu>
           </>
         )}
@@ -207,18 +209,20 @@ const Navbar = () => {
             >
               <SearchIcon sx={{ color: "#fc5f03" }} />
             </IconButton>
-            {isLoggedIn && (
+            {isLoggedIn ? (
               <>
-                <IconButton
-                  color="inherit"
-                  sx={{
-                    "&:hover": {
-                      backgroundColor: "transparent",
-                    },
-                  }}
-                >
-                  <FavoriteBorderIcon sx={{ color: "#fc5f03" }} />
-                </IconButton>
+                <Link to="/wish-list">
+                  <IconButton
+                    color="inherit"
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                      },
+                    }}
+                  >
+                    <FavoriteBorderIcon sx={{ color: "#fc5f03" }} />
+                  </IconButton>
+                </Link>
                 <div className="dropdown">
                   <IconButton
                     data-bs-toggle="dropdown"
@@ -261,7 +265,20 @@ const Navbar = () => {
                   </IconButton>
                 </Link>
               </>
-            )}
+            ) : (
+              <Link to="/login">
+                <IconButton
+                  color="inherit"
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                >
+                  <PersonIcon sx={{ color: "#fc5f03" }} />
+                </IconButton>
+              </Link>
+            )}&nbsp;&nbsp;
             <Link to="/appointment">
               <Button
                 variant="contained"

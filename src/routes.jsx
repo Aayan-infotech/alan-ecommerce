@@ -15,7 +15,6 @@ import { MeasuredDoors } from "./components/doors/MeasuredDoors.jsx";
 import { MeasuredWindows } from "./components/windows/MeasuredWindows.jsx";
 import Window from "./components/windows/Window.jsx";
 import { HardwareProducts } from "./components/hardware/HardwareProducts.jsx";
-import { NewCollection } from "./components/collection/NewCollection.jsx";
 import Cart from "./components/cart/Cart.jsx";
 import { CheckoutPayment } from "./components/checkout/CheckoutPayment.jsx";
 import { Successfully } from "./components/checkout/Successfully.jsx";
@@ -69,6 +68,7 @@ import SubSubCategories from "./components/Home/SubSubCategories.jsx";
 import AllSubProducts from "./components/Home/AllSubProducts.jsx";
 import Cookies from "js-cookie";
 import { UserDetails } from "./components/login/UserDetails.jsx";
+import { WishList } from "./components/Home/WishList.jsx";
 
 export const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -81,13 +81,13 @@ export const AppRoutes = () => {
 
     if (alanAuthToken && userLoggedInId) {
       setIsLoggedIn(true);
-      localStorage.setItem("isLoggedIn", "true"); 
+      localStorage.setItem("isLoggedIn", "true");
     } else {
       setIsLoggedIn(false);
       localStorage.removeItem("isLoggedIn");
     }
 
-    setIsCheckingAuth(false); 
+    setIsCheckingAuth(false);
   }, []);
 
   useEffect(() => {
@@ -97,6 +97,7 @@ export const AppRoutes = () => {
       setIsLoggedIn(true);
     }
     const currentPath = window.location.pathname;
+    console.log(currentPath, 'sdfd');
     const protectedRoutes = [
       "/cart",
       "/orders",
@@ -114,7 +115,11 @@ export const AppRoutes = () => {
   }, [isLoggedIn, isCheckingAuth, navigate]);
 
   if (isCheckingAuth) {
-    return <div>Loading...</div>;
+    return (
+      <div className="text-center">
+        <h4>Loading...</h4>
+      </div>
+    );
   }
 
   return (
@@ -131,7 +136,7 @@ export const AppRoutes = () => {
         <Route path="dimensions/:product_id" element={<Window />} />
         <Route path="measured-windows" element={<MeasuredWindows />} />
         <Route path="hardware-products" element={<HardwareProducts />} />
-        <Route path="new-collection" element={<NewCollection />} />
+        <Route path="wish-list" element={<WishList />} />
         {isLoggedIn && (
           <>
             <Route path="cart" element={<Cart />} />
