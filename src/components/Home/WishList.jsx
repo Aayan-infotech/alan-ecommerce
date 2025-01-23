@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import banner from "../../assets/doors.png";
 import Loader from "../../loader/Loader";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import No_Image_Available from "../../assets/No_Image_Available.jpg";
@@ -26,6 +26,7 @@ export const WishList = () => {
   const location = useLocation();
   const userLoggedInId = Cookies.get("userLoggedInId");
   const alanAuthToken = Cookies.get("alanAuthToken");
+  const navigate = useNavigate();
   const formatPath = (path) => {
     return path
       .split("/")
@@ -90,6 +91,11 @@ export const WishList = () => {
     }
   }, [userLoggedInId]);
 
+  const handleClick = (wishlistId) => {
+    console.log(wishlistId, 'wishlistId');
+    navigate(`/dimensions/${wishlistId}`);
+  };
+
   return (
     <>
       {loading ? (
@@ -133,6 +139,7 @@ export const WishList = () => {
                       position: "relative",
                       backgroundColor: "#f1f1f1",
                       width: "100%",
+                      cursor:"pointer"
                     }}
                     className="rounded-3 p-2"
                     onClick={() => handleClick(wishlist?.product_id?._id)}
@@ -154,7 +161,7 @@ export const WishList = () => {
                             .replace(/_/g, " ")
                             .replace(/\b\w/g, (char) => char.toUpperCase())
                         : "N/A"}
-                      nbsp;&nbsp;
+                      &nbsp;&nbsp;
                       <IconButton
                         onClick={(e) => {
                           e.stopPropagation();
