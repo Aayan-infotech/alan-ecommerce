@@ -41,7 +41,7 @@ export const Login = () => {
     e.preventDefault();
     dispatch(userLogin(formData)).then((action) => {
       if (userLogin.fulfilled.match(action)) {
-        setOpenSnackbar(true);
+        setSnackbarMessage(action.payload.message || "Login successful");
         Cookies.set("userLoggedInId", action.payload.customerId);
         Cookies.set("alanAuthToken", action.payload.token);
         // navigate("/");
@@ -175,7 +175,13 @@ export const Login = () => {
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert onClose={handleCloseSnackbar} severity="error" variant="filled">
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={
+            snackbarMessage === "Login successful" ? "success" : "error"
+          }
+          variant="filled"
+        >
           {snackbarMessage}
         </Alert>
       </Snackbar>

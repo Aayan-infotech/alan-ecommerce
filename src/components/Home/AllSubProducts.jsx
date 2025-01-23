@@ -7,6 +7,8 @@ import {
   TextField,
   InputAdornment,
   IconButton,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import banner from "../../assets/doors.png";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
@@ -22,6 +24,8 @@ const AllSubProducts = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const { products_id } = useParams();
   const location = useLocation();
   const { categorydetails } = location.state || {};
@@ -118,6 +122,11 @@ const AllSubProducts = () => {
   };
 
   const handleWishList = async (productId) => {
+    if (!userLoggedInId || !alanAuthToken) {
+      setOpenSnackbar(true);
+      setSnackbarMessage("Please log in first to add items to your wishlist.");
+      return;
+    }
     try {
       const response = await axios.post(
         "http://44.196.64.110:7878/api/wishlist",
@@ -260,6 +269,20 @@ const AllSubProducts = () => {
           </Container>
         </>
       )}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity="warning"
+          variant="filled"
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
