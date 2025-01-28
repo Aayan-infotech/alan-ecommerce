@@ -158,13 +158,16 @@ export const Login = () => {
                 fontWeight: "bold",
               }}
               onClick={handleLogin}
-              disabled={loading} // Disable the button when loading is true
+              disabled={loading}
             >
               {loading ? <span>Logging...</span> : "Login"}
             </Button>
             <Typography variant="body1" className="mt-2">
               Doesn't have an account?&nbsp;
               <Link to="/customer-register">Sign up</Link>
+            </Typography>
+            <Typography variant="body1" className="mt-2">
+              <Link to="/forget-password">Forget Password</Link>
             </Typography>
           </Box>
         </Box>

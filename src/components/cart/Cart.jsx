@@ -299,7 +299,7 @@ const Cart = () => {
                   <div className="card mb-4" key={product._id}>
                     <div className="card-body">
                       <div className="row gx-4 align-items-center">
-                        <div className="col-12 col-sm-4 col-md-3 mb-3 mb-md-0">
+                        <div className="col-12 col-sm-4 col-md-4 mb-3 mb-md-0">
                           <div className="d-flex align-items-center">
                             <img
                               src={product?.images?.[0] || card_img1}
@@ -314,13 +314,25 @@ const Cart = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
+                        {/* <div className="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
                           <div className="text-start text-md-center">
                             Price:&nbsp;
                             <span>${product?.product_price || 0}</span>
                           </div>
+                        </div> */}
+                        <div className="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
+                          <div className="text-start text-md-center">
+                            Price:&nbsp;
+                            <span>
+                              $
+                              {(
+                                (product?.totalPrice || 0) *
+                                (productQuantities[product._id] || 1)
+                              ).toFixed(2)}
+                            </span>
+                          </div>
                         </div>
-                        <div className="col-12 col-sm-8 col-md">
+                        <div className="col-12 col-sm-8 col-md d-flex justify-content-center align-items-center">
                           <div className="d-flex justify-content-between justify-content-md-start align-items-center">
                             Quantity:
                             <IconButton
@@ -353,7 +365,7 @@ const Cart = () => {
                             </IconButton>
                           </div>
                         </div>
-                        <div className="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
+                        {/* <div className="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
                           <div className="text-start text-md-center">
                             Subtotal:&nbsp;
                             <span>
@@ -364,7 +376,7 @@ const Cart = () => {
                               ).toFixed(2)}
                             </span>
                           </div>
-                        </div>
+                        </div> */}
                         <div className="col-6 col-sm-4 col-md-1 d-flex justify-content-center">
                           <IconButton
                             color="primary"

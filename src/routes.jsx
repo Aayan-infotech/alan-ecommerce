@@ -24,7 +24,6 @@ import { TrakingOrder } from "./components/Order/TrakingOrder.jsx";
 import { Contact } from "./components/contact/Contact.jsx";
 import { BookAppointment } from "./components/bookAppointment/BookAppointment.jsx";
 import { About } from "./components/About.jsx";
-import Gallery from "./components/galley/Gallery.jsx";
 import Profile from "./components/Profile.jsx";
 import TaxRebate from "./components/content/TaxRebate.jsx";
 import DiyInstallGuides from "./components/content/DiyInstallGuides.jsx";
@@ -69,6 +68,9 @@ import AllSubProducts from "./components/Home/AllSubProducts.jsx";
 import Cookies from "js-cookie";
 import { UserDetails } from "./components/login/UserDetails.jsx";
 import { WishList } from "./components/Home/WishList.jsx";
+import OrderHistory from "./components/cart/OrderHistory.jsx";
+import { ForgetPassword } from "./components/login/ForgetPassword.jsx";
+import { VerifyPassword } from "./components/login/VerifyPassword.jsx";
 
 export const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -128,6 +130,8 @@ export const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/verifyotp" element={<VerifyPassword />} />
         <Route path="/user-details" element={<UserDetails />} />
         <Route path="subDoorsCategory" element={<SubDoorsCategory />} />
         <Route path="doorscategorytypes" element={<DoorsCategoryTypes />} />
@@ -150,7 +154,7 @@ export const AppRoutes = () => {
         <Route path="contact" element={<Contact />} />
         <Route path="appointment" element={<BookAppointment />} />
         <Route path="about" element={<About />} />
-        <Route path="gallery" element={<Gallery />} />
+        <Route path="order-history" element={<OrderHistory />} />
         <Route path="customer-register" element={<Profile />} />
         <Route path="tax-rebate" element={<TaxRebate />} />
         <Route path="diyinstall-guides" element={<DiyInstallGuides />} />

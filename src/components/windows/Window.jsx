@@ -26,6 +26,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useDispatch } from "react-redux";
 import { addtocartproduct } from "../redux/slices/addToCartSlice";
 import Cookies from "js-cookie";
+import useSessionId from "../../hooks/useSessionId";
 
 const customStyles = {
   outline: "none",
@@ -56,7 +57,9 @@ const Window = () => {
   const navigate = useNavigate();
   const { product_id } = useParams();
   const dispatch = useDispatch();
+  const sessionId = useSessionId();
   const userLoggedInId = Cookies.get("userLoggedInId");
+  const alanAuthToken = Cookies.get("alanAuthToken");
 
   const formatPath = (path) => {
     return path
@@ -204,24 +207,63 @@ const Window = () => {
     navigate("/measured-windows", { state: allSelectedOptionsDetails });
   };
 
+  // const handleToProceedAddToCart = async () => {
+  //   setBtnLoader(true);
+  //   const totalPrice = calculatePrice();
+  //   const productDetails = {
+  //     totalPrice,
+  //     _id: currentProductDetails.product._id,
+  //     product_price: currentProductDetails?.product?.price || 0,
+  //     name: currentProductDetails?.product?.name || "",
+  //     sku: currentProductDetails?.product?.sku || "",
+  //     images: currentProductDetails?.product?.images || [],
+  //     selectedOptions,
+  //     customDimensions,
+  //   };
+  //   try {
+  //     await dispatch(
+  //       addtocartproduct({ userId: userLoggedInId, productDetails })
+  //     );
+  //     alert("Item added to cart successfully!");
+  //   } catch (error) {
+  //     console.error("Error adding to cart:", error);
+  //     alert("Failed to add item to cart.");
+  //   } finally {
+  //     setBtnLoader(false);
+  //   }
+  // };
   const handleToProceedAddToCart = async () => {
     setBtnLoader(true);
     const totalPrice = calculatePrice();
     const productDetails = {
+      session_id: sessionId,
       totalPrice,
-      _id: currentProductDetails.product._id,
       product_price: currentProductDetails?.product?.price || 0,
+      product_id: currentProductDetails?.product?._id || "",
       name: currentProductDetails?.product?.name || "",
       sku: currentProductDetails?.product?.sku || "",
       images: currentProductDetails?.product?.images || [],
       selectedOptions,
       customDimensions,
     };
+
     try {
-      await dispatch(
-        addtocartproduct({ userId: userLoggedInId, productDetails })
-      );
-      alert("Item added to cart successfully!");
+      if (userLoggedInId) {
+        await dispatch(
+          addtocartproduct({ userId: userLoggedInId, productDetails })
+        );
+        alert("Item added to cart successfully!");
+      } else {
+        const response = await axios.post(
+          "http://44.196.64.110:7878/api/GMCards/sessions",
+          productDetails
+        );
+        if (response.data.success) {
+          alert("Item added to cart successfully as guest!");
+        } else {
+          alert("Failed to add item to cart as guest.");
+        }
+      }
     } catch (error) {
       console.error("Error adding to cart:", error);
       alert("Failed to add item to cart.");
@@ -474,16 +516,6 @@ const Window = () => {
               </div>
             </div>
             <Box sx={{ textAlign: "center" }} className="my-4">
-              {/* <Button
-                onClick={handleProceed}
-                variant="contained"
-                size="large"
-                sx={{ textTransform: "none" }}
-              >
-                Proceed&nbsp;&nbsp; <ArrowForwardIcon className="fs-5" />
-              </Button>
-              &nbsp;&nbsp;&nbsp; */}
-              {/* <span> Or </span>&nbsp;&nbsp;&nbsp; */}
               <Button
                 variant="contained"
                 size="large"

@@ -34,7 +34,6 @@ const Navbar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { products } = useSelector((state) => state.cart);
   const productCount = products?.orders ? products.orders.length : 0;
-  console.log(productCount, "productCount");
 
   const navigate = useNavigate();
   const isLoggedIn =
@@ -76,6 +75,12 @@ const Navbar = () => {
     } else {
       navigate(`/categories/${category?._id}`);
     }
+  };
+
+  const hadleLogout = () => {
+    Cookies.remove("alanAuthToken");
+    Cookies.remove("userLoggedInId");
+    navigate("/");
   };
 
   return (
@@ -238,14 +243,23 @@ const Navbar = () => {
                   </IconButton>
                   <ul className="dropdown-menu">
                     <li>
-                      <button className="dropdown-item" type="button">
-                        My Orders
-                      </button>
+                      <Link to="/order-history" className="text-decoration-none">
+                        <button className="dropdown-item" type="button">
+                          My Orders Details
+                        </button>
+                      </Link>
                       <Link to="/user-details" className="text-decoration-none">
                         <button className="dropdown-item" type="button">
                           My Account
                         </button>
                       </Link>
+                      <button
+                        className="dropdown-item"
+                        type="button"
+                        onClick={hadleLogout}
+                      >
+                        Logout
+                      </button>
                     </li>
                   </ul>
                 </div>
@@ -266,8 +280,9 @@ const Navbar = () => {
                 </Link>
               </>
             ) : (
-              <Link to="/login">
-                <IconButton
+              <Link to="/login" style={{textDecoration: "none"}}>
+                <Typography sx={{ color: "#fc5f03", fontWeight: "bold" }}>Login</Typography>
+                {/* <IconButton
                   color="inherit"
                   sx={{
                     "&:hover": {
@@ -276,9 +291,10 @@ const Navbar = () => {
                   }}
                 >
                   <PersonIcon sx={{ color: "#fc5f03" }} />
-                </IconButton>
+                </IconButton> */}
               </Link>
-            )}&nbsp;&nbsp;
+            )}
+            &nbsp;&nbsp;
             <Link to="/appointment">
               <Button
                 variant="contained"
