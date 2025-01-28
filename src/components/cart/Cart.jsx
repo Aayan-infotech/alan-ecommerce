@@ -16,7 +16,7 @@ import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import banner from "../../assets/doors.png";
 import card_img1 from "../../assets/window.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ModeIcon from "@mui/icons-material/Mode";
 import {
   deleteProduct,
@@ -26,7 +26,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Loader from "../../loader/Loader";
-import axios from "axios";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -62,7 +61,6 @@ const pickupAddressOptions = [
 ];
 
 const Cart = () => {
-  const location = useLocation();
   const [shippinhgMethod, setShippinhgMethod] = useState("delivery");
   const [selectedOption, setSelectedOption] = useState("");
   const [billingDetails, setBillingDetails] = useState({
@@ -78,11 +76,10 @@ const Cart = () => {
 
   const userLoggedInId = Cookies.get("userLoggedInId");
   const loggedUserId = Cookies.get("alanAuthToken");
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const totalItems = Object.values(productQuantities).reduce(
-    (acc, quantity) => acc + quantity,
-    0
-  );
+
   const calculateTotalPrice =
     products?.orders?.reduce((acc, product) => {
       const quantity = productQuantities[product._id] || 1;
@@ -147,64 +144,6 @@ const Cart = () => {
     }));
   };
 
-  const handleCheckOut = async (e) => {
-    e.preventDefault();
-    if (shippinhgMethod === "pickup" && !selectedOption) {
-      alert("Please select a pickup address before proceeding.");
-      return;
-    } else if (shippinhgMethod === "delivery" && !billingDetails.address) {
-      alert("Please provide a delivery address before proceeding.");
-      return;
-    }
-    let shippingAddress;
-    if (shippinhgMethod === "pickup") {
-      const selectedPickupOption = pickupAddressOptions.find(
-        (option) => option.id === selectedOption
-      );
-      if (!selectedPickupOption) {
-        alert("Invalid pickup address selected.");
-        return;
-      }
-      shippingAddress = {
-        title: selectedPickupOption.title,
-        description: selectedPickupOption.description.join(", "),
-        price: selectedPickupOption.price,
-      };
-    } else {
-      shippingAddress = {
-        name: billingDetails.name || "N/A",
-        mobile: billingDetails.mobile || "N/A",
-        address: billingDetails.address || "N/A",
-        state: billingDetails.state || "N/A",
-        zipCode: billingDetails.zipCode || "N/A",
-      };
-    }
-    const checkoutData = {
-      totalPrice: calculateTotalPrice.toFixed(2),
-      totalProducts: numberOfTotalProducts,
-      shippingMethod: shippinhgMethod,
-      shippingAddress,
-      productIds: products.orders.map((product) => product._id),
-    };
-    try {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(checkoutData),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to process checkout");
-      }
-      const result = await response.json();
-      alert("Checkout successful: " + result.message);
-    } catch (error) {
-      console.error("Checkout error:", error);
-      alert("Checkout failed: " + error.message);
-    }
-  };
-
   const handleDeleteProduct = (productId) => {
     dispatch(deleteProduct(productId));
   };
@@ -253,6 +192,75 @@ const Cart = () => {
       });
   };
 
+  const handleCheckOut = async (e) => {
+    e.preventDefault();
+
+    if (!loggedUserId && !userLoggedInId) {
+      alert("Please log in before proceeding to checkout.");
+      localStorage.setItem("redirectUrl", window.location.href);
+      navigate("/login")
+      return;
+    } else {
+      if (shippinhgMethod === "pickup" && !selectedOption) {
+        alert("Please select a pickup address before proceeding.");
+        return;
+      } else if (shippinhgMethod === "delivery" && !billingDetails.address) {
+        alert("Please provide a delivery address before proceeding.");
+        return;
+      }
+
+      let shippingAddress;
+      if (shippinhgMethod === "pickup") {
+        const selectedPickupOption = pickupAddressOptions.find(
+          (option) => option.id === selectedOption
+        );
+        if (!selectedPickupOption) {
+          alert("Invalid pickup address selected.");
+          return;
+        }
+        shippingAddress = {
+          title: selectedPickupOption.title,
+          description: selectedPickupOption.description.join(", "),
+          price: selectedPickupOption.price,
+        };
+      } else {
+        shippingAddress = {
+          name: billingDetails.name || "N/A",
+          mobile: billingDetails.mobile || "N/A",
+          address: billingDetails.address || "N/A",
+          state: billingDetails.state || "N/A",
+          zipCode: billingDetails.zipCode || "N/A",
+        };
+      }
+
+      const checkoutData = {
+        totalPrice: calculateTotalPrice.toFixed(2),
+        totalProducts: numberOfTotalProducts,
+        shippingMethod: shippinhgMethod,
+        shippingAddress,
+        productIds: products.orders.map((product) => product._id),
+      };
+
+      try {
+        const response = await fetch("/api/checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(checkoutData),
+        });
+        if (!response.ok) {
+          throw new Error("Failed to process checkout");
+        }
+        const result = await response.json();
+        alert("Checkout successful: " + result.message);
+      } catch (error) {
+        console.error("Checkout error:", error);
+        alert("Checkout failed: " + error.message);
+      }
+    }
+  };
+
   return (
     <>
       {loading ? (
@@ -294,8 +302,8 @@ const Cart = () => {
                 </div>
               ) : error ? (
                 <p>Error: {error}</p>
-              ) : products?.orders?.length > 0 ? (
-                products.orders.map((product, index) => (
+              ) : products?.entries?.length > 0 ? (
+                products.entries.map((product, index) => (
                   <div className="card mb-4" key={product._id}>
                     <div className="card-body">
                       <div className="row gx-4 align-items-center">
@@ -314,12 +322,6 @@ const Cart = () => {
                             </div>
                           </div>
                         </div>
-                        {/* <div className="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
-                          <div className="text-start text-md-center">
-                            Price:&nbsp;
-                            <span>${product?.product_price || 0}</span>
-                          </div>
-                        </div> */}
                         <div className="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
                           <div className="text-start text-md-center">
                             Price:&nbsp;
@@ -365,18 +367,6 @@ const Cart = () => {
                             </IconButton>
                           </div>
                         </div>
-                        {/* <div className="col-6 col-sm-4 col-md-2 mb-2 mb-md-0">
-                          <div className="text-start text-md-center">
-                            Subtotal:&nbsp;
-                            <span>
-                              $
-                              {(
-                                (product?.totalPrice || 0) *
-                                (productQuantities[product._id] || 1)
-                              ).toFixed(2)}
-                            </span>
-                          </div>
-                        </div> */}
                         <div className="col-6 col-sm-4 col-md-1 d-flex justify-content-center">
                           <IconButton
                             color="primary"
@@ -400,260 +390,263 @@ const Cart = () => {
                   />
                 </p>
               )}
-
-              <div className="row gx-3 gy-3">
-                <div className="col-12 col-md-4">
-                  <div className="p-2 border border-1 rounded">
-                    <h6 className="fw-bold">Billing</h6>
-                    <form>
-                      <div className="mb-3">
-                        <input
-                          type="text"
-                          name="name"
-                          placeholder="First Name"
-                          value={billingDetails.name}
-                          onChange={handleBillingChange}
-                          className="form-control"
-                          style={{ outline: "none", boxShadow: "none" }}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <input
-                          type="text"
-                          name="mobile"
-                          placeholder="Mobile Number"
-                          value={billingDetails.mobile}
-                          onChange={handleBillingChange}
-                          className="form-control"
-                          style={{ outline: "none", boxShadow: "none" }}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <input
-                          type="text"
-                          name="state"
-                          placeholder="State"
-                          value={billingDetails.state}
-                          onChange={handleBillingChange}
-                          className="form-control"
-                          style={{ outline: "none", boxShadow: "none" }}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <input
-                          type="text"
-                          name="zipCode"
-                          placeholder="Zip Code"
-                          value={billingDetails.zipCode}
-                          onChange={handleBillingChange}
-                          className="form-control"
-                          style={{ outline: "none", boxShadow: "none" }}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <textarea
-                          name="address"
-                          placeholder="Address"
-                          value={billingDetails.address}
-                          onChange={handleBillingChange}
-                          className="form-control"
-                          style={{ outline: "none", boxShadow: "none" }}
-                        />
-                      </div>
-                      <button
-                        type="submit"
-                        className="btn btn-primary"
-                        onClick={handleUpdateBillingDetails}
-                      >
-                        Update
-                      </button>
-                    </form>
-                  </div>
-                </div>
-                <div className="col-12 col-md-4">
-                  <div className="p-2 border border-1 rounded">
-                    <h6 className="fw-bold">Shipping Method</h6>
-                    <div className="d-flex align-items-center mb-3">
-                      <div className="form-check me-4">
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          name="flexRadioDefault"
-                          id="flexRadioDefault1"
-                          checked={shippinhgMethod === "delivery"}
-                          onChange={() => setShippinhgMethod("delivery")}
-                        />
-                        <label
-                          className="form-check-label"
-                          for="flexRadioDefault1"
+              {loggedUserId && userLoggedInId && (
+                <div className="row gx-3 gy-3">
+                  <div className="col-12 col-md-4">
+                    <div className="p-2 border border-1 rounded">
+                      <h6 className="fw-bold">Billing</h6>
+                      <form>
+                        <div className="mb-3">
+                          <input
+                            type="text"
+                            name="name"
+                            placeholder="First Name"
+                            value={billingDetails.name}
+                            onChange={handleBillingChange}
+                            className="form-control"
+                            style={{ outline: "none", boxShadow: "none" }}
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <input
+                            type="text"
+                            name="mobile"
+                            placeholder="Mobile Number"
+                            value={billingDetails.mobile}
+                            onChange={handleBillingChange}
+                            className="form-control"
+                            style={{ outline: "none", boxShadow: "none" }}
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <input
+                            type="text"
+                            name="state"
+                            placeholder="State"
+                            value={billingDetails.state}
+                            onChange={handleBillingChange}
+                            className="form-control"
+                            style={{ outline: "none", boxShadow: "none" }}
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <input
+                            type="text"
+                            name="zipCode"
+                            placeholder="Zip Code"
+                            value={billingDetails.zipCode}
+                            onChange={handleBillingChange}
+                            className="form-control"
+                            style={{ outline: "none", boxShadow: "none" }}
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <textarea
+                            name="address"
+                            placeholder="Address"
+                            value={billingDetails.address}
+                            onChange={handleBillingChange}
+                            className="form-control"
+                            style={{ outline: "none", boxShadow: "none" }}
+                          />
+                        </div>
+                        <button
+                          type="submit"
+                          className="btn btn-primary"
+                          onClick={handleUpdateBillingDetails}
                         >
-                          Delivery
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          name="flexRadioDefault"
-                          id="flexRadioDefault2"
-                          checked={shippinhgMethod === "pickup"}
-                          onChange={() => setShippinhgMethod("pickup")}
-                        />
-                        <label
-                          className="form-check-label"
-                          for="flexRadioDefault2"
-                        >
-                          Pickup
-                        </label>
-                      </div>
+                          Update
+                        </button>
+                      </form>
                     </div>
-                    {shippinhgMethod === "pickup" && (
-                      <div>
-                        {pickupAddressOptions.map((option) => (
-                          <div
-                            key={option.id}
-                            className="p-2 border border-1 rounded mb-2 d-flex align-items-start"
+                  </div>
+                  <div className="col-12 col-md-4">
+                    <div className="p-2 border border-1 rounded">
+                      <h6 className="fw-bold">Shipping Method</h6>
+                      <div className="d-flex align-items-center mb-3">
+                        <div className="form-check me-4">
+                          <input
+                            className="form-check-input"
+                            type="radio"
+                            name="flexRadioDefault"
+                            id="flexRadioDefault1"
+                            checked={shippinhgMethod === "delivery"}
+                            onChange={() => setShippinhgMethod("delivery")}
+                          />
+                          <label
+                            className="form-check-label"
+                            for="flexRadioDefault1"
                           >
-                            <input
-                              type="radio"
-                              id={option.id}
-                              name="pickupOption"
-                              value={option.id}
-                              className="me-2"
-                              checked={selectedOption === option.id}
-                              onChange={handleChange}
-                            />
-                            <label
-                              htmlFor={option.id}
-                              className="w-100 d-flex justify-content-between"
+                            Delivery
+                          </label>
+                        </div>
+                        <div className="form-check">
+                          <input
+                            className="form-check-input"
+                            type="radio"
+                            name="flexRadioDefault"
+                            id="flexRadioDefault2"
+                            checked={shippinhgMethod === "pickup"}
+                            onChange={() => setShippinhgMethod("pickup")}
+                          />
+                          <label
+                            className="form-check-label"
+                            for="flexRadioDefault2"
+                          >
+                            Pickup
+                          </label>
+                        </div>
+                      </div>
+                      {shippinhgMethod === "pickup" && (
+                        <div>
+                          {pickupAddressOptions.map((option) => (
+                            <div
+                              key={option.id}
+                              className="p-2 border border-1 rounded mb-2 d-flex align-items-start"
                             >
-                              <div>
-                                <h6 className="fw-bold">{option.title}</h6>
-                                {option.description.map((line, index) => (
-                                  <p key={index} className="mb-0">
-                                    &nbsp;-&nbsp;{line}
-                                  </p>
-                                ))}
-                              </div>
-                              <h6 className="fw-bold">{option.price}</h6>
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    {shippinhgMethod === "delivery" && (
-                      <div className="p-2 border border-1 rounded mb-2 d-flex align-items-start">
-                        <input
-                          type="radio"
-                          id="option3"
-                          name="pickupOption"
-                          value="option3"
-                          className="me-2"
-                        />
-                        <label
-                          htmlFor="option3"
-                          className="w-100 d-flex justify-content-between"
-                        >
-                          <div>
-                            <h6 className="fw-bold">
-                              &nbsp;&nbsp;{products?.customer?.name || "n/a"}
-                            </h6>
-                            <p className="mb-0">
-                              &nbsp;-&nbsp;{products?.customer?.email || "N/A"}
-                            </p>
-                            <p className="mb-0">
-                              &nbsp;-&nbsp;{products?.customer?.mobile || "N/A"}
-                            </p>
-                            <p className="mb-0">
-                              &nbsp;-&nbsp;
-                              {products?.customer?.country_name || "N/A"}
-                            </p>
-                            <p className="mb-0">
-                              &nbsp;-&nbsp;{products?.customer?.state || "N/A"}
-                            </p>
-                            <p className="mb-0">
-                              &nbsp;-&nbsp;
-                              {products?.customer?.address || "N/A"}
-                            </p>
-                            <p className="mb-0">
-                              &nbsp;-&nbsp;
-                              {products?.customer?.zipCode || "N/A"}
-                            </p>
-                          </div>
-                          <IconButton
-                            onClick={handleEditCustomerAddress}
-                            variant="outlined"
-                            sx={{ height: "40px", width: "40px" }}
-                          >
-                            <ModeIcon color="primary" />
-                          </IconButton>
-                        </label>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div className="col-12 col-md-4 mt-3">
-                  <div className="p-2 border border-1 rounded">
-                    <h6 className="fw-bold">Product Details</h6>
-                    {products?.orders?.length > 0 ? (
-                      products.orders.map((product, index) => (
-                        <Accordion key={product._id}>
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls={`panel${index}-content`}
-                            id={`panel${index}-header`}
-                          >
-                            <Typography component="span">
-                              {product.name}
-                            </Typography>
-                          </AccordionSummary>
-                          <AccordionDetails>
-                            <div>
-                              <h6 className="fw-bold">Selected Options</h6>
-                              {product.selectedOptions ? (
-                                Object.entries(product.selectedOptions).map(
-                                  ([key, value]) => (
-                                    <div
-                                      key={key}
-                                      className="d-flex justify-content-between align-items-center mb-2"
-                                    >
-                                      <h6 className="fw-bold">{key}</h6>
-                                      <p className="mb-0">{value}</p>
-                                    </div>
-                                  )
-                                )
-                              ) : (
-                                <p>No options selected</p>
-                              )}
+                              <input
+                                type="radio"
+                                id={option.id}
+                                name="pickupOption"
+                                value={option.id}
+                                className="me-2"
+                                checked={selectedOption === option.id}
+                                onChange={handleChange}
+                              />
+                              <label
+                                htmlFor={option.id}
+                                className="w-100 d-flex justify-content-between"
+                              >
+                                <div>
+                                  <h6 className="fw-bold">{option.title}</h6>
+                                  {option.description.map((line, index) => (
+                                    <p key={index} className="mb-0">
+                                      &nbsp;-&nbsp;{line}
+                                    </p>
+                                  ))}
+                                </div>
+                                <h6 className="fw-bold">{option.price}</h6>
+                              </label>
                             </div>
-                          </AccordionDetails>
-                        </Accordion>
-                      ))
-                    ) : (
-                      <p className="text-center mt-3">No product in the cart</p>
-                    )}
-                    <hr />
-                    <div className="summary border border-1 rounded p-3">
-                      <h4>Summary</h4>
-                      <div className="d-flex justify-content-between">
-                        <span>Total Products:</span>
-                        <span className="fw-bold">{numberOfTotalProducts}</span>
-                      </div>
-                      {/* <div className="d-flex justify-content-between">
-                        <span>Total Items:</span>
-                        <span>{totalItems}</span>
-                      </div> */}
-                      <div className="d-flex justify-content-between">
-                        <span>Total Price:</span>
-                        <span className="fw-bold">
-                          ${calculateTotalPrice.toFixed(2)}
-                        </span>
+                          ))}
+                        </div>
+                      )}
+                      {shippinhgMethod === "delivery" && (
+                        <div className="p-2 border border-1 rounded mb-2 d-flex align-items-start">
+                          <input
+                            type="radio"
+                            id="option3"
+                            name="pickupOption"
+                            value="option3"
+                            className="me-2"
+                          />
+                          <label
+                            htmlFor="option3"
+                            className="w-100 d-flex justify-content-between"
+                          >
+                            <div>
+                              <h6 className="fw-bold">
+                                &nbsp;&nbsp;{products?.customer?.name || "n/a"}
+                              </h6>
+                              <p className="mb-0">
+                                &nbsp;-&nbsp;
+                                {products?.customer?.email || "N/A"}
+                              </p>
+                              <p className="mb-0">
+                                &nbsp;-&nbsp;
+                                {products?.customer?.mobile || "N/A"}
+                              </p>
+                              <p className="mb-0">
+                                &nbsp;-&nbsp;
+                                {products?.customer?.country_name || "N/A"}
+                              </p>
+                              <p className="mb-0">
+                                &nbsp;-&nbsp;
+                                {products?.customer?.state || "N/A"}
+                              </p>
+                              <p className="mb-0">
+                                &nbsp;-&nbsp;
+                                {products?.customer?.address || "N/A"}
+                              </p>
+                              <p className="mb-0">
+                                &nbsp;-&nbsp;
+                                {products?.customer?.zipCode || "N/A"}
+                              </p>
+                            </div>
+                            <IconButton
+                              onClick={handleEditCustomerAddress}
+                              variant="outlined"
+                              sx={{ height: "40px", width: "40px" }}
+                            >
+                              <ModeIcon color="primary" />
+                            </IconButton>
+                          </label>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="col-12 col-md-4 mt-3">
+                    <div className="p-2 border border-1 rounded">
+                      <h6 className="fw-bold">Product Details</h6>
+                      {products?.orders?.length > 0 ? (
+                        products.orders.map((product, index) => (
+                          <Accordion key={product._id}>
+                            <AccordionSummary
+                              expandIcon={<ExpandMoreIcon />}
+                              aria-controls={`panel${index}-content`}
+                              id={`panel${index}-header`}
+                            >
+                              <Typography component="span">
+                                {product.name}
+                              </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                              <div>
+                                <h6 className="fw-bold">Selected Options</h6>
+                                {product.selectedOptions ? (
+                                  Object.entries(product.selectedOptions).map(
+                                    ([key, value]) => (
+                                      <div
+                                        key={key}
+                                        className="d-flex justify-content-between align-items-center mb-2"
+                                      >
+                                        <h6 className="fw-bold">{key}</h6>
+                                        <p className="mb-0">{value}</p>
+                                      </div>
+                                    )
+                                  )
+                                ) : (
+                                  <p>No options selected</p>
+                                )}
+                              </div>
+                            </AccordionDetails>
+                          </Accordion>
+                        ))
+                      ) : (
+                        <p className="text-center mt-3">
+                          No product in the cart
+                        </p>
+                      )}
+                      <hr />
+                      <div className="summary border border-1 rounded p-3">
+                        <h4>Summary</h4>
+                        <div className="d-flex justify-content-between">
+                          <span>Total Products:</span>
+                          <span className="fw-bold">
+                            {numberOfTotalProducts}
+                          </span>
+                        </div>
+                        <div className="d-flex justify-content-between">
+                          <span>Total Price:</span>
+                          <span className="fw-bold">
+                            ${calculateTotalPrice.toFixed(2)}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
+              )}
               <Box className="text-center mt-4">
                 {/* <Link to="/checkout"> */}
                 <Button

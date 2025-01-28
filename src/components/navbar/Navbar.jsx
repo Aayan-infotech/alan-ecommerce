@@ -11,9 +11,10 @@ import {
   useMediaQuery,
   useTheme,
   Badge,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SearchIcon from "@mui/icons-material/Search";
 import PhoneIcon from "@mui/icons-material/Phone";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -21,15 +22,17 @@ import "../../styles/Navbar.scss";
 import logo from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
-import PersonIcon from "@mui/icons-material/Person";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [exploreCategories, setExploreCategories] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isOpenModel, setIsOpenModel] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { products } = useSelector((state) => state.cart);
@@ -77,10 +80,23 @@ const Navbar = () => {
     }
   };
 
-  const hadleLogout = () => {
+  const handleLogout = () => {
     Cookies.remove("alanAuthToken");
     Cookies.remove("userLoggedInId");
     navigate("/");
+  };
+
+  const handleProtectedLinkClick = (link) => {
+    if (!isLoggedIn) {
+      // setSnackbarMessage("Please log in first to access this page.");
+      navigate("/login");
+      setSnackbarOpen(true);
+      if (link === "/login") {
+        navigate("/login");
+      }
+    } else {
+      navigate(link);
+    }
   };
 
   return (
@@ -146,13 +162,6 @@ const Navbar = () => {
               >
                 <MenuItem>DIY Guide</MenuItem>
               </Link>
-              {/* <Link
-                to="/new-collection"
-                onClick={handleMenuClose}
-                className="text-black text-decoration-none"
-              >
-                <MenuItem>New Collection</MenuItem>
-              </Link> */}
             </Menu>
           </>
         )}
@@ -189,21 +198,77 @@ const Navbar = () => {
                 )}
               </ul>
             </div>
-            <Link className="text-decoration-none" to="/diyinstall-guides">
-              <Button color="inherit" className="nav-title">
-                Installation Guide
-              </Button>
-            </Link>
-            <Link className="text-decoration-none" to="/diyinstall-guides">
-              <Button color="inherit" className="nav-title">
-                DIY Guide
-              </Button>
-            </Link>
           </>
         )}
 
         {!isMobile && (
           <>
+            <div
+              className="dropdown"
+              onMouseEnter={() => setIsOpenModel(true)}
+              onMouseLeave={() => setIsOpenModel(false)}
+            >
+              {isLoggedIn ? (
+                <Typography
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  sx={{ color: "#fc5f03", fontWeight: "bold" }}
+                  onClick={() => handleMenuOpen()}
+                >
+                  Account
+                </Typography>
+              ) : (
+                <Link to="/login" style={{ textDecoration: "none" }}>
+                  <Typography
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    sx={{ color: "#fc5f03", fontWeight: "bold" }}
+                    onClick={() => handleProtectedLinkClick("/login")}
+                  >
+                    Login
+                  </Typography>
+                </Link>
+              )}
+              <ul
+                className="dropdown-menu"
+                style={{
+                  display: isOpenModel ? "block" : "none",
+                }}
+              >
+                <li>
+                  <button
+                    className="dropdown-item"
+                    type="button"
+                    onClick={() => handleProtectedLinkClick("/order-history")}
+                  >
+                    My Orders Details
+                  </button>
+                  <button
+                    className="dropdown-item"
+                    type="button"
+                    onClick={() => handleProtectedLinkClick("/user-details")}
+                  >
+                    My Account
+                  </button>
+                  <button
+                    className="dropdown-item"
+                    type="button"
+                    onClick={() => handleProtectedLinkClick("/wish-list")}
+                  >
+                    Wishlist
+                  </button>
+                  {isLoggedIn && (
+                    <button
+                      className="dropdown-item"
+                      type="button"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  )}
+                </li>
+              </ul>
+            </div>
             <IconButton
               color="inherit"
               sx={{
@@ -214,87 +279,21 @@ const Navbar = () => {
             >
               <SearchIcon sx={{ color: "#fc5f03" }} />
             </IconButton>
-            {isLoggedIn ? (
-              <>
-                <Link to="/wish-list">
-                  <IconButton
-                    color="inherit"
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "transparent",
-                      },
-                    }}
-                  >
-                    <FavoriteBorderIcon sx={{ color: "#fc5f03" }} />
-                  </IconButton>
-                </Link>
-                <div className="dropdown">
-                  <IconButton
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    color="inherit"
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "transparent",
-                      },
-                    }}
-                  >
-                    <AccountCircleIcon sx={{ color: "#fc5f03" }} />
-                  </IconButton>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link to="/order-history" className="text-decoration-none">
-                        <button className="dropdown-item" type="button">
-                          My Orders Details
-                        </button>
-                      </Link>
-                      <Link to="/user-details" className="text-decoration-none">
-                        <button className="dropdown-item" type="button">
-                          My Account
-                        </button>
-                      </Link>
-                      <button
-                        className="dropdown-item"
-                        type="button"
-                        onClick={hadleLogout}
-                      >
-                        Logout
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-                <Link to="/cart">
-                  <IconButton
-                    color="inherit"
-                    className="me-3"
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "transparent",
-                      },
-                    }}
-                  >
-                    <Badge badgeContent={productCount} color="primary">
-                      <ShoppingCartIcon sx={{ color: "#fc5f03" }} />
-                    </Badge>
-                  </IconButton>
-                </Link>
-              </>
-            ) : (
-              <Link to="/login" style={{textDecoration: "none"}}>
-                <Typography sx={{ color: "#fc5f03", fontWeight: "bold" }}>Login</Typography>
-                {/* <IconButton
-                  color="inherit"
-                  sx={{
-                    "&:hover": {
-                      backgroundColor: "transparent",
-                    },
-                  }}
-                >
-                  <PersonIcon sx={{ color: "#fc5f03" }} />
-                </IconButton> */}
-              </Link>
-            )}
-            &nbsp;&nbsp;
+            <Link to="/cart">
+              <IconButton
+                color="inherit"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                  },
+                }}
+                className="me-2"
+              >
+                <Badge badgeContent={productCount} color="primary">
+                  <ShoppingCartIcon sx={{ color: "#fc5f03" }} />
+                </Badge>
+              </IconButton>
+            </Link>
             <Link to="/appointment">
               <Button
                 variant="contained"
@@ -337,6 +336,22 @@ const Navbar = () => {
           </>
         )}
       </Toolbar>
+
+      {/* Snackbar Component */}
+      {/* <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={4000}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
+          severity="warning"
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar> */}
     </AppBar>
   );
 };

@@ -77,52 +77,51 @@ export const AppRoutes = () => {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const alanAuthToken = Cookies.get("alanAuthToken");
-    const userLoggedInId = Cookies.get("userLoggedInId");
+  // useEffect(() => {
+  //   const alanAuthToken = Cookies.get("alanAuthToken");
+  //   const userLoggedInId = Cookies.get("userLoggedInId");
 
-    if (alanAuthToken && userLoggedInId) {
-      setIsLoggedIn(true);
-      localStorage.setItem("isLoggedIn", "true");
-    } else {
-      setIsLoggedIn(false);
-      localStorage.removeItem("isLoggedIn");
-    }
+  //   if (alanAuthToken && userLoggedInId) {
+  //     setIsLoggedIn(true);
+  //     localStorage.setItem("isLoggedIn", "true");
+  //   } else {
+  //     setIsLoggedIn(false);
+  //     localStorage.removeItem("isLoggedIn");
+  //   }
 
-    setIsCheckingAuth(false);
-  }, []);
+  //   setIsCheckingAuth(false);
+  // }, []);
 
-  useEffect(() => {
-    const loginStatus = localStorage.getItem("isLoggedIn");
+  // useEffect(() => {
+  //   const loginStatus = localStorage.getItem("isLoggedIn");
 
-    if (loginStatus === "true") {
-      setIsLoggedIn(true);
-    }
-    const currentPath = window.location.pathname;
-    console.log(currentPath, 'sdfd');
-    const protectedRoutes = [
-      "/cart",
-      "/orders",
-      "/order-track",
-      "/traking-order",
-    ];
+  //   if (loginStatus === "true") {
+  //     setIsLoggedIn(true);
+  //   }
+  //   const currentPath = window.location.pathname;
+  //   console.log(currentPath, "sdfd");
+  //   const protectedRoutes = [
+  //     "/orders",
+  //     "/order-track",
+  //     "/traking-order",
+  //   ];
 
-    if (
-      !isCheckingAuth &&
-      protectedRoutes.includes(currentPath) &&
-      !isLoggedIn
-    ) {
-      navigate("/login");
-    }
-  }, [isLoggedIn, isCheckingAuth, navigate]);
+  //   if (
+  //     !isCheckingAuth &&
+  //     protectedRoutes.includes(currentPath) &&
+  //     !isLoggedIn
+  //   ) {
+  //     navigate("/login");
+  //   }
+  // }, [isLoggedIn, isCheckingAuth, navigate]);
 
-  if (isCheckingAuth) {
-    return (
-      <div className="text-center">
-        <h4>Loading...</h4>
-      </div>
-    );
-  }
+  // if (isCheckingAuth) {
+  //   return (
+  //     <div className="text-center">
+  //       <h4>Loading...</h4>
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
@@ -141,14 +140,18 @@ export const AppRoutes = () => {
         <Route path="measured-windows" element={<MeasuredWindows />} />
         <Route path="hardware-products" element={<HardwareProducts />} />
         <Route path="wish-list" element={<WishList />} />
-        {isLoggedIn && (
+        <Route path="cart" element={<Cart />} />
+        <Route path="orders" element={<Orders />} />
+        <Route path="order-track" element={<OrderTrack />} />
+        <Route path="traking-order" element={<TrakingOrder />} />
+        {/* {isLoggedIn && (
           <>
             <Route path="cart" element={<Cart />} />
             <Route path="orders" element={<Orders />} />
             <Route path="order-track" element={<OrderTrack />} />
             <Route path="traking-order" element={<TrakingOrder />} />
           </>
-        )}
+        )} */}
         <Route path="checkout" element={<CheckoutPayment />} />
         <Route path="successfull" element={<Successfully />} />
         <Route path="contact" element={<Contact />} />

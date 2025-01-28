@@ -40,8 +40,10 @@ export const fetchAllProducts = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const token = Cookies.get("alanAuthToken");
+      const sessionId = Cookies.get("sessionId");
+      console.log(sessionId, "sessionId");
       const response = await axios.get(
-        "http://44.196.64.110:7878/api/order/orders",
+        `http://44.196.64.110:7878/api/GMCards/sessions/${sessionId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -49,6 +51,15 @@ export const fetchAllProducts = createAsyncThunk(
           },
         }
       );
+      // const response = await axios.get(
+      //   "http://44.196.64.110:7878/api/order/orders",
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   }
+      // );
       return response.data?.data;
     } catch (error) {
       return rejectWithValue(
@@ -136,6 +147,7 @@ const addToCartSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchAllProducts.fulfilled, (state, action) => {
+        console.log(action, 'action')
         state.loading = false;
         state.products = action.payload;
       })

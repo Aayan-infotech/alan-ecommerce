@@ -45,7 +45,14 @@ export const Login = () => {
         Cookies.set("userLoggedInId", action.payload.customerId);
         Cookies.set("alanAuthToken", action.payload.token);
         // navigate("/");
-        window.location.href = "/";
+        // window.location.href = "/";
+        const redirectUrl = localStorage.getItem("redirectUrl");
+        if (redirectUrl) {
+          window.location.href = redirectUrl; 
+          localStorage.removeItem("redirectUrl");
+        } else {
+          window.location.href = "/"; 
+        }
       } else if (userLogin.rejected.match(action)) {
         setSnackbarMessage(action.payload || "Login failed");
         setOpenSnackbar(true);

@@ -21,6 +21,7 @@ export const Footer = () => {
       { name: "Pickup in Sandalga", path: "/pickup" },
       { name: "Privacy Policy", path: "/privacy-policy" },
       { name: "Terms & Conditions", path: "/terms" },
+      { name: "Diyinstall Guides", path: "/diyinstall-guides" },
     ],
     more_options: [
       { name: "Orders", path: "/orders" },
@@ -136,7 +137,11 @@ export const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <IconButton sx={{border:"1px solid #fc5f03"}} size="small" className="me-2">
+                  <IconButton
+                    sx={{ border: "1px solid #fc5f03" }}
+                    size="small"
+                    className="me-2"
+                  >
                     <FacebookIcon />
                   </IconButton>
                 </a>
@@ -145,18 +150,22 @@ export const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                <IconButton sx={{border:"1px solid #fc5f03"}} size="small" className="me-2">
-                  <LinkedInIcon />
-                </IconButton>
+                  <IconButton
+                    sx={{ border: "1px solid #fc5f03" }}
+                    size="small"
+                    className="me-2"
+                  >
+                    <LinkedInIcon />
+                  </IconButton>
                 </a>
                 <a
                   href="https://www.youtube.com/user/DiscountDW"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                <IconButton sx={{border:"1px solid #fc5f03"}} size="small">
-                  <TwitterIcon />
-                </IconButton>
+                  <IconButton sx={{ border: "1px solid #fc5f03" }} size="small">
+                    <TwitterIcon />
+                  </IconButton>
                 </a>
               </div>
             </div>
