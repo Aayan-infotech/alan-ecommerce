@@ -79,21 +79,26 @@ const Cart = () => {
   const [productQuantities, setProductQuantities] = useState({});
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.cart);
+  console.log(products?.entries, "products");
 
   const userLoggedInId = Cookies.get("userLoggedInId");
   const loggedUserId = Cookies.get("alanAuthToken");
   const navigate = useNavigate();
   const location = useLocation();
 
-  const calculateTotalPrice =
-    products?.orders?.reduce((acc, product) => {
-      const quantity = productQuantities[product._id] || 1;
-      return acc + product.totalPrice * quantity;
-    }, 0) || 0;
-  const numberOfTotalProducts = products?.orders?.length || 0;
+  const calculateTotalPrice = Array.isArray(products?.entries)
+    ? products.entries.reduce((acc, product) => {
+        const quantity = productQuantities[product._id] || 1;
+        return acc + product.totalPrice * quantity;
+      }, 0)
+    : 0;
+
+  const numberOfTotalProducts = Array.isArray(products?.entries)
+    ? products.entries.length
+    : 0;
 
   useEffect(() => {
-    if (!products || products.length === 0) {
+    if (!products?.entries || products.entries.length === 0) {
       dispatch(fetchAllProducts());
     }
   }, [dispatch, products]);
@@ -255,7 +260,7 @@ const Cart = () => {
         totalProducts: numberOfTotalProducts,
         shippingMethod: shippinhgMethod,
         shippingAddress,
-        productIds: products.orders.map((product) => product._id),
+        productIds: products?.entries?.map((product) => product._id),
       };
 
       try {
@@ -640,8 +645,8 @@ const Cart = () => {
                   <div className="col-12 col-md-4 mt-3">
                     <div className="p-2 border border-1 rounded">
                       <h6 className="fw-bold">Product Details</h6>
-                      {products?.orders?.length > 0 ? (
-                        products.orders.map((product, index) => (
+                      {products?.entries?.length > 0 ? (
+                        products?.entries.map((product, index) => (
                           <Accordion key={product._id}>
                             <AccordionSummary
                               expandIcon={<ExpandMoreIcon />}

@@ -41,15 +41,6 @@ export const fetchAllProducts = createAsyncThunk(
           },
         }
       );
-      // const response = await axios.get(
-      //   "http://44.196.64.110:7878/api/order/orders",
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       Authorization: `Bearer ${token}`,
-      //     },
-      //   }
-      // );
       return response.data?.data;
     } catch (error) {
       return rejectWithValue(
@@ -124,8 +115,7 @@ const addToCartSlice = createSlice({
       .addCase(addtocartproduct.fulfilled, (state, action) => {
         state.loading = false;
         state.cartItems.push(action.payload);
-        // state.loading = true;
-        // fetchAllProducts();
+        state.products.entries.push(action.payload);
       })
       .addCase(addtocartproduct.rejected, (state, action) => {
         state.loading = false;
@@ -138,7 +128,7 @@ const addToCartSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchAllProducts.fulfilled, (state, action) => {
-        console.log(action, "action");
+        // console.log(action, "action");
         state.loading = false;
         state.products = action.payload;
       })
@@ -146,6 +136,7 @@ const addToCartSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+
       // delete product
       .addCase(deleteProduct.pending, (state) => {
         state.loading = true;
