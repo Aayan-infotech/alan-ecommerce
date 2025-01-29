@@ -242,6 +242,34 @@ const Navbar = () => {
                 }}
               >
                 <li>
+                  {!isLoggedIn && (
+                    <div className="d-flex justify-content-between align-items-center px-3 p-2">
+                      <Link
+                        to="/login"
+                        style={{ textDecoration: "none" }}
+                        sx={{
+                          "&:hover": {
+                            textDecoration: "underline",
+                          },
+                        }}
+                      >
+                        <Typography className="fw-bold mb-0">Login</Typography>
+                      </Link>
+                      <Link
+                        to="/customer-register"
+                        style={{ textDecoration: "none" }}
+                        sx={{
+                          "&:hover": {
+                            textDecoration: "underline",
+                          },
+                        }}
+                      >
+                        <Typography className="fw-bold mb-0">
+                          Sign Up
+                        </Typography>
+                      </Link>
+                    </div>
+                  )}
                   <button
                     className="dropdown-item"
                     type="button"
