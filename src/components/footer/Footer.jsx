@@ -24,7 +24,7 @@ export const Footer = () => {
       { name: "Diyinstall Guides", path: "/diyinstall-guides" },
     ],
     more_options: [
-      { name: "Orders", path: "/orders" },
+      { name: "My Orders", path: "/order-history" },
       { name: "Login/Register", path: "/login" },
       { name: "Track Order", path: "/order-track" },
       { name: "Shopping Cart", path: "/cart" },

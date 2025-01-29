@@ -31,8 +31,6 @@ const Navbar = () => {
   const [exploreCategories, setExploreCategories] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [isOpenModel, setIsOpenModel] = useState(false);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -89,9 +87,7 @@ const Navbar = () => {
 
   const handleProtectedLinkClick = (link) => {
     if (!isLoggedIn) {
-      // setSnackbarMessage("Please log in first to access this page.");
       navigate("/login");
-      setSnackbarOpen(true);
       if (link === "/login") {
         navigate("/login");
       }
@@ -114,206 +110,208 @@ const Navbar = () => {
         zIndex: "999",
       }}
     >
-      <Toolbar sx={{ position: "sticky", top: "0", zIndex: "999" }}>
-        <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-          <Link to="/">
-            <img
-              src={logo}
-              alt="Logo"
-              style={{ width: "150px", height: "auto" }}
-            />
-          </Link>
-        </Box>
-        {isMobile && (
-          <>
-            <IconButton color="inherit" onClick={handleMenuOpen}>
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-              PaperProps={{ sx: { width: "250px", borderRadius: "10px" } }}
-            >
-              <Link
-                to="/"
-                onClick={handleMenuClose}
-                className="text-black text-decoration-none"
+      <Toolbar
+        sx={{
+          position: "sticky",
+          top: "0",
+          zIndex: "999",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <Link to="/">
+          <img
+            src={logo}
+            alt="Logo"
+            style={{
+              width: "150px",
+              height: "auto",
+              cursor: "pointer",
+            }}
+          />
+        </Link>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          {isMobile && (
+            <>
+              <IconButton color="inherit" onClick={handleMenuOpen}>
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                PaperProps={{ sx: { width: "250px", borderRadius: "10px" } }}
               >
-                <MenuItem>Home</MenuItem>
+                <Link
+                  to="/"
+                  onClick={handleMenuClose}
+                  className="text-black text-decoration-none"
+                >
+                  <MenuItem>Home</MenuItem>
+                </Link>
+                <Link
+                  to="/doors"
+                  onClick={handleMenuClose}
+                  className="text-black text-decoration-none"
+                >
+                  <MenuItem>Products</MenuItem>
+                </Link>
+                <Link
+                  to="/diyinstall-guides"
+                  onClick={handleMenuClose}
+                  className="text-black text-decoration-none"
+                >
+                  <MenuItem>Installation Guide</MenuItem>
+                </Link>
+                <Link
+                  to="/hardware-products"
+                  onClick={handleMenuClose}
+                  className="text-black text-decoration-none"
+                >
+                  <MenuItem>DIY Guide</MenuItem>
+                </Link>
+              </Menu>
+            </>
+          )}
+          {!isMobile && (
+            <>
+              <Link className="text-decoration-none" to="/">
+                <Button color="inherit" className="nav-title">
+                  Home
+                </Button>
               </Link>
-              <Link
-                to="/doors"
-                onClick={handleMenuClose}
-                className="text-black text-decoration-none"
-              >
-                <MenuItem>Products</MenuItem>
-              </Link>
-              <Link
-                to="/diyinstall-guides"
-                onClick={handleMenuClose}
-                className="text-black text-decoration-none"
-              >
-                <MenuItem>Installation Guide</MenuItem>
-              </Link>
-              <Link
-                to="/hardware-products"
-                onClick={handleMenuClose}
-                className="text-black text-decoration-none"
-              >
-                <MenuItem>DIY Guide</MenuItem>
-              </Link>
-            </Menu>
-          </>
-        )}
-        {!isMobile && (
-          <>
-            <Link className="text-decoration-none" to="/">
-              <Button color="inherit" className="nav-title">
-                Home
-              </Button>
-            </Link>
-            <div className="dropdown">
-              <Button
-                color="inherit"
-                className="nav-title"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Products
-              </Button>
-              <ul className="dropdown-menu">
-                {exploreCategories.length > 0 ? (
-                  exploreCategories.map((category) => (
-                    <li
-                      key={category._id}
-                      onClick={() => handleClick(category)}
-                    >
-                      <button className="dropdown-item" type="button">
-                        {category.name}
-                      </button>
-                    </li>
-                  ))
-                ) : (
-                  <li className="dropdown-item">No categories available</li>
-                )}
-              </ul>
-            </div>
-          </>
-        )}
-
-        {!isMobile && (
-          <>
-            <div
-              className="dropdown"
-              onMouseEnter={() => setIsOpenModel(true)}
-              onMouseLeave={() => setIsOpenModel(false)}
-            >
-              {isLoggedIn ? (
-                <Typography
+              <div className="dropdown">
+                <Button
+                  color="inherit"
+                  className="nav-title"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  sx={{ color: "#fc5f03", fontWeight: "bold" }}
-                  onClick={() => handleMenuOpen()}
                 >
-                  Account
-                </Typography>
-              ) : (
-                <Link to="/login" style={{ textDecoration: "none" }}>
-                  <IconButton
-                    color="inherit"
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "transparent",
-                      },
-                    }}
-                  >
-                    <AccountCircleIcon
-                      sx={{ color: "#fc5f03", fontWeight: "bold" }}
-                      onClick={() => handleProtectedLinkClick("/login")}
-                    />
-                  </IconButton>
-                </Link>
-              )}
-              <ul
-                className="dropdown-menu"
-                style={{
-                  display: isOpenModel ? "block" : "none",
-                }}
-              >
-                <li>
-                  {!isLoggedIn && (
-                    <div className="d-flex justify-content-between align-items-center px-3 p-2">
-                      <Link
-                        to="/login"
-                        style={{ textDecoration: "none" }}
-                        sx={{
-                          "&:hover": {
-                            textDecoration: "underline",
-                          },
-                        }}
+                  Products
+                </Button>
+                <ul className="dropdown-menu">
+                  {exploreCategories.length > 0 ? (
+                    exploreCategories.map((category) => (
+                      <li
+                        key={category._id}
+                        onClick={() => handleClick(category)}
                       >
-                        <Typography className="fw-bold mb-0">Login</Typography>
-                      </Link>
-                      <Link
-                        to="/customer-register"
-                        style={{ textDecoration: "none" }}
-                        sx={{
-                          "&:hover": {
-                            textDecoration: "underline",
-                          },
-                        }}
-                      >
-                        <Typography className="fw-bold mb-0">
-                          Sign Up
-                        </Typography>
-                      </Link>
-                    </div>
+                        <button className="dropdown-item" type="button">
+                          {category.name}
+                        </button>
+                      </li>
+                    ))
+                  ) : (
+                    <li className="dropdown-item">No categories available</li>
                   )}
-                  <button
-                    className="dropdown-item"
-                    type="button"
-                    onClick={() => handleProtectedLinkClick("/order-history")}
+                </ul>
+              </div>
+            </>
+          )}
+
+          {!isMobile && (
+            <>
+              <div
+                className="dropdown"
+                onMouseEnter={() => setIsOpenModel(true)}
+                onMouseLeave={() => setIsOpenModel(false)}
+              >
+                {isLoggedIn ? (
+                  <Typography
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    sx={{ color: "#fc5f03", fontWeight: "bold" }}
+                    onClick={() => handleMenuOpen()}
                   >
-                    My Orders Details
-                  </button>
-                  <button
-                    className="dropdown-item"
-                    type="button"
-                    onClick={() => handleProtectedLinkClick("/user-details")}
-                  >
-                    My Account
-                  </button>
-                  <button
-                    className="dropdown-item"
-                    type="button"
-                    onClick={() => handleProtectedLinkClick("/wish-list")}
-                  >
-                    Wishlist
-                  </button>
-                  {isLoggedIn && (
+                    Account
+                  </Typography>
+                ) : (
+                  <Link to="/login" style={{ textDecoration: "none" }}>
+                    <IconButton
+                      color="inherit"
+                      sx={{
+                        "&:hover": {
+                          backgroundColor: "transparent",
+                        },
+                      }}
+                    >
+                      <AccountCircleIcon
+                        sx={{ color: "#fc5f03", fontWeight: "bold" }}
+                        onClick={() => handleProtectedLinkClick("/login")}
+                      />
+                    </IconButton>
+                  </Link>
+                )}
+                <ul
+                  className="dropdown-menu"
+                  style={{
+                    display: isOpenModel ? "block" : "none",
+                  }}
+                >
+                  <li>
+                    {!isLoggedIn && (
+                      <div className="d-flex justify-content-between align-items-center px-3 p-2">
+                        <Link
+                          to="/login"
+                          style={{ textDecoration: "none" }}
+                          sx={{
+                            "&:hover": {
+                              textDecoration: "underline",
+                            },
+                          }}
+                        >
+                          <Typography className="fw-bold mb-0">
+                            Login
+                          </Typography>
+                        </Link>
+                        <Link
+                          to="/customer-register"
+                          style={{ textDecoration: "none" }}
+                          sx={{
+                            "&:hover": {
+                              textDecoration: "underline",
+                            },
+                          }}
+                        >
+                          <Typography className="fw-bold mb-0">
+                            Sign Up
+                          </Typography>
+                        </Link>
+                      </div>
+                    )}
                     <button
                       className="dropdown-item"
                       type="button"
-                      onClick={handleLogout}
+                      onClick={() => handleProtectedLinkClick("/order-history")}
                     >
-                      Logout
+                      My Orders Details
                     </button>
-                  )}
-                </li>
-              </ul>
-            </div>
-            <IconButton
-              color="inherit"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "transparent",
-                },
-              }}
-            >
-              <SearchIcon sx={{ color: "#fc5f03" }} />
-            </IconButton>
-            <Link to="/cart">
+                    <button
+                      className="dropdown-item"
+                      type="button"
+                      onClick={() => handleProtectedLinkClick("/user-details")}
+                    >
+                      My Account
+                    </button>
+                    <button
+                      className="dropdown-item"
+                      type="button"
+                      onClick={() => handleProtectedLinkClick("/wish-list")}
+                    >
+                      Wishlist
+                    </button>
+                    {isLoggedIn && (
+                      <button
+                        className="dropdown-item"
+                        type="button"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    )}
+                  </li>
+                </ul>
+              </div>
               <IconButton
                 color="inherit"
                 sx={{
@@ -321,71 +319,67 @@ const Navbar = () => {
                     backgroundColor: "transparent",
                   },
                 }}
-                className="me-2"
               >
-                <Badge badgeContent={productCount} color="primary">
-                  <ShoppingCartIcon sx={{ color: "#fc5f03" }} />
-                </Badge>
+                <SearchIcon sx={{ color: "#fc5f03" }} />
               </IconButton>
-            </Link>
-            <Link to="/appointment">
-              <Button
-                variant="contained"
-                className="me-3"
-                sx={{
-                  backgroundColor: "#0068B3",
-                  fontWeight: "bold",
-                  fontSize: "12px",
-                  textTransform: "none",
-                }}
-              >
-                Book an Appointment
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <IconButton
-                sx={{
-                  backgroundColor: "#0068B3",
-                  borderRadius: "50%",
-                  padding: "5px",
-                  "&:hover": {
+              <Link to="/cart">
+                <IconButton
+                  color="inherit"
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                  className="me-2"
+                >
+                  <Badge badgeContent={productCount} color="primary">
+                    <ShoppingCartIcon sx={{ color: "#fc5f03" }} />
+                  </Badge>
+                </IconButton>
+              </Link>
+              <Link to="/appointment">
+                <Button
+                  variant="contained"
+                  className="me-3"
+                  sx={{
                     backgroundColor: "#0068B3",
-                  },
+                    fontWeight: "bold",
+                    fontSize: "12px",
+                    textTransform: "none",
+                  }}
+                >
+                  Book an Appointment
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <IconButton
+                  sx={{
+                    backgroundColor: "#0068B3",
+                    borderRadius: "50%",
+                    padding: "5px",
+                    "&:hover": {
+                      backgroundColor: "#0068B3",
+                    },
+                  }}
+                  className="me-2"
+                >
+                  <PhoneIcon className="fs-6" sx={{ color: "white" }} />
+                </IconButton>
+              </Link>
+              <Typography
+                variant="subtitle1"
+                component="div"
+                sx={{
+                  color: "#FC5F03",
+                  fontWeight: "bold",
                 }}
-                className="me-2"
               >
-                <PhoneIcon className="fs-6" sx={{ color: "white" }} />
-              </IconButton>
-            </Link>
-            <Typography
-              variant="subtitle1"
-              component="div"
-              sx={{
-                color: "#FC5F03",
-                fontWeight: "bold",
-              }}
-            >
-              (800) 995 - 9965
-            </Typography>
-          </>
-        )}
+                (800) 995 - 9965
+              </Typography>
+            </>
+          )}
+        </Box>
       </Toolbar>
-
-      {/* Snackbar Component */}
-      {/* <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={4000}
-        onClose={() => setSnackbarOpen(false)}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert
-          onClose={() => setSnackbarOpen(false)}
-          severity="warning"
-          sx={{ width: "100%" }}
-        >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar> */}
     </AppBar>
   );
 };

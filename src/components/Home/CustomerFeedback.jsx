@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Card,
@@ -59,9 +59,22 @@ const feedbackData = [
 
 export const CustomerFeedback = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Display 3 feedbacks at a time
-  const feedbackPerPage = 3;
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const feedbackPerPage = isMobile ? 1 : 3; // Show 1 card on mobile, 3 on desktop
   const totalPages = Math.ceil(feedbackData.length / feedbackPerPage);
 
   const handleNext = () => {
@@ -128,14 +141,10 @@ export const CustomerFeedback = () => {
             </Grid>
           ))}
         </Grid>
-
-        {/* Navigation Buttons */}
         <Box className="d-flex justify-content-center align-items-center mt-4">
           <Button onClick={handlePrevious} variant="contained" size="small">
             <ArrowBackIosIcon className="fs-6"/>
           </Button>
-
-          {/* Dots */}
           <Box className="mx-2 d-flex">
             {Array(totalPages)
               .fill()
@@ -153,7 +162,6 @@ export const CustomerFeedback = () => {
                 />
               ))}
           </Box>
-
           <Button onClick={handleNext} variant="contained" size="small">
             <ArrowForwardIosIcon className="fs-6"/>
           </Button>

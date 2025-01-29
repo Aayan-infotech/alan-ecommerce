@@ -8,6 +8,8 @@ import {
   AccordionSummary,
   AccordionDetails,
   Divider,
+  Button,
+  Fab,
 } from "@mui/material";
 import banner from "../../assets/doors.png";
 import card_img1 from "../../assets/window.png";
@@ -111,6 +113,16 @@ const OrderHistory = () => {
       </Box>
 
       <Container className="mt-4">
+        <Typography variant="h4" gutterBottom className="fw-bold mb-3">
+          Total Orders&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
+          <Fab
+            color="primary"
+            size="small"
+            className="fw-bold"
+          >
+            {orders.length > 0 ? orders.length : "No Orders"}
+          </Fab>
+        </Typography>
         {orders.map((order, index) => (
           <Accordion key={index}>
             <AccordionSummary

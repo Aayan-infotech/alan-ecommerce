@@ -93,7 +93,7 @@ export const Home = () => {
 
   return (
     <>
-      <div className="home-container px-4">
+      <div className="home-container">
         <Container className="position-relative pos-home-top mt-4 mt-lg-0">
           <Grid container alignItems="center" className="home-content ">
             <Grid item xs={12} md={6} className="text-section">

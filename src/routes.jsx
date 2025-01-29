@@ -141,17 +141,9 @@ export const AppRoutes = () => {
         <Route path="hardware-products" element={<HardwareProducts />} />
         <Route path="wish-list" element={<WishList />} />
         <Route path="cart" element={<Cart />} />
-        <Route path="orders" element={<Orders />} />
+        {/* <Route path="orders" element={<Orders />} /> */}
         <Route path="order-track" element={<OrderTrack />} />
         <Route path="traking-order" element={<TrakingOrder />} />
-        {/* {isLoggedIn && (
-          <>
-            <Route path="cart" element={<Cart />} />
-            <Route path="orders" element={<Orders />} />
-            <Route path="order-track" element={<OrderTrack />} />
-            <Route path="traking-order" element={<TrakingOrder />} />
-          </>
-        )} */}
         <Route path="checkout" element={<CheckoutPayment />} />
         <Route path="successfull" element={<Successfully />} />
         <Route path="contact" element={<Contact />} />
