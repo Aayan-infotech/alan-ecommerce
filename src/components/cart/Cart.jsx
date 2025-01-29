@@ -10,6 +10,11 @@ import {
   AccordionSummary,
   AccordionDetails,
   CircularProgress,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  Alert,
+  DialogContent,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
@@ -62,6 +67,7 @@ const pickupAddressOptions = [
 
 const Cart = () => {
   const [shippinhgMethod, setShippinhgMethod] = useState("delivery");
+  const [productToDelete, setProductToDelete] = useState(null);
   const [selectedOption, setSelectedOption] = useState("");
   const [billingDetails, setBillingDetails] = useState({
     name: "",
@@ -78,7 +84,6 @@ const Cart = () => {
   const loggedUserId = Cookies.get("alanAuthToken");
   const navigate = useNavigate();
   const location = useLocation();
-
 
   const calculateTotalPrice =
     products?.orders?.reduce((acc, product) => {
@@ -144,8 +149,20 @@ const Cart = () => {
     }));
   };
 
-  const handleDeleteProduct = (productId) => {
-    dispatch(deleteProduct(productId));
+  const handleOpenDeleteDialog = (productId) => {
+    setProductToDelete(productId);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (productToDelete) {
+      await dispatch(deleteProduct(productToDelete)).unwrap();
+      dispatch(fetchAllProducts());
+      setProductToDelete(null);
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setProductToDelete(null);
   };
 
   const handleUpdateBillingDetails = async (e) => {
@@ -198,7 +215,7 @@ const Cart = () => {
     if (!loggedUserId && !userLoggedInId) {
       alert("Please log in before proceeding to checkout.");
       localStorage.setItem("redirectUrl", window.location.href);
-      navigate("/login")
+      navigate("/login");
       return;
     } else {
       if (shippinhgMethod === "pickup" && !selectedOption) {
@@ -301,10 +318,10 @@ const Cart = () => {
                   <p>Loading...</p>
                 </div>
               ) : error ? (
-                <p>Error: {error}</p>
+                <p className="text-center">Error: {error}</p>
               ) : products?.entries?.length > 0 ? (
                 products.entries.map((product, index) => (
-                  <div className="card mb-4" key={product._id}>
+                  <div className="card mb-2" key={product._id}>
                     <div className="card-body">
                       <div className="row gx-4 align-items-center">
                         <div className="col-12 col-sm-4 col-md-4 mb-3 mb-md-0">
@@ -317,7 +334,13 @@ const Cart = () => {
                             />
                             <div>
                               <p className="mb-0">
-                                {product?.name || "Product Name"}
+                                {product?.name
+                                  ? product?.name
+                                      .replace(/_/g, " ")
+                                      .replace(/\b\w/g, (char) =>
+                                        char.toUpperCase()
+                                      )
+                                  : "N/A"}
                               </p>
                             </div>
                           </div>
@@ -371,7 +394,7 @@ const Cart = () => {
                           <IconButton
                             color="primary"
                             size="small"
-                            onClick={() => handleDeleteProduct(product._id)}
+                            onClick={() => handleOpenDeleteDialog(product._id)}
                             sx={{ border: "1px solid #fc5f03" }}
                           >
                             <DeleteIcon />
@@ -390,6 +413,35 @@ const Cart = () => {
                   />
                 </p>
               )}
+              <Dialog
+                open={Boolean(productToDelete)}
+                onClose={handleDeleteCancel}
+                maxWidth="sm"
+                fullWidth={true}
+              >
+                <DialogTitle>Confirm Delete</DialogTitle>
+
+                <DialogContent>
+                  <Alert variant="outlined" severity="error">
+                    Are you sure you want to delete this product..?
+                  </Alert>
+                </DialogContent>
+
+                <DialogActions>
+                  <Button onClick={handleDeleteCancel} color="primary">
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={handleDeleteConfirm}
+                    color="error"
+                  >
+                    Delete
+                  </Button>
+                </DialogActions>
+              </Dialog>
+
               {loggedUserId && userLoggedInId && (
                 <div className="row gx-3 gy-3">
                   <div className="col-12 col-md-4">

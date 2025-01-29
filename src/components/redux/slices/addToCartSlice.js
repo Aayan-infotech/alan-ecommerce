@@ -5,27 +5,18 @@ import Cookies from "js-cookie";
 
 export const addtocartproduct = createAsyncThunk(
   "cart/addtocartproduct",
-  async ({ userId, productDetails }, { rejectWithValue }) => {
+  async (productDetails, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://44.196.64.110:7878/api/order/create-order",
-        {
-          user_id: userId,
-          product_id: productDetails._id,
-          totalPrice: productDetails.totalPrice,
-          product_price: productDetails.product_price,
-          name: productDetails.name,
-          sku: productDetails.sku,
-          images: productDetails.images,
-          selectedOptions: productDetails.selectedOptions,
-          customDimensions: productDetails.customDimensions,
-        },
+        "http://44.196.64.110:7878/api/GMCards/sessions",
+        productDetails,
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
+      console.log(response.data, 'abinash');
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -41,7 +32,6 @@ export const fetchAllProducts = createAsyncThunk(
     try {
       const token = Cookies.get("alanAuthToken");
       const sessionId = Cookies.get("sessionId");
-      console.log(sessionId, "sessionId");
       const response = await axios.get(
         `http://44.196.64.110:7878/api/GMCards/sessions/${sessionId}`,
         {
@@ -75,11 +65,10 @@ export const deleteProduct = createAsyncThunk(
     try {
       const token = Cookies.get("alanAuthToken");
       const response = await axios.delete(
-        `http://44.196.64.110:7878/api/order/orders/${productId}`,
+        `http://44.196.64.110:7878/api/GMCards/sessions/${productId}`,
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -135,6 +124,8 @@ const addToCartSlice = createSlice({
       .addCase(addtocartproduct.fulfilled, (state, action) => {
         state.loading = false;
         state.cartItems.push(action.payload);
+        // state.loading = true;
+        // fetchAllProducts();
       })
       .addCase(addtocartproduct.rejected, (state, action) => {
         state.loading = false;
@@ -147,7 +138,7 @@ const addToCartSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchAllProducts.fulfilled, (state, action) => {
-        console.log(action, 'action')
+        console.log(action, "action");
         state.loading = false;
         state.products = action.payload;
       })
@@ -162,10 +153,13 @@ const addToCartSlice = createSlice({
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.loading = false;
-        state.products.orders = state.products.orders.filter(
-          (product) => product._id !== action.payload
-        );
+        if (state.products?.entries) {
+          state.products.entries = state.products.entries.filter(
+            (product) => product._id !== action.payload
+          );
+        }
       })
+
       .addCase(deleteProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;

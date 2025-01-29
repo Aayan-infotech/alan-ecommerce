@@ -23,6 +23,7 @@ import logo from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
@@ -219,14 +220,19 @@ const Navbar = () => {
                 </Typography>
               ) : (
                 <Link to="/login" style={{ textDecoration: "none" }}>
-                  <Typography
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    sx={{ color: "#fc5f03", fontWeight: "bold" }}
-                    onClick={() => handleProtectedLinkClick("/login")}
+                  <IconButton
+                    color="inherit"
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                      },
+                    }}
                   >
-                    Login
-                  </Typography>
+                    <AccountCircleIcon
+                      sx={{ color: "#fc5f03", fontWeight: "bold" }}
+                      onClick={() => handleProtectedLinkClick("/login")}
+                    />
+                  </IconButton>
                 </Link>
               )}
               <ul

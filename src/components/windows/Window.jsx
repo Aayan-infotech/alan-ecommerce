@@ -11,6 +11,9 @@ import {
   MenuItem,
   TextField,
   Divider,
+  Snackbar,
+  SnackbarContent,
+  IconButton,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import banner from "../../assets/doors.png";
@@ -27,6 +30,7 @@ import { useDispatch } from "react-redux";
 import { addtocartproduct } from "../redux/slices/addToCartSlice";
 import Cookies from "js-cookie";
 import useSessionId from "../../hooks/useSessionId";
+import CloseIcon from "@mui/icons-material/Close";
 
 const customStyles = {
   outline: "none",
@@ -48,6 +52,8 @@ const Window = () => {
   const [currentProductDetails, setCurrentProductDetails] = useState({});
   const [currentProductDimensions, setCurrentProductDimensions] =
     useState(null);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const [customPrice, setCustomPrice] = useState(null);
   const [formError, setFormError] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
@@ -58,8 +64,6 @@ const Window = () => {
   const { product_id } = useParams();
   const dispatch = useDispatch();
   const sessionId = useSessionId();
-  const userLoggedInId = Cookies.get("userLoggedInId");
-  const alanAuthToken = Cookies.get("alanAuthToken");
 
   const formatPath = (path) => {
     return path
@@ -190,48 +194,6 @@ const Window = () => {
     return price.toFixed(2);
   };
 
-  const handleProceed = () => {
-    const totalPrice = calculatePrice();
-    const allSelectedOptionsDetails = {
-      selectedOptions,
-      customDimensions,
-      selectedImage,
-      totalPrice,
-      currentProductDetails,
-    };
-    localStorage.setItem(
-      "allSelectedOptionsDetails",
-      JSON.stringify(allSelectedOptionsDetails)
-    );
-    console.log(allSelectedOptionsDetails, "allSelectedOptionsDetails");
-    navigate("/measured-windows", { state: allSelectedOptionsDetails });
-  };
-
-  // const handleToProceedAddToCart = async () => {
-  //   setBtnLoader(true);
-  //   const totalPrice = calculatePrice();
-  //   const productDetails = {
-  //     totalPrice,
-  //     _id: currentProductDetails.product._id,
-  //     product_price: currentProductDetails?.product?.price || 0,
-  //     name: currentProductDetails?.product?.name || "",
-  //     sku: currentProductDetails?.product?.sku || "",
-  //     images: currentProductDetails?.product?.images || [],
-  //     selectedOptions,
-  //     customDimensions,
-  //   };
-  //   try {
-  //     await dispatch(
-  //       addtocartproduct({ userId: userLoggedInId, productDetails })
-  //     );
-  //     alert("Item added to cart successfully!");
-  //   } catch (error) {
-  //     console.error("Error adding to cart:", error);
-  //     alert("Failed to add item to cart.");
-  //   } finally {
-  //     setBtnLoader(false);
-  //   }
-  // };
   const handleToProceedAddToCart = async () => {
     setBtnLoader(true);
     const totalPrice = calculatePrice();
@@ -248,32 +210,49 @@ const Window = () => {
     };
 
     try {
-      if (userLoggedInId) {
-        await dispatch(
-          addtocartproduct({ userId: userLoggedInId, productDetails })
-        );
-        alert("Item added to cart successfully!");
-      } else {
-        const response = await axios.post(
-          "http://44.196.64.110:7878/api/GMCards/sessions",
-          productDetails
-        );
-        if (response.data.success) {
-          alert("Item added to cart successfully as guest!");
-        } else {
-          alert("Failed to add item to cart as guest.");
-        }
-      }
+      const response = await dispatch(addtocartproduct(productDetails));
+      const responseMessage =
+        response.payload?.message || "Item added to cart successfully!";
+      setSnackbarMessage(responseMessage);
+      setOpenSnackbar(true);
     } catch (error) {
       console.error("Error adding to cart:", error);
-      alert("Failed to add item to cart.");
+      setSnackbarMessage("Failed to add item to cart.");
+      setOpenSnackbar(true);
     } finally {
       setBtnLoader(false);
     }
   };
 
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
   return (
     <div className="doors-container px-3">
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <SnackbarContent
+          message={snackbarMessage}
+          style={{
+            backgroundColor: "#4caf50",
+            color: "#fff",
+          }}
+          action={
+            <IconButton
+              size="small"
+              color="inherit"
+              onClick={handleCloseSnackbar}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          }
+        />
+      </Snackbar>
       {loading ? (
         <Loader />
       ) : (

@@ -134,7 +134,7 @@ const Categories = () => {
                         sx={{
                           width: "100%",
                           height: "300px",
-                          objectFit: "fill",
+                          objectFit: "contain",
                         }}
                       />
                       <p className="fw-bold">

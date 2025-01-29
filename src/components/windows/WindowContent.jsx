@@ -10,26 +10,20 @@ const WindowContent = () => {
   return (
     <Container className="mb-4">
       <Grid container spacing={2} alignItems="center">
-        <Grid 
-          item 
-          xs={12} 
-          md={6} 
-          className="d-flex justify-content-center"
-        >
-          <Box 
+        <Grid item xs={12} md={6} className="d-flex justify-content-center">
+          <Box
             sx={{
-              // width: { xs: "100%", sm: "75%", md: "50%" }, 
-              textAlign: { xs: "left", md: "left" } 
+              textAlign: { xs: "left", md: "left" },
             }}
           >
-            <Typography 
-              variant="h4" 
-              className="fw-bold" 
+            <Typography
+              variant="h4"
+              className="fw-bold"
               sx={{ fontSize: { xs: "1.8rem", md: "2.2rem" } }}
             >
               {window_estimate_description.header.title}
             </Typography>
-            <Typography 
+            <Typography
               sx={{ fontSize: { xs: "16px", sm: "18px", md: "20px" } }}
             >
               {window_estimate_description.header.description}
@@ -38,20 +32,20 @@ const WindowContent = () => {
         </Grid>
 
         {/* Image Section */}
-        <Grid 
-          item 
-          xs={12} 
-          md={6} 
+        <Grid
+          item
+          xs={12}
+          md={6}
           sx={{ display: "flex", justifyContent: "center" }}
         >
           <Box
             component="img"
-            src={window_estimate_description.image || windowimg}
+            src={windowimg}
             alt="Window Description"
             sx={{
               width: { xs: "90%", sm: "70%", md: "100%" },
               maxHeight: "400px",
-              objectFit: "contain"
+              objectFit: "contain",
             }}
           />
         </Grid>
@@ -61,21 +55,21 @@ const WindowContent = () => {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           {window_estimate_description.sections.map((section, index) => (
-            <Box 
-              key={index} 
-              className="mb-3 my-3" 
+            <Box
+              key={index}
+              className="mb-3 my-3"
               sx={{ textAlign: { xs: "left", md: "left" } }}
             >
-              <Typography 
-                variant="h6" 
-                gutterBottom 
-                className="fw-bold" 
+              <Typography
+                variant="h6"
+                gutterBottom
+                className="fw-bold"
                 sx={{ fontSize: { xs: "1.2rem", md: "1.5rem" } }}
               >
                 {section.title}
               </Typography>
-              <Typography 
-                variant="body1" 
+              <Typography
+                variant="body1"
                 sx={{ fontSize: { xs: "14px", sm: "16px", md: "18px" } }}
               >
                 {section.description}
