@@ -27,7 +27,10 @@ import No_Image_Available from "../../assets/No_Image_Available.jpg";
 import LinearProgress from "@mui/material/LinearProgress";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useDispatch } from "react-redux";
-import { addtocartproduct, fetchAllProducts } from "../redux/slices/addToCartSlice";
+import {
+  addtocartproduct,
+  fetchAllProducts,
+} from "../redux/slices/addToCartSlice";
 import Cookies from "js-cookie";
 import useSessionId from "../../hooks/useSessionId";
 import CloseIcon from "@mui/icons-material/Close";
@@ -208,7 +211,6 @@ const Window = () => {
       selectedOptions,
       customDimensions,
     };
-
     try {
       const response = await dispatch(addtocartproduct(productDetails));
       const responseMessage =
@@ -216,6 +218,9 @@ const Window = () => {
       setSnackbarMessage(responseMessage);
       setOpenSnackbar(true);
       dispatch(fetchAllProducts());
+      setSelectedOptions({});
+      setCustomDimensions({ height: "", width: "" });
+      setCustomPrice(null);
     } catch (error) {
       console.error("Error adding to cart:", error);
       setSnackbarMessage("Failed to add item to cart.");
