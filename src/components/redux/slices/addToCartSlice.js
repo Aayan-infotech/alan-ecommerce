@@ -16,7 +16,7 @@ export const addtocartproduct = createAsyncThunk(
           },
         }
       );
-      console.log(response.data, 'abinash');
+      console.log(response.data, "abinash");
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -115,7 +115,7 @@ const addToCartSlice = createSlice({
       .addCase(addtocartproduct.fulfilled, (state, action) => {
         state.loading = false;
         state.cartItems.push(action.payload);
-        state.products.entries.push(action.payload);
+        state.products.orders.push(action.payload);
       })
       .addCase(addtocartproduct.rejected, (state, action) => {
         state.loading = false;

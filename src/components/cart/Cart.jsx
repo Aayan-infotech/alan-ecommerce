@@ -34,6 +34,7 @@ import Loader from "../../loader/Loader";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const pickupAddressOptions = [
   {
@@ -69,6 +70,8 @@ const Cart = () => {
   const [shippinhgMethod, setShippinhgMethod] = useState("delivery");
   const [productToDelete, setProductToDelete] = useState(null);
   const [selectedOption, setSelectedOption] = useState("");
+  const [customerDetails, setCustomerDetails] = useState(null);
+  const [isEditingBilling, setIsEditingBilling] = useState(false);
   const [billingDetails, setBillingDetails] = useState({
     name: "",
     mobile: "",
@@ -79,27 +82,52 @@ const Cart = () => {
   const [productQuantities, setProductQuantities] = useState({});
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.cart);
-  console.log(products?.entries, "products");
+  console.log(products?.orders, "products");
 
   const userLoggedInId = Cookies.get("userLoggedInId");
-  const loggedUserId = Cookies.get("alanAuthToken");
+  const alanAuthToken = Cookies.get("alanAuthToken");
   const navigate = useNavigate();
   const location = useLocation();
 
-  const calculateTotalPrice = Array.isArray(products?.entries)
-    ? products.entries.reduce((acc, product) => {
+  const calculateTotalPrice = Array.isArray(products?.orders)
+    ? products?.orders.reduce((acc, product) => {
         const quantity = productQuantities[product._id] || 1;
         return acc + product.totalPrice * quantity;
       }, 0)
     : 0;
 
-  const numberOfTotalProducts = Array.isArray(products?.entries)
-    ? products.entries.length
+  const numberOfTotalProducts = Array.isArray(products?.orders)
+    ? products?.orders.length
     : 0;
 
+  const fetchCustomerAddressDetails = async () => {
+    try {
+      const response = await axios.get(
+        `http://44.196.64.110:7878/api/CustMng/customers/${userLoggedInId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${alanAuthToken}`,
+          },
+        }
+      );
+      setCustomerDetails(response?.data?.data);
+      console.log(response.data.data, "response?.data?.data");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    if (!products?.entries || products.entries.length === 0) {
-      dispatch(fetchAllProducts());
+    if (!userLoggedInId || !alanAuthToken) {
+      if (!products?.orders || products?.orders.length === 0) {
+        dispatch(fetchAllProducts());
+      }
+    } else {
+      if (!products?.orders || products?.orders.length === 0) {
+        dispatch(fetchAllProducts());
+      }
+      fetchCustomerAddressDetails();
     }
   }, [dispatch, products]);
 
@@ -134,7 +162,7 @@ const Cart = () => {
   };
 
   const handleEditCustomerAddress = () => {
-    const customer = products?.customer;
+    const customer = customerDetails;
     if (customer) {
       setBillingDetails({
         name: customer.name || "",
@@ -143,6 +171,7 @@ const Cart = () => {
         zipCode: customer.zipCode || "",
         address: customer.address || "",
       });
+      setIsEditingBilling(true);
     }
   };
 
@@ -172,6 +201,19 @@ const Cart = () => {
 
   const handleUpdateBillingDetails = async (e) => {
     e.preventDefault();
+    if (
+      !billingDetails.name ||
+      !billingDetails.mobile ||
+      !billingDetails.state ||
+      !billingDetails.zipCode ||
+      !billingDetails.address
+    ) {
+      toast.error("Please fill out all fields before updating.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
     dispatch(
       updateUserBillingAddress({ userId: userLoggedInId, billingDetails })
     )
@@ -214,10 +256,21 @@ const Cart = () => {
       });
   };
 
+  const handleCancelBillingDetails = () => {
+    setBillingDetails({
+      name: "",
+      mobile: "",
+      state: "",
+      zipCode: "",
+      address: "",
+    });
+    setIsEditingBilling(false);
+  };
+
   const handleCheckOut = async (e) => {
     e.preventDefault();
 
-    if (!loggedUserId && !userLoggedInId) {
+    if (!alanAuthToken && !userLoggedInId) {
       alert("Please log in before proceeding to checkout.");
       localStorage.setItem("redirectUrl", window.location.href);
       navigate("/login");
@@ -260,7 +313,7 @@ const Cart = () => {
         totalProducts: numberOfTotalProducts,
         shippingMethod: shippinhgMethod,
         shippingAddress,
-        productIds: products?.entries?.map((product) => product._id),
+        productIds: products?.orders?.map((product) => product._id),
       };
 
       try {
@@ -324,8 +377,8 @@ const Cart = () => {
                 </div>
               ) : error ? (
                 <p className="text-center">Error: {error}</p>
-              ) : products?.entries?.length > 0 ? (
-                products.entries.map((product, index) => (
+              ) : products?.orders?.length > 0 ? (
+                products?.orders.map((product, index) => (
                   <div className="card mb-2" key={product._id}>
                     <div className="card-body">
                       <div className="row gx-4 align-items-center">
@@ -447,263 +500,282 @@ const Cart = () => {
                 </DialogActions>
               </Dialog>
 
-              {loggedUserId && userLoggedInId && (
-                <div className="row gx-3 gy-3">
-                  <div className="col-12 col-md-4">
-                    <div className="p-2 border border-1 rounded">
-                      <h6 className="fw-bold">Billing</h6>
-                      <form>
-                        <div className="mb-3">
-                          <input
-                            type="text"
-                            name="name"
-                            placeholder="First Name"
-                            value={billingDetails.name}
-                            onChange={handleBillingChange}
-                            className="form-control"
-                            style={{ outline: "none", boxShadow: "none" }}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <input
-                            type="text"
-                            name="mobile"
-                            placeholder="Mobile Number"
-                            value={billingDetails.mobile}
-                            onChange={handleBillingChange}
-                            className="form-control"
-                            style={{ outline: "none", boxShadow: "none" }}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <input
-                            type="text"
-                            name="state"
-                            placeholder="State"
-                            value={billingDetails.state}
-                            onChange={handleBillingChange}
-                            className="form-control"
-                            style={{ outline: "none", boxShadow: "none" }}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <input
-                            type="text"
-                            name="zipCode"
-                            placeholder="Zip Code"
-                            value={billingDetails.zipCode}
-                            onChange={handleBillingChange}
-                            className="form-control"
-                            style={{ outline: "none", boxShadow: "none" }}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <textarea
-                            name="address"
-                            placeholder="Address"
-                            value={billingDetails.address}
-                            onChange={handleBillingChange}
-                            className="form-control"
-                            style={{ outline: "none", boxShadow: "none" }}
-                          />
-                        </div>
-                        <button
-                          type="submit"
-                          className="btn btn-primary"
-                          onClick={handleUpdateBillingDetails}
+              <div className="row gx-3 gy-3">
+                {alanAuthToken && userLoggedInId && (
+                  <>
+                    <div className="col-12 col-md-4">
+                      <div
+                        className={`p-2 border border-1 rounded ${
+                          !isEditingBilling ? "bg-light" : ""
+                        }`}
+                      >
+                        <h6 className="fw-bold">Billing</h6>
+                        <form
+                          className="form"
+                          disabled={!isEditingBilling}
+                          style={{
+                            outline: "none",
+                            boxShadow: "none",
+                            pointerEvents: isEditingBilling ? "auto" : "none",
+                          }}
                         >
-                          Update
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                  <div className="col-12 col-md-4">
-                    <div className="p-2 border border-1 rounded">
-                      <h6 className="fw-bold">Shipping Method</h6>
-                      <div className="d-flex align-items-center mb-3">
-                        <div className="form-check me-4">
-                          <input
-                            className="form-check-input"
-                            type="radio"
-                            name="flexRadioDefault"
-                            id="flexRadioDefault1"
-                            checked={shippinhgMethod === "delivery"}
-                            onChange={() => setShippinhgMethod("delivery")}
-                          />
-                          <label
-                            className="form-check-label"
-                            for="flexRadioDefault1"
-                          >
-                            Delivery
-                          </label>
-                        </div>
-                        <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            type="radio"
-                            name="flexRadioDefault"
-                            id="flexRadioDefault2"
-                            checked={shippinhgMethod === "pickup"}
-                            onChange={() => setShippinhgMethod("pickup")}
-                          />
-                          <label
-                            className="form-check-label"
-                            for="flexRadioDefault2"
-                          >
-                            Pickup
-                          </label>
-                        </div>
+                          <div className="mb-3">
+                            <input
+                              type="text"
+                              name="name"
+                              placeholder="First Name"
+                              value={billingDetails.name}
+                              onChange={handleBillingChange}
+                              className="form-control"
+                              style={{ outline: "none", boxShadow: "none" }}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <input
+                              type="text"
+                              name="mobile"
+                              placeholder="Mobile Number"
+                              value={billingDetails.mobile}
+                              onChange={handleBillingChange}
+                              className="form-control"
+                              style={{ outline: "none", boxShadow: "none" }}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <input
+                              type="text"
+                              name="state"
+                              placeholder="State"
+                              value={billingDetails.state}
+                              onChange={handleBillingChange}
+                              className="form-control"
+                              style={{ outline: "none", boxShadow: "none" }}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <input
+                              type="text"
+                              name="zipCode"
+                              placeholder="Zip Code"
+                              value={billingDetails.zipCode}
+                              onChange={handleBillingChange}
+                              className="form-control"
+                              style={{ outline: "none", boxShadow: "none" }}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <textarea
+                              name="address"
+                              placeholder="Address"
+                              value={billingDetails.address}
+                              onChange={handleBillingChange}
+                              className="form-control"
+                              style={{ outline: "none", boxShadow: "none" }}
+                            />
+                          </div>
+                          <div className="d-flex justify-content-between align-items-center">
+                            <button
+                              type="submit"
+                              className="btn btn-primary"
+                              onClick={handleUpdateBillingDetails}
+                            >
+                              Update
+                            </button>
+                            <button
+                              type="submit"
+                              className="btn btn-primary"
+                              onClick={handleCancelBillingDetails}
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </form>
                       </div>
-                      {shippinhgMethod === "pickup" && (
-                        <div>
-                          {pickupAddressOptions.map((option) => (
-                            <div
-                              key={option.id}
-                              className="p-2 border border-1 rounded mb-2 d-flex align-items-start"
-                            >
-                              <input
-                                type="radio"
-                                id={option.id}
-                                name="pickupOption"
-                                value={option.id}
-                                className="me-2"
-                                checked={selectedOption === option.id}
-                                onChange={handleChange}
-                              />
-                              <label
-                                htmlFor={option.id}
-                                className="w-100 d-flex justify-content-between"
-                              >
-                                <div>
-                                  <h6 className="fw-bold">{option.title}</h6>
-                                  {option.description.map((line, index) => (
-                                    <p key={index} className="mb-0">
-                                      &nbsp;-&nbsp;{line}
-                                    </p>
-                                  ))}
-                                </div>
-                                <h6 className="fw-bold">{option.price}</h6>
-                              </label>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                      {shippinhgMethod === "delivery" && (
-                        <div className="p-2 border border-1 rounded mb-2 d-flex align-items-start">
-                          <input
-                            type="radio"
-                            id="option3"
-                            name="pickupOption"
-                            value="option3"
-                            className="me-2"
-                          />
-                          <label
-                            htmlFor="option3"
-                            className="w-100 d-flex justify-content-between"
-                          >
-                            <div>
-                              <h6 className="fw-bold">
-                                &nbsp;&nbsp;{products?.customer?.name || "n/a"}
-                              </h6>
-                              <p className="mb-0">
-                                &nbsp;-&nbsp;
-                                {products?.customer?.email || "N/A"}
-                              </p>
-                              <p className="mb-0">
-                                &nbsp;-&nbsp;
-                                {products?.customer?.mobile || "N/A"}
-                              </p>
-                              <p className="mb-0">
-                                &nbsp;-&nbsp;
-                                {products?.customer?.country_name || "N/A"}
-                              </p>
-                              <p className="mb-0">
-                                &nbsp;-&nbsp;
-                                {products?.customer?.state || "N/A"}
-                              </p>
-                              <p className="mb-0">
-                                &nbsp;-&nbsp;
-                                {products?.customer?.address || "N/A"}
-                              </p>
-                              <p className="mb-0">
-                                &nbsp;-&nbsp;
-                                {products?.customer?.zipCode || "N/A"}
-                              </p>
-                            </div>
-                            <IconButton
-                              onClick={handleEditCustomerAddress}
-                              variant="outlined"
-                              sx={{ height: "40px", width: "40px" }}
-                            >
-                              <ModeIcon color="primary" />
-                            </IconButton>
-                          </label>
-                        </div>
-                      )}
                     </div>
-                  </div>
-                  <div className="col-12 col-md-4 mt-3">
-                    <div className="p-2 border border-1 rounded">
-                      <h6 className="fw-bold">Product Details</h6>
-                      {products?.entries?.length > 0 ? (
-                        products?.entries.map((product, index) => (
-                          <Accordion key={product._id}>
-                            <AccordionSummary
-                              expandIcon={<ExpandMoreIcon />}
-                              aria-controls={`panel${index}-content`}
-                              id={`panel${index}-header`}
+                    <div className="col-12 col-md-4">
+                      <div className="p-2 border border-1 rounded">
+                        <h6 className="fw-bold">Shipping Method</h6>
+                        <div className="d-flex align-items-center mb-3">
+                          <div className="form-check me-4">
+                            <input
+                              className="form-check-input"
+                              type="radio"
+                              name="flexRadioDefault"
+                              id="flexRadioDefault1"
+                              checked={shippinhgMethod === "delivery"}
+                              onChange={() => setShippinhgMethod("delivery")}
+                            />
+                            <label
+                              className="form-check-label"
+                              for="flexRadioDefault1"
                             >
-                              <Typography component="span">
-                                {product.name}
-                              </Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                              <div>
-                                <h6 className="fw-bold">Selected Options</h6>
-                                {product.selectedOptions ? (
-                                  Object.entries(product.selectedOptions).map(
-                                    ([key, value]) => (
-                                      <div
-                                        key={key}
-                                        className="d-flex justify-content-between align-items-center mb-2"
-                                      >
-                                        <h6 className="fw-bold">{key}</h6>
-                                        <p className="mb-0">{value}</p>
-                                      </div>
-                                    )
-                                  )
-                                ) : (
-                                  <p>No options selected</p>
-                                )}
+                              Delivery
+                            </label>
+                          </div>
+                          <div className="form-check">
+                            <input
+                              className="form-check-input"
+                              type="radio"
+                              name="flexRadioDefault"
+                              id="flexRadioDefault2"
+                              checked={shippinhgMethod === "pickup"}
+                              onChange={() => setShippinhgMethod("pickup")}
+                            />
+                            <label
+                              className="form-check-label"
+                              for="flexRadioDefault2"
+                            >
+                              Pickup
+                            </label>
+                          </div>
+                        </div>
+                        {shippinhgMethod === "pickup" && (
+                          <div>
+                            {pickupAddressOptions.map((option) => (
+                              <div
+                                key={option.id}
+                                className="p-2 border border-1 rounded mb-2 d-flex align-items-start"
+                              >
+                                <input
+                                  type="radio"
+                                  id={option.id}
+                                  name="pickupOption"
+                                  value={option.id}
+                                  className="me-2"
+                                  checked={selectedOption === option.id}
+                                  onChange={handleChange}
+                                />
+                                <label
+                                  htmlFor={option.id}
+                                  className="w-100 d-flex justify-content-between"
+                                >
+                                  <div>
+                                    <h6 className="fw-bold">{option.title}</h6>
+                                    {option.description.map((line, index) => (
+                                      <p key={index} className="mb-0">
+                                        &nbsp;-&nbsp;{line}
+                                      </p>
+                                    ))}
+                                  </div>
+                                  <h6 className="fw-bold">{option.price}</h6>
+                                </label>
                               </div>
-                            </AccordionDetails>
-                          </Accordion>
-                        ))
-                      ) : (
-                        <p className="text-center mt-3">
-                          No product in the cart
-                        </p>
-                      )}
-                      <hr />
-                      <div className="summary border border-1 rounded p-3">
-                        <h4>Summary</h4>
-                        <div className="d-flex justify-content-between">
-                          <span>Total Products:</span>
-                          <span className="fw-bold">
-                            {numberOfTotalProducts}
-                          </span>
-                        </div>
-                        <div className="d-flex justify-content-between">
-                          <span>Total Price:</span>
-                          <span className="fw-bold">
-                            ${calculateTotalPrice.toFixed(2)}
-                          </span>
-                        </div>
+                            ))}
+                          </div>
+                        )}
+                        {shippinhgMethod === "delivery" && (
+                          <div className="p-2 border border-1 rounded mb-2 d-flex align-items-start">
+                            <input
+                              type="radio"
+                              id="option3"
+                              name="pickupOption"
+                              value="option3"
+                              className="me-2"
+                            />
+                            <label
+                              htmlFor="option3"
+                              className="w-100 d-flex justify-content-between"
+                            >
+                              <div>
+                                <h6 className="fw-bold">
+                                  &nbsp;&nbsp;{customerDetails?.name || "n/a"}
+                                </h6>
+                                <p className="mb-0">
+                                  &nbsp;-&nbsp;
+                                  {customerDetails?.email || "N/A"}
+                                </p>
+                                <p className="mb-0">
+                                  &nbsp;-&nbsp;
+                                  {customerDetails?.mobile || "N/A"}
+                                </p>
+                                <p className="mb-0">
+                                  &nbsp;-&nbsp;
+                                  {customerDetails?.country_name || "N/A"}
+                                </p>
+                                <p className="mb-0">
+                                  &nbsp;-&nbsp;
+                                  {customerDetails?.state || "N/A"}
+                                </p>
+                                <p className="mb-0">
+                                  &nbsp;-&nbsp;
+                                  {customerDetails?.address || "N/A"}
+                                </p>
+                                <p className="mb-0">
+                                  &nbsp;-&nbsp;
+                                  {customerDetails?.zipCode || "N/A"}
+                                </p>
+                              </div>
+                              <IconButton
+                                onClick={handleEditCustomerAddress}
+                                variant="outlined"
+                                sx={{ height: "40px", width: "40px" }}
+                              >
+                                <ModeIcon color="primary" />
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </>
+                )}
+                <div className="col-12 col-md-4 mt-3">
+                  <div className="p-2 border border-1 rounded">
+                    <h6 className="fw-bold">Product Details</h6>
+                    {products?.orders?.length > 0 ? (
+                      products?.orders.map((product, index) => (
+                        <Accordion key={product._id}>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls={`panel${index}-content`}
+                            id={`panel${index}-header`}
+                          >
+                            <Typography component="span">
+                              {product.name}
+                            </Typography>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <div>
+                              <h6 className="fw-bold">Selected Options</h6>
+                              {product.selectedOptions ? (
+                                Object.entries(product.selectedOptions).map(
+                                  ([key, value]) => (
+                                    <div
+                                      key={key}
+                                      className="d-flex justify-content-between align-items-center mb-2"
+                                    >
+                                      <h6 className="fw-bold">{key}</h6>
+                                      <p className="mb-0">{value}</p>
+                                    </div>
+                                  )
+                                )
+                              ) : (
+                                <p>No options selected</p>
+                              )}
+                            </div>
+                          </AccordionDetails>
+                        </Accordion>
+                      ))
+                    ) : (
+                      <p className="text-center mt-3">No product in the cart</p>
+                    )}
+                    <hr />
+                    <div className="summary border border-1 rounded p-3">
+                      <h4>Summary</h4>
+                      <div className="d-flex justify-content-between">
+                        <span>Total Products:</span>
+                        <span className="fw-bold">{numberOfTotalProducts}</span>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <span>Total Price:</span>
+                        <span className="fw-bold">
+                          ${calculateTotalPrice.toFixed(2)}
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
-              )}
+              </div>
               <Box className="text-center mt-4">
                 {/* <Link to="/checkout"> */}
                 <Button

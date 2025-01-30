@@ -24,7 +24,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllProducts } from "../redux/slices/addToCartSlice";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -33,8 +34,16 @@ const Navbar = () => {
   const [isOpenModel, setIsOpenModel] = useState(false);
 
   const theme = useTheme();
+  const dispatch = useDispatch();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const { products } = useSelector((state) => state.cart);
+  const { products, loading, error } = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    if (!products?.orders || products.orders.length === 0) {
+      dispatch(fetchAllProducts());
+    }
+  }, [dispatch, products?.orders]);
+
   const productCount = products?.orders ? products.orders.length : 0;
 
   const navigate = useNavigate();
@@ -226,21 +235,21 @@ const Navbar = () => {
                     Account
                   </Typography>
                 ) : (
-                  <Link to="/login" style={{ textDecoration: "none" }}>
-                    <IconButton
-                      color="inherit"
-                      sx={{
-                        "&:hover": {
-                          backgroundColor: "transparent",
-                        },
-                      }}
-                    >
-                      <AccountCircleIcon
-                        sx={{ color: "#fc5f03", fontWeight: "bold" }}
-                        onClick={() => handleProtectedLinkClick("/login")}
-                      />
-                    </IconButton>
-                  </Link>
+                  // <Link to="/login" style={{ textDecoration: "none" }}>
+                  <IconButton
+                    color="inherit"
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                      },
+                    }}
+                  >
+                    <AccountCircleIcon
+                      sx={{ color: "#fc5f03", fontWeight: "bold" }}
+                      // onClick={() => handleProtectedLinkClick("/login")}
+                    />
+                  </IconButton>
+                  // </Link>
                 )}
                 <ul
                   className="dropdown-menu"
