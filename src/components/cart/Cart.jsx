@@ -34,6 +34,7 @@ import Loader from "../../loader/Loader";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 
 const pickupAddressOptions = [
@@ -82,7 +83,6 @@ const Cart = () => {
   const [productQuantities, setProductQuantities] = useState({});
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.cart);
-  console.log(products?.orders, "products");
 
   const userLoggedInId = Cookies.get("userLoggedInId");
   const alanAuthToken = Cookies.get("alanAuthToken");
@@ -112,7 +112,6 @@ const Cart = () => {
         }
       );
       setCustomerDetails(response?.data?.data);
-      console.log(response.data.data, "response?.data?.data");
     } catch (error) {
       console.log(error);
     }
@@ -266,73 +265,78 @@ const Cart = () => {
     });
     setIsEditingBilling(false);
   };
-
+console.log(products, 'products');
   const handleCheckOut = async (e) => {
     e.preventDefault();
-
     if (!alanAuthToken && !userLoggedInId) {
       alert("Please log in before proceeding to checkout.");
-      localStorage.setItem("redirectUrl", window.location.href);
       navigate("/login");
       return;
-    } else {
-      if (shippinhgMethod === "pickup" && !selectedOption) {
-        alert("Please select a pickup address before proceeding.");
-        return;
-      } else if (shippinhgMethod === "delivery" && !billingDetails.address) {
-        alert("Please provide a delivery address before proceeding.");
+    }
+    if (shippinhgMethod === "pickup" && !selectedOption) {
+      alert("Please select a pickup address before proceeding.");
+      return;
+    } else if (shippinhgMethod === "delivery" && !billingDetails?.address?.trim()) {
+      alert("Please provide a delivery address before proceeding.");
+      return;
+    }
+    let shippingAddress;
+    if (shippinhgMethod === "pickup") {
+      const selectedPickupOption = pickupAddressOptions.find(
+        (option) => option.id === selectedOption
+      );
+      console.log(selectedPickupOption, 'selectedPickupOption')
+      if (!selectedPickupOption) {
+        alert("Invalid pickup address selected.");
         return;
       }
-
-      let shippingAddress;
-      if (shippinhgMethod === "pickup") {
-        const selectedPickupOption = pickupAddressOptions.find(
-          (option) => option.id === selectedOption
-        );
-        if (!selectedPickupOption) {
-          alert("Invalid pickup address selected.");
-          return;
-        }
-        shippingAddress = {
-          title: selectedPickupOption.title,
-          description: selectedPickupOption.description.join(", "),
-          price: selectedPickupOption.price,
-        };
-      } else {
-        shippingAddress = {
-          name: billingDetails.name || "N/A",
-          mobile: billingDetails.mobile || "N/A",
-          address: billingDetails.address || "N/A",
-          state: billingDetails.state || "N/A",
-          zipCode: billingDetails.zipCode || "N/A",
-        };
-      }
-
-      const checkoutData = {
-        totalPrice: calculateTotalPrice.toFixed(2),
-        totalProducts: numberOfTotalProducts,
-        shippingMethod: shippinhgMethod,
-        shippingAddress,
-        productIds: products?.orders?.map((product) => product._id),
+      shippingAddress = {
+        title: selectedPickupOption.title,
+        description: selectedPickupOption.description.join(", "),
       };
-
-      try {
-        const response = await fetch("/api/checkout", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(checkoutData),
-        });
-        if (!response.ok) {
-          throw new Error("Failed to process checkout");
-        }
-        const result = await response.json();
-        alert("Checkout successful: " + result.message);
-      } catch (error) {
-        console.error("Checkout error:", error);
-        alert("Checkout failed: " + error.message);
+    } else {
+      shippingAddress = {
+        name: billingDetails.name || "N/A",
+        mobile: billingDetails.mobile || "N/A",
+        address: billingDetails.address || "N/A",
+        state: billingDetails.state || "N/A",
+        zipCode: billingDetails.zipCode || "N/A",
+      };
+    }
+    const checkoutData = {
+      totalPrice: calculateTotalPrice.toFixed(2),
+      totalProducts: numberOfTotalProducts,
+      shippingMethod: shippinhgMethod,
+      shippingAddress,
+      products: products?.orders?.map((product) => ({
+        dish: product.name,
+        imgdata: product.images,
+        price: product.product_price,
+      })),
+      productIds: products?.orders?.map((product) => product._id),
+    };
+    try {
+      const stripe = await loadStripe(
+        "pk_test_51QoJ7kAVVqxB4pCghu988pszHfcMWzKLIvG1vwatgYt7tUwSMvf7Pj0xfGktagXmZvQ0zdEkctDSvaYB0l7ufnyn0084s9ErDf"
+      );
+      const response = await axios.post(
+        "http://44.196.64.110:7878/api/payment/create-payment-intent",
+        { checkoutData },
+        { headers: { "Content-Type": "application/json" } }
+      );
+      const session = response.data;
+      if (!session.sessionId) {
+        throw new Error("Invalid session ID from backend.");
       }
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.sessionId,
+      });
+      if (result.error) {
+        console.log(result.error, "error-----");
+      }
+    } catch (error) {
+      console.error("Checkout error:", error);
+      alert("Checkout failed: " + error.message);
     }
   };
 
@@ -657,7 +661,6 @@ const Cart = () => {
                                       </p>
                                     ))}
                                   </div>
-                                  <h6 className="fw-bold">{option.price}</h6>
                                 </label>
                               </div>
                             ))}
@@ -687,10 +690,6 @@ const Cart = () => {
                                 <p className="mb-0">
                                   &nbsp;-&nbsp;
                                   {customerDetails?.mobile || "N/A"}
-                                </p>
-                                <p className="mb-0">
-                                  &nbsp;-&nbsp;
-                                  {customerDetails?.country_name || "N/A"}
                                 </p>
                                 <p className="mb-0">
                                   &nbsp;-&nbsp;

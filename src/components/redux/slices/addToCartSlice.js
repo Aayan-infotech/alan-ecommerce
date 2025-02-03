@@ -31,16 +31,24 @@ export const fetchAllProducts = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const token = Cookies.get("alanAuthToken");
+      const userLoggedInId = Cookies.get("userLoggedInId");
       const sessionId = Cookies.get("sessionId");
-      const response = await axios.get(
-        `http://44.196.64.110:7878/api/GMCards/sessions/${sessionId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      let apiUrl = "";
+      let headers = {
+        "Content-Type": "application/json",
+      };
+      if (token && userLoggedInId) {
+        apiUrl = "http://44.196.64.110:7878/api/order/orders";
+        headers["Authorization"] = `Bearer ${token}`;
+      } else {
+        if (!sessionId) {
+          throw new Error("Session ID is missing");
         }
-      );
+        apiUrl = `http://44.196.64.110:7878/api/GMCards/sessions/${sessionId}`;
+      }
+      const response = await axios.get(apiUrl, {
+        headers: headers,
+      });
       return response.data?.data;
     } catch (error) {
       return rejectWithValue(
