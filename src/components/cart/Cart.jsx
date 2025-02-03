@@ -68,7 +68,7 @@ const pickupAddressOptions = [
 ];
 
 const Cart = () => {
-  const [shippinhgMethod, setShippinhgMethod] = useState("delivery");
+  const [shippingMethod, setShippingMethod] = useState("delivery");
   const [productToDelete, setProductToDelete] = useState(null);
   const [selectedOption, setSelectedOption] = useState("");
   const [customerDetails, setCustomerDetails] = useState(null);
@@ -265,7 +265,7 @@ const Cart = () => {
     });
     setIsEditingBilling(false);
   };
-console.log(products, 'products');
+
   const handleCheckOut = async (e) => {
     e.preventDefault();
     if (!alanAuthToken && !userLoggedInId) {
@@ -273,40 +273,55 @@ console.log(products, 'products');
       navigate("/login");
       return;
     }
-    if (shippinhgMethod === "pickup" && !selectedOption) {
-      alert("Please select a pickup address before proceeding.");
-      return;
-    } else if (shippinhgMethod === "delivery" && !billingDetails?.address?.trim()) {
-      alert("Please provide a delivery address before proceeding.");
+    if (!products?.orders || products?.orders.length === 0) {
+      alert("Your cart is empty. Please add some products before checkout.");
       return;
     }
-    let shippingAddress;
-    if (shippinhgMethod === "pickup") {
+    if (!shippingMethod) {
+      alert("Please select a shipping method before proceeding.");
+      return;
+    }
+    let shippingAddress = {};
+  
+    if (shippingMethod === "pickup") {
+      if (!selectedOption) {
+        alert("Please select a pickup address before proceeding.");
+        return;
+      }
+  
       const selectedPickupOption = pickupAddressOptions.find(
         (option) => option.id === selectedOption
       );
-      console.log(selectedPickupOption, 'selectedPickupOption')
+  
       if (!selectedPickupOption) {
         alert("Invalid pickup address selected.");
         return;
       }
+  
       shippingAddress = {
         title: selectedPickupOption.title,
         description: selectedPickupOption.description.join(", "),
       };
-    } else {
+    } else if (shippingMethod === "delivery") {
+      if (!selectedOption || !customerDetails) {
+        alert("Please select a delivery address before proceeding.");
+        return;
+      }
+  
       shippingAddress = {
-        name: billingDetails.name || "N/A",
-        mobile: billingDetails.mobile || "N/A",
-        address: billingDetails.address || "N/A",
-        state: billingDetails.state || "N/A",
-        zipCode: billingDetails.zipCode || "N/A",
+        name: customerDetails.name || "N/A",
+        mobile: customerDetails.mobile || "N/A",
+        email: customerDetails.email || "N/A",
+        address: customerDetails.address || "N/A",
+        state: customerDetails.state || "N/A",
+        zipCode: customerDetails.zipCode || "N/A",
       };
     }
+
     const checkoutData = {
       totalPrice: calculateTotalPrice.toFixed(2),
       totalProducts: numberOfTotalProducts,
-      shippingMethod: shippinhgMethod,
+      shippingMethod: shippingMethod,
       shippingAddress,
       products: products?.orders?.map((product) => ({
         dish: product.name,
@@ -315,6 +330,7 @@ console.log(products, 'products');
       })),
       productIds: products?.orders?.map((product) => product._id),
     };
+    
     try {
       const stripe = await loadStripe(
         "pk_test_51QoJ7kAVVqxB4pCghu988pszHfcMWzKLIvG1vwatgYt7tUwSMvf7Pj0xfGktagXmZvQ0zdEkctDSvaYB0l7ufnyn0084s9ErDf"
@@ -606,8 +622,8 @@ console.log(products, 'products');
                               type="radio"
                               name="flexRadioDefault"
                               id="flexRadioDefault1"
-                              checked={shippinhgMethod === "delivery"}
-                              onChange={() => setShippinhgMethod("delivery")}
+                              checked={shippingMethod === "delivery"}
+                              onChange={() => setShippingMethod("delivery")}
                             />
                             <label
                               className="form-check-label"
@@ -622,8 +638,8 @@ console.log(products, 'products');
                               type="radio"
                               name="flexRadioDefault"
                               id="flexRadioDefault2"
-                              checked={shippinhgMethod === "pickup"}
-                              onChange={() => setShippinhgMethod("pickup")}
+                              checked={shippingMethod === "pickup"}
+                              onChange={() => setShippingMethod("pickup")}
                             />
                             <label
                               className="form-check-label"
@@ -633,7 +649,7 @@ console.log(products, 'products');
                             </label>
                           </div>
                         </div>
-                        {shippinhgMethod === "pickup" && (
+                        {shippingMethod === "pickup" && (
                           <div>
                             {pickupAddressOptions.map((option) => (
                               <div
@@ -666,13 +682,15 @@ console.log(products, 'products');
                             ))}
                           </div>
                         )}
-                        {shippinhgMethod === "delivery" && (
+                        {shippingMethod === "delivery" && customerDetails && (
                           <div className="p-2 border border-1 rounded mb-2 d-flex align-items-start">
                             <input
                               type="radio"
                               id="option3"
                               name="pickupOption"
-                              value="option3"
+                              value={customerDetails?._id}
+                              checked={selectedOption === customerDetails._id}
+                              onChange={() => setSelectedOption(customerDetails._id)}
                               className="me-2"
                             />
                             <label

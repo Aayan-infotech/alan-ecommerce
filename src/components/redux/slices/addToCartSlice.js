@@ -3,19 +3,56 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "js-cookie";
 
+// export const addtocartproduct = createAsyncThunk(
+//   "cart/addtocartproduct",
+//   async (productDetails, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.post(
+//         "http://44.196.64.110:7878/api/GMCards/sessions",
+//         productDetails,
+//         {
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       );
+//       console.log(response.data, "abinash");
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(
+//         error.response?.data?.message || "Failed to add product to the cart"
+//       );
+//     }
+//   }
+// );
+
 export const addtocartproduct = createAsyncThunk(
   "cart/addtocartproduct",
   async (productDetails, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://44.196.64.110:7878/api/GMCards/sessions",
-        productDetails,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
+      const token = Cookies.get("alanAuthToken");
+      const userLoggedInId = Cookies.get("userLoggedInId");
+      const sessionId = Cookies.get("sessionId");
+
+      let apiUrl = "";
+      let headers = {
+        "Content-Type": "application/json",
+      };
+
+      if (token && userLoggedInId) {
+        // Logged-in user: Use order API
+        apiUrl = "http://44.196.64.110:7878/api/order/create-order";
+        headers["Authorization"] = `Bearer ${token}`;
+      } else {
+        // Guest user: Use session-based API
+        if (!sessionId) {
+          throw new Error("Session ID is missing");
         }
-      );
+        apiUrl = "http://44.196.64.110:7878/api/GMCards/sessions";
+      }
+
+      const response = await axios.post(apiUrl, productDetails, { headers });
+
       console.log(response.data, "abinash");
       return response.data;
     } catch (error) {

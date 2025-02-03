@@ -67,6 +67,8 @@ const Window = () => {
   const { product_id } = useParams();
   const dispatch = useDispatch();
   const sessionId = useSessionId();
+  const token = Cookies.get("alanAuthToken");
+  const userLoggedInId = Cookies.get("userLoggedInId");
 
   const formatPath = (path) => {
     return path
@@ -199,9 +201,15 @@ const Window = () => {
 
   const handleToProceedAddToCart = async () => {
     setBtnLoader(true);
+    if (!userLoggedInId && !sessionId) {
+      setSnackbarMessage("Session ID is required for guest checkout.");
+      setOpenSnackbar(true);
+      setBtnLoader(false);
+      return;
+    }
     const totalPrice = calculatePrice();
     const productDetails = {
-      session_id: sessionId,
+      // session_id: sessionId,
       totalPrice,
       product_price: currentProductDetails?.product?.price || 0,
       product_id: currentProductDetails?.product?._id || "",
@@ -210,6 +218,7 @@ const Window = () => {
       images: currentProductDetails?.product?.images || [],
       selectedOptions,
       customDimensions,
+      ...(userLoggedInId ? { user_id: userLoggedInId } : { session_id: sessionId }),
     };
     try {
       const response = await dispatch(addtocartproduct(productDetails));
