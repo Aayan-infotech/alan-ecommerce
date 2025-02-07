@@ -73,6 +73,7 @@ const Cart = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [customerDetails, setCustomerDetails] = useState(null);
   const [isEditingBilling, setIsEditingBilling] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [billingDetails, setBillingDetails] = useState({
     name: "",
     mobile: "",
@@ -91,9 +92,9 @@ const Cart = () => {
 
   const calculateTotalPrice = Array.isArray(products?.orders)
     ? products?.orders.reduce((acc, product) => {
-        const quantity = productQuantities[product._id] || 1;
-        return acc + product.totalPrice * quantity;
-      }, 0)
+      const quantity = productQuantities[product._id] || 1;
+      return acc + product.totalPrice * quantity;
+    }, 0)
     : 0;
 
   const numberOfTotalProducts = Array.isArray(products?.orders)
@@ -137,8 +138,8 @@ const Cart = () => {
         operation === "increment"
           ? currentQuantity + 1
           : currentQuantity > 1
-          ? currentQuantity - 1
-          : 1;
+            ? currentQuantity - 1
+            : 1;
 
       return { ...prevQuantities, [productId]: newQuantity };
     });
@@ -282,22 +283,19 @@ const Cart = () => {
       return;
     }
     let shippingAddress = {};
-  
+
     if (shippingMethod === "pickup") {
       if (!selectedOption) {
         alert("Please select a pickup address before proceeding.");
         return;
       }
-  
       const selectedPickupOption = pickupAddressOptions.find(
         (option) => option.id === selectedOption
       );
-  
       if (!selectedPickupOption) {
         alert("Invalid pickup address selected.");
         return;
       }
-  
       shippingAddress = {
         title: selectedPickupOption.title,
         description: selectedPickupOption.description.join(", "),
@@ -307,7 +305,6 @@ const Cart = () => {
         alert("Please select a delivery address before proceeding.");
         return;
       }
-  
       shippingAddress = {
         name: customerDetails.name || "N/A",
         mobile: customerDetails.mobile || "N/A",
@@ -317,7 +314,6 @@ const Cart = () => {
         zipCode: customerDetails.zipCode || "N/A",
       };
     }
-
     const checkoutData = {
       totalPrice: calculateTotalPrice.toFixed(2),
       totalProducts: numberOfTotalProducts,
@@ -330,8 +326,8 @@ const Cart = () => {
       })),
       productIds: products?.orders?.map((product) => product._id),
     };
-    
     try {
+      setIsProcessing(true);
       const stripe = await loadStripe(
         "pk_test_51QoJ7kAVVqxB4pCghu988pszHfcMWzKLIvG1vwatgYt7tUwSMvf7Pj0xfGktagXmZvQ0zdEkctDSvaYB0l7ufnyn0084s9ErDf"
       );
@@ -351,8 +347,9 @@ const Cart = () => {
         console.log(result.error, "error-----");
       }
     } catch (error) {
-      console.error("Checkout error:", error);
       alert("Checkout failed: " + error.message);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -414,10 +411,10 @@ const Cart = () => {
                               <p className="mb-0">
                                 {product?.name
                                   ? product?.name
-                                      .replace(/_/g, " ")
-                                      .replace(/\b\w/g, (char) =>
-                                        char.toUpperCase()
-                                      )
+                                    .replace(/_/g, " ")
+                                    .replace(/\b\w/g, (char) =>
+                                      char.toUpperCase()
+                                    )
                                   : "N/A"}
                               </p>
                             </div>
@@ -525,9 +522,8 @@ const Cart = () => {
                   <>
                     <div className="col-12 col-md-4">
                       <div
-                        className={`p-2 border border-1 rounded ${
-                          !isEditingBilling ? "bg-light" : ""
-                        }`}
+                        className={`p-2 border border-1 rounded ${!isEditingBilling ? "bg-light" : ""
+                          }`}
                       >
                         <h6 className="fw-bold">Billing</h6>
                         <form
@@ -794,7 +790,6 @@ const Cart = () => {
                 </div>
               </div>
               <Box className="text-center mt-4">
-                {/* <Link to="/checkout"> */}
                 <Button
                   variant="contained"
                   onClick={handleCheckOut}
@@ -806,10 +801,10 @@ const Cart = () => {
                     width: "150px",
                   }}
                   className="rounded-3 fw-bold"
+                  disabled={isProcessing}
                 >
-                  Check Out
+                  {isProcessing ? "Processing..." : "Check Out"}
                 </Button>
-                {/* </Link> */}
               </Box>
             </Container>
           </div>

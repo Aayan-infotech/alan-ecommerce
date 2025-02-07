@@ -33,12 +33,10 @@ export const addtocartproduct = createAsyncThunk(
       const token = Cookies.get("alanAuthToken");
       const userLoggedInId = Cookies.get("userLoggedInId");
       const sessionId = Cookies.get("sessionId");
-
       let apiUrl = "";
       let headers = {
         "Content-Type": "application/json",
       };
-
       if (token && userLoggedInId) {
         // Logged-in user: Use order API
         apiUrl = "http://44.196.64.110:7878/api/order/create-order";
@@ -50,9 +48,7 @@ export const addtocartproduct = createAsyncThunk(
         }
         apiUrl = "http://44.196.64.110:7878/api/GMCards/sessions";
       }
-
       const response = await axios.post(apiUrl, productDetails, { headers });
-
       console.log(response.data, "abinash");
       return response.data;
     } catch (error) {
@@ -100,14 +96,20 @@ export const deleteProduct = createAsyncThunk(
   async (productId, { rejectWithValue }) => {
     try {
       const token = Cookies.get("alanAuthToken");
-      const response = await axios.delete(
-        `http://44.196.64.110:7878/api/GMCards/sessions/${productId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const userLoggedInId = Cookies.get("userLoggedInId");
+      let apiUrl = "";
+      let headers = {
+        "Content-Type": "application/json",
+      };
+      if (token && userLoggedInId) {
+        apiUrl = `http://44.196.64.110:7878/api/order/orders/${productId}`;
+        headers["Authorization"] = `Bearer ${token}`;
+      } else {
+        apiUrl = `http://44.196.64.110:7878/api/GMCards/sessions/${productId}`;
+      }
+
+      const response = await axios.delete(apiUrl, { headers });
+
       return productId;
     } catch (error) {
       return rejectWithValue(
@@ -194,8 +196,8 @@ const addToCartSlice = createSlice({
             (product) => product._id !== action.payload
           );
         }
+        state.products.productCount = state.products.entries?.length || 0;
       })
-
       .addCase(deleteProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;

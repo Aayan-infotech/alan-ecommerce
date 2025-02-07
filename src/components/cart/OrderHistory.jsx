@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Grid,
@@ -13,10 +13,11 @@ import {
 } from "@mui/material";
 import banner from "../../assets/doors.png";
 import card_img1 from "../../assets/window.png";
-import card_img2 from "../../assets/blog.png";
 import card_img3 from "../../assets/blog1.png";
 import { useLocation } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 const orders = [
   {
@@ -71,7 +72,11 @@ const orders = [
 ];
 
 const OrderHistory = () => {
+  const [orderHistory, setOrderHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
+  const token = Cookies.get("alanAuthToken");
+  const userLoggedInId = Cookies.get("userLoggedInId");
 
   const formatPath = (path) => {
     return path
@@ -84,6 +89,37 @@ const OrderHistory = () => {
       )
       .join(" > ");
   };
+
+  const fetchAllOrderHistory = async () => {
+    if (!token) return;
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        "http://44.196.64.110:7878/api/FnalCustData/orderHistory",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data.data, "response");
+      if (response?.data?.status === 200) {
+        setOrderHistory(response?.data?.data);
+      }
+    } catch (error) {
+      console.error("Error fetching order history:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  useEffect(() => {
+    if (token) {
+      fetchAllOrderHistory();
+    }
+  }, [token]);
 
   return (
     <div className="doors-container px-3 mb-4">
@@ -120,10 +156,10 @@ const OrderHistory = () => {
             size="small"
             className="fw-bold"
           >
-            {orders.length > 0 ? orders.length : "No Orders"}
+            {orderHistory?.length > 0 ? orderHistory.length : 0}
           </Fab>
         </Typography>
-        {orders.map((order, index) => (
+        {orderHistory?.map((order, index) => (
           <Accordion key={index}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -131,7 +167,7 @@ const OrderHistory = () => {
               id={`panel${index}-header`}
             >
               <Typography component="span">
-                Order #{order.id} - {order.date}
+                Order #{order.order_id} - {new Date(order.createdAt).toLocaleDateString()}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -140,55 +176,58 @@ const OrderHistory = () => {
                   <Box mb={2}>
                     <Typography variant="h6">Product Details</Typography>
                     <Divider />
-                    {order.products.map((product, idx) => (
-                      <Box key={idx} mb={2}>
-                        <Grid container spacing={2}>
-                          <Grid item xs={4}>
-                            <img
-                              src={product.image}
-                              alt={product.name}
-                              height="100"
-                              style={{ width: "100%", borderRadius: "8px" }}
-                            />
-                          </Grid>
-                          <Grid item xs={8}>
-                            <Typography>
-                              <strong>{product.name}</strong>
+                    <Box mt={1}>
+                      <Typography>
+                        <strong>Product Name:</strong> {order.orderData.product_name}
+                      </Typography>
+                      <Typography>
+                        <strong>SKU:</strong> {order.orderData.product_sku}
+                      </Typography>
+                      <Typography>
+                        <strong>Price:</strong> ${order.orderData.product_price.toFixed(2)}
+                      </Typography>
+                      <Typography>
+                        <strong>Total Price:</strong> ${order.amount.toFixed(2)}
+                      </Typography>
+                      <Typography>
+                        <strong>Selected Options:</strong>
+                      </Typography>
+                      {order.orderData.selected_options &&
+                        Object.entries(order.orderData.selected_options).map(
+                          ([key, value]) => (
+                            <Typography key={key}>
+                              {key}: {typeof value === "object" ? JSON.stringify(value) : value}
                             </Typography>
-                            <Typography>
-                              Price: ${product.price.toFixed(2)}
-                            </Typography>
-                            <Typography>
-                              Quantity: {product.quantity}
-                            </Typography>
-                            <Typography>
-                              Subtotal: ${product.subtotal.toFixed(2)}
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                        {idx !== order.products.length - 1 && <Divider />}
-                      </Box>
-                    ))}
+                          )
+                        )
+                      }
+                    </Box>
                   </Box>
                 </Grid>
 
-                {/* Order Overview Column */}
+                {/* Customer Details Column */}
                 <Grid item xs={12} md={4}>
                   <Box mb={2}>
-                    <Typography variant="h6">Order Overview</Typography>
+                    <Typography variant="h6">Customer Details</Typography>
                     <Divider />
                     <Box mt={1}>
                       <Typography>
-                        <strong>Order ID:</strong> {order.id}
+                        <strong>Name:</strong> {order.customerDetails.name}
                       </Typography>
                       <Typography>
-                        <strong>Date:</strong> {order.date}
+                        <strong>Email:</strong> {order.customerDetails.email}
                       </Typography>
                       <Typography>
-                        <strong>Total:</strong> ${order.total.toFixed(2)}
+                        <strong>Mobile:</strong> {order.customerDetails.mobile}
                       </Typography>
                       <Typography>
-                        <strong>Status:</strong> {order.status}
+                        <strong>Address:</strong> {order.customerDetails.address}
+                      </Typography>
+                      <Typography>
+                        <strong>State:</strong> {order.customerDetails.state}
+                      </Typography>
+                      <Typography>
+                        <strong>Zip Code:</strong> {order.customerDetails.zipCode}
                       </Typography>
                     </Box>
                   </Box>
@@ -201,20 +240,20 @@ const OrderHistory = () => {
                     <Divider />
                     <Box mt={1}>
                       <Typography>
-                        <strong>Method:</strong> {order.payment.method}
-                      </Typography>
-                      {order.payment.cardLast4 && (
-                        <Typography>
-                          <strong>Card Last 4:</strong> ****{" "}
-                          {order.payment.cardLast4}
-                        </Typography>
-                      )}
-                      <Typography>
-                        <strong>Billing Address:</strong>{" "}
-                        {order.payment.billingAddress}
+                        <strong>Payment ID:</strong> {order.paymentId}
                       </Typography>
                       <Typography>
-                        <strong>Payment Status:</strong> {order.payment.status}
+                        <strong>Payment Source:</strong>{" "}
+                        {typeof order.payment_source === "object" ?
+                          JSON.stringify(order.payment_source) :
+                          order.payment_source
+                        }
+                      </Typography>
+                      <Typography>
+                        <strong>Status:</strong> {order.status}
+                      </Typography>
+                      <Typography>
+                        <strong>Order Status:</strong> {order.orderStatus}
                       </Typography>
                     </Box>
                   </Box>
@@ -224,7 +263,7 @@ const OrderHistory = () => {
           </Accordion>
         ))}
       </Container>
-    </div>
+    </div >
   );
 };
 

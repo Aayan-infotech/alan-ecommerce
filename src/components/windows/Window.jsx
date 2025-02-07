@@ -433,7 +433,7 @@ const Window = () => {
                       )}
                     </div>
                     <div className="col-12 col-md-6">
-                      <label htmlFor="height" className="fw-bold mb-2">
+                      <label htmlFor="width" className="fw-bold mb-2">
                         Width <span style={{ fontSize: "10px" }}>(inch)</span>
                       </label>
                       <input

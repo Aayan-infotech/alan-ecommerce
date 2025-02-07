@@ -25,7 +25,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProducts } from "../redux/slices/addToCartSlice";
+import { deleteProduct, fetchAllProducts } from "../redux/slices/addToCartSlice";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
