@@ -15,7 +15,7 @@ export const Successfully = () => {
       try {
         if (!session_id) return;
         const response = await axios.get(
-          `http://loc:7878/api/payment/completePayment?session_id=${session_id}`,
+          `http://44.196.64.110:7878/api/payment/completePayment?session_id=${session_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
