@@ -3,19 +3,19 @@ import React, { useEffect } from "react";
 import successfully from "../../assets/successfully.png";
 import { Link, useSearchParams } from "react-router-dom";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 export const Successfully = () => {
   const [searchParams] = useSearchParams();
   const session_id = searchParams.get("session_id");
   const token = Cookies.get("alanAuthToken");
-  const userLoggedInId = Cookies.get("userLoggedInId");
 
   useEffect(() => {
     const fetchPaymentDetails = async () => {
       try {
         if (!session_id) return;
         const response = await axios.get(
-          `http://44.196.64.110:7878/api/payment/completePayment?session_id=${session_id}`,
+          `http://44.196.64.110:7878/api/payment/completePayment/${session_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
