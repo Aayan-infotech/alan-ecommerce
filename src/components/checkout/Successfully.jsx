@@ -13,24 +13,32 @@ export const Successfully = () => {
   useEffect(() => {
     const fetchPaymentDetails = async () => {
       try {
-        if (!session_id) return;
+        if (!session_id) {
+          console.warn("Missing session_id");
+          return;
+        }
         const response = await axios.get(
-          `http://44.196.64.110:7878/api/payment/completePayment/${session_id}`,
+          `http://44.196.64.110:7878/api/payment/completePayment?session_id=${session_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
-            withCredentials: true,
           }
         );
         console.log("Payment Details:", response.data);
       } catch (error) {
-        console.error("Error fetching payment details:", error);
+        if (error.response) {
+          console.error("Error Response:", error.response.data);
+        } else {
+          console.error("Error:", error.message);
+        }
       }
     };
+  
     fetchPaymentDetails();
   }, [session_id, token]);
+  
 
   return (
     <div>

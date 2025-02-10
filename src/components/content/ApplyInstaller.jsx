@@ -75,7 +75,7 @@ const ApplyInstaller = () => {
   const handleSubmit = async () => {
     try {
       await axios.put(
-        "http://localhost:3000/api/user/profile",
+        "http://44.196.64.110:3000/api/user/profile",
         selectedOptions
       );
       alert("Profile updated successfully!");
