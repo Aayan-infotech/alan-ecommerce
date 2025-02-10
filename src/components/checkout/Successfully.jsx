@@ -42,7 +42,7 @@ export const Successfully = () => {
 
   return (
     <div>
-      <Container sx={{ mt: 5, mb: 4 }}>
+      <Box sx={{ mt: 5, mb: 4 }}>
         <Typography variant="h4" align="center" className="fw-bold text-black">
           Payment Successful
         </Typography>
@@ -65,7 +65,7 @@ export const Successfully = () => {
             </Button>
           </Link>
         </Box>
-      </Container>
+      </Box>
     </div>
   );
 };

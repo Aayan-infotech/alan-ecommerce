@@ -19,58 +19,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-const orders = [
-  {
-    id: "678dee7d0f616dbf38d09cd3",
-    date: "2025-01-22 : 05:27 PM",
-    total: 150.75,
-    status: "Paid",
-    products: [
-      {
-        name: "Product 1",
-        price: 50.25,
-        quantity: 2,
-        subtotal: 100.5,
-        image: card_img1,
-      },
-      {
-        name: "Product 2",
-        price: 25.12,
-        quantity: 2,
-        subtotal: 50.24,
-        image: card_img3,
-      },
-    ],
-    payment: {
-      method: "Credit Card",
-      cardLast4: "1234",
-      billingAddress: "123 Main St, New York, NY, USA",
-      status: "Paid",
-    },
-  },
-  {
-    id: "678dee7d0f616dbf38d09cd3",
-    date: "2025-01-20 : 11:07 PM",
-    total: 75.5,
-    status: "Processing",
-    products: [
-      {
-        name: "Product 3",
-        price: 25.5,
-        quantity: 3,
-        subtotal: 75.5,
-        image: card_img1,
-      },
-    ],
-    payment: {
-      method: "PayPal",
-      cardLast4: null,
-      billingAddress: "456 Elm St, Los Angeles, CA, USA",
-      status: "Pending",
-    },
-  },
-];
-
 const OrderHistory = () => {
   const [orderHistory, setOrderHistory] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -242,19 +190,39 @@ const OrderHistory = () => {
                       <Typography>
                         <strong>Payment ID:</strong> {order.paymentId}
                       </Typography>
-                      <Typography>
-                        <strong>Payment Source:</strong>{" "}
-                        {typeof order.payment_source === "object" ?
-                          JSON.stringify(order.payment_source) :
-                          order.payment_source
-                        }
+                      <Typography
+                        style={{
+                          color: order.status === "pending" ? "red" :
+                            order.status === "succeeded" ? "green" : "black",
+                        }}
+                      >
+                        <strong>Order Status: {order.status}</strong>
                       </Typography>
-                      <Typography>
-                        <strong>Status:</strong> {order.status}
+                      <Typography
+                        style={{
+                          color: order.orderStatus === "pending" ? "red" :
+                            order.orderStatus === "succeeded" ? "green" : "black",
+                        }}
+                      >
+                        <strong>Order Status: {order.orderStatus}</strong>
                       </Typography>
-                      <Typography>
-                        <strong>Order Status:</strong> {order.orderStatus}
-                      </Typography>
+                      {order?.payer && (
+                        <>
+                          <Divider />
+                          <Typography>
+                            <strong>Payer Name:</strong> {order.payer.name || "N/A"}
+                          </Typography>
+                          <Typography>
+                            <strong>Email:</strong> {order.payer.email || "N/A"}
+                          </Typography>
+                          <Typography>
+                            <strong>Card Brand:</strong> {order.payer.card?.brand || "N/A"}
+                          </Typography>
+                          <Typography>
+                            <strong>Last 4 Digits:</strong> {order.payer.card?.number || "N/A"}
+                          </Typography>
+                        </>
+                      )}
                     </Box>
                   </Box>
                 </Grid>
