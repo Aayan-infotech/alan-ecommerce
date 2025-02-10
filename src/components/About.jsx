@@ -25,14 +25,14 @@ export const About = () => {
   };
 
   const aboutContent = {
-    title: "Get In Touch With Us",
+    title: "About Discount Door and Window",
     description:
       "For More Information About Our Product & Services. Please Feel Free To Drop Us An Email. Our Staff Always Be There To Help You Out. Do Not Hesitate!",
     image: card_img1,
     sections: [
-      `Discount Door and Window (DDW) is dedicated to providing the lowest cost retrofit doors and windows on the market today. DDW accomplishes this by working with well-established wholesalers, keeping overhead costs down to a minimum, and passing on the savings to you.`,
-      `DDW's goal is to make buying doors and windows easier and more affordable than ever before by utilizing the internet as a store front.`,
-      `We are committed to excellence and customer satisfaction.`,
+      `Discount Door and Window (DDW) is dedicated to providing the lowest cost retrofit doors and windows on the market today. DDW accomplishes this by working with well established wholesalers, keeping overhead costs down to a minimum, and passing on the savings to you. DDW's goal is to make buying doors and windows easier and more affordable.`,
+      `Alan Holsapple founded DDW after 21 years of providing red carpet door and window installation and renovation services to customers in Southern California. By establishing partnerships directly with selected wholesalers, and selling a high volume of doors and windows, DDW is able to beat competitors prices while providing products that are high quality and energy efficient.`,
+      `Sustainability, energy efficiency, and security features are important aspects while deciding which door or window is right for your situation. That is why DDW provides a Learning Center with a growing collection of information that can help you make the best decisions while staying within your budget. If you have any questions about the products we offer, please e-mail or call us and we will be happy to assist you in your decision making process.`,
     ],
   };
 
@@ -90,7 +90,7 @@ export const About = () => {
           >
             {aboutContent.title}
           </Typography>
-          <Typography
+          {/* <Typography
             className="text-secondary"
             sx={{
               mt: 1,
@@ -100,7 +100,7 @@ export const About = () => {
             }}
           >
             {aboutContent.description}
-          </Typography>
+          </Typography> */}
           <Grid container spacing={2} className="mt-4">
             <Grid item xs={12} sm={4}>
               <img
@@ -124,15 +124,6 @@ export const About = () => {
                   {paragraph}
                 </Typography>
               ))}
-            </Grid>
-          </Grid>
-          <Grid container spacing={2} className="mt-4">
-            <Grid
-              item
-              xs={12}
-              sx={{ textAlign: "justify", fontSize: { xs: "0.9rem", md: "1rem" } }}
-            >
-              {aboutContent.sections[0]}
             </Grid>
           </Grid>
         </Box>

@@ -19,8 +19,6 @@ export const Footer = () => {
       { name: "FAQs", path: "/faq" },
       { name: "Testimonials/Reviews", path: "/testimonials" },
       { name: "Pickup in Sandalga", path: "/pickup" },
-      { name: "Privacy Policy", path: "/privacy-policy" },
-      { name: "Terms & Conditions", path: "/terms" },
       { name: "Diyinstall Guides", path: "/diyinstall-guides" },
     ],
     more_options: [
@@ -28,13 +26,12 @@ export const Footer = () => {
       { name: "Login/Register", path: "/login" },
       { name: "Track Order", path: "/order-track" },
       { name: "Shopping Cart", path: "/cart" },
-      { name: "Door Hardware", path: "/hardware-products" },
       { name: "Right For Me", path: "/rightfor-me" },
     ],
     help: [
       { name: "Payment Options", path: "/payment-options" },
-      { name: "Returns", path: "/returns" },
-      { name: "Privacy Policies", path: "/privacy-policies" },
+      { name: "Privacy Policies", path: "/privacy-policy" },
+      { name: "Terms & Conditions", path: "/terms-condition" },
     ],
   };
   return (

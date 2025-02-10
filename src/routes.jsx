@@ -14,7 +14,6 @@ import { Footer } from "./components/footer/Footer.jsx";
 import { MeasuredDoors } from "./components/doors/MeasuredDoors.jsx";
 import { MeasuredWindows } from "./components/windows/MeasuredWindows.jsx";
 import Window from "./components/windows/Window.jsx";
-import { HardwareProducts } from "./components/hardware/HardwareProducts.jsx";
 import Cart from "./components/cart/Cart.jsx";
 import { CheckoutPayment } from "./components/checkout/CheckoutPayment.jsx";
 import { Successfully } from "./components/checkout/Successfully.jsx";
@@ -71,6 +70,9 @@ import { WishList } from "./components/Home/WishList.jsx";
 import OrderHistory from "./components/cart/OrderHistory.jsx";
 import { ForgetPassword } from "./components/login/ForgetPassword.jsx";
 import { VerifyPassword } from "./components/login/VerifyPassword.jsx";
+import { PrivacyPolicy } from "./components/Policy/PrivacyPolicy.jsx";
+import { TermsConditions } from "./components/Policy/TermsConditions.jsx";
+import ScrollToTop from "./ScrollToTop.jsx";
 
 export const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -126,6 +128,7 @@ export const AppRoutes = () => {
   return (
     <>
       <Navbar />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -138,7 +141,8 @@ export const AppRoutes = () => {
         <Route path="measured-doors" element={<MeasuredDoors />} />
         <Route path="dimensions/:product_id" element={<Window />} />
         <Route path="measured-windows" element={<MeasuredWindows />} />
-        <Route path="hardware-products" element={<HardwareProducts />} />
+        <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="terms-condition" element={<TermsConditions />} />
         <Route path="wish-list" element={<WishList />} />
         <Route path="cart" element={<Cart />} />
         {/* <Route path="orders" element={<Orders />} /> */}
