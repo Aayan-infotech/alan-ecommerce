@@ -96,7 +96,7 @@ const Window = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:7878/api/dims/ProductID/${product_id}`
+        `http://44.196.64.110:7878/api/dims/ProductID/${product_id}`
       );
       console.log(response?.data?.data, "response?.dataddd");
       if (response?.data?.success) {
@@ -130,7 +130,7 @@ const Window = () => {
         setIsCalculating(true);
         try {
           const response = await axios.post(
-            "http://localhost:7878/api/prodFormula/calculateCustomHeightWidth",
+            "http://44.196.64.110:7878/api/prodFormula/calculateCustomHeightWidth",
             {
               width: parseFloat(width),
               height: parseFloat(height),
