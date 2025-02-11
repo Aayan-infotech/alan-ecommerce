@@ -12,12 +12,11 @@ import {
   Fab,
 } from "@mui/material";
 import banner from "../../assets/doors.png";
-import card_img1 from "../../assets/window.png";
-import card_img3 from "../../assets/blog1.png";
 import { useLocation } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Cookies from "js-cookie";
 import axios from "axios";
+import Loader from "../../loader/Loader";
 
 const OrderHistory = () => {
   const [orderHistory, setOrderHistory] = useState([]);
@@ -51,7 +50,6 @@ const OrderHistory = () => {
           },
         }
       );
-      console.log(response.data.data, "response");
       if (response?.data?.status === 200) {
         setOrderHistory(response?.data?.data);
       }
@@ -62,7 +60,6 @@ const OrderHistory = () => {
     }
   };
 
-
   useEffect(() => {
     if (token) {
       fetchAllOrderHistory();
@@ -70,168 +67,174 @@ const OrderHistory = () => {
   }, [token]);
 
   return (
-    <div className="doors-container px-3 mb-4">
-      <Box
-        sx={{
-          backgroundImage: `url(${banner})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "300px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "white",
-          textAlign: "center",
-        }}
-      >
-        <Box>
-          <Typography variant="h2" className="text-black fw-bold">
-            Orders
-          </Typography>
-          <Typography variant="h6" className="text-black fw-bold">
-            <span>
-              Home {">"} {formatPath(location.pathname)}
-            </span>
-          </Typography>
-        </Box>
-      </Box>
-
-      <Container className="mt-4">
-        <Typography variant="h4" gutterBottom className="fw-bold mb-3">
-          Total Orders&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
-          <Fab
-            color="primary"
-            size="small"
-            className="fw-bold"
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="doors-container px-3 mb-4">
+          <Box
+            sx={{
+              backgroundImage: `url(${banner})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              height: "300px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "white",
+              textAlign: "center",
+            }}
           >
-            {orderHistory?.length > 0 ? orderHistory.length : 0}
-          </Fab>
-        </Typography>
-        {orderHistory?.map((order, index) => (
-          <Accordion key={index}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls={`panel${index}-content`}
-              id={`panel${index}-header`}
-            >
-              <Typography component="span">
-                Order #{order.order_id} - {new Date(order.createdAt).toLocaleDateString()}
+            <Box>
+              <Typography variant="h2" className="text-black fw-bold">
+                Orders
               </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={4}>
-                  <Box mb={2}>
-                    <Typography variant="h6">Product Details</Typography>
-                    <Divider />
-                    <Box mt={1}>
-                      <Typography>
-                        <strong>Product Name:</strong> {order.orderData.product_name}
-                      </Typography>
-                      <Typography>
-                        <strong>SKU:</strong> {order.orderData.product_sku}
-                      </Typography>
-                      <Typography>
-                        <strong>Price:</strong> ${order.orderData.product_price.toFixed(2)}
-                      </Typography>
-                      <Typography>
-                        <strong>Total Price:</strong> ${order.amount.toFixed(2)}
-                      </Typography>
-                      <Typography>
-                        <strong>Selected Options:</strong>
-                      </Typography>
-                      {order.orderData.selected_options &&
-                        Object.entries(order.orderData.selected_options).map(
-                          ([key, value]) => (
-                            <Typography key={key}>
-                              {key}: {typeof value === "object" ? JSON.stringify(value) : value}
-                            </Typography>
-                          )
-                        )
-                      }
-                    </Box>
-                  </Box>
-                </Grid>
+              <Typography variant="h6" className="text-black fw-bold">
+                <span>
+                  Home {">"} {formatPath(location.pathname)}
+                </span>
+              </Typography>
+            </Box>
+          </Box>
 
-                {/* Customer Details Column */}
-                <Grid item xs={12} md={4}>
-                  <Box mb={2}>
-                    <Typography variant="h6">Customer Details</Typography>
-                    <Divider />
-                    <Box mt={1}>
-                      <Typography>
-                        <strong>Name:</strong> {order.customerDetails.name}
-                      </Typography>
-                      <Typography>
-                        <strong>Email:</strong> {order.customerDetails.email}
-                      </Typography>
-                      <Typography>
-                        <strong>Mobile:</strong> {order.customerDetails.mobile}
-                      </Typography>
-                      <Typography>
-                        <strong>Address:</strong> {order.customerDetails.address}
-                      </Typography>
-                      <Typography>
-                        <strong>State:</strong> {order.customerDetails.state}
-                      </Typography>
-                      <Typography>
-                        <strong>Zip Code:</strong> {order.customerDetails.zipCode}
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Grid>
+          <Container className="mt-4">
+            <Typography variant="h4" gutterBottom className="fw-bold mb-3">
+              Total Orders&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
+              <Fab
+                color="primary"
+                size="small"
+                className="fw-bold"
+              >
+                {orderHistory?.length > 0 ? orderHistory.length : 0}
+              </Fab>
+            </Typography>
+            {orderHistory?.map((order, index) => (
+              <Accordion key={index}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls={`panel${index}-content`}
+                  id={`panel${index}-header`}
+                >
+                  <Typography component="span">
+                    Order #{order.order_id} - {new Date(order.createdAt).toLocaleDateString()}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Grid container spacing={3}>
+                    <Grid item xs={12} md={4}>
+                      <Box mb={2}>
+                        <Typography variant="h6">Product Details</Typography>
+                        <Divider />
+                        <Box mt={1}>
+                          <Typography>
+                            <strong>Product Name:</strong> {order.orderData.product_name}
+                          </Typography>
+                          <Typography>
+                            <strong>SKU:</strong> {order.orderData.product_sku}
+                          </Typography>
+                          <Typography>
+                            <strong>Price:</strong> ${order.orderData.product_price.toFixed(2)}
+                          </Typography>
+                          <Typography>
+                            <strong>Total Price:</strong> ${order.amount.toFixed(2)}
+                          </Typography>
+                          <Typography>
+                            <strong>Selected Options:</strong>
+                          </Typography>
+                          {order.orderData.selected_options &&
+                            Object.entries(order.orderData.selected_options).map(
+                              ([key, value]) => (
+                                <Typography key={key}>
+                                  {key}: {typeof value === "object" ? JSON.stringify(value) : value}
+                                </Typography>
+                              )
+                            )
+                          }
+                        </Box>
+                      </Box>
+                    </Grid>
 
-                {/* Payment Details Column */}
-                <Grid item xs={12} md={4}>
-                  <Box mb={2}>
-                    <Typography variant="h6">Payment Details</Typography>
-                    <Divider />
-                    <Box mt={1}>
-                      <Typography>
-                        <strong>Payment ID:</strong> {order.paymentId}
-                      </Typography>
-                      <Typography
-                        style={{
-                          color: order.status === "pending" ? "red" :
-                            order.status === "succeeded" ? "green" : "black",
-                        }}
-                      >
-                        <strong>Order Status: {order.status}</strong>
-                      </Typography>
-                      <Typography
-                        style={{
-                          color: order.orderStatus === "pending" ? "red" :
-                            order.orderStatus === "succeeded" ? "green" : "black",
-                        }}
-                      >
-                        <strong>Order Status: {order.orderStatus}</strong>
-                      </Typography>
-                      {order?.payer && (
-                        <>
-                          <Divider />
+                    {/* Customer Details Column */}
+                    <Grid item xs={12} md={4}>
+                      <Box mb={2}>
+                        <Typography variant="h6">Customer Details</Typography>
+                        <Divider />
+                        <Box mt={1}>
                           <Typography>
-                            <strong>Payer Name:</strong> {order.payer.name || "N/A"}
+                            <strong>Name:</strong> {order.customerDetails.name}
                           </Typography>
                           <Typography>
-                            <strong>Email:</strong> {order.payer.email || "N/A"}
+                            <strong>Email:</strong> {order.customerDetails.email}
                           </Typography>
                           <Typography>
-                            <strong>Card Brand:</strong> {order.payer.card?.brand || "N/A"}
+                            <strong>Mobile:</strong> {order.customerDetails.mobile}
                           </Typography>
                           <Typography>
-                            <strong>Last 4 Digits:</strong> {order.payer.card?.number || "N/A"}
+                            <strong>Address:</strong> {order.customerDetails.address}
                           </Typography>
-                        </>
-                      )}
-                    </Box>
-                  </Box>
-                </Grid>
-              </Grid>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </Container>
-    </div >
+                          <Typography>
+                            <strong>State:</strong> {order.customerDetails.state}
+                          </Typography>
+                          <Typography>
+                            <strong>Zip Code:</strong> {order.customerDetails.zipCode}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Grid>
+
+                    {/* Payment Details Column */}
+                    <Grid item xs={12} md={4}>
+                      <Box mb={2}>
+                        <Typography variant="h6">Payment Details</Typography>
+                        <Divider />
+                        <Box mt={1}>
+                          <Typography>
+                            <strong>Payment ID:</strong> {order.paymentId}
+                          </Typography>
+                          <Typography
+                            style={{
+                              color: order.status === "pending" ? "red" :
+                                order.status === "succeeded" ? "green" : "black",
+                            }}
+                          >
+                            <strong>Order Status: {order.status}</strong>
+                          </Typography>
+                          <Typography
+                            style={{
+                              color: order.orderStatus === "pending" ? "red" :
+                                order.orderStatus === "succeeded" ? "green" : "black",
+                            }}
+                          >
+                            <strong>Order Status: {order.orderStatus}</strong>
+                          </Typography>
+                          {order?.payer && (
+                            <>
+                              <Divider />
+                              <Typography>
+                                <strong>Payer Name:</strong> {order.payer.name || "N/A"}
+                              </Typography>
+                              <Typography>
+                                <strong>Email:</strong> {order.payer.email || "N/A"}
+                              </Typography>
+                              <Typography>
+                                <strong>Card Brand:</strong> {order.payer.card?.brand || "N/A"}
+                              </Typography>
+                              <Typography>
+                                <strong>Last 4 Digits:</strong> {order.payer.card?.number || "N/A"}
+                              </Typography>
+                            </>
+                          )}
+                        </Box>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+          </Container>
+        </div >
+      )}
+    </>
   );
 };
 
