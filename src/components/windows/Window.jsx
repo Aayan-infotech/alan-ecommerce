@@ -58,8 +58,10 @@ const Window = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [customPrice, setCustomPrice] = useState(null);
+  const [gardenWindowUpdatedPrice, setGardenWindowUpdatedPrice] = useState(null);
   const [formError, setFormError] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
+  const [isCalculatingGardenWindow, setIsCalculatingGardenWindow] = useState(false);
   const [btnLoader, setBtnLoader] = useState(false);
 
   const location = useLocation();
@@ -98,7 +100,6 @@ const Window = () => {
       const response = await axios.get(
         `http://44.196.64.110:7878/api/dims/ProductID/${product_id}`
       );
-      console.log(response?.data?.data, "response?.dataddd");
       if (response?.data?.success) {
         setSelectedImage(response.data.data?.product?.images[0]);
         setCurrentProductDetails(response.data.data);
@@ -155,11 +156,40 @@ const Window = () => {
     }
   };
 
-  const handleSelectChange = (category, value, name) => {
-    setSelectedOptions({
+  const handleSelectChange = async (category, value, name) => {
+    const updatedOptions = {
       ...selectedOptions,
       [category]: { value, name },
-    });
+    };
+    setSelectedOptions(updatedOptions);
+    const color = updatedOptions["Color"]?.name;
+    const widthHeight = updatedOptions["widthHeight"]?.name;
+    if (currentProductDetails?.product?.name === "Garden_window" && color && widthHeight) {
+      setIsCalculatingGardenWindow(true);
+      try {
+        const response = await axios.put(
+          "http://44.196.64.110:7878/api/dimsColor/updateAmount",
+          {
+            Color: color,
+            widthHeight: widthHeight,
+            amount: currentProductDetails.product.price || 0,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            }
+          }
+        );
+        if (response?.data?.success) {
+          const updatedPrice = response?.data?.data?.totalAmount;
+          setGardenWindowUpdatedPrice(updatedPrice || 0);
+        }
+      } catch (error) {
+        console.error("Error updating price:", error);
+      } finally {
+        setIsCalculatingGardenWindow(false);
+      }
+    }
   };
 
   const maxVisibleImages = 2;
@@ -174,10 +204,15 @@ const Window = () => {
   };
 
   const calculatePrice = () => {
-    if (!currentProductDetails?.product) return 0;
-    let price = currentProductDetails.product.price;
+    if (!currentProductDetails?.product) return "0.00";
+    if (gardenWindowUpdatedPrice) {
+      return gardenWindowUpdatedPrice.toFixed(2);
+    }
+    let basePrice = parseFloat(
+      customPrice || currentProductDetails.product.price || 0
+    );
     if (customPrice) {
-      price = customPrice;
+      basePrice = parseFloat(customPrice);
     }
     Object.keys(selectedOptions).forEach((category) => {
       const selectedOption = selectedOptions[category];
@@ -188,16 +223,45 @@ const Window = () => {
         if (selectedItem) {
           const value = selectedItem.value;
           if (value === "" || value === null) {
-            price += parseFloat(selectedItem.amount);
+            basePrice += parseFloat(selectedItem.amount);
           } else {
             const percentage = parseFloat(selectedItem.value);
-            price += (price * percentage) / 100;
+            basePrice += (basePrice * percentage) / 100;
           }
         }
       }
     });
-    return price.toFixed(2);
+    return basePrice.toFixed(2);
   };
+
+
+  // const calculatePrice = () => {
+  //   if (!currentProductDetails?.product) return 0;
+  //   let price = currentProductDetails.product.price;
+  //   if (customPrice) {
+  //     price = customPrice;
+  //   }
+  //   Object.keys(selectedOptions).forEach((category) => {
+  //     const selectedOption = selectedOptions[category];
+  //     if (currentProductDimensions && currentProductDimensions[category]) {
+  //       const selectedItem = currentProductDimensions[category].find(
+  //         (item) => item[category] === selectedOption.name
+  //       );
+  //       if (selectedItem) {
+  //         const value = selectedItem.value;
+  //         if (value === "" || value === null) {
+  //           price += parseFloat(selectedItem.amount);
+  //         } else {
+  //           const percentage = parseFloat(selectedItem.value);
+  //           price += (price * percentage) / 100;
+  //         }
+  //       }
+  //     }
+  //   });
+  //   return price.toFixed(2);
+  // };
+
+
 
   const handleToProceedAddToCart = async () => {
     setBtnLoader(true);
@@ -296,7 +360,10 @@ const Window = () => {
               </Typography>
             </Box>
           </Box>
-          {isCalculating && <LinearProgress sx={{ marginBottom: 2 }} />}
+          {/* {isCalculating && <LinearProgress sx={{ marginBottom: 2 }} />} */}
+          {(isCalculating || isCalculatingGardenWindow) && (
+            <LinearProgress sx={{ marginBottom: 2 }} />
+          )}
           <Container>
             <div className="row gy-3 gy-md-4 my-2">
               <div className="col-12 col-md-5">
@@ -369,8 +436,8 @@ const Window = () => {
                     {/* {currentProductDetails?.product?.name || "N/A"} */}
                     {currentProductDetails?.product?.name
                       ? currentProductDetails.product?.name
-                          .replace(/_/g, " ")
-                          .replace(/\b\w/g, (char) => char.toUpperCase())
+                        .replace(/_/g, " ")
+                        .replace(/\b\w/g, (char) => char.toUpperCase())
                       : "N/A"}
                   </Typography>
                   <Typography
@@ -408,55 +475,55 @@ const Window = () => {
                 </div>
                 {currentProductDetails?.product?.productFormulaAdded?.toLowerCase() !==
                   "no" && (
-                  <div className="row ma-0 gy-3 mb-3">
-                    <div className="col-12 col-md-6">
-                      <label htmlFor="height" className="fw-bold mb-2">
-                        Height <span style={{ fontSize: "10px" }}>(inch)</span>
-                      </label>
-                      <input
-                        type="number"
-                        id="height"
-                        name="height"
-                        value={customDimensions.height}
-                        onChange={handleInputChange}
-                        className="form-control p-3"
-                        placeholder="Enter height"
-                        style={customStyles}
-                      />
-                      {formError && !customDimensions.height && (
-                        <Typography
-                          variant="body2"
-                          sx={{ color: "red", fontSize: "12px" }}
-                        >
-                          Height is required for price calculation.
-                        </Typography>
-                      )}
+                    <div className="row ma-0 gy-3 mb-3">
+                      <div className="col-12 col-md-6">
+                        <label htmlFor="height" className="fw-bold mb-2">
+                          Height <span style={{ fontSize: "10px" }}>(inch)</span>
+                        </label>
+                        <input
+                          type="number"
+                          id="height"
+                          name="height"
+                          value={customDimensions.height}
+                          onChange={handleInputChange}
+                          className="form-control p-3"
+                          placeholder="Enter height"
+                          style={customStyles}
+                        />
+                        {formError && !customDimensions.height && (
+                          <Typography
+                            variant="body2"
+                            sx={{ color: "red", fontSize: "12px" }}
+                          >
+                            Height is required for price calculation.
+                          </Typography>
+                        )}
+                      </div>
+                      <div className="col-12 col-md-6">
+                        <label htmlFor="width" className="fw-bold mb-2">
+                          Width <span style={{ fontSize: "10px" }}>(inch)</span>
+                        </label>
+                        <input
+                          type="number"
+                          id="width"
+                          name="width"
+                          value={customDimensions.width}
+                          onChange={handleInputChange}
+                          className="form-control p-3"
+                          placeholder="Enter width"
+                          style={customStyles}
+                        />
+                        {formError && !customDimensions.width && (
+                          <Typography
+                            variant="body2"
+                            sx={{ color: "red", fontSize: "12px" }}
+                          >
+                            Width is required for price calculation.
+                          </Typography>
+                        )}
+                      </div>
                     </div>
-                    <div className="col-12 col-md-6">
-                      <label htmlFor="width" className="fw-bold mb-2">
-                        Width <span style={{ fontSize: "10px" }}>(inch)</span>
-                      </label>
-                      <input
-                        type="number"
-                        id="width"
-                        name="width"
-                        value={customDimensions.width}
-                        onChange={handleInputChange}
-                        className="form-control p-3"
-                        placeholder="Enter width"
-                        style={customStyles}
-                      />
-                      {formError && !customDimensions.width && (
-                        <Typography
-                          variant="body2"
-                          sx={{ color: "red", fontSize: "12px" }}
-                        >
-                          Width is required for price calculation.
-                        </Typography>
-                      )}
-                    </div>
-                  </div>
-                )}
+                  )}
                 <div className="row ma-0 gy-3">
                   {currentProductDimensions &&
                     Object.keys(currentProductDimensions).map((category) => (

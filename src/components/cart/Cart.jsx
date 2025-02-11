@@ -39,22 +39,6 @@ import axios from "axios";
 
 const pickupAddressOptions = [
   {
-    id: "option1",
-    title: "Window Pick Up",
-    description: [
-      "Green World Windows and Doors",
-      "3810 Wabash Drive",
-      "Mira Loma, CA 91752",
-    ],
-    price: "$340",
-  },
-  {
-    id: "option2",
-    title: "Door Pickup",
-    description: ["A.A.W. Doors", "13900 S Broadway", "Los Angeles, CA 90061"],
-    price: "$140",
-  },
-  {
     id: "option3",
     title: "Both Door and Window Pick Up",
     description: [
