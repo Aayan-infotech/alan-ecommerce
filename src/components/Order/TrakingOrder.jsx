@@ -14,7 +14,7 @@ export const TrakingOrder = () => {
     { label: "Shipped", date: "Wed, 1st Jan" },
     { label: "Out For Delivery", date: "Wed, 2nd Jan" },
     { label: "Delivered", date: "Expected by Sat, 5th Jan" },
-  ];
+  ]
 
   return (
     <div>

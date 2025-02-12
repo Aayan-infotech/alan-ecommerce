@@ -147,7 +147,7 @@ export const AppRoutes = () => {
         <Route path="cart" element={<Cart />} />
         {/* <Route path="orders" element={<Orders />} /> */}
         <Route path="order-track" element={<OrderTrack />} />
-        <Route path="traking-order" element={<TrakingOrder />} />
+        {/* <Route path="traking-order" element={<TrakingOrder />} /> */}
         <Route path="checkout" element={<CheckoutPayment />} />
         <Route path="successfull" element={<Successfully />} />
         <Route path="contact" element={<Contact />} />
