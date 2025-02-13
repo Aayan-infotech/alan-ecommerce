@@ -45,3 +45,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   height: 200px;
   object-fit: cover;
 }
+@media (min-width: 1400px) {
+  .css-5c1adp-MuiContainer-root, .css-1vufwy3-MuiPaper-root-MuiAppBar-root {
+      max-width: calc(100% - 10%) !important;
+  }
+}

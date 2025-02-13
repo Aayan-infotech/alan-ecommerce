@@ -100,10 +100,11 @@ const Window = () => {
       const response = await axios.get(
         `http://44.196.64.110:7878/api/dims/ProductID/${product_id}`
       );
+      console.log(response?.data?.data?.Dimensions, 'data------');
       if (response?.data?.success) {
         setSelectedImage(response.data.data?.product?.images[0]);
         setCurrentProductDetails(response.data.data);
-        setCurrentProductDimensions(response.data.data?.Dimensions);
+        setCurrentProductDimensions(response?.data?.data?.Dimensions);
       }
     } catch (error) {
       console.log(error);
