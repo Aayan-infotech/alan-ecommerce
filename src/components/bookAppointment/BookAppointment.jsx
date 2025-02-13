@@ -24,6 +24,7 @@ export const BookAppointment = ({ open, handleClose }) => {
     date: "",
   });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const location = useLocation();
   const formatPath = (path) => {
@@ -47,7 +48,7 @@ export const BookAppointment = ({ open, handleClose }) => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setAppointmentFormsValue({ ...appointmentFormsValue, [name]: value });
-    setErrors({ ...errors, [name]: "" }); // Clear error when input changes
+    setErrors({ ...errors, [name]: "" });
   };
 
   const validateForm = () => {
@@ -66,7 +67,7 @@ export const BookAppointment = ({ open, handleClose }) => {
       toast.error("Please fill in all required fields.");
       return;
     }
-
+    setLoading(true);
     try {
       const response = await axios.post(
         "http://44.196.64.110:5000/api/appointments/create",
@@ -84,6 +85,8 @@ export const BookAppointment = ({ open, handleClose }) => {
       }
     } catch (error) {
       toast.error("Failed to book appointment. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -176,14 +179,14 @@ export const BookAppointment = ({ open, handleClose }) => {
               <Box className="mb-4">
                 <InputLabel className="mb-2">Message</InputLabel>
                 <FormControl fullWidth>
-                  <TextField
+                  <textarea
                     onChange={handleInputChange}
                     value={appointmentFormsValue.message}
                     name="message"
-                    multiline
-                    error={!!errors.message}
-                    helperText={errors.message}
-                  />
+                    className="form-control"
+                    rows="2"
+                  ></textarea>
+                  {errors.message && <span className="text-danger">{errors.message}</span>}
                 </FormControl>
               </Box>
             </Grid>
@@ -208,10 +211,11 @@ export const BookAppointment = ({ open, handleClose }) => {
           <Box className="text-center">
             <Button
               variant="contained"
-              sx={{ textTransform:"none" }}
+              sx={{ textTransform: "none" }}
+              className="fw-bold"
               onClick={handleSubmit}
             >
-              Schedule An Appointment
+              {loading ? "Booking..." : "Schedule An Appointment"}
             </Button>
           </Box>
         </Box>
