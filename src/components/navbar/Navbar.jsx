@@ -74,12 +74,12 @@ const Navbar = () => {
     }
   };
 
-  useEffect(() => {
-    if (location.pathname !== "/search-product-list") {
-      setQuery("");
-      setSearchResults([]);
-    }
-  }, [location]);
+  // useEffect(() => {
+  //   if (location.pathname !== "/search-product-list") {
+  //     setQuery("");
+  //     setSearchResults([]);
+  //   }
+  // }, [location]);
 
   const fetchDynamicSearch = debounce(async (query) => {
     if (!query) {
@@ -363,7 +363,7 @@ const Navbar = () => {
                   </li>
                 </ul>
               </div>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box sx={{ display: "flex", alignItems: "center" }} className="me-2">
                 {showSearch && (
                   <TextField
                     variant="outlined"
