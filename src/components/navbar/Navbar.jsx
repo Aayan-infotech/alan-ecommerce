@@ -273,6 +273,7 @@ const Navbar = () => {
                     aria-expanded="false"
                     sx={{ color: "#fc5f03", fontWeight: "bold" }}
                     onClick={() => handleMenuOpen()}
+                    className="me-2"
                   >
                     Account
                   </Typography>
