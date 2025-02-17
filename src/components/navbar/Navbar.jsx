@@ -368,6 +368,7 @@ const Navbar = () => {
                 {showSearch && (
                   <TextField
                     variant="outlined"
+                    placeholder="Search...."
                     size="small"
                     value={query}
                     onChange={(e) => {

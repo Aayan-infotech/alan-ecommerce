@@ -2,6 +2,7 @@ import { Container, Grid, Box, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../../loader/Loader";
+import No_Image_Available from "../../assets/No_Image_Available.jpg";
 
 const SearchProductList = () => {
     const [loading, setLoading] = useState(true);
@@ -73,6 +74,7 @@ const SearchProductList = () => {
                                                     height: "300px",
                                                     objectFit: "contain",
                                                 }}
+                                                onError={(e) => e.target.src = No_Image_Available}
                                             />
                                             <p className="fw-bold">{product?.name || "N/A"}</p>
                                         </Box>
@@ -110,6 +112,7 @@ const SearchProductList = () => {
                                                         height: "300px",
                                                         objectFit: "contain",
                                                     }}
+                                                    onError={(e) => e.target.src = No_Image_Available}
                                                 />
                                                 <p className="fw-bold">{subCategory?.name || "N/A"}</p>
                                             </Box>
@@ -148,6 +151,7 @@ const SearchProductList = () => {
                                                         height: "300px",
                                                         objectFit: "contain",
                                                     }}
+                                                    onError={(e) => e.target.src = No_Image_Available}
                                                 />
                                                 <p className="fw-bold">{subSubCategory?.name || "N/A"}</p>
                                             </Box>

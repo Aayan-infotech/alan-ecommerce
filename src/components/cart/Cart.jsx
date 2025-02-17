@@ -318,7 +318,7 @@ const Cart = () => {
       const response = await axios.post(
         "http://44.196.64.110:7878/api/payment/create-payment-intent",
         { checkoutData },
-        { headers: { "Content-Type": "application/json" } }
+        { headers: { "Content-Type": "application/json", Authorization: `Bearer ${alanAuthToken}` } }
       );
       const session = response.data;
       if (!session.sessionId) {
