@@ -73,6 +73,7 @@ import { VerifyPassword } from "./components/login/VerifyPassword.jsx";
 import { PrivacyPolicy } from "./components/Policy/PrivacyPolicy.jsx";
 import { TermsConditions } from "./components/Policy/TermsConditions.jsx";
 import ScrollToTop from "./ScrollToTop.jsx";
+import SearchProductList from "./components/navbar/SearchProductList.jsx";
 
 export const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -158,6 +159,7 @@ export const AppRoutes = () => {
         <Route path="tax-rebate" element={<TaxRebate />} />
         <Route path="diyinstall-guides" element={<DiyInstallGuides />} />
         <Route path="rightfor-me" element={<RightForMe />} />
+        <Route path="/search-results" element={<SearchProductList />} />
         <Route
           path="accurate-measurements"
           element={<AccurateMeasurements />}

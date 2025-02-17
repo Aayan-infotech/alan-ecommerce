@@ -30,7 +30,7 @@ export const Footer = () => {
     ],
     help: [
       { name: "Payment Options", path: "/payment-options" },
-      { name: "Privacy Policies", path: "/privacy-policy" },
+      { name: "Privacy Policy", path: "/privacy-policy" },
       { name: "Terms & Conditions", path: "/terms-condition" },
     ],
   };

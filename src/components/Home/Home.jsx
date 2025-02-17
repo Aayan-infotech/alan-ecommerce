@@ -43,7 +43,6 @@ export const Home = () => {
       } else {
         setErrorMessage(response.data.message);
       }
-      console.log(response?.data, 'data')
     } catch (error) {
       console.log(error, 'data')
       setErrorMessage(error?.response?.data?.message || "An error occurred.");

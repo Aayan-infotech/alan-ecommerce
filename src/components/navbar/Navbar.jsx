@@ -13,6 +13,7 @@ import {
   Badge,
   Snackbar,
   Alert,
+  TextField,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
@@ -20,12 +21,13 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import MenuIcon from "@mui/icons-material/Menu";
 import "../../styles/Navbar.scss";
 import logo from "../../assets/logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, fetchAllProducts } from "../redux/slices/addToCartSlice";
+import { debounce } from "lodash";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -37,6 +39,13 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { products, loading, error } = useSelector((state) => state.cart);
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+  const [loadingSearch, setLoadingSearch] = useState([]);
+  const [query, setQuery] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const previousPath = location.pathname;
 
   useEffect(() => {
     if (!products?.orders || products.orders.length === 0) {
@@ -46,7 +55,6 @@ const Navbar = () => {
 
   const productCount = products?.orders ? products.orders.length : 0;
 
-  const navigate = useNavigate();
   const isLoggedIn =
     Cookies.get("alanAuthToken") && Cookies.get("userLoggedInId");
 
@@ -65,6 +73,38 @@ const Navbar = () => {
       setErrorMessage(error?.response?.data?.message || "An error occurred.");
     }
   };
+
+  useEffect(() => {
+    if (location.pathname !== "/search-product-list") {
+      setQuery("");
+      setSearchResults([]);
+    }
+  }, [location]);
+
+  const fetchDynamicSearch = debounce(async (query) => {
+    if (!query) {
+      // When query is empty, navigate to the previous page
+      navigate(previousPath);
+      return;
+    }
+    try {
+      setLoadingSearch(true);
+      const response = await axios.get(`http://44.196.64.110:7878/api/search?name=${query}`);
+      if (response?.data?.status === 200 &&
+        (response?.data?.data?.subCategories.length > 0 ||
+          response?.data?.data?.subSubCategories.length > 0 ||
+          response?.data?.data?.products.length > 0)) {
+        setSearchResults(response.data.data);
+        navigate("/search-results", { state: { results: response?.data?.data, previousPath } });
+      } else {
+        setSearchResults([]);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoadingSearch(false);
+    }
+  }, 500);
 
   useEffect(() => {
     fetchExploreCategories();
@@ -104,6 +144,8 @@ const Navbar = () => {
       navigate(link);
     }
   };
+
+
 
   return (
     <AppBar
@@ -246,7 +288,7 @@ const Navbar = () => {
                   >
                     <AccountCircleIcon
                       sx={{ color: "#fc5f03", fontWeight: "bold" }}
-                      // onClick={() => handleProtectedLinkClick("/login")}
+                    // onClick={() => handleProtectedLinkClick("/login")}
                     />
                   </IconButton>
                   // </Link>
@@ -321,16 +363,46 @@ const Navbar = () => {
                   </li>
                 </ul>
               </div>
-              <IconButton
-                color="inherit"
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "transparent",
-                  },
-                }}
-              >
-                <SearchIcon sx={{ color: "#fc5f03" }} />
-              </IconButton>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                {showSearch && (
+                  <TextField
+                    variant="outlined"
+                    size="small"
+                    value={query}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setQuery(value);
+                      if (!value) {
+                        navigate(previousPath);
+                      } else {
+                        fetchDynamicSearch(value);
+                      }
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "gray",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "gray",
+                        },
+                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "gray !important",
+                        },
+                      },
+                    }}
+                  />
+                )}
+                <IconButton
+                  color="inherit"
+                  onClick={() => setShowSearch(!showSearch)}
+                  sx={{
+                    "&:hover": { backgroundColor: "transparent" },
+                  }}
+                >
+                  <SearchIcon sx={{ color: "#fc5f03" }} />
+                </IconButton>
+              </Box>
               <Link to="/cart">
                 <IconButton
                   color="inherit"
