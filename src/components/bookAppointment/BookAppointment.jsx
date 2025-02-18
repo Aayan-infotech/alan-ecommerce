@@ -70,7 +70,7 @@ export const BookAppointment = ({ open, handleClose }) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://44.196.64.110:5000/api/appointments/create",
+        "http://44.196.64.110:7878/api/appointments/create",
         appointmentFormsValue
       );
       if (response.data.success) {
