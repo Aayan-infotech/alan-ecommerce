@@ -34,6 +34,7 @@ const Navbar = () => {
   const [exploreCategories, setExploreCategories] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [isOpenModel, setIsOpenModel] = useState(false);
+  const [isProductDropDown, setIsProductDropDown] = useState(false);
 
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -224,7 +225,9 @@ const Navbar = () => {
                   Home
                 </Button>
               </Link>
-              <div className="dropdown">
+              <div className="dropdown"
+                onMouseEnter={() => setIsProductDropDown(true)}
+                onMouseLeave={() => setIsProductDropDown(false)}>
                 <Button
                   color="inherit"
                   className="nav-title"
@@ -233,7 +236,9 @@ const Navbar = () => {
                 >
                   Products
                 </Button>
-                <ul className="dropdown-menu">
+                <ul className="dropdown-menu" style={{
+                  display: isProductDropDown ? "block" : "none",
+                }}>
                   {exploreCategories.length > 0 ? (
                     exploreCategories.map((category) => (
                       <li
