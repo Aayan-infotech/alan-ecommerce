@@ -150,7 +150,7 @@ export const BookAppointment = ({ open, handleClose }) => {
                   />
                 </FormControl>
               </Box>
-              <Box className="mb-4">
+              <Box className="">
                 <InputLabel className="mb-2">Email</InputLabel>
                 <FormControl fullWidth>
                   <TextField

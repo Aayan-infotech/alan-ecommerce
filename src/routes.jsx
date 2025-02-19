@@ -3,8 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useLocation,
-  useNavigate,
 } from "react-router-dom";
 import { Home } from "./components/Home/Home";
 import { PageNotFound } from "./components/pagenotfound/PageNotFound";
@@ -17,9 +15,7 @@ import Window from "./components/windows/Window.jsx";
 import Cart from "./components/cart/Cart.jsx";
 import { CheckoutPayment } from "./components/checkout/CheckoutPayment.jsx";
 import { Successfully } from "./components/checkout/Successfully.jsx";
-import Orders from "./components/Order/Orders.jsx";
 import { OrderTrack } from "./components/Order/OrderTrack.jsx";
-import { TrakingOrder } from "./components/Order/TrakingOrder.jsx";
 import { Contact } from "./components/contact/Contact.jsx";
 import { BookAppointment } from "./components/bookAppointment/BookAppointment.jsx";
 import { About } from "./components/About.jsx";
@@ -64,7 +60,6 @@ import DoorsCategoryTypes from "./components/doors/DoorsCategoryTypes.jsx";
 import SubDoorsCategory from "./components/doors/SubDoorsCategory.jsx";
 import SubSubCategories from "./components/Home/SubSubCategories.jsx";
 import AllSubProducts from "./components/Home/AllSubProducts.jsx";
-import Cookies from "js-cookie";
 import { UserDetails } from "./components/login/UserDetails.jsx";
 import { WishList } from "./components/Home/WishList.jsx";
 import OrderHistory from "./components/cart/OrderHistory.jsx";
@@ -76,55 +71,6 @@ import ScrollToTop from "./ScrollToTop.jsx";
 import SearchProductList from "./components/navbar/SearchProductList.jsx";
 
 export const AppRoutes = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const alanAuthToken = Cookies.get("alanAuthToken");
-  //   const userLoggedInId = Cookies.get("userLoggedInId");
-
-  //   if (alanAuthToken && userLoggedInId) {
-  //     setIsLoggedIn(true);
-  //     localStorage.setItem("isLoggedIn", "true");
-  //   } else {
-  //     setIsLoggedIn(false);
-  //     localStorage.removeItem("isLoggedIn");
-  //   }
-
-  //   setIsCheckingAuth(false);
-  // }, []);
-
-  // useEffect(() => {
-  //   const loginStatus = localStorage.getItem("isLoggedIn");
-
-  //   if (loginStatus === "true") {
-  //     setIsLoggedIn(true);
-  //   }
-  //   const currentPath = window.location.pathname;
-  //   console.log(currentPath, "sdfd");
-  //   const protectedRoutes = [
-  //     "/orders",
-  //     "/order-track",
-  //     "/traking-order",
-  //   ];
-
-  //   if (
-  //     !isCheckingAuth &&
-  //     protectedRoutes.includes(currentPath) &&
-  //     !isLoggedIn
-  //   ) {
-  //     navigate("/login");
-  //   }
-  // }, [isLoggedIn, isCheckingAuth, navigate]);
-
-  // if (isCheckingAuth) {
-  //   return (
-  //     <div className="text-center">
-  //       <h4>Loading...</h4>
-  //     </div>
-  //   );
-  // }
 
   return (
     <>
@@ -146,9 +92,7 @@ export const AppRoutes = () => {
         <Route path="terms-condition" element={<TermsConditions />} />
         <Route path="wish-list" element={<WishList />} />
         <Route path="cart" element={<Cart />} />
-        {/* <Route path="orders" element={<Orders />} /> */}
         <Route path="order-track" element={<OrderTrack />} />
-        {/* <Route path="traking-order" element={<TrakingOrder />} /> */}
         <Route path="checkout" element={<CheckoutPayment />} />
         <Route path="successfull" element={<Successfully />} />
         <Route path="contact" element={<Contact />} />

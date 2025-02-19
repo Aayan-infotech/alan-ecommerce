@@ -50,3 +50,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
       max-width: calc(100% - 10%) !important;
   }
 }
+@media (min-width: 1600px) {
+  .css-5c1adp-MuiContainer-root, .css-1vufwy3-MuiPaper-root-MuiAppBar-root {
+      max-width: calc(100% - 10%) !important;
+  }
+}

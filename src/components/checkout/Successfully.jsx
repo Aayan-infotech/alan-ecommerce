@@ -14,7 +14,6 @@ export const Successfully = () => {
     const fetchPaymentDetails = async () => {
       try {
         if (!session_id) {
-          console.warn("Missing session_id");
           return;
         }
         const response = await axios.get(
@@ -26,7 +25,7 @@ export const Successfully = () => {
             },
           }
         );
-        console.log("Payment Details:", response.data);
+        window.location.reload();
       } catch (error) {
         if (error.response) {
           console.error("Error Response:", error.response.data);
@@ -35,10 +34,10 @@ export const Successfully = () => {
         }
       }
     };
-  
+
     fetchPaymentDetails();
   }, [session_id, token]);
-  
+
 
   return (
     <div>

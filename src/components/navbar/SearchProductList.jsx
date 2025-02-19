@@ -85,8 +85,8 @@ const SearchProductList = () => {
 
                         {/* Sub Categories */}
                         {searchResults?.subCategories?.length > 0 && (
-                            <div>
-                                <Typography variant="h6">Sub Categories</Typography>
+                            <div className="mt-4">
+                                <Typography variant="h6" className="fw-bold">Sub Categories</Typography>
                                 <Grid container spacing={2}>
                                     {searchResults.subCategories.map((subCategory, index) => (
                                         <Grid item xs={12} sm={6} md={4} key={index}>
@@ -124,8 +124,8 @@ const SearchProductList = () => {
 
                         {/* Sub Sub Categories */}
                         {searchResults?.subSubCategories?.length > 0 && (
-                            <div>
-                                <Typography variant="h6">Sub Sub Categories</Typography>
+                            <div className="mt-4">
+                                <Typography variant="h6" className="fw-bold">Sub Sub Categories</Typography>
                                 <Grid container spacing={2}>
                                     {searchResults.subSubCategories.map((subSubCategory, index) => (
                                         <Grid item xs={12} sm={6} md={4} key={index}>

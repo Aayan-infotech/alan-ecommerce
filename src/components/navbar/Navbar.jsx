@@ -74,13 +74,6 @@ const Navbar = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (location.pathname !== "/search-product-list") {
-  //     setQuery("");
-  //     setSearchResults([]);
-  //   }
-  // }, [location]);
-
   const fetchDynamicSearch = debounce(async (query) => {
     if (!query) {
       // When query is empty, navigate to the previous page
@@ -278,7 +271,6 @@ const Navbar = () => {
                     Account
                   </Typography>
                 ) : (
-                  // <Link to="/login" style={{ textDecoration: "none" }}>
                   <IconButton
                     color="inherit"
                     sx={{
@@ -289,10 +281,8 @@ const Navbar = () => {
                   >
                     <AccountCircleIcon
                       sx={{ color: "#fc5f03", fontWeight: "bold" }}
-                    // onClick={() => handleProtectedLinkClick("/login")}
                     />
                   </IconButton>
-                  // </Link>
                 )}
                 <ul
                   className="dropdown-menu"
@@ -378,6 +368,12 @@ const Navbar = () => {
                         navigate(previousPath);
                       } else {
                         fetchDynamicSearch(value);
+                      }
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        fetchDynamicSearch(query);
                       }
                     }}
                     sx={{
