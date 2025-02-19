@@ -25,7 +25,11 @@ export const Successfully = () => {
             },
           }
         );
-        window.location.reload();
+        if (response.status === 200) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
       } catch (error) {
         if (error.response) {
           console.error("Error Response:", error.response.data);

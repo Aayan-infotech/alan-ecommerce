@@ -197,16 +197,29 @@ const OrderHistory = () => {
                                 order.status === "succeeded" ? "green" : "black",
                             }}
                           >
-                            <strong>Order Status: {order.status}</strong>
+                            <strong>Payment Status: {order.status}</strong>
                           </Typography>
-                          <Typography
+                          {/* <Typography
                             style={{
                               color: order.orderStatus === "pending" ? "red" :
                                 order.orderStatus === "succeeded" ? "green" : "black",
                             }}
                           >
                             <strong>Order Status: {order.orderStatus}</strong>
+                          </Typography> */}
+                          <Typography
+                            style={{
+                              color:
+                                order.orderStatus === "pending" || order.orderStatus === "Cancelled"
+                                  ? "red"
+                                  : order.orderStatus === "succeeded"
+                                    ? "green"
+                                    : "black",
+                            }}
+                          >
+                            <strong>Order Status: {order.orderStatus}</strong>
                           </Typography>
+
                           {order?.payer && (
                             <>
                               <Divider />

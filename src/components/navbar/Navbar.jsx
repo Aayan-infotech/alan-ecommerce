@@ -146,7 +146,7 @@ const Navbar = () => {
       color="default"
       className="navbar-content rounded-3"
       sx={{
-        maxWidth: "1200px",
+        maxWidth: "1230px",
         margin: "20px auto 0",
         padding: "6px",
         width: "100%",

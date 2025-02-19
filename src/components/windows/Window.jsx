@@ -63,6 +63,7 @@ const Window = () => {
   const [isCalculating, setIsCalculating] = useState(false);
   const [isCalculatingGardenWindow, setIsCalculatingGardenWindow] = useState(false);
   const [btnLoader, setBtnLoader] = useState(false);
+  const [dimensionError, setDimensionError] = useState(null);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -100,7 +101,6 @@ const Window = () => {
       const response = await axios.get(
         `http://44.196.64.110:7878/api/dims/ProductID/${product_id}`
       );
-      console.log(response?.data?.data?.Dimensions, 'data------');
       if (response?.data?.success) {
         setSelectedImage(response.data.data?.product?.images[0]);
         setCurrentProductDetails(response.data.data);
@@ -130,6 +130,7 @@ const Window = () => {
       if (height && width) {
         setFormError(false);
         setIsCalculating(true);
+        setDimensionError(null);
         try {
           const response = await axios.post(
             "http://44.196.64.110:7878/api/prodFormula/calculateCustomHeightWidth",
@@ -140,13 +141,14 @@ const Window = () => {
               Price: currentProductDetails?.product?.price || 0,
             }
           );
-          if (response?.data?.success) {
-            setCustomPrice(response.data.data.totalPrice);
-          } else {
+          if (response?.data?.success === false) {
+            setDimensionError(response?.data?.message || "Invalid dimensions.");
             setCustomPrice(null);
+          } else {
+            setCustomPrice(response.data.data.totalPrice);
+            setDimensionError(null); // Clear error on success
           }
         } catch (error) {
-          console.error("Error calculating custom price:", error);
           setCustomPrice(null);
         } finally {
           setIsCalculating(false);
@@ -156,6 +158,7 @@ const Window = () => {
       }
     }
   };
+  console.log(dimensionError, 'dimensionError')
 
   const handleSelectChange = async (category, value, name) => {
     const updatedOptions = {
@@ -234,35 +237,6 @@ const Window = () => {
     });
     return basePrice.toFixed(2);
   };
-
-
-  // const calculatePrice = () => {
-  //   if (!currentProductDetails?.product) return 0;
-  //   let price = currentProductDetails.product.price;
-  //   if (customPrice) {
-  //     price = customPrice;
-  //   }
-  //   Object.keys(selectedOptions).forEach((category) => {
-  //     const selectedOption = selectedOptions[category];
-  //     if (currentProductDimensions && currentProductDimensions[category]) {
-  //       const selectedItem = currentProductDimensions[category].find(
-  //         (item) => item[category] === selectedOption.name
-  //       );
-  //       if (selectedItem) {
-  //         const value = selectedItem.value;
-  //         if (value === "" || value === null) {
-  //           price += parseFloat(selectedItem.amount);
-  //         } else {
-  //           const percentage = parseFloat(selectedItem.value);
-  //           price += (price * percentage) / 100;
-  //         }
-  //       }
-  //     }
-  //   });
-  //   return price.toFixed(2);
-  // };
-
-
 
   const handleToProceedAddToCart = async () => {
     setBtnLoader(true);
@@ -378,6 +352,7 @@ const Window = () => {
                       maxHeight: "280px",
                       objectFit: "contain",
                     }}
+                    onError={(e) => e.target.src = No_Image_Available}
                   />
                   <Grid container spacing={2} sx={{ marginTop: "15px" }}>
                     {images
@@ -525,6 +500,13 @@ const Window = () => {
                       </div>
                     </div>
                   )}
+                {dimensionError && (
+                  <div className="col-12 mb-3">
+                    <Typography variant="body2" sx={{ color: "red", fontSize: "14px" }}>
+                      {dimensionError}
+                    </Typography>
+                  </div>
+                )}
                 <div className="row ma-0 gy-3">
                   {currentProductDimensions &&
                     Object.keys(currentProductDimensions).map((category) => (

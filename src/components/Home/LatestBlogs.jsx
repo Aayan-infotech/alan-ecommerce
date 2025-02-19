@@ -8,6 +8,7 @@ import {
   Button,
   Grid,
   CardMedia,
+  Container,
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import "../../styles/Home.scss";
@@ -51,12 +52,10 @@ const feedbackData = [
 export const LatestBlogs = () => {
   return (
     <div className="feedback-section">
-      <div className="container p-0">
+      <Container maxWidth="false">
         <Typography variant="h4" className="text-center mb-2">
           Latest Blogs
         </Typography>
-
-        {/* Feedback Cards */}
         <div className="row">
           {feedbackData?.map((feedback, index) => (
             <div className="col-12 col-md-4 mb-4" key={index}>
@@ -103,53 +102,7 @@ export const LatestBlogs = () => {
             </div>
           ))}
         </div>
-        {/* <Grid justifyContent="center" alignItems="center">
-          {latestBlogs?.map((feedback, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <Card sx={{ maxWidth: 300, mx: "auto" }}>
-                <CardMedia
-                  sx={{ height: 200 }}
-                  image={feedback?.url}
-                  title="green iguana"
-                />
-                <CardContent sx={{ p: 2 }}>
-                  <Typography variant="body2" color="text.secondary">
-                    {feedback?.subTitle}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    className="mt-2"
-                    sx={{
-                      color: "black",
-                      fontWeight: "bold",
-                      fontSize: "20px",
-                      lineHeight: "1.20",
-                    }}
-                  >
-                    {feedback?.name}
-                  </Typography>
-                  <Divider />
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    className="mt-2"
-                  >
-                    {feedback?.description}
-                  </Typography>
-                  <Button
-                    size="small"
-                    className="w-100 mt-4 fw-bold"
-                    variant="outlined"
-                    sx={{ borderColor: "#ff5722", color: "#ff5722" }}
-                  >
-                    Read More
-                  </Button>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid> */}
-      </div>
+      </Container>
     </div>
   );
 };

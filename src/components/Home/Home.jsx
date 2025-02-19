@@ -95,7 +95,7 @@ export const Home = () => {
   return (
     <>
       <div className="home-container">
-        <Container className="position-relative pos-home-top mt-4 mt-lg-0">
+        <Container maxWidth="false" className="position-relative pos-home-top mt-4 mt-lg-0">
           <Grid container alignItems="center" className="home-content ">
             <Grid item xs={12} md={6} className="text-section">
               <Typography variant="h3" component="h1" className="main-heading">
@@ -124,86 +124,87 @@ export const Home = () => {
             </Grid>
           </Grid>
         </Container>
-        <Box className="marquee-container">
-          <div className="marquee-content marquee-home" ref={marqueeRef}>
-            <div className="d-flex">
-              <Typography
-                variant="h2"
-                className="me-2 fw-bold"
-                sx={{ color: "#0068B3" }}
-              >
-                SELECT PRODUCTS BELOW AND GET PRICING NOW,
-              </Typography>
-              <Typography
-                variant="h2"
-                className="me-2 fw-bold"
-                sx={{ color: "#0068B3" }}
-              >
-                SELECT PRODUCTS BELOW AND GET PRICING NOW,
-              </Typography>
-              <Typography
-                variant="h2"
-                className="me-2 fw-bold"
-                sx={{ color: "#0068B3" }}
-              >
-                SELECT PRODUCTS BELOW AND GET PRICING NOW,
-              </Typography>
-              <Typography
-                variant="h2"
-                className="me-2 fw-bold"
-                sx={{ color: "#0068B3" }}
-              >
-                SELECT PRODUCTS BELOW AND GET PRICING NOW,
-              </Typography>
-              <Typography
-                variant="h2"
-                className="me-2 fw-bold"
-                sx={{ color: "#0068B3" }}
-              >
-                SELECT PRODUCTS BELOW AND GET PRICING NOW,
-              </Typography>
-            </div>
-            <div className="d-flex">
-              <Typography
-                variant="h2"
-                className="me-2 fw-bold"
-                sx={{ color: "#0068B3" }}
-              >
-                SELECT PRODUCTS BELOW AND GET PRICING NOW,
-              </Typography>
-              <Typography
-                variant="h2"
-                className="me-2 fw-bold"
-                sx={{ color: "#0068B3" }}
-              >
-                SELECT PRODUCTS BELOW AND GET PRICING NOW,
-              </Typography>
-              <Typography
-                variant="h2"
-                className="me-2 fw-bold"
-                sx={{ color: "#0068B3" }}
-              >
-                SELECT PRODUCTS BELOW AND GET PRICING NOW,
-              </Typography>
-              <Typography
-                variant="h2"
-                className="me-2 fw-bold"
-                sx={{ color: "#0068B3" }}
-              >
-                SELECT PRODUCTS BELOW AND GET PRICING NOW,
-              </Typography>
-              <Typography
-                variant="h2"
-                className="me-2 fw-bold"
-                sx={{ color: "#0068B3" }}
-              >
-                SELECT PRODUCTS BELOW AND GET PRICING NOW,
-              </Typography>
-            </div>
-          </div>
-        </Box>
+
         {/* ----------------all content pages--------------------- */}
-        <Container>
+        <Container maxWidth="false">
+          <Box className="marquee-container">
+            <div className="marquee-content marquee-home" ref={marqueeRef}>
+              <div className="d-flex">
+                <Typography
+                  variant="h2"
+                  className="me-2 fw-bold"
+                  sx={{ color: "#0068B3" }}
+                >
+                  SELECT PRODUCTS BELOW AND GET PRICING NOW,
+                </Typography>
+                <Typography
+                  variant="h2"
+                  className="me-2 fw-bold"
+                  sx={{ color: "#0068B3" }}
+                >
+                  SELECT PRODUCTS BELOW AND GET PRICING NOW,
+                </Typography>
+                <Typography
+                  variant="h2"
+                  className="me-2 fw-bold"
+                  sx={{ color: "#0068B3" }}
+                >
+                  SELECT PRODUCTS BELOW AND GET PRICING NOW,
+                </Typography>
+                <Typography
+                  variant="h2"
+                  className="me-2 fw-bold"
+                  sx={{ color: "#0068B3" }}
+                >
+                  SELECT PRODUCTS BELOW AND GET PRICING NOW,
+                </Typography>
+                <Typography
+                  variant="h2"
+                  className="me-2 fw-bold"
+                  sx={{ color: "#0068B3" }}
+                >
+                  SELECT PRODUCTS BELOW AND GET PRICING NOW,
+                </Typography>
+              </div>
+              <div className="d-flex">
+                <Typography
+                  variant="h2"
+                  className="me-2 fw-bold"
+                  sx={{ color: "#0068B3" }}
+                >
+                  SELECT PRODUCTS BELOW AND GET PRICING NOW,
+                </Typography>
+                <Typography
+                  variant="h2"
+                  className="me-2 fw-bold"
+                  sx={{ color: "#0068B3" }}
+                >
+                  SELECT PRODUCTS BELOW AND GET PRICING NOW,
+                </Typography>
+                <Typography
+                  variant="h2"
+                  className="me-2 fw-bold"
+                  sx={{ color: "#0068B3" }}
+                >
+                  SELECT PRODUCTS BELOW AND GET PRICING NOW,
+                </Typography>
+                <Typography
+                  variant="h2"
+                  className="me-2 fw-bold"
+                  sx={{ color: "#0068B3" }}
+                >
+                  SELECT PRODUCTS BELOW AND GET PRICING NOW,
+                </Typography>
+                <Typography
+                  variant="h2"
+                  className="me-2 fw-bold"
+                  sx={{ color: "#0068B3" }}
+                >
+                  SELECT PRODUCTS BELOW AND GET PRICING NOW,
+                </Typography>
+              </div>
+            </div>
+          </Box>
           <Box
             sx={{
               display: "grid",
@@ -215,7 +216,7 @@ export const Home = () => {
             className="button-container"
           >
             {buttonData.map((button, index) => (
-              <Link to={button?.urlPath} key={index} className="button-link">
+              <Link to={button?.urlPath} key={index} className="button-link w-100">
                 <Button
                   variant="contained"
                   className="custom-button"
@@ -248,7 +249,7 @@ export const Home = () => {
             >
               {exploreCategories.length > 0 ? (
                 exploreCategories.map((item, index) => (
-                  <Grid item xs={12} sm={6} md={4} key={index}>
+                  <Grid item xs={12} sm={6} md={3} key={index}>
                     <Card
                       sx={{ maxWidth: 300, mx: "auto" }}
                       onClick={() => handleClick(item)}
@@ -306,12 +307,8 @@ export const Home = () => {
               )}
             </Grid>
           )}
-          <Box>
-            <CustomerFeedback />
-          </Box>
-          <Box>
-            <LatestBlogs />
-          </Box>
+          <CustomerFeedback />
+          <LatestBlogs />
         </Container>
       </div>
     </>

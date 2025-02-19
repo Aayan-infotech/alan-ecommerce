@@ -36,6 +36,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import No_Image_Available from "../../assets/No_Image_Available.jpg";
 
 const pickupAddressOptions = [
   {
@@ -267,7 +268,6 @@ const Cart = () => {
       return;
     }
     let shippingAddress = {};
-
     if (shippingMethod === "pickup") {
       if (!selectedOption) {
         alert("Please select a pickup address before proceeding.");
@@ -390,6 +390,7 @@ const Cart = () => {
                               height="50"
                               alt="Product"
                               className="me-2"
+                              onError={(e) => e.target.src = No_Image_Available}
                             />
                             <div>
                               <p className="mb-0">

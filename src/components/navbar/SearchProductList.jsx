@@ -76,7 +76,14 @@ const SearchProductList = () => {
                                                 }}
                                                 onError={(e) => e.target.src = No_Image_Available}
                                             />
-                                            <p className="fw-bold">{product?.name || "N/A"}</p>
+                                            <p className="fw-bold">
+                                                {product?.name
+                                                    ? product?.name
+                                                        .replace(/_/g, " ")
+                                                        .replace(/\b\w/g, (char) => char.toUpperCase())
+                                                    : "N/A"}
+                                                {/* {product?.name || "N/A"} */}
+                                            </p>
                                         </Box>
                                     </Grid>
                                 ))}
