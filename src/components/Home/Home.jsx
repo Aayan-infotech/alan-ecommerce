@@ -237,7 +237,7 @@ export const Home = () => {
           </Box>
           {loading && (
             <Backdrop open={true} style={{ zIndex: 1000, color: "#fff" }}>
-              <CircularProgress color="inherit" />
+              <Loader color="inherit" />
             </Backdrop>
           )}
           {!loading && (
@@ -251,23 +251,44 @@ export const Home = () => {
                 exploreCategories.map((item, index) => (
                   <Grid item xs={12} sm={6} md={3} key={index}>
                     <Card
-                      sx={{ maxWidth: 300, mx: "auto" }}
+                      sx={{
+                        maxWidth: 300,
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        mx: "auto",
+                        backgroundColor: "#0068B333",
+                        transition: "transform 0.3s ease-in-out",
+                        "&:hover": {
+                          transform: "scale(0.95)",
+                        },
+                      }}
                       onClick={() => handleClick(item)}
                     >
                       <CardMedia
                         component="img"
-                        height="300"
                         image={item?.images[0] || No_Image_Available}
                         alt="green iguana"
-                        sx={{ objectFit: "fill" }}
+                        sx={{
+                          objectFit: "contain",
+                          height: 250,
+                        }}
+                        className="p-2"
                       />
-                      <CardContent sx={{ backgroundColor: "#0068B333" }}>
+                      <CardContent
+                        sx={{
+                          flexGrow: 1,
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "space-between",
+                        }}
+                      >
                         <Box
                           sx={{
                             color: "#0068B3",
                             fontWeight: "bold",
+                            textAlign: "center",
                           }}
-                          className="text-center"
                         >
                           <Typography
                             className="fw-bold"
@@ -278,8 +299,7 @@ export const Home = () => {
                               ?.split(" ")
                               .map(
                                 (word) =>
-                                  word.charAt(0).toUpperCase() +
-                                  word.slice(1).toLowerCase()
+                                  word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
                               )
                               .join(" ")}
                           </Typography>

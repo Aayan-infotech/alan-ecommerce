@@ -8,6 +8,7 @@ import {
 import banner from "../../src/assets/contact.png";
 import card_img1 from "../../src/assets/image 1.png";
 import { useLocation } from "react-router-dom";
+import pdfFile from "../../src/assets/Statement.pdf";
 
 export const About = () => {
   const location = useLocation();
@@ -90,17 +91,6 @@ export const About = () => {
           >
             {aboutContent.title}
           </Typography>
-          {/* <Typography
-            className="text-secondary"
-            sx={{
-              mt: 1,
-              fontSize: { xs: "0.9rem", md: "1rem" },
-              textAlign: "center",
-              maxWidth: "600px",
-            }}
-          >
-            {aboutContent.description}
-          </Typography> */}
           <Grid container spacing={2} className="mt-4">
             <Grid item xs={12} sm={4}>
               <img
@@ -126,7 +116,28 @@ export const About = () => {
               ))}
             </Grid>
           </Grid>
+          <button type="button" style={{backgroundColor:"#FC5F03"}} class="btn btn-primary border border-0 fw-bold" data-bs-toggle="modal" data-bs-target="#pdfModal">
+            View Capability Statement
+          </button>
         </Box>
+
+        <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">Alan Holsapple Capability Statement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <iframe src={pdfFile} width="100%" height="500px"></iframe>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </Container>
     </div>
   );
