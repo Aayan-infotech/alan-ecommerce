@@ -734,7 +734,7 @@ const Cart = () => {
                           </AccordionSummary>
                           <AccordionDetails>
                             <div>
-                              <h6 className="fw-bold">Selected Options</h6>
+                              <h6 className="fw-bold mb-3">Selected Options</h6>
                               {product.selectedOptions ? (
                                 Object.entries(product.selectedOptions).map(
                                   ([key, value]) => (
@@ -742,7 +742,7 @@ const Cart = () => {
                                       key={key}
                                       className="d-flex justify-content-between align-items-center mb-2"
                                     >
-                                      <h6 className="fw-bold">{key}</h6>
+                                      <h6 className="">{key}</h6>
                                       <p className="mb-0">{value}</p>
                                     </div>
                                   )

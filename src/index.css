@@ -1,22 +1,14 @@
-/* body {
+
+html,
+body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
   scrollbar-width: none;
 }
+
+html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-  display: none;
-} */
-
-/* HTML aur body dono par scroll bar ko remove karne ke liye */
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; 
-  scrollbar-width: none;
-}
-
-/* Webkit-based browsers (Chrome, Safari, Edge) me scroll bar ko hide karne ke liye */
-html::-webkit-scrollbar, body::-webkit-scrollbar {
   display: none;
 }
 
@@ -37,21 +29,33 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   z-index: 100;
   transition: transform 0.5s ease;
 }
+
 .qwhtsapp {
   bottom: 70px;
   background-color: #fc5f03;
 }
+
 .carousel-img {
   height: 200px;
   object-fit: cover;
 }
+
 @media (min-width: 1400px) {
-  .css-5c1adp-MuiContainer-root, .css-1vufwy3-MuiPaper-root-MuiAppBar-root {
-      max-width: calc(100% - 10%) !important;
+
+  .css-5c1adp-MuiContainer-root,
+  .css-1vufwy3-MuiPaper-root-MuiAppBar-root {
+    max-width: calc(100% - 10%) !important;
   }
 }
+
 @media (min-width: 1600px) {
-  .css-5c1adp-MuiContainer-root, .css-1vufwy3-MuiPaper-root-MuiAppBar-root {
-      max-width: calc(100% - 10%) !important;
+
+  .css-5c1adp-MuiContainer-root,
+  .css-1vufwy3-MuiPaper-root-MuiAppBar-root {
+    max-width: calc(100% - 10%) !important;
   }
+}
+
+.css-1y44mqf-MuiPaper-root-MuiAppBar-root {
+  max-width: 1385px;
 }

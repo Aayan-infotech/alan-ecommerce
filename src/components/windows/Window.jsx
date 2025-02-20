@@ -64,6 +64,8 @@ const Window = () => {
   const [isCalculatingGardenWindow, setIsCalculatingGardenWindow] = useState(false);
   const [btnLoader, setBtnLoader] = useState(false);
   const [dimensionError, setDimensionError] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const maxLength = 100;
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -282,6 +284,10 @@ const Window = () => {
     setOpenSnackbar(false);
   };
 
+  const toggleDescription = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
     <div className="doors-container px-3">
       <Snackbar
@@ -416,15 +422,29 @@ const Window = () => {
                         .replace(/\b\w/g, (char) => char.toUpperCase())
                       : "N/A"}
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    className="w-75 mt-3"
-                    dangerouslySetInnerHTML={{
-                      __html:
-                        currentProductDetails?.product?.Description || "N/A",
-                    }}
-                  />
+                  <Typography variant="body2" color="textSecondary">
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: isExpanded
+                          ? currentProductDetails?.product?.Description || "N/A"
+                          : (currentProductDetails?.product?.Description || "N/A").slice(0, maxLength) + (currentProductDetails?.product?.Description?.length > maxLength ? "..." : ""),
+                      }}
+                    />
+                    {currentProductDetails?.product?.Description?.length > maxLength && (
+                      <button
+                        onClick={toggleDescription}
+                        style={{
+                          border: "none",
+                          background: "none",
+                          color: "blue",
+                          cursor: "pointer",
+                          paddingLeft: "5px",
+                        }}
+                      >
+                        {isExpanded ? "Show Less" : "Show More"}
+                      </button>
+                    )}
+                  </Typography>
                 </Box>
               </div>
               <div className="col-12 col-md-7">

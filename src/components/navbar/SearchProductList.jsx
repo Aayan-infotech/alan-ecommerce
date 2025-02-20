@@ -24,18 +24,36 @@ const SearchProductList = () => {
         return <Loader />;
     }
 
+    // const handleClick = (product, subCategory, subSubCategory) => {
+    //     console.log(subCategory, 'subSubCategory')
+    //     if (product) {
+    //         navigate(`/dimensions/${product?._id}`);
+    //     } else if (subCategory) {
+    //         navigate(`/sub-sub-categories/${subCategory?._id}`, {
+    //             state: { categorydetails: subCategory },
+    //         });
+    //     } else if (subSubCategory) {
+    //         navigate(`/allsubproducts/${subSubCategory._id}`);
+    //     }
+    // };
     const handleClick = (product, subCategory, subSubCategory) => {
         if (product) {
             navigate(`/dimensions/${product?._id}`);
         } else if (subCategory) {
-            navigate(`/sub-sub-categories/${subCategory?._id}`, {
-                state: { categorydetails: subCategory },
-            });
+            const category = { ...subCategory, type: "subCategory" };
+            if (!subCategory?.isSubSubCategory) {
+                navigate(`/allsubproducts/${category?._id}`, {
+                    state: { categorydetails: category },
+                });
+            } else {
+                navigate(`/sub-sub-categories/${subCategory?._id}`, {
+                    state: { categorydetails: subCategory },
+                });
+            }
         } else if (subSubCategory) {
             navigate(`/allsubproducts/${subSubCategory._id}`);
         }
     };
-
 
     return (
         <div className="mb-4">

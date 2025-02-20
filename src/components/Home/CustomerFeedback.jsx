@@ -74,7 +74,7 @@ export const CustomerFeedback = () => {
     };
   }, []);
 
-  const feedbackPerPage = isMobile ? 1 : 3; // Show 1 card on mobile, 3 on desktop
+  const feedbackPerPage = isMobile ? 1 : 3; 
   const totalPages = Math.ceil(feedbackData.length / feedbackPerPage);
 
   const handleNext = () => {
@@ -123,7 +123,6 @@ export const CustomerFeedback = () => {
                       value={feedback.rating}
                       precision={0.5}
                       readOnly
-                      sx={{ mb: 2 }}
                     />
                   </Box>
                   <Typography variant="h6" className="fw-bold mt-2">

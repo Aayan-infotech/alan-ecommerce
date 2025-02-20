@@ -27,6 +27,7 @@ const AllSubProducts = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const { products_id } = useParams();
+  console.log(products_id, 'products_id')
   const location = useLocation();
   const { categorydetails } = location.state || {};
   const userLoggedInId = Cookies.get("userLoggedInId");
@@ -53,18 +54,54 @@ const AllSubProducts = () => {
       .join(" > ");
   };
 
+  // const fetchExploreSubCategories = async () => {
+  //   setLoading(true);
+  //   try {
+  //     let response;
+  //     if (categorydetails?.type === "category") {
+  //       response = await axios.get(
+  //         `http://44.196.64.110:7878/api/products/type/category/id/${products_id}`
+  //       );
+  //     } else {
+  //       response = await axios.get(
+  //         `http://44.196.64.110:7878/api/products/type/subSubCategory/id/${products_id}`
+  //       );
+  //     } 
+  //     if (response?.data?.status === 200) {
+  //       setSubsubCategories(response?.data?.data);
+  //       setErrorMessage("");
+  //     } else {
+  //       setErrorMessage(response?.data?.message);
+  //     }
+  //   } catch (error) {
+  //     setErrorMessage(
+  //       error?.response?.data?.message || "An unexpected error occurred."
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const fetchExploreSubCategories = async () => {
     setLoading(true);
     try {
       let response;
+      console.log(response)
       if (categorydetails?.type === "category") {
         response = await axios.get(
           `http://44.196.64.110:7878/api/products/type/category/id/${products_id}`
         );
-      } else {
+      } else if (categorydetails?.type === "subSubCategory") {
         response = await axios.get(
           `http://44.196.64.110:7878/api/products/type/subSubCategory/id/${products_id}`
         );
+      } else if (categorydetails?.type === "subCategory") {
+        response = await axios.get(
+          `http://44.196.64.110:7878/api/products/type/subCategory/id/${products_id}`
+        );
+      } else {
+        setErrorMessage("Invalid category type.");
+        return;
       }
       if (response?.data?.status === 200) {
         setSubsubCategories(response?.data?.data);
@@ -80,6 +117,7 @@ const AllSubProducts = () => {
       setLoading(false);
     }
   };
+
 
   const fetchSearchResults = async (query, productId) => {
     if (!query.trim()) {
@@ -248,8 +286,8 @@ const AllSubProducts = () => {
                       <p className="fw-bold mb-0">
                         {category?.name
                           ? category?.name
-                              .replace(/_/g, " ")
-                              .replace(/\b\w/g, (char) => char.toUpperCase())
+                            .replace(/_/g, " ")
+                            .replace(/\b\w/g, (char) => char.toUpperCase())
                           : "N/A"}
                         &nbsp;&nbsp;
                         <IconButton

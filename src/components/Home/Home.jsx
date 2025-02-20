@@ -252,7 +252,7 @@ export const Home = () => {
                   <Grid item xs={12} sm={6} md={3} key={index}>
                     <Card
                       sx={{
-                        maxWidth: 300,
+                        // maxWidth: 300,
                         height: "100%",
                         display: "flex",
                         flexDirection: "column",

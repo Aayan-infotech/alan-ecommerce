@@ -54,15 +54,32 @@ const Categories = () => {
     }
   }, [categoryId]);
 
+  // const handleClick = (category) => {
+  //   if (!category?.isSubCategory) {
+  //     navigate(`/sub-sub-categories/${category?._id}`, {
+  //       state: { categorydetails: category },
+  //     });
+  //   } else {
+  //     navigate(`/categories/${category?._id}`);
+  //   }
+  // };
+
   const handleClick = (category) => {
-    if (!category?.isSubCategory) {
+    if (category?.type === "category") {
+      navigate(`/categories/${category?._id}`);
+    } else if (category?.type === "subCategory") {
+      navigate(`/allsubproducts/${category?._id}`, {
+        state: { categorydetails: category },
+      });
+    } else if (category?.isSubSubcategory) {
       navigate(`/sub-sub-categories/${category?._id}`, {
         state: { categorydetails: category },
       });
     } else {
-      navigate(`/categories/${category?._id}`);
+      console.log("Invalid category type", category);
     }
   };
+
 
   return (
     <div className="doors-container px-3 mb-4">
