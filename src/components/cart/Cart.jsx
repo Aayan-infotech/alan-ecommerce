@@ -89,7 +89,7 @@ const Cart = () => {
   const fetchCustomerAddressDetails = async () => {
     try {
       const response = await axios.get(
-        `http://44.196.64.110:7878/api/CustMng/customers/${userLoggedInId}`,
+        `http://54.236.98.193:7878/api/CustMng/customers/${userLoggedInId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -316,7 +316,7 @@ const Cart = () => {
         "pk_test_51QoJ7kAVVqxB4pCghu988pszHfcMWzKLIvG1vwatgYt7tUwSMvf7Pj0xfGktagXmZvQ0zdEkctDSvaYB0l7ufnyn0084s9ErDf"
       );
       const response = await axios.post(
-        "http://44.196.64.110:7878/api/payment/create-payment-intent",
+        "http://54.236.98.193:7878/api/payment/create-payment-intent",
         { checkoutData },
         { headers: { "Content-Type": "application/json", Authorization: `Bearer ${alanAuthToken}` } }
       );

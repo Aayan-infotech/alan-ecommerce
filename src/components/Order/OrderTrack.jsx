@@ -44,7 +44,7 @@ export const OrderTrack = () => {
 
     try {
       const response = await axios.get(
-        `http://44.196.64.110:7878/api/FnalCustData/order-tracking/${orderInput}`,
+        `http://54.236.98.193:7878/api/FnalCustData/order-tracking/${orderInput}`,
         {
           headers: {
             "Content-Type": "application/json",

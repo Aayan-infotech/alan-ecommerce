@@ -43,7 +43,7 @@ export const WishList = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://44.196.64.110:7878/api/wishlist/user/${userLoggedInId}`,
+        `http://54.236.98.193:7878/api/wishlist/user/${userLoggedInId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -65,7 +65,7 @@ export const WishList = () => {
   const handleToRemoveWishList = async (wishlistId) => {
     try {
       const response = await axios.delete(
-        `http://44.196.64.110:7878/api/wishlist/DEL/${wishlistId}`,
+        `http://54.236.98.193:7878/api/wishlist/DEL/${wishlistId}`,
         {
           headers: {
             "Content-Type": "application/json",

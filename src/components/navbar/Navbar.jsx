@@ -63,7 +63,7 @@ const Navbar = () => {
   const fetchExploreCategories = async () => {
     try {
       const response = await axios.get(
-        "http://44.196.64.110:7878/api/categories/getAllCategories"
+        "http://54.236.98.193:7878/api/categories/getAllCategories"
       );
       if (response?.data?.status === 200) {
         setExploreCategories(response?.data?.data);
@@ -84,7 +84,7 @@ const Navbar = () => {
     }
     try {
       setLoadingSearch(true);
-      const response = await axios.get(`http://44.196.64.110:7878/api/search?name=${query}`);
+      const response = await axios.get(`http://54.236.98.193:7878/api/search?name=${query}`);
       if (response?.data?.status === 200 &&
         (response?.data?.data?.subCategories.length > 0 ||
           response?.data?.data?.subSubCategories.length > 0 ||

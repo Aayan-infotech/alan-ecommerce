@@ -37,7 +37,7 @@ export const UserDetails = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://44.196.64.110:7878/api/CustMng/customers/${loggedInUserId}`
+        `http://54.236.98.193:7878/api/CustMng/customers/${loggedInUserId}`
       );
       if (response.status === 200 && response.data.success) {
         setCurrentUser(response.data.data);
@@ -57,7 +57,7 @@ export const UserDetails = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://44.196.64.110:7878/api/CustMng/changePassword",
+        "http://54.236.98.193:7878/api/CustMng/changePassword",
         {
           email: currentUser.email,
           oldPassword: currentPassword,

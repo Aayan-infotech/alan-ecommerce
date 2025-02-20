@@ -60,11 +60,11 @@ const AllSubProducts = () => {
   //     let response;
   //     if (categorydetails?.type === "category") {
   //       response = await axios.get(
-  //         `http://44.196.64.110:7878/api/products/type/category/id/${products_id}`
+  //         `http://54.236.98.193:7878/api/products/type/category/id/${products_id}`
   //       );
   //     } else {
   //       response = await axios.get(
-  //         `http://44.196.64.110:7878/api/products/type/subSubCategory/id/${products_id}`
+  //         `http://54.236.98.193:7878/api/products/type/subSubCategory/id/${products_id}`
   //       );
   //     } 
   //     if (response?.data?.status === 200) {
@@ -89,15 +89,15 @@ const AllSubProducts = () => {
       console.log(response)
       if (categorydetails?.type === "category") {
         response = await axios.get(
-          `http://44.196.64.110:7878/api/products/type/category/id/${products_id}`
+          `http://54.236.98.193:7878/api/products/type/category/id/${products_id}`
         );
       } else if (categorydetails?.type === "subSubCategory") {
         response = await axios.get(
-          `http://44.196.64.110:7878/api/products/type/subSubCategory/id/${products_id}`
+          `http://54.236.98.193:7878/api/products/type/subSubCategory/id/${products_id}`
         );
       } else if (categorydetails?.type === "subCategory") {
         response = await axios.get(
-          `http://44.196.64.110:7878/api/products/type/subCategory/id/${products_id}`
+          `http://54.236.98.193:7878/api/products/type/subCategory/id/${products_id}`
         );
       } else {
         setErrorMessage("Invalid category type.");
@@ -126,7 +126,7 @@ const AllSubProducts = () => {
     }
     try {
       const response = await axios.get(
-        `http://44.196.64.110:7878/api/products/search?name=${query}&category_id=${productId}`
+        `http://54.236.98.193:7878/api/products/search?name=${query}&category_id=${productId}`
       );
       if (response?.data?.status === 200) {
         setSubsubCategories(response?.data?.data || []);
@@ -167,7 +167,7 @@ const AllSubProducts = () => {
     }
     try {
       const response = await axios.post(
-        "http://44.196.64.110:7878/api/wishlist",
+        "http://54.236.98.193:7878/api/wishlist",
         {
           product_id: productId,
           user_id: userLoggedInId,

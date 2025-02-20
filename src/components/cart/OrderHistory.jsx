@@ -42,7 +42,7 @@ const OrderHistory = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        "http://44.196.64.110:7878/api/FnalCustData/orderHistory",
+        "http://54.236.98.193:7878/api/FnalCustData/orderHistory",
         {
           headers: {
             Authorization: `Bearer ${token}`,

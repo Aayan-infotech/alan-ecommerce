@@ -19,7 +19,7 @@ export const TermsConditions = () => {
                             All sales are final. Due to window and door customization, returns
                             will not be accepted. If you want to discuss your particular
                             situation, you can{" "}
-                            <a href="http://44.196.64.110:2040/contact" className="fw-bold">
+                            <a href="http://54.236.98.193:2040/contact" className="fw-bold">
                                 contact us
                             </a>{" "}
                             to discuss this further.

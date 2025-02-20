@@ -17,7 +17,7 @@ export const Successfully = () => {
           return;
         }
         const response = await axios.get(
-          `http://44.196.64.110:7878/api/payment/completePayment?session_id=${session_id}`,
+          `http://54.236.98.193:7878/api/payment/completePayment?session_id=${session_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

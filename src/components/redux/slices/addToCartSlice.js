@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 //   async (productDetails, { rejectWithValue }) => {
 //     try {
 //       const response = await axios.post(
-//         "http://44.196.64.110:7878/api/GMCards/sessions",
+//         "http://54.236.98.193:7878/api/GMCards/sessions",
 //         productDetails,
 //         {
 //           headers: {
@@ -39,14 +39,14 @@ export const addtocartproduct = createAsyncThunk(
       };
       if (token && userLoggedInId) {
         // Logged-in user: Use order API
-        apiUrl = "http://44.196.64.110:7878/api/order/create-order";
+        apiUrl = "http://54.236.98.193:7878/api/order/create-order";
         headers["Authorization"] = `Bearer ${token}`;
       } else {
         // Guest user: Use session-based API
         if (!sessionId) {
           throw new Error("Session ID is missing");
         }
-        apiUrl = "http://44.196.64.110:7878/api/GMCards/sessions";
+        apiUrl = "http://54.236.98.193:7878/api/GMCards/sessions";
       }
       const response = await axios.post(apiUrl, productDetails, { headers });
       console.log(response.data, "abinash");
@@ -71,13 +71,13 @@ export const fetchAllProducts = createAsyncThunk(
         "Content-Type": "application/json",
       };
       if (token && userLoggedInId) {
-        apiUrl = "http://44.196.64.110:7878/api/order/orders";
+        apiUrl = "http://54.236.98.193:7878/api/order/orders";
         headers["Authorization"] = `Bearer ${token}`;
       } else {
         if (!sessionId) {
           throw new Error("Session ID is missing");
         }
-        apiUrl = `http://44.196.64.110:7878/api/GMCards/sessions/${sessionId}`;
+        apiUrl = `http://54.236.98.193:7878/api/GMCards/sessions/${sessionId}`;
       }
       const response = await axios.get(apiUrl, {
         headers: headers,
@@ -102,10 +102,10 @@ export const deleteProduct = createAsyncThunk(
         "Content-Type": "application/json",
       };
       if (token && userLoggedInId) {
-        apiUrl = `http://44.196.64.110:7878/api/order/orders/${productId}`;
+        apiUrl = `http://54.236.98.193:7878/api/order/orders/${productId}`;
         headers["Authorization"] = `Bearer ${token}`;
       } else {
-        apiUrl = `http://44.196.64.110:7878/api/GMCards/sessions/${productId}`;
+        apiUrl = `http://54.236.98.193:7878/api/GMCards/sessions/${productId}`;
       }
 
       const response = await axios.delete(apiUrl, { headers });
@@ -125,7 +125,7 @@ export const updateUserBillingAddress = createAsyncThunk(
     try {
       const token = Cookies.get("alanAuthToken");
       const response = await axios.put(
-        `http://44.196.64.110:7878/api/CustMng/customers/${userId}`,
+        `http://54.236.98.193:7878/api/CustMng/customers/${userId}`,
         billingDetails,
         {
           headers: {

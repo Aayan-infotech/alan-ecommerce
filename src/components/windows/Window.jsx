@@ -101,7 +101,7 @@ const Window = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://44.196.64.110:7878/api/dims/ProductID/${product_id}`
+        `http://54.236.98.193:7878/api/dims/ProductID/${product_id}`
       );
       if (response?.data?.success) {
         setSelectedImage(response.data.data?.product?.images[0]);
@@ -135,7 +135,7 @@ const Window = () => {
         setDimensionError(null);
         try {
           const response = await axios.post(
-            "http://44.196.64.110:7878/api/prodFormula/calculateCustomHeightWidth",
+            "http://54.236.98.193:7878/api/prodFormula/calculateCustomHeightWidth",
             {
               width: parseFloat(width),
               height: parseFloat(height),
@@ -174,7 +174,7 @@ const Window = () => {
       setIsCalculatingGardenWindow(true);
       try {
         const response = await axios.put(
-          "http://44.196.64.110:7878/api/dimsColor/updateAmount",
+          "http://54.236.98.193:7878/api/dimsColor/updateAmount",
           {
             Color: color,
             widthHeight: widthHeight,
